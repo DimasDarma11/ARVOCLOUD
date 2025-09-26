@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check, Star, Zap, Crown } from 'lucide-react';
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState('monthly');
+  const [exchangeRate, setExchangeRate] = useState(15500); // default kurs sementara
 
-  const whatsappNumber = "6285707594952"; // nomor WA dalam format internasional
+  // ambil kurs USD ke IDR saat komponen mount
+  useEffect(() => {
+    fetch("https://open.er-api.com/v6/latest/USD")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.rates && data.rates.IDR) {
+          setExchangeRate(data.rates.IDR);
+        }
+      })
+      .catch(err => console.error("Gagal ambil kurs:", err));
+  }, []);
+
+  const whatsappNumber = "6285707594952"; 
   const whatsappMessage = (planName) =>
     `Halo, saya tertarik dengan paket ${planName}. Bisa dibantu informasinya?`;
+
+  // fungsi konversi USD -> IDR
+  const usdToIdr = (usd) => usd * exchangeRate;
 
   const plans = [
     {
@@ -67,7 +83,9 @@ const Pricing = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Harga</span> Sederhana
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Harga
+            </span> Sederhana
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
             Harga transparan tanpa biaya tersembunyi. Pilih paket yang sesuai dengan kebutuhan Anda.
@@ -75,33 +93,35 @@ const Pricing = () => {
 
           {/* Pilihan Billing */}
           <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-lg">
-            <button 
+            <button
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                billingCycle === 'monthly' 
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
+                billingCycle === 'monthly'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
               onClick={() => setBillingCycle('monthly')}
             >
               Bulanan
             </button>
-            <button 
+            <button
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                billingCycle === 'yearly' 
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
+                billingCycle === 'yearly'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
               onClick={() => setBillingCycle('yearly')}
             >
-              Tahunan 
-              <span className="ml-2 bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Hemat 17%</span>
+              Tahunan
+              <span className="ml-2 bg-green-100 text-green-700 px-2 py-1 rounded text-xs">
+                Hemat 17%
+              </span>
             </button>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
-            <div 
+            <div
               key={index}
               className={`relative bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
                 plan.popular ? 'ring-4 ring-purple-500 ring-opacity-20 scale-105' : ''
@@ -124,10 +144,12 @@ const Pricing = () => {
                 <p className="text-gray-600 mb-6">{plan.description}</p>
 
                 <div className="mb-8">
-                  <span className="text-5xl font-bold text-gray-900">
-                    ${plan.price[billingCycle]}
+                  <span className="text-4xl font-bold text-gray-900">
+                    Rp {usdToIdr(plan.price[billingCycle]).toLocaleString("id-ID")}
                   </span>
-                  <span className="text-gray-600">/{billingCycle === 'monthly' ? 'bulan' : 'tahun'}</span>
+                  <span className="text-gray-600">
+                    /{billingCycle === 'monthly' ? 'bulan' : 'tahun'}
+                  </span>
                 </div>
 
                 <ul className="space-y-4 mb-8">
@@ -156,31 +178,11 @@ const Pricing = () => {
             </div>
           ))}
         </div>
-
-        {/* Solusi Kustom */}
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-4">Butuh Konfigurasi Khusus?</h3>
-            <p className="text-gray-300 mb-6 text-lg">
-              Hubungi kami untuk solusi bare metal kustom, paket enterprise, atau kebutuhan khusus lainnya.
-            </p>
-            <button
-              onClick={() =>
-                window.open(
-                  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Halo, saya ingin konsultasi terkait solusi kustom.")}`,
-                  "_blank"
-                )
-              }
-              className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-            >
-              Hubungi Sales
-            </button>
-          </div>
-        </div>
       </div>
     </section>
   );
 };
 
 export default Pricing;
+
 

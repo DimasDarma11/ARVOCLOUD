@@ -52,7 +52,7 @@ const Pricing = () => {
         "Country USA / ID / SG",
         "Unlimited Bandiwth",
         "Dukungan 24/7",
-      ],
+    ],
     {
       name: "BAREMETAL ROBLOX RDP",
       price: { monthly: 400000, yearly: 4400000 },
@@ -65,7 +65,7 @@ const Pricing = () => {
         "Country Indonesia",
         "Unlimited Bandiwth",
         "Dukungan 24/7",
-      ],
+    ],
     {
       name: "BAREMETAL RDP",
       price: { monthly: 750000, yearly: 8250000 },

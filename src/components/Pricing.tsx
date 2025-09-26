@@ -10,51 +10,74 @@ const Pricing = () => {
 
   const plans = [
     {
-      name: "Starter VPS",
-      price: { monthly: 95000, yearly: 150 },
+      name: "Starter VPS/RDP",
+      price: { monthly: 95000, yearly: 1045000 },
       description: "Cocok untuk proyek kecil dan pengembangan",
       features: [
         "2 CPU Core",
         "4GB RAM",
         "50GB SSD Storage",
-        "1TB Bandwidth",
+        "Country USA / ID / SG",
+        "Unlimited Bandiwth",
         "Dukungan 24/7",
-        "Sertifikat SSL Gratis"
       ],
       icon: <Zap className="h-6 w-6" />,
       color: "from-blue-500 to-blue-600",
       popular: false
     },
     {
-      name: "Business VPS",
-      price: { monthly: 35, yearly: 350 },
+      name: "Business VPS/RDP",
+      price: { monthly: 150000, yearly: 1650000 },
       description: "Ideal untuk bisnis berkembang dan aplikasi",
       features: [
         "4 CPU Core",
         "8GB RAM",
         "100GB SSD Storage",
-        "3TB Bandwidth",
-        "Perlindungan DDoS",
-        "Backup Harian",
-        "Dukungan Prioritas"
+        "Country USA / ID / SG",
+        "Unlimited Bandiwth",
+        "Dukungan 24/7",
       ],
       icon: <Star className="h-6 w-6" />,
       color: "from-purple-500 to-purple-600",
       popular: true
     },
     {
-      name: "Enterprise RDP",
-      price: { monthly: 75, yearly: 750 },
+      name: "Enterprise VPS/RDP",
+      price: { monthly: 260000, yearly: 2860000 },
       description: "RDP performa tinggi dengan fitur premium",
       features: [
         "8 CPU Core",
         "16GB RAM",
-        "250GB NVMe SSD",
-        "Bandwidth Unlimited",
-        "Windows Server",
-        "Akses Admin",
-        "99.9% SLA",
-        "Dukungan Dedicated"
+        "250GB SSD Storage",
+        "Country USA / ID / SG",
+        "Unlimited Bandiwth",
+        "Dukungan 24/7",
+      ],
+      {
+      name: "BAREMETAL ROBLOX RDP",
+      price: { monthly: 400000, yearly: 4400000 },
+      description: "RDP performa tinggi dengan fitur premium",
+      features: [
+        "4 CPU Core Intel I3",
+        "16GB RAM",
+        "256GB SSD Storage",
+        "GPU Intel HD",
+        "Country Indonesia",
+        "Unlimited Bandiwth",
+        "Dukungan 24/7",
+      ],
+      {
+      name: "BAREMETAL RDP",
+      price: { monthly: 750000, yearly: 8250000 },
+      description: "RDP performa tinggi dengan fitur premium",
+      features: [
+        "4 CPU Core Intel I7",
+        "32GB RAM",
+        "512GB SSD Storage",
+        "GPU Intel HD",
+        "Country Indonesia",
+        "Unlimited Bandiwth",
+        "Dukungan 24/7",
       ],
       icon: <Crown className="h-6 w-6" />,
       color: "from-pink-500 to-pink-600",

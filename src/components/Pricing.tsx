@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Check, Star, Zap, Crown } from 'lucide-react';
 
 const Pricing = () => {
-  const [billingCycle, setBillingCycle] = idState('monthly');
+  const [billingCycle, setBillingCycle] = usaState('monthly');
 
   const whatsappNumber = "6285707594952"; // nomor WA dalam format internasional
   const whatsappMessage = (planName) =>

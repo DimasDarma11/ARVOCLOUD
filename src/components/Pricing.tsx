@@ -8,14 +8,14 @@ const Pricing = () => {
     {
       name: "Starter VPS",
       price: { monthly: 15, yearly: 150 },
-      description: "Perfect for small projects and development",
+      description: "Cocok untuk proyek kecil dan pengembangan",
       features: [
-        "2 CPU Cores",
+        "2 CPU Core",
         "4GB RAM",
         "50GB SSD Storage",
         "1TB Bandwidth",
-        "24/7 Support",
-        "Free SSL Certificate"
+        "Dukungan 24/7",
+        "Sertifikat SSL Gratis"
       ],
       icon: <Zap className="h-6 w-6" />,
       color: "from-blue-500 to-blue-600",
@@ -24,15 +24,15 @@ const Pricing = () => {
     {
       name: "Business VPS",
       price: { monthly: 35, yearly: 350 },
-      description: "Ideal for growing businesses and applications",
+      description: "Ideal untuk bisnis berkembang dan aplikasi",
       features: [
-        "4 CPU Cores",
+        "4 CPU Core",
         "8GB RAM",
         "100GB SSD Storage",
         "3TB Bandwidth",
-        "DDoS Protection",
-        "Daily Backups",
-        "Priority Support"
+        "Perlindungan DDoS",
+        "Backup Harian",
+        "Dukungan Prioritas"
       ],
       icon: <Star className="h-6 w-6" />,
       color: "from-purple-500 to-purple-600",
@@ -41,16 +41,16 @@ const Pricing = () => {
     {
       name: "Enterprise RDP",
       price: { monthly: 75, yearly: 750 },
-      description: "High-performance RDP with premium features",
+      description: "RDP performa tinggi dengan fitur premium",
       features: [
-        "8 CPU Cores",
+        "8 CPU Core",
         "16GB RAM",
         "250GB NVMe SSD",
-        "Unlimited Bandwidth",
+        "Bandwidth Unlimited",
         "Windows Server",
-        "Admin Access",
+        "Akses Admin",
         "99.9% SLA",
-        "Dedicated Support"
+        "Dukungan Dedicated"
       ],
       icon: <Crown className="h-6 w-6" />,
       color: "from-pink-500 to-pink-600",
@@ -63,13 +63,13 @@ const Pricing = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Simple <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Pricing</span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Harga</span> Sederhana
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Transparent pricing with no hidden fees. Choose the perfect plan for your needs.
+            Harga transparan tanpa biaya tersembunyi. Pilih paket yang sesuai dengan kebutuhan Anda.
           </p>
 
-          {/* Billing Toggle */}
+          {/* Pilihan Billing */}
           <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-lg">
             <button 
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
@@ -79,7 +79,7 @@ const Pricing = () => {
               }`}
               onClick={() => setBillingCycle('monthly')}
             >
-              Monthly
+              Bulanan
             </button>
             <button 
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
@@ -89,8 +89,8 @@ const Pricing = () => {
               }`}
               onClick={() => setBillingCycle('yearly')}
             >
-              Yearly 
-              <span className="ml-2 bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Save 17%</span>
+              Tahunan 
+              <span className="ml-2 bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Hemat 17%</span>
             </button>
           </div>
         </div>
@@ -106,7 +106,7 @@ const Pricing = () => {
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
-                    Most Popular
+                    Paling Populer
                   </span>
                 </div>
               )}
@@ -123,7 +123,7 @@ const Pricing = () => {
                   <span className="text-5xl font-bold text-gray-900">
                     ${plan.price[billingCycle]}
                   </span>
-                  <span className="text-gray-600">/{billingCycle === 'monthly' ? 'month' : 'year'}</span>
+                  <span className="text-gray-600">/{billingCycle === 'monthly' ? 'bulan' : 'tahun'}</span>
                 </div>
 
                 <ul className="space-y-4 mb-8">
@@ -138,22 +138,22 @@ const Pricing = () => {
                 <button className={`w-full bg-gradient-to-r ${plan.color} text-white py-4 rounded-xl font-semibold text-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 ${
                   plan.popular ? 'shadow-lg' : ''
                 }`}>
-                  Get Started
+                  Mulai Sekarang
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Custom Solutions */}
+        {/* Solusi Kustom */}
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-4">Need Custom Configuration?</h3>
+            <h3 className="text-3xl font-bold text-white mb-4">Butuh Konfigurasi Khusus?</h3>
             <p className="text-gray-300 mb-6 text-lg">
-              Contact us for custom bare metal solutions, enterprise packages, or special requirements.
+              Hubungi kami untuk solusi bare metal kustom, paket enterprise, atau kebutuhan khusus lainnya.
             </p>
             <button className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-              Contact Sales
+              Hubungi Sales
             </button>
           </div>
         </div>

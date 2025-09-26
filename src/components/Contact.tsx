@@ -30,7 +30,7 @@ const Contact = () => {
             Get In <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Touch</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to supercharge your infrastructure? Contact our experts for personalized solutions and support.
+            Siap meningkatkan infrastruktur Anda? Hubungi kami untuk solusi dan dukungan personal.
           </p>
         </div>
 
@@ -42,9 +42,9 @@ const Contact = () => {
                 <Mail className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Email Us</h3>
-              <p className="text-gray-600 mb-4">Get in touch via email for detailed inquiries</p>
-              <a href="mailto:support@arvocloud.com" className="text-blue-600 hover:text-blue-700 font-semibold">
-                support@arvocloud.com
+              <p className="text-gray-600 mb-4">Hubungi kami melalui email untuk pertanyaan lebih rinci</p>
+              <a href="mailto:arvocloudserver@gmail.com" className="text-blue-600 hover:text-blue-700 font-semibold">
+                arvocloudserver@gmail.com
               </a>
             </div>
 
@@ -53,9 +53,10 @@ const Contact = () => {
                 <MessageSquare className="h-8 w-8 text-purple-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Live Chat</h3>
-              <p className="text-gray-600 mb-4">Chat with our support team instantly</p>
+              <p className="text-gray-600 mb-4">
+Ngobrol dengan tim dukungan kami secara instan</p>
               <button className="text-purple-600 hover:text-purple-700 font-semibold">
-                Start Live Chat
+                Mulai Live Chat
               </button>
             </div>
 
@@ -64,8 +65,8 @@ const Contact = () => {
                 <Clock className="h-8 w-8 text-pink-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">24/7 Support</h3>
-              <p className="text-gray-600 mb-4">We're here to help around the clock</p>
-              <span className="text-green-600 font-semibold">Always Available</span>
+              <p className="text-gray-600 mb-4">Kami di sini untuk membantu sepanjang waktuk</p>
+              <span className="text-green-600 font-semibold">Selalu Tersedia</span>
             </div>
           </div>
 
@@ -165,23 +166,23 @@ const Contact = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h4 className="text-lg font-bold text-gray-900 mb-3">What's included in your VPS plans?</h4>
-              <p className="text-gray-600">All VPS plans include SSD storage, DDoS protection, 24/7 support, and full root access with guaranteed resources.</p>
+              <h4 className="text-lg font-bold text-gray-900 mb-3">Apa saja yang termasuk dalam paket VPS Anda?</h4>
+              <p className="text-gray-600">Semua paket VPS mencakup penyimpanan SSD, 1 IPv4, dukungan 24/7, dan akses root penuh dengan sumber daya yang terjamin.</p>
             </div>
 
             <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h4 className="text-lg font-bold text-gray-900 mb-3">Can I upgrade my plan anytime?</h4>
-              <p className="text-gray-600">Yes, you can easily upgrade your plan at any time through our customer portal with minimal downtime.</p>
+              <h4 className="text-lg font-bold text-gray-900 mb-3">Bisakah saya meningkatkan paket saya kapan saja?</h4>
+              <p className="text-gray-600">Ya, Anda dapat dengan mudah meningkatkan paket Anda kapan saja melalui chat WhatsApp kami.</p>
             </div>
 
             <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h4 className="text-lg font-bold text-gray-900 mb-3">Do you offer custom configurations?</h4>
-              <p className="text-gray-600">Absolutely! We specialize in custom bare metal solutions and can configure servers to your exact specifications.</p>
+              <h4 className="text-lg font-bold text-gray-900 mb-3">Apakah Anda menawarkan konfigurasi khusus?</h4>
+              <p className="text-gray-600">Tentu saja! Kami spesialis solusi bare metal khusus dan dapat mengonfigurasi server sesuai spesifikasi Anda.</p>
             </div>
 
             <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h4 className="text-lg font-bold text-gray-900 mb-3">What's your uptime guarantee?</h4>
-              <p className="text-gray-600">We guarantee 99.9% uptime with SLA compensation for any downtime that exceeds this threshold.</p>
+              <h4 className="text-lg font-bold text-gray-900 mb-3">Apa jaminan waktu aktif Anda?</h4>
+              <p className="text-gray-600">Kami menjamin waktu aktif 99,9% dengan kompensasi SLA untuk setiap waktu henti yang melampaui ambang batas ini.</p>
             </div>
           </div>
         </div>

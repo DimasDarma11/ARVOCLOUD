@@ -125,7 +125,7 @@ const Pricing = () => {
 
                 <div className="mb-8">
                   <span className="text-5xl font-bold text-gray-900">
-                    Rp{plan.price[billingCycle]}
+                    Rp{plan.price[billingCycle].toLocaleString("id-ID")}
                   </span>
                   <span className="text-gray-600">/{billingCycle === 'monthly' ? 'bulan' : 'tahun'}</span>
                 </div>

@@ -53,9 +53,9 @@ const Pricing = () => {
         "Unlimited Bandiwth",
         "Dukungan 24/7",
       ],
-      icon: <Star className="h-6 w-6" />,
-      color: "from-purple-500 to-purple-600",
-      popular: true
+      icon: <Zap className="h-6 w-6" />,
+      color: "from-blue-500 to-blue-600",
+      popular: false
     },
     {
       name: "BAREMETAL ROBLOX RDP",
@@ -70,9 +70,9 @@ const Pricing = () => {
         "Unlimited Bandiwth",
         "Dukungan 24/7",
       ],
-      icon: <Star className="h-6 w-6" />,
-      color: "from-purple-500 to-purple-600",
-      popular: true
+      icon: <Zap className="h-6 w-6" />,
+      color: "from-blue-500 to-blue-600",
+      popular: false
     },
     {
       name: "BAREMETAL RDP",

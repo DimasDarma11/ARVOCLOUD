@@ -4,6 +4,10 @@ import { Check, Star, Zap, Crown } from 'lucide-react';
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState('monthly');
 
+  const whatsappNumber = "6285707594952"; // nomor WA dalam format internasional
+  const whatsappMessage = (planName) =>
+    `Halo, saya tertarik dengan paket ${planName}. Bisa dibantu informasinya?`;
+
   const plans = [
     {
       name: "Starter VPS",
@@ -135,9 +139,17 @@ const Pricing = () => {
                   ))}
                 </ul>
 
-                <button className={`w-full bg-gradient-to-r ${plan.color} text-white py-4 rounded-xl font-semibold text-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 ${
-                  plan.popular ? 'shadow-lg' : ''
-                }`}>
+                <button
+                  onClick={() =>
+                    window.open(
+                      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage(plan.name))}`,
+                      "_blank"
+                    )
+                  }
+                  className={`w-full bg-gradient-to-r ${plan.color} text-white py-4 rounded-xl font-semibold text-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 ${
+                    plan.popular ? 'shadow-lg' : ''
+                  }`}
+                >
                   Mulai Sekarang
                 </button>
               </div>
@@ -152,7 +164,15 @@ const Pricing = () => {
             <p className="text-gray-300 mb-6 text-lg">
               Hubungi kami untuk solusi bare metal kustom, paket enterprise, atau kebutuhan khusus lainnya.
             </p>
-            <button className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+            <button
+              onClick={() =>
+                window.open(
+                  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Halo, saya ingin konsultasi terkait solusi kustom.")}`,
+                  "_blank"
+                )
+              }
+              className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
               Hubungi Sales
             </button>
           </div>
@@ -163,3 +183,4 @@ const Pricing = () => {
 };
 
 export default Pricing;
+

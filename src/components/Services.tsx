@@ -6,29 +6,29 @@ const Services = () => {
     {
       icon: <Server className="h-12 w-12" />,
       title: "VPS Hosting",
-      description: "High-performance virtual private servers with full root access and guaranteed resources.",
-      features: ["SSD Storage", "DDoS Protection", "99.9% Uptime", "Full Root Access"],
+      description: "Server virtual privat dengan performa tinggi, akses root penuh, dan sumber daya terjamin.",
+      features: ["Penyimpanan SSD", "Perlindungan DDoS", "Uptime 99.9%", "Akses Root Penuh"],
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: <Monitor className="h-12 w-12" />,
-      title: "RDP Servers",
-      description: "Windows RDP servers for remote desktop access with high-speed connections.",
-      features: ["Windows Server", "Remote Desktop", "Admin Access", "24/7 Support"],
+      title: "Server RDP",
+      description: "Server Windows RDP untuk akses desktop jarak jauh dengan koneksi berkecepatan tinggi.",
+      features: ["Windows Server", "Remote Desktop", "Akses Admin", "Dukungan 24/7"],
       color: "from-purple-500 to-purple-600"
     },
     {
       icon: <Cpu className="h-12 w-12" />,
       title: "Bare Metal RDP",
-      description: "Dedicated bare metal servers for maximum performance and complete control.",
-      features: ["Dedicated Hardware", "Custom Config", "Maximum Performance", "Direct Access"],
+      description: "Server bare metal khusus untuk performa maksimal dan kontrol penuh.",
+      features: ["Hardware Dedicated", "Konfigurasi Custom", "Performa Maksimal", "Akses Langsung"],
       color: "from-pink-500 to-pink-600"
     },
     {
       icon: <Settings className="h-12 w-12" />,
-      title: "Custom Solutions",
-      description: "Tailored server configurations to meet your specific business requirements.",
-      features: ["Custom Specs", "Flexible Plans", "Scalable", "Expert Support"],
+      title: "Solusi Kustom",
+      description: "Konfigurasi server sesuai kebutuhan bisnis Anda secara spesifik.",
+      features: ["Spesifikasi Kustom", "Paket Fleksibel", "Skalabilitas Tinggi", "Dukungan Ahli"],
       color: "from-green-500 to-green-600"
     }
   ];
@@ -38,10 +38,10 @@ const Services = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Services</span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Layanan</span> Kami
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive cloud infrastructure solutions designed to power your business with reliability and performance.
+            Solusi infrastruktur cloud yang lengkap, dirancang untuk mendukung bisnis Anda dengan keandalan dan performa terbaik.
           </p>
         </div>
 
@@ -69,37 +69,37 @@ const Services = () => {
                 </ul>
                 
                 <button className={`w-full bg-gradient-to-r ${service.color} text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform group-hover:scale-105`}>
-                  Learn More
+                  Selengkapnya
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Additional Features */}
+        {/* Fitur Tambahan */}
         <div className="mt-20 grid md:grid-cols-3 gap-8">
           <div className="text-center">
             <div className="bg-gradient-to-br from-blue-100 to-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Shield className="h-10 w-10 text-blue-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Enterprise Security</h3>
-            <p className="text-gray-600">Bank-level security with DDoS protection, firewalls, and continuous monitoring.</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Keamanan Tingkat Enterprise</h3>
+            <p className="text-gray-600">Keamanan perlindungan DDoS, firewall, dan pemantauan berkelanjutan.</p>
           </div>
           
           <div className="text-center">
             <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Zap className="h-10 w-10 text-purple-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Lightning Fast</h3>
-            <p className="text-gray-600">NVMe SSD storage and premium network connectivity for optimal performance.</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Super Cepat</h3>
+            <p className="text-gray-600">Penyimpanan SSD dan koneksi jaringan premium untuk performa optimal.</p>
           </div>
           
           <div className="text-center">
             <div className="bg-gradient-to-br from-pink-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Globe className="h-10 w-10 text-pink-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Global Network</h3>
-            <p className="text-gray-600">Multiple data centers worldwide ensuring low latency and high availability.</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Jaringan Global</h3>
+            <p className="text-gray-600">Banyak data center di seluruh dunia memastikan latency rendah dan ketersediaan tinggi.</p>
           </div>
         </div>
       </div>
@@ -108,3 +108,4 @@ const Services = () => {
 };
 
 export default Services;
+

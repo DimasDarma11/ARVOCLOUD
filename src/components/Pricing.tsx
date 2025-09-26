@@ -66,7 +66,7 @@ const Pricing = () => {
         "Unlimited Bandiwth",
         "Dukungan 24/7",
       ],
-      {
+    {
       name: "BAREMETAL RDP",
       price: { monthly: 750000, yearly: 8250000 },
       description: "RDP performa tinggi dengan fitur premium",

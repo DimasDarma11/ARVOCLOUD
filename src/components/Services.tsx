@@ -1,0 +1,110 @@
+import React from 'react';
+import { Server, Monitor, Cpu, Settings, Shield, Zap, Globe, HardDrive } from 'lucide-react';
+
+const Services = () => {
+  const services = [
+    {
+      icon: <Server className="h-12 w-12" />,
+      title: "VPS Hosting",
+      description: "High-performance virtual private servers with full root access and guaranteed resources.",
+      features: ["SSD Storage", "DDoS Protection", "99.9% Uptime", "Full Root Access"],
+      color: "from-blue-500 to-blue-600"
+    },
+    {
+      icon: <Monitor className="h-12 w-12" />,
+      title: "RDP Servers",
+      description: "Windows RDP servers for remote desktop access with high-speed connections.",
+      features: ["Windows Server", "Remote Desktop", "Admin Access", "24/7 Support"],
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      icon: <Cpu className="h-12 w-12" />,
+      title: "Bare Metal RDP",
+      description: "Dedicated bare metal servers for maximum performance and complete control.",
+      features: ["Dedicated Hardware", "Custom Config", "Maximum Performance", "Direct Access"],
+      color: "from-pink-500 to-pink-600"
+    },
+    {
+      icon: <Settings className="h-12 w-12" />,
+      title: "Custom Solutions",
+      description: "Tailored server configurations to meet your specific business requirements.",
+      features: ["Custom Specs", "Flexible Plans", "Scalable", "Expert Support"],
+      color: "from-green-500 to-green-600"
+    }
+  ];
+
+  return (
+    <section id="services" className="py-20 bg-white">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Services</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Comprehensive cloud infrastructure solutions designed to power your business with reliability and performance.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service, index) => (
+            <div 
+              key={index}
+              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 overflow-hidden"
+            >
+              <div className="p-8">
+                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${service.color} text-white rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  {service.icon}
+                </div>
+                
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                
+                <ul className="space-y-2 mb-6">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center text-gray-700">
+                      <div className={`w-2 h-2 bg-gradient-to-r ${service.color} rounded-full mr-3`}></div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                
+                <button className={`w-full bg-gradient-to-r ${service.color} text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform group-hover:scale-105`}>
+                  Learn More
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Additional Features */}
+        <div className="mt-20 grid md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="bg-gradient-to-br from-blue-100 to-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Shield className="h-10 w-10 text-blue-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Enterprise Security</h3>
+            <p className="text-gray-600">Bank-level security with DDoS protection, firewalls, and continuous monitoring.</p>
+          </div>
+          
+          <div className="text-center">
+            <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Zap className="h-10 w-10 text-purple-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Lightning Fast</h3>
+            <p className="text-gray-600">NVMe SSD storage and premium network connectivity for optimal performance.</p>
+          </div>
+          
+          <div className="text-center">
+            <div className="bg-gradient-to-br from-pink-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Globe className="h-10 w-10 text-pink-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Global Network</h3>
+            <p className="text-gray-600">Multiple data centers worldwide ensuring low latency and high availability.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Services;

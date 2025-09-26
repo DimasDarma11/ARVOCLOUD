@@ -117,7 +117,7 @@ const Pricing = () => {
               onClick={() => setBillingCycle('yearly')}
             >
               Tahunan 
-              <span className="ml-2 bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Hemat 17%</span>
+              <span className="ml-2 bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Hemat 8%</span>
             </button>
           </div>
         </div>

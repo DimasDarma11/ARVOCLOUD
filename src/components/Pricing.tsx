@@ -53,7 +53,7 @@ const Pricing = () => {
         "Unlimited Bandiwth",
         "Dukungan 24/7",
       ],
-      {
+    {
       name: "BAREMETAL ROBLOX RDP",
       price: { monthly: 400000, yearly: 4400000 },
       description: "RDP performa tinggi dengan fitur premium",

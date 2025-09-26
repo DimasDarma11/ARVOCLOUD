@@ -27,17 +27,17 @@ const Hero = () => {
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 max-w-2xl animate-slide-up animation-delay-200">
-              Experience lightning-fast performance with our enterprise-grade VPS and RDP servers. From standard configurations to custom bare metal solutions.
+              Rasakan performa super cepat dengan server VPS dan RDP kelas enterprise kami. Dari konfigurasi standar hingga solusi bare metal khusus.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-slide-up animation-delay-400">
               <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
-                Get Started Now
+                Mulai Sekarang
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button className="group border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300 flex items-center justify-center">
                 <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                View Demo
+                Trial
               </button>
             </div>
 
@@ -52,7 +52,7 @@ const Hero = () => {
                 <div className="text-gray-600">Support</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-600">1000+</div>
+                <div className="text-3xl font-bold text-pink-600">100+</div>
                 <div className="text-gray-600">Happy Clients</div>
               </div>
             </div>

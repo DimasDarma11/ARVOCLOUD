@@ -4,7 +4,7 @@ import { Check, Star, Zap, Crown } from 'lucide-react';
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState('monthly');
 
-  const whatsappNumber = "6285707594952"; // nomor WA dalam format internasional
+  const whatsappNumber = "6283197183724"; // nomor WA dalam format internasional
   const whatsappMessage = (planName) =>
     `Halo, saya tertarik dengan paket ${planName}. Bisa dibantu informasinya?`;
 
@@ -48,7 +48,7 @@ const Pricing = () => {
       features: [
         "8 CPU Core",
         "16GB RAM",
-        "250GB SSD Storage",
+        "150GB SSD Storage",
         "Country USA / ID / SG",
         "Unlimited Bandiwth",
         "Dukungan 24/7",

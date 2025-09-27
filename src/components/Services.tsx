@@ -72,9 +72,12 @@ const Services = () => {
                   ))}
                 </ul>
                 
-                <button className={`w-full bg-gradient-to-r ${service.color} text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform group-hover:scale-105`}>
+                <a
+                  href={service.link}
+                  className={`w-full bg-gradient-to-r ${service.color} text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform group-hover:scale-105 text-center`}
+                >
                   Selengkapnya
-                </button>
+                </a>
               </div>
             </div>
           ))}

@@ -33,7 +33,7 @@ const Services = () => {
       description: "Konfigurasi server sesuai kebutuhan bisnis Anda secara spesifik.",
       features: ["Spesifikasi Kustom", "Paket Fleksibel", "Skalabilitas Tinggi", "Dukungan Ahli"],
       color: "from-green-500 to-green-600",
-      link: "#about"
+      link: "#contact"
     }
   ];
 

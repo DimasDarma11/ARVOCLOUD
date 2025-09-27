@@ -8,7 +8,7 @@ const Services = () => {
       title: "VPS Hosting",
       description: "Server virtual privat dengan performa tinggi, akses root penuh, dan sumber daya terjamin.",
       features: ["Penyimpanan SSD", "Perlindungan DDoS", "Uptime 99.9%", "Akses Root Penuh"],
-      color: "from-blue-500 to-blue-600"
+      color: "from-blue-500 to-blue-600",
       link: "#pricelist"
     },
     {
@@ -16,7 +16,7 @@ const Services = () => {
       title: "Server RDP",
       description: "Server Windows RDP untuk akses desktop jarak jauh dengan koneksi berkecepatan tinggi.",
       features: ["Windows Server", "Remote Desktop", "Akses Admin", "Dukungan 24/7"],
-      color: "from-purple-500 to-purple-600"
+      color: "from-purple-500 to-purple-600",
       link: "#pricing"
     },
     {

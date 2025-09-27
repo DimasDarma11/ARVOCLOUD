@@ -45,7 +45,7 @@ const Hero = () => {
               >
                 Mulai Sekarang
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
               <a 
                 href="https://wa.me/6281234567890?text=Halo,%20saya%20mau%20trial%20VPS/RDP"
                 target="_blank"

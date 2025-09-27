@@ -9,6 +9,7 @@ const Services = () => {
       description: "Server virtual privat dengan performa tinggi, akses root penuh, dan sumber daya terjamin.",
       features: ["Penyimpanan SSD", "Perlindungan DDoS", "Uptime 99.9%", "Akses Root Penuh"],
       color: "from-blue-500 to-blue-600"
+      link: "#pricelist"
     },
     {
       icon: <Monitor className="h-12 w-12" />,
@@ -16,6 +17,7 @@ const Services = () => {
       description: "Server Windows RDP untuk akses desktop jarak jauh dengan koneksi berkecepatan tinggi.",
       features: ["Windows Server", "Remote Desktop", "Akses Admin", "Dukungan 24/7"],
       color: "from-purple-500 to-purple-600"
+      link: "#pricelist"
     },
     {
       icon: <Cpu className="h-12 w-12" />,
@@ -23,6 +25,7 @@ const Services = () => {
       description: "Server bare metal khusus untuk performa maksimal dan kontrol penuh.",
       features: ["Hardware Dedicated", "Konfigurasi Custom", "Performa Maksimal", "Akses Langsung"],
       color: "from-pink-500 to-pink-600"
+      link: "#pricelist"
     },
     {
       icon: <Settings className="h-12 w-12" />,
@@ -30,6 +33,7 @@ const Services = () => {
       description: "Konfigurasi server sesuai kebutuhan bisnis Anda secara spesifik.",
       features: ["Spesifikasi Kustom", "Paket Fleksibel", "Skalabilitas Tinggi", "Dukungan Ahli"],
       color: "from-green-500 to-green-600"
+      link: "#about"
     }
   ];
 

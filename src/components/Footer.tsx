@@ -1,5 +1,5 @@
 import React from 'react';
-import { Server, Mail, Phone, MapPin, Twitter, Facebook, Linkedin, Github } from 'lucide-react';
+import { Server, Mail, Phone, MapPin, Twitter, Facebook, Linkedin, Github, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -18,10 +18,20 @@ const Footer = () => {
               Layanan cloud premium dengan performa cepat, keamanan terjamin, dan dukungan profesional 24/7 untuk kebutuhan bisnis Anda.
             </p>
             <div className="flex space-x-4">
-              <a href="https://instagram.com/dimazdarmaa" className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300">
+              <a 
+                href="https://instagram.com/dimazdarmaa" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300"
+              >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="https://facebook.com/jagoanneon44" className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300">
+              <a 
+                href="https://facebook.com/jagoanneon44" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
             </div>

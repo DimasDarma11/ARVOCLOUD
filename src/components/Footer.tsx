@@ -15,20 +15,14 @@ const Footer = () => {
               <span className="text-2xl font-bold">ARVOCLOUD</span>
             </div>
             <p className="text-gray-400 leading-relaxed mb-6">
-              Solusi infrastruktur cloud premium dengan keamanan tingkat enterprise, performa tinggi, dan dukungan ahli 24/7.
+              Layanan cloud premium dengan performa cepat, keamanan terjamin, dan dukungan profesional 24/7 untuk kebutuhan bisnis Anda.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="bg-gray-800 hover:bg-blue-600 p-2 rounded-lg transition-colors duration-300">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="bg-gray-800 hover:bg-blue-600 p-2 rounded-lg transition-colors duration-300">
+              <a href="https://instagram.com/dimazdarmaa" className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="bg-gray-800 hover:bg-blue-600 p-2 rounded-lg transition-colors duration-300">
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a href="#" className="bg-gray-800 hover:bg-blue-600 p-2 rounded-lg transition-colors duration-300">
-                <Github className="h-5 w-5" />
+              <a href="https://facebook.com/jagoanneon44" className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300">
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -37,12 +31,11 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-6">Layanan</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">VPS Hosting</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">RDP Server</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Bare Metal RDP</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Solusi Kustom</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Perlindungan DDoS</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Dukungan 24/7</a></li>
+              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">VPS Hosting</a></li>
+              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">RDP Server</a></li>
+              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Bare Metal RDP</a></li>
+              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Solusi Kustom</a></li>
+              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Dukungan 24/7</a></li>
             </ul>
           </div>
 
@@ -50,12 +43,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-6">Dukungan</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Pusat Bantuan</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Dokumentasi</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Referensi API</a></li>
+              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Pusat Bantuan</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Status Sistem</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Komunitas</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Hubungi Kami</a></li>
+              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Hubungi Kami</a></li>
             </ul>
           </div>
 
@@ -69,7 +59,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-400">+62 857-0759-4952</span>
+                <span className="text-gray-400">+62 831-9718-3724</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-blue-400" />

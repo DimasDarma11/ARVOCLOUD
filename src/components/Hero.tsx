@@ -43,10 +43,15 @@ const Hero = () => {
                 Mulai Sekarang
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="group border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300 flex items-center justify-center">
+              <a 
+                href="https://wa.me/6281234567890?text=Halo,%20saya%20mau%20trial%20VPS/RDP"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300 flex items-center justify-center"
+              >
                 <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                Coba Gratis
-              </button>
+                Trial
+              </a>
             </div>
 
             {/* Stats */}

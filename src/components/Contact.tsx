@@ -52,12 +52,17 @@ const Contact = () => {
               <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                 <MessageSquare className="h-8 w-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Live Chat</h3>
-              <p className="text-gray-600 mb-4">Dapatkan jawaban cepat dari tim dukungan kami.</p>
-              <button className="text-purple-600 hover:text-purple-700 font-semibold">
-                Mulai Live Chat
-              </button>
-            </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">WhatsApp</h3>
+              <p className="text-gray-600 mb-4">Chat langsung via WhatsApp untuk respon cepat.</p>
+              <a
+                href="https://wa.me/6283197183724?text=Halo%20saya%20mau%20bertanya%20tentang%20layanan%20Anda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:text-purple-700 font-semibold"
+              >
+                Chat via WhatsApp
+              </a>
+          </div>
 
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="bg-gradient-to-br from-pink-100 to-green-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">

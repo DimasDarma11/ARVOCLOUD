@@ -24,7 +24,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300"
               >
-                <Facebook className="h-5 w-5" />
+                <Instagram className="h-5 w-5" />
               </a>
               <a 
                 href="https://facebook.com/jagoanneon44" 
@@ -32,7 +32,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300"
               >
-                <Instagram className="h-5 w-5" />
+                <Facebook className="h-5 w-5" />
               </a>
             </div>
           </div>

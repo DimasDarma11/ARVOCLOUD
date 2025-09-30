@@ -92,7 +92,7 @@ const Pricing = () => {
           cpu: '2 vCPU Cores',
           ram: '4GB RAM',
           storage: '50GB SSD',
-          os: 'Windows 10/11 Spectre',
+          os: 'Windows 10 atau 11 Spectre',
         },
         features: [
           'Windows 10/11 Spectre',
@@ -112,7 +112,7 @@ const Pricing = () => {
           cpu: '4 vCPU Cores',
           ram: '8GB RAM',
           storage: '50GB SSD',
-          os: 'Windows 10/11 Spectre',
+          os: 'Windows 10 atau 11 Spectre',
         },
         features: [
           'Windows 10/11 Spectre',
@@ -132,7 +132,7 @@ const Pricing = () => {
           cpu: '8 vCPU Cores',
           ram: '16GB RAM',
           storage: '100GB SSD',
-          os: 'Windows Server 10/11 Spectre',
+          os: 'Windows Server 10 atau 11 Spectre',
         },
         features: [
           'Windows 10/11 Spectre',

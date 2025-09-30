@@ -18,6 +18,10 @@ const Pricing = () => {
     { id: 'baremetal', name: 'Bare Metal', icon: Cpu, description: 'Server Fisik Dedicated' }
   ];
 
+  const whatsappNumber = "6283197183724"; // nomor WA dalam format internasional
+  const whatsappMessage = (planName) =>
+    `Halo, saya tertarik dengan paket ${planName}. Bisa dibantu informasinya?`;
+
   const plans = {
     vps: [
       {
@@ -361,7 +365,15 @@ const Pricing = () => {
                 ))}
               </ul>
 
-              <button className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105`}>
+              <button 
+                onClick={() =>
+                    window.open(
+                      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage(plan.name))}`,
+                      "_blank"
+                    )
+                  }
+                className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105`}
+                >
                 Mulai Sekarang
               </button>
             </div>

@@ -157,7 +157,7 @@ const Pricing = () => {
           bandwidth: 'Unlimited',
         },
         features: [
-          'Dedicated Server'
+          'Dedicated Server',
           'Windows 10/11 Spectre',
           'Akses Administrator',
           'High-Speed RDP',
@@ -199,7 +199,7 @@ const Pricing = () => {
           bandwidth: 'Unlimited',
         },
         features: [
-          'Dedicated Server'
+          'Dedicated Server',
           'Windows 10/11 Spectre',
           'Akses Administrator',
           'High-Speed RDP',
@@ -220,7 +220,7 @@ const Pricing = () => {
           bandwidth: 'Unlimited',
         },
         features: [
-          'Dedicated Server'
+          'Dedicated Server',
           'Windows 10/11 Spectre',
           'Akses Administrator',
           'High-Speed RDP',

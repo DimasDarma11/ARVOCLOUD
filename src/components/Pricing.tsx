@@ -231,7 +231,28 @@ const Pricing = () => {
           'Dukungan Enterprise 24/7'
         ],
         gradient: 'from-orange-500 to-red-500'
-      }
+      },
+      {
+        name: 'Bare Metal Professional',
+        icon: Star,
+        popular: false,
+        price: { bulanan: 750000, tahunan: 2990 },
+        description: 'High-performance dedicated server',
+        specs: {
+          cpu: 'Intel Core I7 Gen 4',
+          ram: '32GB RAM',
+          storage: '512GB SSD',
+          bandwidth: 'Unlimited'
+        },
+        features: [
+          'Dedicated Server',
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-purple-500 to-pink-500'
+      },
     ]
   };
 
@@ -388,10 +409,26 @@ const Pricing = () => {
             Hubungi tim kami untuk penawaran harga khusus dan konfigurasi di lokasi manapun di seluruh dunia.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-600 transition-all duration-300 hover:shadow-xl">
+            <button 
+              onClick={() =>
+                window.open(
+                  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Halo, saya ingin konsultasi terkait solusi kustom.")}`,
+                  "_blank"
+                )
+              }
+              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-600 transition-all duration-300 hover:shadow-xl"
+              >
               Hubungi Tim Penjualan
             </button>
-            <button className="border border-gray-600 hover:border-cyan-400 text-gray-300 hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg">
+            <button 
+              onClick={() =>
+                window.open(
+                  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Halo, saya ingin konsultasi terkait solusi kustom.")}`,
+                  "_blank"
+                )
+              }
+              className="border border-gray-600 hover:border-cyan-400 text-gray-300 hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg"
+              >
               Minta Penawaran
             </button>
           </div>

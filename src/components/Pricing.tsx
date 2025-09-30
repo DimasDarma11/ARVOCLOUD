@@ -25,16 +25,17 @@ const Pricing = () => {
   const plans = {
     vps: [
       {
-        name: 'VPS Pemula',
+        name: 'VPS 1',
         icon: Zap,
         popular: false,
-        price: { bulanan: 50000, tahunan: 120 },
+        price: { bulanan: 50000, tahunan: 550000 },
         description: 'Cocok untuk project kecil dan kebutuhan pengembangan',
         specs: {
           cpu: '1 vCPU Core',
-          ram: '2GB RAM',
+          ram: '1GB RAM',
           storage: '25GB SSD',
-          bandwidth: 'Unlimited'
+          bandwidth: 'Unlimited',
+          ip: '1 IPv4'
         },
         features: [
           'Akses Root Penuh',
@@ -45,16 +46,38 @@ const Pricing = () => {
         gradient: 'from-blue-500 to-cyan-500'
       },
       {
-        name: 'VPS Profesional',
+        name: 'VPS 2',
+        icon: Zap,
+        popular: false,
+        price: { bulanan: 80000, tahunan: 880000 },
+        description: 'Cocok untuk project kecil dan kebutuhan pengembangan',
+        specs: {
+          cpu: '2 vCPU Core',
+          ram: '2GB RAM',
+          storage: '25GB SSD',
+          bandwidth: 'Unlimited',
+          ip: '1 IPv4'
+        },
+        features: [
+          'Akses Root Penuh',
+          'Penyimpanan SSD NVMe',
+          'Pilihan OS Beragam',
+          'Dukungan 24/7'
+        ],
+        gradient: 'from-blue-500 to-cyan-500'
+      },
+      {
+        name: 'VPS 3',
         icon: Star,
         popular: true,
-        price: { bulanan: 95000, tahunan: 250 },
+        price: { bulanan: 140000, tahunan: 1540000 },
         description: 'Ideal untuk website dan aplikasi yang berkembang',
         specs: {
           cpu: '2 vCPU Cores',
           ram: '4GB RAM',
           storage: '50GB SSD',
-          bandwidth: 'Unlimited Transfer'
+          bandwidth: 'Unlimited',
+          ip: '1 IPv4'
         },
         features: [
           'Akses Root Penuh',
@@ -65,16 +88,38 @@ const Pricing = () => {
         gradient: 'from-purple-500 to-pink-500'
       },
       {
-        name: 'VPS Enterprise',
+        name: 'VPS 4',
         icon: Crown,
         popular: false,
-        price: { bulanan: 150000, tahunan: 550 },
+        price: { bulanan: 200000, tahunan: 2200000 },
         description: 'Performa tinggi untuk aplikasi yang berat',
         specs: {
           cpu: '4 vCPU Cores',
           ram: '8GB RAM',
           storage: '100GB NVMe SSD',
-          bandwidth: 'Unlimited'
+          bandwidth: 'Unlimited',
+          ip: '1 IPv4'
+        },
+        features: [
+          'Akses Root Penuh',
+          'Penyimpanan NVMe Premium',
+          'Pilihan OS Beragam',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-orange-500 to-red-500'
+      },
+      {
+        name: 'VPS 5',
+        icon: Crown,
+        popular: false,
+        price: { bulanan: 270000, tahunan: 2970000 },
+        description: 'Performa tinggi untuk aplikasi yang berat',
+        specs: {
+          cpu: '6 vCPU Cores',
+          ram: '16GB RAM',
+          storage: '100GB NVMe SSD',
+          bandwidth: 'Unlimited',
+          ip: '1 IPv4'
         },
         features: [
           'Akses Root Penuh',
@@ -87,7 +132,7 @@ const Pricing = () => {
     ],
     rdp: [
       {
-        name: 'RDP Basic',
+        name: 'RDP 1',
         icon: Zap,
         popular: false,
         price: { bulanan: 95000, tahunan: 180 },
@@ -107,7 +152,7 @@ const Pricing = () => {
         gradient: 'from-blue-500 to-cyan-500'
       },
       {
-        name: 'RDP Professional',
+        name: 'RDP 2',
         icon: Star,
         popular: true,
         price: { bulanan: 150000, tahunan: 350 },
@@ -127,7 +172,7 @@ const Pricing = () => {
         gradient: 'from-purple-500 to-pink-500'
       },
       {
-        name: 'RDP Enterprise',
+        name: 'RDP 3',
         icon: Crown,
         popular: false,
         price: { bulanan: 260000, tahunan: 750 },

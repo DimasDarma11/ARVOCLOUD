@@ -9,7 +9,7 @@ const Pricing = () => {
   const countries = [
     { code: 'us', name: 'Amerika Serikat', flag: '🇺🇸' },
     { code: 'sg', name: 'Singapura', flag: '🇸🇬' },
-    { code: 'id', name: 'Indonesia', flag: '🇮🇩' }
+    { code: 'idn', name: 'Indonesia', flag: '🇮🇩' }
   ];
 
   const categories = [

@@ -9,7 +9,7 @@ const Pricing = () => {
   const countries = [
     { code: 'us', name: 'Amerika Serikat', flag: '🇺🇸' },
     { code: 'sg', name: 'Singapura', flag: '🇸🇬' },
-    { code: 'idn', name: 'Indonesia', flag: '🇮🇩n' }
+    { code: 'id', name: 'Indonesia', flag: '🇮🇩n' }
   ];
 
   const categories = [
@@ -24,7 +24,7 @@ const Pricing = () => {
         name: 'VPS Pemula',
         icon: Zap,
         popular: false,
-        price: { bulanan: 50.000, tahunan: 120 },
+        price: { bulanan: 50000, tahunan: 120 },
         description: 'Cocok untuk project kecil dan kebutuhan pengembangan',
         specs: {
           cpu: '1 vCPU Core',
@@ -44,7 +44,7 @@ const Pricing = () => {
         name: 'VPS Profesional',
         icon: Star,
         popular: true,
-        price: { bulanan: 95.000, tahunan: 250 },
+        price: { bulanan: 95000, tahunan: 250 },
         description: 'Ideal untuk website dan aplikasi yang berkembang',
         specs: {
           cpu: '2 vCPU Cores',
@@ -64,30 +64,171 @@ const Pricing = () => {
         name: 'VPS Enterprise',
         icon: Crown,
         popular: false,
-        price: { bulanan: 55, tahunan: 550 },
+        price: { bulanan: 150000, tahunan: 550 },
         description: 'Performa tinggi untuk aplikasi yang berat',
         specs: {
           cpu: '4 vCPU Cores',
           ram: '8GB RAM',
           storage: '100GB NVMe SSD',
-          bandwidth: '4TB Transfer',
-          ip: '2 IPv4'
+          bandwidth: 'Unlimited'
         },
         features: [
           'Akses Root Penuh',
           'Penyimpanan NVMe Premium',
           'Pilihan OS Beragam',
-          'Dukungan Enterprise 24/7',
-          'Setup & Migrasi Gratis',
-          'Proteksi DDoS Enterprise',
-          'Virtualisasi KVM',
-          'Backup Harian',
-          'Dashboard Monitoring'
+          'Dukungan Enterprise 24/7'
         ],
         gradient: 'from-orange-500 to-red-500'
       }
     ],
-    // (RDP & Baremetal juga bisa diterjemahkan dengan pola yang sama)
+    rdp: [
+      {
+        name: 'RDP Basic',
+        icon: Zap,
+        popular: false,
+        price: { monthly: 95000, yearly: 180 },
+        description: 'Entry-level Windows RDP solution',
+        specs: {
+          cpu: '2 vCPU Cores',
+          ram: '4GB RAM',
+          storage: '50GB SSD',
+          os: 'Windows 10 Spectre',
+        },
+        features: [
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-blue-500 to-cyan-500'
+      },
+      {
+        name: 'RDP Professional',
+        icon: Star,
+        popular: true,
+        price: { monthly: 150000, yearly: 350 },
+        description: 'Perfect for business applications',
+        specs: {
+          cpu: '4 vCPU Cores',
+          ram: '8GB RAM',
+          storage: '50GB SSD',
+          os: 'Windows 10/11 Spectre'
+        },
+        features: [
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-purple-500 to-pink-500'
+      },
+      {
+        name: 'RDP Enterprise',
+        icon: Crown,
+        popular: false,
+        price: { monthly: 260000, yearly: 750 },
+        description: 'High-performance RDP for teams',
+        specs: {
+          cpu: '8 vCPU Cores',
+          ram: '16GB RAM',
+          storage: '100GB SSD',
+          os: 'Windows Server 10/11 Spectre',
+        },
+        features: [
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-orange-500 to-red-500'
+      }
+    ],
+    baremetal: [
+      {
+        name: 'Bare Metal Starter',
+        icon: Zap,
+        popular: false,
+        price: { monthly: 350000, yearly: 1490 },
+        description: 'Entry-level dedicated server',
+        specs: {
+          cpu: 'Intel Core I3 Gen 6',
+          ram: '8GB RAM',
+          storage: '256GB SSD',
+          bandwidth: 'Unlimited',
+        },
+        features: [
+          'Dedicated Server'
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-blue-500 to-cyan-500'
+      },
+      {
+        name: 'Bare Metal Professional',
+        icon: Star,
+        popular: true,
+        price: { monthly: 400000, yearly: 2990 },
+        description: 'High-performance dedicated server',
+        specs: {
+          cpu: 'Intel Core I3 Gen 6',
+          ram: '16GB RAM',
+          storage: '256GB SSD',
+          bandwidth: 'Unlimited',
+        },
+        features: [
+          'Dedicated Server'
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-purple-500 to-pink-500'
+      },
+      {
+        name: 'Bare Metal Enterprise',
+        icon: Crown,
+        popular: false,
+        price: { monthly: 450000, yearly: 5990 },
+        description: 'Maximum performance dedicated server',
+        specs: {
+          cpu: 'Intel Core I3 Gen 6',
+          ram: '24GB RAM',
+          storage: '256GB SSD',
+          bandwidth: 'Unlimited',
+        },
+        features: [
+          'Dedicated Server'
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-orange-500 to-red-500'
+      },
+      {
+        name: 'Bare Metal Enterprise',
+        icon: Crown,
+        popular: false,
+        price: { monthly: 550000, yearly: 5990 },
+        description: 'Maximum performance dedicated server',
+        specs: {
+          cpu: 'Intel Core I3 Gen 6',
+          ram: '32GB RAM',
+          storage: '256GB SSD',
+          bandwidth: 'Unlimited',
+        },
+        features: [
+          'Dedicated Server'
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-orange-500 to-red-500'
+      }
+    ]
   };
 
   const currentPlans = plans[selectedCategory];
@@ -145,7 +286,7 @@ const Pricing = () => {
 
           {/* Pilihan Billing */}
           <div className="flex items-center justify-center mb-12">
-            <span className={`mr-3 Rp{billingCycle === 'bulanan' ? 'text-white' : 'text-gray-400' .toLocaleString("id-ID")}`}>Bulanan</span>
+            <span className={`mr-3 Rp{billingCycle === 'bulanan' ? 'text-white' : 'text-gray-400'}.toLocaleString("id-ID")`}>Bulanan</span>
             <button
               onClick={() => setBillingCycle(billingCycle === 'bulanan' ? 'tahunan' : 'bulanan')}
               className="relative w-16 h-8 bg-slate-700 rounded-full p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -154,7 +295,7 @@ const Pricing = () => {
                 billingCycle === 'tahunan' ? 'translate-x-8' : 'translate-x-0'
               }`}></div>
             </button>
-            <span className={`ml-3 Rp{billingCycle === 'tahunan' ? 'text-white' : 'text-gray-400' .toLocaleString("id-ID")}`}>
+            <span className={`ml-3 Rp{billingCycle === 'tahunan' ? 'text-white' : 'text-gray-400'}.toLocaleString("id-ID")`}>
               Tahunan <span className="text-green-400 text-sm">(Hemat 20%)</span>
             </span>
           </div>

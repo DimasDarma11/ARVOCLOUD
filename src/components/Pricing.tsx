@@ -148,7 +148,7 @@ const Pricing = () => {
         name: 'Bare Metal Starter',
         icon: Zap,
         popular: false,
-        price: { monthly: 350000, yearly: 1490 },
+        price: { bulanan: 350000, tahunan: 1490 },
         description: 'Entry-level dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',
@@ -169,7 +169,7 @@ const Pricing = () => {
         name: 'Bare Metal Professional',
         icon: Star,
         popular: true,
-        price: { monthly: 400000, yearly: 2990 },
+        price: { bulanan: 400000, tahunan: 2990 },
         description: 'High-performance dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',
@@ -190,7 +190,7 @@ const Pricing = () => {
         name: 'Bare Metal Enterprise',
         icon: Crown,
         popular: false,
-        price: { monthly: 450000, yearly: 5990 },
+        price: { bulanan: 450000, tahunan: 5990 },
         description: 'Maximum performance dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',
@@ -211,7 +211,7 @@ const Pricing = () => {
         name: 'Bare Metal Enterprise',
         icon: Crown,
         popular: false,
-        price: { monthly: 550000, yearly: 5990 },
+        price: { bulanan: 550000, tahunan: 5990 },
         description: 'Maximum performance dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',

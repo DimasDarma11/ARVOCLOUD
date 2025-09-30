@@ -86,7 +86,7 @@ const Pricing = () => {
         name: 'RDP Basic',
         icon: Zap,
         popular: false,
-        price: { monthly: 95000, yearly: 180 },
+        price: { bulanan: 95000, tahunan: 180 },
         description: 'Entry-level Windows RDP solution',
         specs: {
           cpu: '2 vCPU Cores',
@@ -106,7 +106,7 @@ const Pricing = () => {
         name: 'RDP Professional',
         icon: Star,
         popular: true,
-        price: { monthly: 150000, yearly: 350 },
+        price: { bulanan: 150000, tahunan: 350 },
         description: 'Perfect for business applications',
         specs: {
           cpu: '4 vCPU Cores',
@@ -126,7 +126,7 @@ const Pricing = () => {
         name: 'RDP Enterprise',
         icon: Crown,
         popular: false,
-        price: { monthly: 260000, yearly: 750 },
+        price: { bulanan: 260000, tahunan: 750 },
         description: 'High-performance RDP for teams',
         specs: {
           cpu: '8 vCPU Cores',

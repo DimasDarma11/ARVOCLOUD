@@ -24,23 +24,19 @@ const Pricing = () => {
         name: 'VPS Pemula',
         icon: Zap,
         popular: false,
-        price: { bulanan: 50000, tahunan: 120 },
+        price: { bulanan: 50.000, tahunan: 120 },
         description: 'Cocok untuk project kecil dan kebutuhan pengembangan',
         specs: {
           cpu: '1 vCPU Core',
           ram: '2GB RAM',
-          storage: '25GB NVMe SSD',
-          bandwidth: 'Unlimited',
-          ip: '1 IPv4'
+          storage: '25GB SSD',
+          bandwidth: 'Unlimited'
         },
         features: [
           'Akses Root Penuh',
           'Penyimpanan SSD NVMe',
           'Pilihan OS Beragam',
-          'Dukungan 24/7',
-          'Setup Gratis',
-          'Proteksi DDoS',
-          'Virtualisasi KVM'
+          'Dukungan 24/7'
         ],
         gradient: 'from-blue-500 to-cyan-500'
       },
@@ -48,24 +44,19 @@ const Pricing = () => {
         name: 'VPS Profesional',
         icon: Star,
         popular: true,
-        price: { bulanan: 25, tahunan: 250 },
+        price: { bulanan: 95.000, tahunan: 250 },
         description: 'Ideal untuk website dan aplikasi yang berkembang',
         specs: {
           cpu: '2 vCPU Cores',
           ram: '4GB RAM',
-          storage: '50GB NVMe SSD',
-          bandwidth: '2TB Transfer',
-          ip: '1 IPv4'
+          storage: '50GB SSD',
+          bandwidth: 'Unlimited Transfer'
         },
         features: [
           'Akses Root Penuh',
           'Penyimpanan SSD NVMe',
           'Pilihan OS Beragam',
-          'Dukungan Prioritas 24/7',
-          'Setup & Migrasi Gratis',
-          'Proteksi DDoS Lanjutan',
-          'Virtualisasi KVM',
-          'Backup Mingguan'
+          'Dukungan Prioritas 24/7'
         ],
         gradient: 'from-purple-500 to-pink-500'
       },

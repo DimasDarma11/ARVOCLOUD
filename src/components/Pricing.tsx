@@ -9,7 +9,7 @@ const Pricing = () => {
   const countries = [
     { code: 'us', name: 'Amerika Serikat', flag: '🇺🇸' },
     { code: 'sg', name: 'Singapura', flag: '🇸🇬' },
-    { code: 'id', name: 'Indonesia', flag: '🇮🇩n' }
+    { code: 'id', name: 'Indonesia', flag: '🇮🇩' }
   ];
 
   const categories = [
@@ -286,7 +286,7 @@ const Pricing = () => {
 
           {/* Pilihan Billing */}
           <div className="flex items-center justify-center mb-12">
-            <span className={`mr-3 Rp{billingCycle === 'bulanan' ? 'text-white' : 'text-gray-400'}.toLocaleString("id-ID")`}>Bulanan</span>
+            <span className={`mr-3 ${billingCycle === 'bulanan' ? 'text-white' : 'text-gray-400'}`}>Bulanan</span>
             <button
               onClick={() => setBillingCycle(billingCycle === 'bulanan' ? 'tahunan' : 'bulanan')}
               className="relative w-16 h-8 bg-slate-700 rounded-full p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -295,7 +295,7 @@ const Pricing = () => {
                 billingCycle === 'tahunan' ? 'translate-x-8' : 'translate-x-0'
               }`}></div>
             </button>
-            <span className={`ml-3 Rp{billingCycle === 'tahunan' ? 'text-white' : 'text-gray-400'}.toLocaleString("id-ID")`}>
+            <span className={`ml-3 ${billingCycle === 'tahunan' ? 'text-white' : 'text-gray-400'}`}>
               Tahunan <span className="text-green-400 text-sm">(Hemat 20%)</span>
             </span>
           </div>
@@ -330,7 +330,7 @@ const Pricing = () => {
                 
                 <div className="mb-6">
                   <span className="text-5xl font-bold text-white">
-                    Rp{plan.price[billingCycle]}
+                    Rp{plan.price[billingCycle].toLocaleString("id-ID")}
                   </span>
                   <span className="text-gray-400 ml-2">
                     /{billingCycle === 'bulanan' ? 'bulan' : 'tahun'}

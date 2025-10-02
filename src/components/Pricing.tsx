@@ -15,7 +15,8 @@ const Pricing = () => {
   const categories = [
     { id: 'vps', name: 'VPS Hosting', icon: Server, description: 'Server Pribadi Virtual' },
     { id: 'rdp', name: 'RDP Solutions', icon: Monitor, description: 'Layanan Remote Desktop' },
-    { id: 'baremetal', name: 'Bare Metal', icon: Cpu, description: 'Server Fisik Dedicated' }
+    { id: 'baremetal', name: 'Bare Metal', icon: Cpu, description: 'Server Fisik Dedicated' },
+    { id: 'proxy', name: 'Proxy', icon: Proxy, description: 'Layanan Proxy' }
   ];
 
   const whatsappNumber = "6283197183724"; // nomor WA dalam format internasional
@@ -322,6 +323,44 @@ const Pricing = () => {
           'Akses Administrator',
           'High-Speed RDP',
           'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-purple-500 to-pink-500'
+      },
+    ],
+    baremetal: [
+      {
+        name: 'Proxy Rotating IP',
+        icon: Zap,
+        popular: false,
+        price: { bulanan: 350000, tahunan: 3850000 },
+        description: 'Entry-level dedicated server',
+        specs: {
+          Bandwith: '1GB',
+          Statis: '1-120 menit'
+        },
+        features: [
+          'Unlimited All Region',
+          'Unlimited Concurrency / Thread',
+          'Pool IP Lebih Dari 50 Juta, Worldwide'
+        ],
+        gradient: 'from-purple-500 to-pink-500'
+      },
+      {
+        name: 'Proxy Residential Static',
+        icon: Zap,
+        popular: false,
+        price: { bulanan: 350000, tahunan: 3850000 },
+        description: 'Entry-level dedicated server',
+        specs: {
+          Bandwith: 'Unlimited',
+          Country: '27+ Negara'
+        },
+        features: [
+          'HTTP(s) / Socks5',
+          'Grass / Nodepay',
+          'Fast Speed',
+          'Bisa Diperpanjang',
+          'Detail Berisi IP, User, Pass, Protocol'
         ],
         gradient: 'from-purple-500 to-pink-500'
       },

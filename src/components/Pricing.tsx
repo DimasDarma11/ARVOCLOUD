@@ -363,7 +363,7 @@ const Pricing = () => {
           'Detail Berisi IP, User, Pass, Protocol'
         ],
         gradient: 'from-purple-500 to-pink-500'
-      },
+      }
     ]
   };
 

@@ -6,11 +6,6 @@ const Pricing = () => {
   const [selectedCategory, setSelectedCategory] = useState<'vps' | 'rdp' | 'baremetal'>('vps');
   const [selectedCountry, setSelectedCountry] = useState('id');
 
-  const countries = [
-    { code: 'us', name: 'Amerika Serikat', flag: '🇺🇸' },
-    { code: 'sg', name: 'Singapura', flag: '🇸🇬' },
-    { code: 'idn', name: 'Indonesia', flag: '🇮🇩' }
-  ];
 
   const categories = [
     { id: 'vps', name: 'VPS Hosting', icon: Server, description: 'Server Pribadi Virtual' },
@@ -36,7 +31,8 @@ const Pricing = () => {
           ram: '1GB RAM',
           storage: '25GB SSD',
           bandwidth: 'Unlimited',
-          ip: '1 IPv4'
+          ip: '1 IPv4',
+          region: 'IDN/USA'
         },
         features: [
           'Akses Root Penuh',
@@ -57,7 +53,8 @@ const Pricing = () => {
           ram: '2GB RAM',
           storage: '25GB SSD',
           bandwidth: 'Unlimited',
-          ip: '1 IPv4'
+          ip: '1 IPv4',
+          region: 'IDN/USA'
         },
         features: [
           'Akses Root Penuh',
@@ -76,9 +73,10 @@ const Pricing = () => {
         specs: {
           cpu: '2 vCPU Cores',
           ram: '4GB RAM',
-          storage: '50GB SSD',
+          storage: '75GB SSD',
           bandwidth: 'Unlimited',
-          ip: '1 IPv4'
+          ip: '1 IPv4',
+          region: 'IDN/USA'
         },
         features: [
           'Akses Root Penuh',
@@ -99,7 +97,8 @@ const Pricing = () => {
           ram: '8GB RAM',
           storage: '100GB NVMe SSD',
           bandwidth: 'Unlimited',
-          ip: '1 IPv4'
+          ip: '1 IPv4',
+          region: 'IDN/USA'
         },
         features: [
           'Akses Root Penuh',
@@ -120,7 +119,8 @@ const Pricing = () => {
           ram: '16GB RAM',
           storage: '100GB NVMe SSD',
           bandwidth: 'Unlimited',
-          ip: '1 IPv4'
+          ip: '1 IPv4',
+          region: 'IDN/USA'
         },
         features: [
           'Akses Root Penuh',
@@ -142,7 +142,8 @@ const Pricing = () => {
           cpu: '2 vCPU Cores',
           ram: '4GB RAM',
           storage: '50GB SSD',
-          os: 'Windows 10/11 Spectre'
+          os: 'Windows 10/11 Spectre',
+          region: 'IDN/USA'
         },
         features: [
           'Windows 10/11 Spectre',
@@ -162,7 +163,8 @@ const Pricing = () => {
           cpu: '4 vCPU Cores',
           ram: '8GB RAM',
           storage: '50GB SSD',
-          os: 'Windows 10/11 Spectre'
+          os: 'Windows 10/11 Spectre',
+          region: 'IDN/USA'
         },
         features: [
           'Windows 10/11 Spectre',
@@ -182,7 +184,8 @@ const Pricing = () => {
           cpu: '8 vCPU Cores',
           ram: '16GB RAM',
           storage: '100GB SSD',
-          os: 'Windows 10/11 Spectre'
+          os: 'Windows 10/11 Spectre',
+          region: 'IDN/USA'
         },
         features: [
           'Windows 10/11 Spectre',

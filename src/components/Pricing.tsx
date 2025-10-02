@@ -194,16 +194,17 @@ const Pricing = () => {
     ],
     baremetal: [
       {
-        name: 'Bare Metal Starter',
+        name: 'Bare Metal ID 1',
         icon: Zap,
         popular: false,
-        price: { bulanan: 350000, tahunan: 1490 },
+        price: { bulanan: 350000, tahunan: 3850000 },
         description: 'Entry-level dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',
           ram: '8GB RAM',
           storage: '256GB SSD',
-          bandwidth: 'Unlimited'
+          bandwidth: 'Unlimited',
+          region: 'Indonesia'
         },
         features: [
           'Dedicated Server',
@@ -215,16 +216,17 @@ const Pricing = () => {
         gradient: 'from-blue-500 to-cyan-500'
       },
       {
-        name: 'Bare Metal Professional',
+        name: 'Bare Metal ID 2',
         icon: Star,
         popular: true,
-        price: { bulanan: 400000, tahunan: 2990 },
+        price: { bulanan: 400000, tahunan: 4400000 },
         description: 'High-performance dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',
           ram: '16GB RAM',
           storage: '256GB SSD',
-          bandwidth: 'Unlimited'
+          bandwidth: 'Unlimited',
+          region: 'Indonesia'
         },
         features: [
           'Dedicated Server',
@@ -236,16 +238,17 @@ const Pricing = () => {
         gradient: 'from-purple-500 to-pink-500'
       },
       {
-        name: 'Bare Metal Enterprise',
+        name: 'Bare Metal ID 3',
         icon: Crown,
         popular: false,
-        price: { bulanan: 450000, tahunan: 5990 },
+        price: { bulanan: 450000, tahunan: 4950000 },
         description: 'Maximum performance dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',
           ram: '24GB RAM',
           storage: '256GB SSD',
-          bandwidth: 'Unlimited'
+          bandwidth: 'Unlimited',
+          region: 'Indonesia'
         },
         features: [
           'Dedicated Server',
@@ -257,16 +260,17 @@ const Pricing = () => {
         gradient: 'from-orange-500 to-red-500'
       },
       {
-        name: 'Bare Metal Enterprise',
+        name: 'Bare Metal ID 4',
         icon: Crown,
         popular: false,
-        price: { bulanan: 550000, tahunan: 5990 },
+        price: { bulanan: 550000, tahunan: 6050000 },
         description: 'Maximum performance dedicated server',
         specs: {
           cpu: 'Intel Core I3 Gen 6',
           ram: '32GB RAM',
           storage: '256GB SSD',
-          bandwidth: 'Unlimited'
+          bandwidth: 'Unlimited',
+          region: 'Indonesia'
         },
         features: [
           'Dedicated Server',
@@ -278,16 +282,39 @@ const Pricing = () => {
         gradient: 'from-orange-500 to-red-500'
       },
       {
-        name: 'Bare Metal Professional',
+        name: 'Bare Metal ID 5',
         icon: Star,
         popular: false,
-        price: { bulanan: 750000, tahunan: 2990 },
+        price: { bulanan: 750000, tahunan: 8250000 },
         description: 'High-performance dedicated server',
         specs: {
           cpu: 'Intel Core I7 Gen 4',
           ram: '32GB RAM',
           storage: '512GB SSD',
-          bandwidth: 'Unlimited'
+          bandwidth: 'Unlimited',
+          region: 'Indonesia'
+        },
+        features: [
+          'Dedicated Server',
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-purple-500 to-pink-500'
+      },
+      {
+        name: 'Bare Metal USA',
+        icon: Star,
+        popular: false,
+        price: { bulanan: 1500000, tahunan: 16500000 },
+        description: 'High-performance dedicated server',
+        specs: {
+          cpu: 'AMD RYZEN 7 5700G',
+          ram: '64GB RAM',
+          storage: '1TB SSD',
+          bandwidth: 'Unlimited',
+          region: 'USA'
         },
         features: [
           'Dedicated Server',

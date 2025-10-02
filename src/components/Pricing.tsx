@@ -136,12 +136,12 @@ const Pricing = () => {
         name: 'RDP 1',
         icon: Zap,
         popular: false,
-        price: { bulanan: 95000, tahunan: 180 },
+        price: { bulanan: 95000, tahunan: 1045000 },
         description: 'Entry-level Windows RDP solution',
         specs: {
           cpu: '2 vCPU Cores',
           ram: '4GB RAM',
-          storage: '50GB SSD',
+          storage: '20GB SSD',
           os: 'Windows 10/11 Spectre',
           region: 'IDN/USA'
         },
@@ -157,12 +157,12 @@ const Pricing = () => {
         name: 'RDP 2',
         icon: Star,
         popular: true,
-        price: { bulanan: 150000, tahunan: 350 },
+        price: { bulanan: 150000, tahunan: 1650000 },
         description: 'Perfect for business applications',
         specs: {
           cpu: '4 vCPU Cores',
           ram: '8GB RAM',
-          storage: '50GB SSD',
+          storage: '40GB SSD',
           os: 'Windows 10/11 Spectre',
           region: 'IDN/USA'
         },
@@ -178,12 +178,33 @@ const Pricing = () => {
         name: 'RDP 3',
         icon: Crown,
         popular: false,
-        price: { bulanan: 260000, tahunan: 750 },
+        price: { bulanan: 260000, tahunan: 2860000 },
+        description: 'High-performance RDP for teams',
+        specs: {
+          cpu: '6 vCPU Cores',
+          ram: '16GB RAM',
+          storage: '60GB SSD',
+          os: 'Windows 10/11 Spectre',
+          region: 'IDN/USA'
+        },
+        features: [
+          'Windows 10/11 Spectre',
+          'Akses Administrator',
+          'High-Speed RDP',
+          'Dukungan Enterprise 24/7'
+        ],
+        gradient: 'from-orange-500 to-red-500'
+      },
+      {
+        name: 'RDP 4',
+        icon: Crown,
+        popular: false,
+        price: { bulanan: 270000, tahunan: 2970000 },
         description: 'High-performance RDP for teams',
         specs: {
           cpu: '8 vCPU Cores',
           ram: '16GB RAM',
-          storage: '100GB SSD',
+          storage: '80GB SSD',
           os: 'Windows 10/11 Spectre',
           region: 'IDN/USA'
         },

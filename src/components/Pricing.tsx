@@ -385,22 +385,6 @@ const Pricing = () => {
             Pilih paket yang sesuai dengan kebutuhan Anda. Semua paket sudah termasuk fitur premium dan dukungan 24/7.
           </p>
 
-          {/* Pilih Lokasi */}
-          <div className="flex items-center justify-center mb-8">
-            <Globe className="h-5 w-5 text-cyan-400 mr-3" />
-            <span className="text-gray-300 mr-4">Pilih Lokasi:</span>
-            <select
-              value={selectedCountry}
-              onChange={(e) => setSelectedCountry(e.target.value)}
-              className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 transition-colors duration-300"
-            >
-              {countries.map((country) => (
-                <option key={country.code} value={country.code}>
-                  {country.flag} {country.name}
-                </option>
-              ))}
-            </select>
-          </div>
 
           {/* Tabs Kategori */}
           <div className="flex flex-wrap justify-center gap-4 mb-8">

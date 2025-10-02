@@ -16,7 +16,7 @@ const Pricing = () => {
     { id: 'vps', name: 'VPS Hosting', icon: Server, description: 'Server Pribadi Virtual' },
     { id: 'rdp', name: 'RDP Solutions', icon: Monitor, description: 'Layanan Remote Desktop' },
     { id: 'baremetal', name: 'Bare Metal', icon: Cpu, description: 'Server Fisik Dedicated' },
-    { id: 'proxy', name: 'Proxy', icon: ShieldCheck, description: 'Layanan Proxy' }
+    { id: 'proxy', name: 'Proxy', icon: ShieldCheck, description: 'Layanan Proxy Global' }
   ];
 
   const whatsappNumber = "6283197183724"; // nomor WA dalam format internasional

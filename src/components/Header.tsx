@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
 import { Menu, X, Server, Shield, Zap } from 'lucide-react';
 
 const Header = () => {
@@ -15,23 +14,8 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-xl">
-              <Server className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              ARVOCLOUD
-            </span>
-          </div>
           
           {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#home" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Home</a>
             <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Services</a>
@@ -45,8 +29,6 @@ const Header = () => {
               LOGIN
             </Link>
           </nav>
-          <ThemeToggle />
-        </div>
 
           {/* Mobile Menu Button */}
           <button 
@@ -72,7 +54,6 @@ const Header = () => {
               >
                 LOGIN
               </Link>
-              <ThemeToggle />
             </div>
           </nav>
         )}

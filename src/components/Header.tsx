@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 import { Menu, X, Server, Shield, Zap } from 'lucide-react';
 
 const Header = () => {
@@ -29,6 +30,14 @@ const Header = () => {
             </span>
           </div>
 
+          export default function Navbar() {
+            return (
+              <nav className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow">
+                <h1 className="text-xl font-bold dark:text-white">ArvoCloud</h1>
+                <ThemeToggle />
+              </nav>
+            );
+          }
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#home" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Home</a>

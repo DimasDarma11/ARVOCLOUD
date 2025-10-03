@@ -73,7 +73,7 @@ const Pricing = () => {
         specs: {
           cpu: '2 vCPU Cores',
           ram: '4GB RAM',
-          storage: '75GB SSD',
+          storage: '20GB SSD',
           bandwidth: 'Unlimited',
           ip: '1 IPv4',
           region: 'IDN/USA'
@@ -95,7 +95,7 @@ const Pricing = () => {
         specs: {
           cpu: '4 vCPU Cores',
           ram: '8GB RAM',
-          storage: '100GB NVMe SSD',
+          storage: '40GB SSD',
           bandwidth: 'Unlimited',
           ip: '1 IPv4',
           region: 'IDN/USA'
@@ -117,7 +117,7 @@ const Pricing = () => {
         specs: {
           cpu: '6 vCPU Cores',
           ram: '16GB RAM',
-          storage: '100GB NVMe SSD',
+          storage: '60GB SSD',
           bandwidth: 'Unlimited',
           ip: '1 IPv4',
           region: 'IDN/USA'
@@ -356,7 +356,7 @@ const Pricing = () => {
         name: 'Proxy Rotating IP',
         icon: Zap,
         popular: false,
-        price: { bulanan: 350000, tahunan: 3850000 },
+        price: { bulanan: 45000, tahunan: 0 },
         description: 'Entry-level dedicated server',
         specs: {
           Bandwith: '1GB',
@@ -373,7 +373,7 @@ const Pricing = () => {
         name: 'Proxy Residential Static',
         icon: Zap,
         popular: false,
-        price: { bulanan: 350000, tahunan: 3850000 },
+        price: { bulanan: 140000, tahunan: 0 },
         description: 'Entry-level dedicated server',
         specs: {
           Bandwith: 'Unlimited',

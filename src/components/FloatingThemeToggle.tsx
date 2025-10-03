@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
-export default function ThemeToggle() {
+export default function FloatingThemeToggle() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -33,14 +33,17 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 
-                 hover:scale-110 transition-transform duration-300 shadow"
+      className="fixed bottom-6 right-6 z-50 p-4 rounded-full 
+                 bg-gray-200 dark:bg-gray-700 shadow-lg 
+                 hover:scale-110 transition-transform duration-300"
+      aria-label="Toggle Dark Mode"
     >
       {darkMode ? (
-        <Sun className="text-yellow-400 transition-transform duration-300 rotate-90" />
+        <Sun className="text-yellow-400 w-6 h-6 transition-transform duration-500 rotate-0" />
       ) : (
-        <Moon className="text-gray-800 transition-transform duration-300 -rotate-90" />
+        <Moon className="text-gray-800 w-6 h-6 transition-transform duration-500 rotate-0" />
       )}
     </button>
   );
 }
+

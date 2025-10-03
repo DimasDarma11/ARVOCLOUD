@@ -31,6 +31,7 @@ const Header = () => {
           </div>
           
           {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-8">
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#home" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Home</a>
             <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Services</a>
@@ -44,6 +45,8 @@ const Header = () => {
               LOGIN
             </Link>
           </nav>
+          <ThemeToggle />
+        </div>
 
           {/* Mobile Menu Button */}
           <button 
@@ -69,6 +72,7 @@ const Header = () => {
               >
                 LOGIN
               </Link>
+              <ThemeToggle />
             </div>
           </nav>
         )}

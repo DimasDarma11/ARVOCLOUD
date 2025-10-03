@@ -10,7 +10,7 @@ import FloatingThemeToggle from './components/FloatingThemeToggle';
 
 function App() {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen bg-white text-gray-800 dark:bg-gray-900 dark:text-white relative">
       <Header />
       <Hero />
       <Services />

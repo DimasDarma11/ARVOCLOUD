@@ -359,7 +359,7 @@ const Pricing = () => {
         name: 'Proxy Rotating IP',
         icon: Zap,
         popular: false,
-        price: { bulanan: 45000, tahunan: 0 },
+        price: { bulanan: 45000, tahunan: 540000 },
         description: 'Entry-level dedicated server',
         specs: {
           Bandwith: '1GB',
@@ -376,7 +376,7 @@ const Pricing = () => {
         name: 'Proxy Residential Static',
         icon: Zap,
         popular: false,
-        price: { bulanan: 140000, tahunan: 0 },
+        price: { bulanan: 140000, tahunan: 1680000 },
         description: 'Entry-level dedicated server',
         specs: {
           Bandwith: 'Unlimited',
@@ -509,12 +509,17 @@ const Pricing = () => {
               </ul>
 
               <button 
-                onClick={() =>
+                onClick={() => {
+                  setRedirecting(true);
+                  setMessage(plan.name);
+                  setTimeout(() => {
                     window.open(
                       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage(plan.name))}`,
                       "_blank"
-                    )
-                  }
+                    );
+                    setRedirecting(false);
+                  }, 1500);
+                }}
                 className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105`}
                 >
                 Mulai Sekarang

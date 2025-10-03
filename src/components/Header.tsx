@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Menu, X, Server, Shield, Zap } from 'lucide-react';
 
 const Header = () => {
@@ -36,7 +37,7 @@ const Header = () => {
             <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">About</a>
             <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Contact</a>
             <Link
-              href="/login/page.tsx"
+              href="/login"
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
             >
               LOGIN

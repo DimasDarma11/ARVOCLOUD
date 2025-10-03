@@ -36,10 +36,10 @@ const Header = () => {
             <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">About</a>
             <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Contact</a>
             <a
-              href="#pricing"
+              href="./login/page.tsx"
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
             >
-              Get Started
+              LOGIN
             </a>
           </nav>
 

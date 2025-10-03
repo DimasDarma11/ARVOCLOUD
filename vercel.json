@@ -1,22 +1,19 @@
 {
   "builds": [
-    { "src": "vite.config.ts", "use": "@vercel/static-build" }
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ],
   "headers": [
     {
-      "source": "/(.*).html",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache"
-        }
-      ]
-    },
-    {
-      "source": "/",
+      "source": "/index.html",
       "headers": [
         {
           "key": "Cache-Control",
@@ -26,3 +23,4 @@
     }
   ]
 }
+

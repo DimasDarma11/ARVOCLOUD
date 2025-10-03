@@ -29,15 +29,7 @@ const Header = () => {
               ARVOCLOUD
             </span>
           </div>
-
-          export default function Navbar() {
-            return (
-              <nav className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow">
-                <h1 className="text-xl font-bold dark:text-white">ArvoCloud</h1>
-                <ThemeToggle />
-              </nav>
-            );
-          }
+          
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#home" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Home</a>
@@ -71,9 +63,12 @@ const Header = () => {
               <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
               <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors">About</a>
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg w-full">
-                Get Started
-              </button>
+              <Link
+                to="/login"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+              >
+                LOGIN
+              </Link>
             </div>
           </nav>
         )}

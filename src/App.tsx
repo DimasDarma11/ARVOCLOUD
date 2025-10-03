@@ -6,7 +6,7 @@ import Pricing from './components/Pricing';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import FloatingThemeToggle from './components/FloatingThemeToggle'; // ← import
+import FloatingThemeToggle from './components/FloatingThemeToggle';
 
 function App() {
   return (

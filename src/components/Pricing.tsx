@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Check, Star, Zap, Crown, Server, Monitor, Cpu, Globe, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from "framer-motion";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<'bulanan' | 'tahunan'>('bulanan');
   const [selectedCategory, setSelectedCategory] = useState<'vps' | 'rdp' | 'baremetal'>('vps');
   const [selectedCountry, setSelectedCountry] = useState('id');
+  const [redirecting, setRedirecting] = useState(false);
+  const [message, setMessage] = useState("");
 
 
   const categories = [
@@ -519,6 +522,35 @@ const Pricing = () => {
             </div>
           ))}
         </div>
+
+        {/* 🔥 Alert Modal */}
+        <AnimatePresence>
+        {redirecting && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 flex items-center justify-center bg-black/70 z-50"
+          >
+            <motion.div
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.7, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-slate-800 p-8 rounded-2xl shadow-2xl text-center"
+            >
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-cyan-400 border-t-transparent mx-auto mb-6"></div>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Mohon Tunggu...
+              </h3>
+              <p className="text-gray-300">
+                Sedang redirect ke WhatsApp untuk paket{" "}
+                <span className="text-cyan-400 font-semibold">{message}</span>
+              </p>
+             </motion.div>
+          </motion.div>
+        )}
+        </AnimatePresence>
 
         {/* Custom Solution */}
         <div className="text-center bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-12 border border-slate-700">

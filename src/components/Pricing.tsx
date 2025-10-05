@@ -1,599 +1,220 @@
-import React, { useState } from 'react';
-import { Check, Star, Zap, Crown, Server, Monitor, Cpu, Globe, ShieldCheck } from 'lucide-react';
+import React, { useState } from "react";
+import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Pricing = () => {
-  const [billingCycle, setBillingCycle] = useState<'bulanan' | 'tahunan'>('bulanan');
-  const [selectedCategory, setSelectedCategory] = useState<'vps' | 'rdp' | 'baremetal'>('vps');
-  const [selectedCountry, setSelectedCountry] = useState('id');
+  const [billingCycle, setBillingCycle] = useState("bulanan");
+  const [selectedCategory, setSelectedCategory] = useState("vps");
   const [redirecting, setRedirecting] = useState(false);
   const [message, setMessage] = useState("");
 
-
-  const categories = [
-    { id: 'vps', name: 'VPS Hosting', icon: Server, description: 'Server Pribadi Virtual' },
-    { id: 'rdp', name: 'RDP Solutions', icon: Monitor, description: 'Layanan Remote Desktop' },
-    { id: 'baremetal', name: 'Bare Metal', icon: Cpu, description: 'Server Fisik Dedicated' },
-    { id: 'proxy', name: 'Proxy', icon: ShieldCheck, description: 'Layanan Proxy Global' }
-  ];
-
-  const whatsappNumber = "6283197183724"; // nomor WA dalam format internasional
+  const whatsappNumber = "6283197183724";
   const whatsappMessage = (planName) =>
     `Halo, saya tertarik dengan paket ${planName}. Bisa dibantu informasinya?`;
+
+  const categories = [
+    { id: "vps", name: "VPS", icon: Server },
+    { id: "rdp", name: "RDP", icon: Monitor },
+    { id: "baremetal", name: "Bare Metal", icon: Cpu },
+    { id: "proxy", name: "Proxy", icon: ShieldCheck },
+  ];
 
   const plans = {
     vps: [
       {
-        name: 'VPS 1',
+        name: "VPS 1",
         icon: Zap,
-        popular: false,
         price: { bulanan: 50000, tahunan: 550000 },
-        description: 'Cocok untuk project kecil dan kebutuhan pengembangan',
-        specs: {
-          cpu: '1 vCPU Core',
-          ram: '1GB RAM',
-          storage: '25GB SSD',
-          bandwidth: 'Unlimited',
-          ip: '1 IPv4',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Akses Root Penuh',
-          'Penyimpanan SSD NVMe',
-          'Pilihan OS Beragam',
-          'Dukungan 24/7'
-        ],
-        gradient: 'from-blue-500 to-cyan-500'
+        desc: "Cocok untuk project kecil & dev testing",
+        specs: { cpu: "1 vCPU", ram: "1GB", storage: "25GB SSD" },
+        gradient: "from-cyan-500 to-blue-500",
       },
       {
-        name: 'VPS 2',
-        icon: Zap,
-        popular: false,
-        price: { bulanan: 80000, tahunan: 880000 },
-        description: 'Cocok untuk project kecil dan kebutuhan pengembangan',
-        specs: {
-          cpu: '2 vCPU Core',
-          ram: '2GB RAM',
-          storage: '25GB SSD',
-          bandwidth: 'Unlimited',
-          ip: '1 IPv4',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Akses Root Penuh',
-          'Penyimpanan SSD NVMe',
-          'Pilihan OS Beragam',
-          'Dukungan 24/7'
-        ],
-        gradient: 'from-blue-500 to-cyan-500'
-      },
-      {
-        name: 'VPS 3',
+        name: "VPS 2",
         icon: Star,
-        popular: true,
         price: { bulanan: 140000, tahunan: 1540000 },
-        description: 'Ideal untuk website dan aplikasi yang berkembang',
-        specs: {
-          cpu: '2 vCPU Cores',
-          ram: '4GB RAM',
-          storage: '20GB SSD',
-          bandwidth: 'Unlimited',
-          ip: '1 IPv4',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Akses Root Penuh',
-          'Penyimpanan SSD NVMe',
-          'Pilihan OS Beragam',
-          'Dukungan Prioritas 24/7'
-        ],
-        gradient: 'from-purple-500 to-pink-500'
+        desc: "Ideal untuk website dan aplikasi ringan",
+        specs: { cpu: "2 vCPU", ram: "4GB", storage: "40GB SSD" },
+        gradient: "from-purple-500 to-pink-500",
       },
       {
-        name: 'VPS 4',
+        name: "VPS 3",
         icon: Crown,
-        popular: false,
         price: { bulanan: 200000, tahunan: 2200000 },
-        description: 'Performa tinggi untuk aplikasi yang berat',
-        specs: {
-          cpu: '4 vCPU Cores',
-          ram: '8GB RAM',
-          storage: '40GB SSD',
-          bandwidth: 'Unlimited',
-          ip: '1 IPv4',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Akses Root Penuh',
-          'Penyimpanan NVMe Premium',
-          'Pilihan OS Beragam',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-orange-500 to-red-500'
+        desc: "Performa tinggi untuk bisnis dan tim kecil",
+        specs: { cpu: "4 vCPU", ram: "8GB", storage: "60GB SSD" },
+        gradient: "from-orange-500 to-red-500",
       },
-      {
-        name: 'VPS 5',
-        icon: Crown,
-        popular: false,
-        price: { bulanan: 270000, tahunan: 2970000 },
-        description: 'Performa tinggi untuk aplikasi yang berat',
-        specs: {
-          cpu: '6 vCPU Cores',
-          ram: '16GB RAM',
-          storage: '60GB SSD',
-          bandwidth: 'Unlimited',
-          ip: '1 IPv4',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Akses Root Penuh',
-          'Penyimpanan NVMe Premium',
-          'Pilihan OS Beragam',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-orange-500 to-red-500'
-      }
     ],
     rdp: [
       {
-        name: 'RDP 1',
+        name: "RDP Starter",
         icon: Zap,
-        popular: false,
         price: { bulanan: 95000, tahunan: 1045000 },
-        description: 'Entry-level Windows RDP solution',
-        specs: {
-          cpu: '2 vCPU Cores',
-          ram: '4GB RAM',
-          storage: '20GB SSD',
-          os: 'Windows 10/11 Spectre',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-blue-500 to-cyan-500'
+        desc: "RDP ekonomis untuk keperluan ringan",
+        specs: { cpu: "2 vCPU", ram: "4GB", os: "Win 11 Pro" },
+        gradient: "from-blue-500 to-cyan-500",
       },
       {
-        name: 'RDP 2',
+        name: "RDP Business",
         icon: Star,
-        popular: true,
         price: { bulanan: 150000, tahunan: 1650000 },
-        description: 'Perfect for business applications',
-        specs: {
-          cpu: '4 vCPU Cores',
-          ram: '8GB RAM',
-          storage: '40GB SSD',
-          os: 'Windows 10/11 Spectre',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-purple-500 to-pink-500'
+        desc: "Performa stabil untuk kebutuhan harian",
+        specs: { cpu: "4 vCPU", ram: "8GB", os: "Win 11 Pro" },
+        gradient: "from-purple-500 to-pink-500",
       },
       {
-        name: 'RDP 3',
+        name: "RDP Premium",
         icon: Crown,
-        popular: false,
-        price: { bulanan: 260000, tahunan: 2860000 },
-        description: 'High-performance RDP for teams',
-        specs: {
-          cpu: '6 vCPU Cores',
-          ram: '16GB RAM',
-          storage: '60GB SSD',
-          os: 'Windows 10/11 Spectre',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-orange-500 to-red-500'
-      },
-      {
-        name: 'RDP 4',
-        icon: Crown,
-        popular: false,
-        price: { bulanan: 270000, tahunan: 2970000 },
-        description: 'High-performance RDP for teams',
-        specs: {
-          cpu: '8 vCPU Cores',
-          ram: '16GB RAM',
-          storage: '80GB SSD',
-          os: 'Windows 10/11 Spectre',
-          region: 'IDN/USA'
-        },
-        features: [
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-orange-500 to-red-500'
-      }
-    ],
-    baremetal: [
-      {
-        name: 'Bare Metal ID 1',
-        icon: Zap,
-        popular: false,
-        price: { bulanan: 350000, tahunan: 3850000 },
-        description: 'Entry-level dedicated server',
-        specs: {
-          cpu: 'Intel Core I3 Gen 6',
-          ram: '8GB RAM',
-          storage: '256GB SSD',
-          bandwidth: 'Unlimited',
-          region: 'Indonesia'
-        },
-        features: [
-          'Dedicated Server',
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-blue-500 to-cyan-500'
-      },
-      {
-        name: 'Bare Metal ID 2',
-        icon: Star,
-        popular: true,
-        price: { bulanan: 400000, tahunan: 4400000 },
-        description: 'High-performance dedicated server',
-        specs: {
-          cpu: 'Intel Core I3 Gen 6',
-          ram: '16GB RAM',
-          storage: '256GB SSD',
-          bandwidth: 'Unlimited',
-          region: 'Indonesia'
-        },
-        features: [
-          'Dedicated Server',
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-purple-500 to-pink-500'
-      },
-      {
-        name: 'Bare Metal ID 3',
-        icon: Crown,
-        popular: false,
-        price: { bulanan: 450000, tahunan: 4950000 },
-        description: 'Maximum performance dedicated server',
-        specs: {
-          cpu: 'Intel Core I3 Gen 6',
-          ram: '24GB RAM',
-          storage: '256GB SSD',
-          bandwidth: 'Unlimited',
-          region: 'Indonesia'
-        },
-        features: [
-          'Dedicated Server',
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-orange-500 to-red-500'
-      },
-      {
-        name: 'Bare Metal ID 4',
-        icon: Crown,
-        popular: false,
-        price: { bulanan: 550000, tahunan: 6050000 },
-        description: 'Maximum performance dedicated server',
-        specs: {
-          cpu: 'Intel Core I3 Gen 6',
-          ram: '32GB RAM',
-          storage: '256GB SSD',
-          bandwidth: 'Unlimited',
-          region: 'Indonesia'
-        },
-        features: [
-          'Dedicated Server',
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-orange-500 to-red-500'
-      },
-      {
-        name: 'Bare Metal ID 5',
-        icon: Star,
-        popular: false,
-        price: { bulanan: 750000, tahunan: 8250000 },
-        description: 'High-performance dedicated server',
-        specs: {
-          cpu: 'Intel Core I7 Gen 4',
-          ram: '32GB RAM',
-          storage: '512GB SSD',
-          bandwidth: 'Unlimited',
-          region: 'Indonesia'
-        },
-        features: [
-          'Dedicated Server',
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-purple-500 to-pink-500'
-      },
-      {
-        name: 'Bare Metal USA',
-        icon: Star,
-        popular: false,
-        price: { bulanan: 1500000, tahunan: 16500000 },
-        description: 'High-performance dedicated server',
-        specs: {
-          cpu: 'AMD RYZEN 7 5700G',
-          ram: '64GB RAM',
-          storage: '1TB SSD',
-          bandwidth: 'Unlimited',
-          region: 'USA'
-        },
-        features: [
-          'Dedicated Server',
-          'Windows 10/11 Spectre',
-          'Akses Administrator',
-          'High-Speed RDP',
-          'Dukungan Enterprise 24/7'
-        ],
-        gradient: 'from-purple-500 to-pink-500'
+        price: { bulanan: 250000, tahunan: 2750000 },
+        desc: "Performa tinggi dengan dukungan 24/7",
+        specs: { cpu: "6 vCPU", ram: "16GB", os: "Win 11 Pro" },
+        gradient: "from-orange-500 to-red-500",
       },
     ],
-    proxy: [
-      {
-        name: 'Proxy Rotating IP',
-        icon: Zap,
-        popular: false,
-        price: { bulanan: 45000, tahunan: 540000 },
-        description: 'Entry-level dedicated server',
-        specs: {
-          Bandwith: '1GB',
-          Statis: '1-120 menit'
-        },
-        features: [
-          'Unlimited All Region',
-          'Unlimited Concurrency / Thread',
-          'Pool IP Lebih Dari 50 Juta, Worldwide'
-        ],
-        gradient: 'from-purple-500 to-pink-500'
-      },
-      {
-        name: 'Proxy Residential Static',
-        icon: Zap,
-        popular: false,
-        price: { bulanan: 140000, tahunan: 1680000 },
-        description: 'Entry-level dedicated server',
-        specs: {
-          Bandwith: 'Unlimited',
-          Country: '27+ Negara'
-        },
-        features: [
-          'HTTP(s) / Socks5',
-          'Grass / Nodepay',
-          'Fast Speed',
-          'Bisa Diperpanjang',
-          'Detail Berisi IP, User, Pass, Protocol'
-        ],
-        gradient: 'from-purple-500 to-pink-500'
-      }
-    ]
   };
 
-  const currentPlans = plans[selectedCategory];
+  const currentPlans = plans[selectedCategory] || [];
 
   return (
     <section id="pricing" className="py-20 bg-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-              Harga Transparan
-            </span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
-            Pilih paket yang sesuai dengan kebutuhan Anda. Semua paket sudah termasuk fitur premium dan dukungan 24/7.
-          </p>
+      <div className="max-w-6xl mx-auto px-6 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          Harga yang <span className="text-cyan-400">Transparan</span>
+        </h2>
+        <p className="text-gray-400 mb-10">
+          Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
+        </p>
 
-
-          {/* Tabs Kategori */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id as any)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                  selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
-                    : 'bg-slate-800 text-gray-300 hover:bg-slate-700 hover:text-white'
-                }`}
-              >
-                <category.icon className="h-5 w-5" />
-                <div className="text-left">
-                  <div className="text-sm font-semibold">{category.name}</div>
-                  <div className="text-xs opacity-75">{category.description}</div>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Pilihan Billing */}
-          <div className="flex items-center justify-center mb-12">
-            <span className={`mr-3 ${billingCycle === 'bulanan' ? 'text-white' : 'text-gray-400'}`}>Bulanan</span>
+        {/* Category Tabs */}
+        <div className="flex justify-center gap-3 mb-10 flex-wrap">
+          {categories.map((c) => (
             <button
-              onClick={() => setBillingCycle(billingCycle === 'bulanan' ? 'tahunan' : 'bulanan')}
-              className="relative w-16 h-8 bg-slate-700 rounded-full p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            >
-              <div className={`w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-lg transform transition-transform duration-300 ${
-                billingCycle === 'tahunan' ? 'translate-x-8' : 'translate-x-0'
-              }`}></div>
-            </button>
-            <span className={`ml-3 ${billingCycle === 'tahunan' ? 'text-white' : 'text-gray-400'}`}>
-              Tahunan <span className="text-green-400 text-sm">(Hemat 20%)</span>
-            </span>
-          </div>
-        </div>
-
-        {/* Render Paket */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {currentPlans.map((plan, index) => (
-            <div
-              key={index}
-              className={`relative bg-slate-800 rounded-2xl p-8 border transition-all duration-500 hover:transform hover:scale-105 ${
-                plan.popular 
-                  ? 'border-cyan-400 shadow-2xl shadow-cyan-400/20' 
-                  : 'border-slate-700 hover:border-slate-600'
+              key={c.id}
+              onClick={() => setSelectedCategory(c.id)}
+              className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+                selectedCategory === c.id
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
+                  : "bg-slate-800 text-gray-400 hover:bg-slate-700 hover:text-white"
               }`}
             >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-6 py-2 rounded-full text-sm font-semibold">
-                    Paling Populer
-                  </span>
-                </div>
-              )}
+              <c.icon className="w-5 h-5" />
+              {c.name}
+            </button>
+          ))}
+        </div>
 
-              <div className="text-center mb-8">
-                <div className={`w-16 h-16 bg-gradient-to-r ${plan.gradient} rounded-2xl p-4 mx-auto mb-4`}>
-                  <plan.icon className="h-8 w-8 text-white" />
-                </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                <p className="text-gray-400 mb-6">{plan.description}</p>
-                
-                <div className="mb-6">
-                  <span className="text-5xl font-bold text-white">
-                    Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-                  </span>
-                  <span className="text-gray-400 ml-2">
-                    /{billingCycle === 'bulanan' ? 'bulan' : 'tahun'}
-                  </span>
-                </div>
+        {/* Billing Toggle */}
+        <div className="flex items-center justify-center mb-12">
+          <span
+            className={`mr-3 ${
+              billingCycle === "bulanan" ? "text-white" : "text-gray-400"
+            }`}
+          >
+            Bulanan
+          </span>
+          <button
+            onClick={() =>
+              setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")
+            }
+            className="relative w-16 h-8 bg-slate-700 rounded-full p-1"
+          >
+            <div
+              className={`w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transform transition-transform ${
+                billingCycle === "tahunan" ? "translate-x-8" : ""
+              }`}
+            ></div>
+          </button>
+          <span
+            className={`ml-3 ${
+              billingCycle === "tahunan" ? "text-white" : "text-gray-400"
+            }`}
+          >
+            Tahunan
+          </span>
+        </div>
+
+        {/* Pricing Cards */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {currentPlans.map((plan, i) => (
+            <div
+              key={i}
+              className="bg-slate-800 rounded-2xl p-8 border border-slate-700 hover:border-cyan-500 transition-all"
+            >
+              <div className={`w-14 h-14 mx-auto mb-4 bg-gradient-to-r ${plan.gradient} rounded-xl flex items-center justify-center`}>
+                <plan.icon className="w-6 h-6 text-white" />
               </div>
 
-              {/* Spesifikasi */}
-              <div className="mb-8 p-6 bg-slate-900/50 rounded-xl">
-                <h4 className="text-lg font-semibold text-white mb-4">Spesifikasi</h4>
-                <div className="space-y-2 text-gray-300">
-                  {Object.entries(plan.specs).map(([key, value]) => (
-                    <div key={key} className="flex justify-between">
-                      <span className="capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
-                      <span className="text-cyan-400">{value}</span>
-                    </div>
-                  ))}
-                </div>
+              <h3 className="text-xl font-bold text-white mb-1">{plan.name}</h3>
+              <p className="text-gray-400 text-sm mb-6">{plan.desc}</p>
+
+              <div className="text-4xl font-bold text-white mb-6">
+                Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+                <span className="text-sm text-gray-400 ml-1">
+                  /{billingCycle === "bulanan" ? "bulan" : "tahun"}
+                </span>
               </div>
 
-              {/* Fitur */}
-              <ul className="space-y-4 mb-8">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center text-gray-300">
-                    <Check className="h-5 w-5 text-green-400 mr-3 flex-shrink-0" />
-                    {feature}
-                  </li>
+              <div className="text-gray-300 text-sm space-y-2 mb-6">
+                {Object.entries(plan.specs).map(([k, v]) => (
+                  <div key={k} className="flex justify-between">
+                    <span className="capitalize">{k}:</span>
+                    <span className="text-cyan-400">{v}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
 
-              <button 
+              <button
                 onClick={() => {
                   setRedirecting(true);
                   setMessage(plan.name);
                   setTimeout(() => {
                     window.open(
-                      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage(plan.name))}`,
+                      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                        whatsappMessage(plan.name)
+                      )}`,
                       "_blank"
                     );
                     setRedirecting(false);
                   }, 1500);
                 }}
-                className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105`}
-                >
+                className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-3 rounded-lg font-semibold hover:opacity-90`}
+              >
                 Mulai Sekarang
               </button>
             </div>
           ))}
         </div>
 
-        {/* 🔥 Alert Modal */}
+        {/* Redirect Modal */}
         <AnimatePresence>
-        {redirecting && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 flex items-center justify-center bg-black/70 z-50"
-          >
+          {redirecting && (
             <motion.div
-              initial={{ scale: 0.7, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.7, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="bg-slate-800 p-8 rounded-2xl shadow-2xl text-center"
+              className="fixed inset-0 flex items-center justify-center bg-black/70 z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <div className="animate-spin rounded-full h-16 w-16 border-4 border-cyan-400 border-t-transparent mx-auto mb-6"></div>
-              <h3 className="text-xl font-bold text-white mb-2">
-                Mohon Tunggu...
-              </h3>
-              <p className="text-gray-300">
-                Sedang redirect ke WhatsApp untuk paket{" "}
-                <span className="text-cyan-400 font-semibold">{message}</span>
-              </p>
-             </motion.div>
-          </motion.div>
-        )}
+              <motion.div
+                className="bg-slate-800 p-8 rounded-2xl text-center shadow-2xl"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+              >
+                <div className="animate-spin rounded-full h-14 w-14 border-4 border-cyan-400 border-t-transparent mx-auto mb-4"></div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  Mengarahkan ke WhatsApp...
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Paket <span className="text-cyan-400 font-semibold">{message}</span>
+                </p>
+              </motion.div>
+            </motion.div>
+          )}
         </AnimatePresence>
-
-        {/* Custom Solution */}
-        <div className="text-center bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-12 border border-slate-700">
-          <h3 className="text-3xl font-bold text-white mb-4">Butuh Konfigurasi Khusus?</h3>
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            Kami menyediakan solusi yang sepenuhnya dapat disesuaikan sesuai kebutuhan Anda. 
-            Hubungi tim kami untuk penawaran harga khusus dan konfigurasi di lokasi manapun di seluruh dunia.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() =>
-                window.open(
-                  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Halo, saya ingin konsultasi terkait solusi kustom.")}`,
-                  "_blank"
-                )
-              }
-              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-600 transition-all duration-300 hover:shadow-xl"
-              >
-              Hubungi Tim Penjualan
-            </button>
-            <button 
-              onClick={() =>
-                window.open(
-                  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Halo, saya ingin konsultasi terkait solusi kustom.")}`,
-                  "_blank"
-                )
-              }
-              className="border border-gray-600 hover:border-cyan-400 text-gray-300 hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg"
-              >
-              Minta Penawaran
-            </button>
-          </div>
-        </div>
       </div>
     </section>
   );
 };
 
 export default Pricing;
-
-

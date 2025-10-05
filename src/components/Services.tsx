@@ -1,113 +1,104 @@
 import React from 'react';
-import { Server, Monitor, Cpu, Settings, Shield, Zap, Globe, HardDrive } from 'lucide-react';
+import { Server, Monitor, Cpu, Settings, Shield, Zap, Globe } from 'lucide-react';
 
 const Services = () => {
   const services = [
     {
-      icon: <Server className="h-12 w-12" />,
+      icon: Server,
       title: "VPS Hosting",
-      description: "Server virtual privat dengan performa tinggi, akses root penuh, dan sumber daya terjamin.",
-      features: ["Penyimpanan SSD", "Perlindungan DDoS", "Uptime 99.9%", "Akses Root Penuh"],
-      color: "from-blue-500 to-blue-600",
-      link: "#pricing"
+      desc: "Server virtual performa tinggi dengan akses root penuh dan uptime 99.9%.",
+      color: "from-blue-500 to-indigo-500",
+      link: "#pricing",
     },
     {
-      icon: <Monitor className="h-12 w-12" />,
+      icon: Monitor,
       title: "Server RDP",
-      description: "Server Windows RDP untuk akses desktop jarak jauh dengan koneksi berkecepatan tinggi.",
-      features: ["Windows Server", "Remote Desktop", "Akses Admin", "Dukungan 24/7"],
-      color: "from-purple-500 to-purple-600",
-      link: "#pricing"
+      desc: "Akses desktop Windows jarak jauh dengan koneksi cepat dan stabil.",
+      color: "from-purple-500 to-fuchsia-500",
+      link: "#pricing",
     },
     {
-      icon: <Cpu className="h-12 w-12" />,
+      icon: Cpu,
       title: "Bare Metal RDP",
-      description: "Server bare metal khusus untuk performa maksimal dan kontrol penuh.",
-      features: ["Hardware Dedicated", "Konfigurasi Custom", "Performa Maksimal", "Akses Langsung"],
-      color: "from-pink-500 to-pink-600",
-      link: "#pricing"
+      desc: "Server dedicated dengan kontrol penuh dan performa maksimal.",
+      color: "from-pink-500 to-rose-500",
+      link: "#pricing",
     },
     {
-      icon: <Settings className="h-12 w-12" />,
+      icon: Settings,
       title: "Solusi Kustom",
-      description: "Konfigurasi server sesuai kebutuhan bisnis Anda secara spesifik.",
-      features: ["Spesifikasi Kustom", "Paket Fleksibel", "Skalabilitas Tinggi", "Dukungan Ahli"],
-      color: "from-green-500 to-green-600",
-      link: "#contact"
-    }
+      desc: "Konfigurasi server fleksibel sesuai kebutuhan bisnis Anda.",
+      color: "from-emerald-500 to-green-500",
+      link: "#contact",
+    },
+  ];
+
+  const extras = [
+    {
+      icon: Shield,
+      title: "Keamanan Enterprise",
+      desc: "Perlindungan DDoS, firewall aktif, dan monitoring real-time.",
+      color: "text-blue-600 bg-blue-50",
+    },
+    {
+      icon: Zap,
+      title: "Performa Super Cepat",
+      desc: "SSD premium dan jaringan global untuk koneksi optimal.",
+      color: "text-purple-600 bg-purple-50",
+    },
+    {
+      icon: Globe,
+      title: "Jaringan Global",
+      desc: "Data center di berbagai wilayah dengan latency rendah.",
+      color: "text-pink-600 bg-pink-50",
+    },
   ];
 
   return (
     <section id="services" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Layanan</span> Kami
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Solusi infrastruktur cloud yang lengkap, dirancang untuk mendukung bisnis Anda dengan keandalan dan performa terbaik.
-          </p>
-        </div>
+      <div className="container mx-auto px-6 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Layanan Kami
+          </span>
+        </h2>
+        <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-16">
+          Infrastruktur cloud modern dengan keandalan, kecepatan, dan keamanan terbaik untuk mendukung bisnis Anda.
+        </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
-            <div 
-              key={index}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 overflow-hidden"
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map(({ icon: Icon, title, desc, color, link }, i) => (
+            <div
+              key={i}
+              className="p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
             >
-              <div className="p-8">
-                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${service.color} text-white rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-                
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-gray-700">
-                      <div className={`w-2 h-2 bg-gradient-to-r ${service.color} rounded-full mr-3`}></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <a
-                  href={service.link}
-                  className={`w-full inline-block text-center bg-gradient-to-r ${service.color} text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform group-hover:scale-105`}
-                >
-                  Selengkapnya
-                </a>
+              <div
+                className={`inline-flex items-center justify-center w-16 h-16 rounded-xl mb-6 text-white bg-gradient-to-r ${color}`}
+              >
+                <Icon className="h-8 w-8" />
               </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">{title}</h3>
+              <p className="text-gray-600 mb-6">{desc}</p>
+              <a
+                href={link}
+                className={`inline-block bg-gradient-to-r ${color} text-white px-5 py-2 rounded-lg font-medium hover:shadow-md transition-transform hover:scale-105`}
+              >
+                Selengkapnya
+              </a>
             </div>
           ))}
         </div>
 
-        {/* Fitur Tambahan */}
-        <div className="mt-20 grid md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="bg-gradient-to-br from-blue-100 to-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Shield className="h-10 w-10 text-blue-600" />
+        <div className="mt-20 grid md:grid-cols-3 gap-10">
+          {extras.map(({ icon: Icon, title, desc, color }, i) => (
+            <div key={i} className="text-center">
+              <div className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center ${color}`}>
+                <Icon className="h-10 w-10" />
+              </div>
+              <h4 className="text-xl font-semibold text-gray-900 mb-2">{title}</h4>
+              <p className="text-gray-600 max-w-sm mx-auto">{desc}</p>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Keamanan Tingkat Enterprise</h3>
-            <p className="text-gray-600">Keamanan perlindungan DDoS, firewall, dan pemantauan berkelanjutan.</p>
-          </div>
-          
-          <div className="text-center">
-            <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Zap className="h-10 w-10 text-purple-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Super Cepat</h3>
-            <p className="text-gray-600">Penyimpanan SSD dan koneksi jaringan premium untuk performa optimal.</p>
-          </div>
-          
-          <div className="text-center">
-            <div className="bg-gradient-to-br from-pink-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Globe className="h-10 w-10 text-pink-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Jaringan Global</h3>
-            <p className="text-gray-600">Banyak data center di seluruh dunia memastikan latency rendah dan ketersediaan tinggi.</p>
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -115,4 +106,3 @@ const Services = () => {
 };
 
 export default Services;
-

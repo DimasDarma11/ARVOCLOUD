@@ -26,7 +26,13 @@ const Pricing = () => {
         icon: Zap,
         price: { bulanan: 50000, tahunan: 550000 },
         desc: "Cocok untuk project kecil & dev testing",
-        specs: { cpu: "1 vCPU", ram: "1GB", storage: "25GB SSD" },
+        specs: { 
+          cpu: "1 vCPU", 
+          ram: "1GB", 
+          storage: "25GB SSD" 
+          os: "Ubuntu / Debian",
+          region: "Indonesia/USA" 
+        },
         gradient: "from-cyan-500 to-blue-500",
       },
       {
@@ -34,7 +40,13 @@ const Pricing = () => {
         icon: Star,
         price: { bulanan: 140000, tahunan: 1540000 },
         desc: "Ideal untuk website dan aplikasi ringan",
-        specs: { cpu: "2 vCPU", ram: "4GB", storage: "40GB SSD" },
+        specs: { 
+          cpu: "2 vCPU", 
+          ram: "4GB", 
+          storage: "40GB SSD" 
+          os: "Ubuntu / Debian",
+          region: "Indonesia/USA" 
+        },
         gradient: "from-purple-500 to-pink-500",
       },
       {
@@ -42,34 +54,160 @@ const Pricing = () => {
         icon: Crown,
         price: { bulanan: 200000, tahunan: 2200000 },
         desc: "Performa tinggi untuk bisnis dan tim kecil",
-        specs: { cpu: "4 vCPU", ram: "8GB", storage: "60GB SSD" },
+        specs: { 
+          cpu: "4 vCPU", 
+          ram: "8GB", 
+          storage: "60GB SSD"
+          os: "Ubuntu / Debian",
+          region: "Indonesia/USA" 
+        },
         gradient: "from-orange-500 to-red-500",
       },
     ],
     rdp: [
       {
-        name: "RDP Starter",
+        name: "RDP 1",
         icon: Zap,
         price: { bulanan: 95000, tahunan: 1045000 },
         desc: "RDP ekonomis untuk keperluan ringan",
-        specs: { cpu: "2 vCPU", ram: "4GB", os: "Win 11 Pro" },
+        specs: { 
+          cpu: "2 vCPU", 
+          ram: "4GB", 
+          os: "Win 10/11 Spectre",
+          region: "Indonesia/USA" 
+        },
         gradient: "from-blue-500 to-cyan-500",
       },
       {
-        name: "RDP Business",
+        name: "RDP 2",
         icon: Star,
         price: { bulanan: 150000, tahunan: 1650000 },
         desc: "Performa stabil untuk kebutuhan harian",
-        specs: { cpu: "4 vCPU", ram: "8GB", os: "Win 11 Pro" },
+        specs: { 
+          cpu: "4 vCPU", 
+          ram: "8GB", 
+          os: "Win 10/11 Spectre",
+          region: "Indonesia/USA" 
+        },
         gradient: "from-purple-500 to-pink-500",
       },
       {
-        name: "RDP Premium",
+        name: "RDP 3",
         icon: Crown,
         price: { bulanan: 250000, tahunan: 2750000 },
         desc: "Performa tinggi dengan dukungan 24/7",
-        specs: { cpu: "6 vCPU", ram: "16GB", os: "Win 11 Pro" },
+        specs: { 
+          cpu: "6 vCPU", 
+          ram: "16GB", 
+          os: "Win 10/11 Spectre",
+          region: "Indonesia/USA"
+        },
         gradient: "from-orange-500 to-red-500",
+      },
+    ],
+        baremetal: [
+      {
+        name: "Bare Metal ID 1",
+        icon: Zap,
+        price: { bulanan: 350000, tahunan: 3850000 },
+        desc: "Entry-level dedicated server",
+        specs: {
+          cpu: "Intel Core i3 Gen 6",
+          ram: "8GB",
+          storage: "256GB SSD",
+          bandwidth: "Unlimited",
+          region: "Indonesia"
+        },
+        gradient: "from-blue-500 to-cyan-500",
+      },
+      {
+        name: "Bare Metal ID 2",
+        icon: Star,
+        price: { bulanan: 400000, tahunan: 4400000 },
+        desc: "High-performance dedicated server",
+        specs: {
+          cpu: "Intel Core i3 Gen 6",
+          ram: "16GB",
+          storage: "256GB SSD",
+          bandwidth: "Unlimited",
+          region: "Indonesia"
+        },
+        gradient: "from-purple-500 to-pink-500",
+      },
+      {
+        name: "Bare Metal ID 3",
+        icon: Crown,
+        price: { bulanan: 450000, tahunan: 4950000 },
+        desc: "Maximum performance dedicated server",
+        specs: {
+          cpu: "Intel Core i3 Gen 6",
+          ram: "24GB",
+          storage: "256GB SSD",
+          bandwidth: "Unlimited",
+          region: "Indonesia"
+        },
+        gradient: "from-orange-500 to-red-500",
+      },
+      {
+        name: "Bare Metal ID 4",
+        icon: Crown,
+        price: { bulanan: 550000, tahunan: 6050000 },
+        desc: "Maximum performance dedicated server",
+        specs: {
+          cpu: "Intel Core i3 Gen 6",
+          ram: "32GB",
+          storage: "256GB SSD",
+          bandwidth: "Unlimited",
+          region: "Indonesia"
+        },
+        gradient: "from-orange-500 to-red-500",
+      },
+      {
+        name: "Bare Metal ID 5",
+        icon: Star,
+        price: { bulanan: 750000, tahunan: 8250000 },
+        desc: "High-performance dedicated server",
+        specs: {
+          cpu: "Intel Core i7 Gen 4",
+          ram: "32GB",
+          storage: "512GB SSD",
+          bandwidth: "Unlimited",
+          region: "Indonesia"
+        },
+        gradient: "from-purple-500 to-pink-500",
+      },
+      {
+        name: "Bare Metal USA",
+        icon: Star,
+        price: { bulanan: 1500000, tahunan: 16500000 },
+        desc: "High-performance dedicated server",
+        specs: {
+          cpu: "AMD Ryzen 7 5700G",
+          ram: "64GB",
+          storage: "1TB SSD",
+          bandwidth: "Unlimited",
+          region: "USA"
+        },
+        gradient: "from-indigo-500 to-purple-500",
+      },
+    ],
+
+    proxy: [
+      {
+        name: "Proxy Rotating IP",
+        icon: Zap,
+        price: { bulanan: 45000, tahunan: 540000 },
+        desc: "Proxy fleksibel dengan rotasi IP cepat",
+        specs: { Bandwidth: "1GB", Rotasi: "1-120 Menit" },
+        gradient: "from-purple-500 to-pink-500",
+      },
+      {
+        name: "Proxy Residential Static",
+        icon: ShieldCheck,
+        price: { bulanan: 140000, tahunan: 1680000 },
+        desc: "Proxy statis untuk kestabilan tinggi",
+        specs: { Bandwidth: "Unlimited", Negara: "27+ Country" },
+        gradient: "from-cyan-500 to-blue-500",
       },
     ],
   };

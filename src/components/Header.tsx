@@ -12,6 +12,8 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const menuItems = ["Home", "Services", "Pricing", "About", "Contact"];
+
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -31,7 +33,7 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
-          {["Home", "Services", "Pricing", "About", "Contact"].map((item) => (
+          {menuItems.map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -40,6 +42,16 @@ const Header = () => {
               {item}
             </a>
           ))}
+
+          {/* Aturan Pemakaian */}
+          <Link
+            to="/rules"
+            className="text-gray-700 hover:text-blue-600 transition-colors"
+          >
+            Aturan
+          </Link>
+
+          {/* Login Button */}
           <Link
             to="/login"
             className="ml-6 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium shadow-sm hover:opacity-90 transition-opacity"
@@ -61,7 +73,7 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-lg shadow-md border-t border-gray-200">
           <nav className="flex flex-col space-y-3 py-4 px-6 text-sm font-medium">
-            {["Home", "Services", "Pricing", "About", "Contact"].map((item) => (
+            {menuItems.map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -70,6 +82,12 @@ const Header = () => {
                 {item}
               </a>
             ))}
+            <Link
+              to="/rules"
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              Aturan
+            </Link>
             <Link
               to="/login"
               className="mt-3 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium text-center shadow-sm hover:opacity-90 transition-opacity"

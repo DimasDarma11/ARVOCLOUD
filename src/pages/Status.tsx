@@ -5,9 +5,9 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "rec
 const initialServices = [
   { name: "SRV-01 DC Jakarta ID", status: "online", uptime: 99.8, latency: 12, history: Array(10).fill(99.8) },
   { name: "SRV-02 DC Bogor ID", status: "online", uptime: 99.8, latency: 12, history: Array(10).fill(99.8) },
-  { name: "SRV-02 DC Bandung ID", status: "online", uptime: 99.8, latency: 12, history: Array(10).fill(99.8) },
-  { name: "SRV-02 DC Surabaya ID", status: "online", uptime: 99.8, latency: 12, history: Array(10).fill(99.8) },
-  { name: "SRV-02 DC Utah USA", status: "online", uptime: 99.9, latency: 45, history: Array(10).fill(99.9) },
+  { name: "SRV-03 DC Bandung ID", status: "online", uptime: 99.8, latency: 12, history: Array(10).fill(99.8) },
+  { name: "SRV-04 DC Surabaya ID", status: "online", uptime: 99.8, latency: 12, history: Array(10).fill(99.8) },
+  { name: "SRV-05 DC Utah USA", status: "online", uptime: 99.9, latency: 45, history: Array(10).fill(99.9) },
 ];
 
 const getRandomLatency = (base) => Math.floor(base + Math.random() * 20 - 10);

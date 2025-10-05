@@ -15,7 +15,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
-    "framer-motion": "^11.3.29"
+    "framer-motion": "^11.3.29",
+    "recharts": "^2.7.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

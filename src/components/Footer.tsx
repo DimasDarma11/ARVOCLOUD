@@ -1,36 +1,37 @@
-import React from 'react';
-import { Server, Mail, Phone, MapPin, Twitter, Facebook, Linkedin, Github, Instagram } from 'lucide-react';
+import React from "react";
+import { Server, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+    <footer className="bg-gray-950 text-gray-400">
+      <div className="container mx-auto px-6 py-14">
+        <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-10">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-xl">
+          <div>
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-lg">
                 <Server className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold">ARVOCLOUD</span>
+              <span className="text-xl font-bold text-white">ARVOCLOUD</span>
             </div>
-            <p className="text-gray-400 leading-relaxed mb-6">
-              Layanan cloud premium dengan performa cepat, keamanan terjamin, dan dukungan profesional 24/7 untuk kebutuhan bisnis Anda.
+            <p className="text-sm leading-relaxed">
+              Infrastruktur cloud cepat, aman, dan andal untuk bisnis modern
+              serta pengembang profesional.
             </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://instagram.com/dimazdarmaa" 
+            <div className="flex space-x-4 mt-5">
+              <a
+                href="https://instagram.com/dimazdarmaa"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300"
+                className="hover:text-white transition-colors"
               >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a 
-                href="https://facebook.com/jagoanneon44" 
+              <a
+                href="https://facebook.com/jagoanneon44"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 p-2 rounded-lg transition-colors duration-300"
+                className="hover:text-white transition-colors"
               >
                 <Facebook className="h-5 w-5" />
               </a>
@@ -39,64 +40,54 @@ const Footer = () => {
 
           {/* Layanan */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Layanan</h3>
-            <ul className="space-y-3">
-              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">VPS Hosting</a></li>
-              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">RDP Server</a></li>
-              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Bare Metal RDP</a></li>
-              <li><a href="#services" className="text-gray-400 hover:text-white transition-colors">Solusi Kustom</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Dukungan 24/7</a></li>
+            <h3 className="text-white font-semibold mb-4">Layanan</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#services" className="hover:text-white">VPS Hosting</a></li>
+              <li><a href="#services" className="hover:text-white">RDP Server</a></li>
+              <li><a href="#services" className="hover:text-white">Bare Metal</a></li>
+              <li><a href="#services" className="hover:text-white">Solusi Kustom</a></li>
             </ul>
           </div>
 
           {/* Dukungan */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Dukungan</h3>
-            <ul className="space-y-3">
-              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Pusat Bantuan</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Status Sistem</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Hubungi Kami</a></li>
+            <h3 className="text-white font-semibold mb-4">Dukungan</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#contact" className="hover:text-white">Hubungi Kami</a></li>
+              <li><a href="#" className="hover:text-white">Status Sistem</a></li>
+              <li><a href="#contact" className="hover:text-white">Pusat Bantuan</a></li>
             </ul>
           </div>
 
           {/* Kontak */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Info Kontak</h3>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-400">arvocloudserver@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-400">+62 831-9718-3724</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-400">Global Data Center</span>
-              </div>
-            </div>
-
-            <div className="mt-6 p-4 bg-gray-800 rounded-lg">
-              <h4 className="font-semibold mb-2">Dukungan 24/7</h4>
-              <p className="text-sm text-gray-400">
-                Tim dukungan ahli kami siap membantu Anda kapan saja, 24 jam nonstop.
-              </p>
-            </div>
+            <h3 className="text-white font-semibold mb-4">Kontak</h3>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center space-x-2">
+                <Mail className="h-4 w-4 text-blue-400" />
+                <span>arvocloudserver@gmail.com</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <Phone className="h-4 w-4 text-blue-400" />
+                <span>+62 831-9718-3724</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <MapPin className="h-4 w-4 text-blue-400" />
+                <span>Global Data Center</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Bawah */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="grid md:grid-cols-2 gap-4 items-center">
-            <div className="text-gray-400 text-center md:text-left">
-              <p>&copy; 2025 ARVOCLOUD. Hak cipta dilindungi.</p>
-            </div>
-            <div className="flex justify-center md:justify-end space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Kebijakan Privasi</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Syarat & Ketentuan</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Kebijakan Cookie</a>
-            </div>
+        {/* Bottom */}
+        <div className="border-t border-gray-800 mt-12 pt-6 text-sm flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-center md:text-left">
+            © 2025 <span className="text-white font-semibold">ARVOCLOUD</span>. Semua hak dilindungi.
+          </p>
+          <div className="flex space-x-6 mt-3 md:mt-0">
+            <a href="#" className="hover:text-white">Privasi</a>
+            <a href="#" className="hover:text-white">Syarat</a>
+            <a href="#" className="hover:text-white">Cookie</a>
           </div>
         </div>
       </div>
@@ -105,4 +96,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

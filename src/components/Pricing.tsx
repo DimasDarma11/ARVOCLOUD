@@ -29,7 +29,7 @@ const Pricing = () => {
         specs: { 
           cpu: "1 vCPU", 
           ram: "1GB", 
-          storage: "25GB SSD" 
+          storage: "25GB SSD", 
           os: "Ubuntu / Debian",
           region: "Indonesia/USA" 
         },
@@ -43,7 +43,7 @@ const Pricing = () => {
         specs: { 
           cpu: "2 vCPU", 
           ram: "4GB", 
-          storage: "40GB SSD" 
+          storage: "40GB SSD",
           os: "Ubuntu / Debian",
           region: "Indonesia/USA" 
         },
@@ -57,7 +57,7 @@ const Pricing = () => {
         specs: { 
           cpu: "4 vCPU", 
           ram: "8GB", 
-          storage: "60GB SSD"
+          storage: "60GB SSD",
           os: "Ubuntu / Debian",
           region: "Indonesia/USA" 
         },

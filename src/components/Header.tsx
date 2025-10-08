@@ -12,7 +12,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = ["Home", "Services", "Pricing", "About", "Contact"];
+  const menuItems = ["Services", "Pricing", "About", "Contact"];
 
   return (
     <header

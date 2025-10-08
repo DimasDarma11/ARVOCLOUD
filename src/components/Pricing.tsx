@@ -22,44 +22,162 @@ const Pricing = () => {
   const plans = {
     vps: [
       {
-        name: "VPS 1",
+        name: "VPS TURBO 1",
         icon: Zap,
         price: { bulanan: 50000, tahunan: 550000 },
-        desc: "Cocok untuk project kecil & dev testing",
+        desc: "Pilihan hemat untuk project kecil atau pengujian pengembang.",
         specs: { 
           cpu: "1 vCPU", 
           ram: "1GB", 
-          storage: "25GB SSD", 
+          storage: "15GB SSD NVMe", 
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
           os: "Ubuntu / Debian",
-          region: "Indonesia/USA" 
+          region: "Indonesia"
         },
         gradient: "from-cyan-500 to-blue-500",
       },
       {
-        name: "VPS 2",
-        icon: Star,
-        price: { bulanan: 140000, tahunan: 1540000 },
-        desc: "Ideal untuk website dan aplikasi ringan",
+        name: "VPS TURBO 2",
+        icon: Zap,
+        price: { bulanan: 75000, tahunan: 825000 },
+        desc: "Cocok untuk website ringan, bot, atau aplikasi skala kecil.",
+        specs: { 
+          cpu: "1 vCPU", 
+          ram: "2GB", 
+          storage: "20GB SSD NVMe", 
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
+          os: "Ubuntu / Debian",
+          region: "Indonesia"
+        },
+        gradient: "from-cyan-500 to-blue-500",
+      },
+      {
+        name: "VPS TURBO 3",
+        icon: Zap,
+        price: { bulanan: 150000, tahunan: 1650000 },
+        desc: "Ideal untuk website, panel hosting, atau aplikasi ringan-menengah.",
         specs: { 
           cpu: "2 vCPU", 
           ram: "4GB", 
-          storage: "40GB SSD",
+          storage: "50GB SSD NVMe",
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
           os: "Ubuntu / Debian",
-          region: "Indonesia/USA" 
+          region: "Indonesia"
         },
         gradient: "from-purple-500 to-pink-500",
       },
       {
-        name: "VPS 3",
-        icon: Crown,
+        name: "VPS TURBO 4",
+        icon: Zap,
+        price: { bulanan: 170000, tahunan: 1870000 },
+        desc: "Pilihan seimbang untuk aplikasi menengah dan server komunitas.",
+        specs: { 
+          cpu: "4 vCPU", 
+          ram: "6GB", 
+          storage: "60GB SSD NVMe", 
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
+          os: "Ubuntu / Debian",
+          region: "Indonesia"
+        },
+        gradient: "from-cyan-500 to-blue-500",
+      },
+      {
+        name: "VPS TURBO 5",
+        icon: Star,
         price: { bulanan: 200000, tahunan: 2200000 },
-        desc: "Performa tinggi untuk bisnis dan tim kecil",
+        desc: "Performa tinggi untuk bisnis kecil, e-commerce, atau tim pengembang.",
         specs: { 
           cpu: "4 vCPU", 
           ram: "8GB", 
-          storage: "60GB SSD",
+          storage: "70GB SSD NVMe",
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
           os: "Ubuntu / Debian",
-          region: "Indonesia/USA" 
+          region: "Indonesia"
+        },
+        gradient: "from-orange-500 to-red-500",
+      },
+      {
+        name: "VPS TURBO 6",
+        icon: Crown,
+        price: { bulanan: 230000, tahunan: 2530000 },
+        desc: "Kinerja optimal untuk bisnis menengah dan server aplikasi berat.",
+        specs: { 
+          cpu: "6 vCPU", 
+          ram: "10GB", 
+          storage: "80GB SSD NVMe",
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
+          os: "Ubuntu / Debian",
+          region: "Indonesia"
+        },
+        gradient: "from-orange-500 to-red-500",
+      },
+      {
+        name: "VPS TURBO 7",
+        icon: Crown,
+        price: { bulanan: 300000, tahunan: 3300000 },
+        desc: "Performa tinggi untuk bisnis profesional dan server produksi.",
+        specs: { 
+          cpu: "8 vCPU", 
+          ram: "14GB", 
+          storage: "100GB SSD NVMe",
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
+          os: "Ubuntu / Debian",
+          region: "Indonesia"
+        },
+        gradient: "from-orange-500 to-red-500",
+      },
+      {
+        name: "VPS TURBO 8",
+        icon: Crown,
+        price: { bulanan: 320000, tahunan: 3520000 },
+        desc: "Kinerja stabil untuk bisnis profesional dan server produksi berskala menengah.",
+        specs: { 
+          cpu: "8 vCPU", 
+          ram: "16GB", 
+          storage: "100GB SSD NVMe",
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
+          os: "Ubuntu / Debian",
+          region: "Indonesia"
+        },
+        gradient: "from-orange-500 to-red-500",
+      },
+      {
+        name: "VPS TURBO 9",
+        icon: Crown,
+        price: { bulanan: 350000, tahunan: 3850000 },
+        desc: "Server tangguh untuk aplikasi intensif, database besar, atau load tinggi.",
+        specs: { 
+          cpu: "10 vCPU", 
+          ram: "16GB", 
+          storage: "120GB SSD NVMe",
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
+          os: "Ubuntu / Debian",
+          region: "Indonesia"
+        },
+        gradient: "from-orange-500 to-red-500",
+      },
+      {
+        name: "VPS TURBO 10",
+        icon: Crown,
+        price: { bulanan: 380000, tahunan: 4180000 },
+        desc: "Performa maksimal untuk perusahaan, server produksi besar, atau cloud service.",
+        specs: { 
+          cpu: "10 vCPU", 
+          ram: "18GB", 
+          storage: "120GB SSD NVMe",
+          network: "Speed UpTo 10 Gbps",
+          ip: "1 IPv4",
+          os: "Ubuntu / Debian",
+          region: "Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },

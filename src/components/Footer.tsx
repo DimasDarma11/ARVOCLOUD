@@ -1,23 +1,30 @@
 import React from "react";
-import { Server, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
+import { Cloud, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-950 text-gray-400">
       <div className="container mx-auto px-6 py-14">
         <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-10">
+          
           {/* Brand */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-lg">
-                <Server className="h-6 w-6 text-white" />
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="relative">
+                <div className="bg-gradient-to-br from-blue-500 via-cyan-400 to-purple-600 p-2 rounded-xl shadow-lg shadow-blue-500/20">
+                  <Cloud className="h-6 w-6 text-white" />
+                </div>
               </div>
-              <span className="text-xl font-bold text-white">ARVOCLOUD</span>
+              <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-500 bg-clip-text text-transparent tracking-wide">
+                ARVOCLOUD
+              </span>
             </div>
+
             <p className="text-sm leading-relaxed">
-              Infrastruktur cloud cepat, aman, dan andal untuk bisnis modern
-              serta pengembang profesional.
+              Solusi infrastruktur cloud cepat, aman, dan andal untuk bisnis modern,
+              pengembang profesional, serta kebutuhan server masa kini.
             </p>
+
             <div className="flex space-x-4 mt-5">
               <a
                 href="https://instagram.com/dimazdarmaa"
@@ -64,15 +71,15 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Kontak</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center space-x-2">
-                <Mail className="h-4 w-4 text-blue-400" />
+                <Mail className="h-4 w-4 text-cyan-400" />
                 <span>arvocloudserver@gmail.com</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone className="h-4 w-4 text-blue-400" />
+                <Phone className="h-4 w-4 text-cyan-400" />
                 <span>+62 831-9718-3724</span>
               </li>
               <li className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-blue-400" />
+                <MapPin className="h-4 w-4 text-cyan-400" />
                 <span>Global Data Center</span>
               </li>
             </ul>

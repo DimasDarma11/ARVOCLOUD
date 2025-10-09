@@ -190,7 +190,7 @@ const Pricing = () => {
         desc: "RDP ekonomis untuk keperluan ringan",
         specs: { 
           cpu: "2 vCPU", 
-          ram: "4GB", 
+          ram: "4 GB", 
           storage: "20 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
           region: "🇮🇩 Indonesia • 🇺🇸 USA" 
@@ -204,8 +204,8 @@ const Pricing = () => {
         desc: "Performa stabil untuk kebutuhan harian",
         specs: { 
           cpu: "4 vCPU", 
-          ram: "8GB", 
-          storage: "40 GB SSD".
+          ram: "8 GB", 
+          storage: "40 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
           region: "🇮🇩 Indonesia • 🇺🇸 USA" 
         },
@@ -218,7 +218,7 @@ const Pricing = () => {
         desc: "Performa tinggi dengan dukungan 24/7",
         specs: { 
           cpu: "6 vCPU", 
-          ram: "16GB", 
+          ram: "16 GB", 
           storage: "60 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
           region: "🇮🇩 Indonesia • 🇺🇸 USA"
@@ -234,8 +234,8 @@ const Pricing = () => {
         desc: "Entry-level dedicated server",
         specs: {
           cpu: "Intel Core i3 Gen 6",
-          ram: "8GB",
-          storage: "256GB SSD",
+          ram: "8 GB",
+          storage: "256 GB SSD",
           bandwidth: "Unlimited",
           region: "🇮🇩 Indonesia"
         },
@@ -248,8 +248,8 @@ const Pricing = () => {
         desc: "High-performance dedicated server",
         specs: {
           cpu: "Intel Core i3 Gen 6",
-          ram: "16GB",
-          storage: "256GB SSD",
+          ram: "16 GB",
+          storage: "256 GB SSD",
           bandwidth: "Unlimited",
           region: "🇮🇩 Indonesia"
         },
@@ -262,8 +262,8 @@ const Pricing = () => {
         desc: "Maximum performance dedicated server",
         specs: {
           cpu: "Intel Core i3 Gen 6",
-          ram: "24GB",
-          storage: "256GB SSD",
+          ram: "24 GB",
+          storage: "256 GB SSD",
           bandwidth: "Unlimited",
           region: "🇮🇩 Indonesia"
         },
@@ -276,8 +276,8 @@ const Pricing = () => {
         desc: "Maximum performance dedicated server",
         specs: {
           cpu: "Intel Core i3 Gen 6",
-          ram: "32GB",
-          storage: "256GB SSD",
+          ram: "32 GB",
+          storage: "256 GB SSD",
           bandwidth: "Unlimited",
           region: "🇮🇩 Indonesia"
         },
@@ -290,8 +290,8 @@ const Pricing = () => {
         desc: "High-performance dedicated server",
         specs: {
           cpu: "Intel Core i7 Gen 4",
-          ram: "32GB",
-          storage: "512GB SSD",
+          ram: "32 GB",
+          storage: "512 GB SSD",
           bandwidth: "Unlimited",
           region: "🇮🇩 Indonesia"
         },
@@ -304,8 +304,8 @@ const Pricing = () => {
         desc: "High-performance dedicated server",
         specs: {
           cpu: "AMD Ryzen 7 5700G",
-          ram: "64GB",
-          storage: "1TB SSD",
+          ram: "64 GB",
+          storage: "1 TB SSD",
           bandwidth: "Unlimited",
           region: "🇺🇸 USA"
         },

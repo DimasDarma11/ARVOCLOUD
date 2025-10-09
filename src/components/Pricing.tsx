@@ -28,12 +28,12 @@ const Pricing = () => {
         desc: "Pilihan hemat untuk project kecil atau pengujian pengembang.",
         specs: { 
           cpu: "1 vCPU", 
-          ram: "1GB", 
-          storage: "15GB SSD NVMe", 
+          ram: "1 GB", 
+          storage: "15 GB SSD NVMe", 
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-cyan-500 to-blue-500",
       },
@@ -44,12 +44,12 @@ const Pricing = () => {
         desc: "Cocok untuk website ringan, bot, atau aplikasi skala kecil.",
         specs: { 
           cpu: "1 vCPU", 
-          ram: "2GB", 
-          storage: "20GB SSD NVMe", 
+          ram: "2 GB", 
+          storage: "20 GB SSD NVMe", 
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-cyan-500 to-blue-500",
       },
@@ -60,12 +60,12 @@ const Pricing = () => {
         desc: "Ideal untuk website, panel hosting, atau aplikasi ringan-menengah.",
         specs: { 
           cpu: "2 vCPU", 
-          ram: "4GB", 
-          storage: "50GB SSD NVMe",
+          ram: "4 GB", 
+          storage: "50 GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-purple-500 to-pink-500",
       },
@@ -76,12 +76,12 @@ const Pricing = () => {
         desc: "Pilihan seimbang untuk aplikasi menengah dan server komunitas.",
         specs: { 
           cpu: "4 vCPU", 
-          ram: "6GB", 
-          storage: "60GB SSD NVMe", 
+          ram: "6 GB", 
+          storage: "60 GB SSD NVMe", 
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-cyan-500 to-blue-500",
       },
@@ -92,12 +92,12 @@ const Pricing = () => {
         desc: "Performa tinggi untuk bisnis kecil, e-commerce, atau tim pengembang.",
         specs: { 
           cpu: "4 vCPU", 
-          ram: "8GB", 
+          ram: "8 GB", 
           storage: "70GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -108,12 +108,12 @@ const Pricing = () => {
         desc: "Kinerja optimal untuk bisnis menengah dan server aplikasi berat.",
         specs: { 
           cpu: "6 vCPU", 
-          ram: "10GB", 
-          storage: "80GB SSD NVMe",
+          ram: "10 GB", 
+          storage: "80 GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -124,12 +124,12 @@ const Pricing = () => {
         desc: "Performa tinggi untuk bisnis profesional dan server produksi.",
         specs: { 
           cpu: "8 vCPU", 
-          ram: "14GB", 
-          storage: "100GB SSD NVMe",
+          ram: "14 GB", 
+          storage: "100 GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -140,12 +140,12 @@ const Pricing = () => {
         desc: "Kinerja stabil untuk bisnis profesional dan server produksi berskala menengah.",
         specs: { 
           cpu: "8 vCPU", 
-          ram: "16GB", 
-          storage: "100GB SSD NVMe",
+          ram: "16 GB", 
+          storage: "100 GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -156,12 +156,12 @@ const Pricing = () => {
         desc: "Server tangguh untuk aplikasi intensif, database besar, atau load tinggi.",
         specs: { 
           cpu: "10 vCPU", 
-          ram: "16GB", 
-          storage: "120GB SSD NVMe",
+          ram: "16 GB", 
+          storage: "120 GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -172,12 +172,12 @@ const Pricing = () => {
         desc: "Performa maksimal untuk perusahaan, server produksi besar, atau cloud service.",
         specs: { 
           cpu: "10 vCPU", 
-          ram: "18GB", 
-          storage: "120GB SSD NVMe",
+          ram: "18 GB", 
+          storage: "120 GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
           os: "Ubuntu atau Debian",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -191,6 +191,7 @@ const Pricing = () => {
         specs: { 
           cpu: "2 vCPU", 
           ram: "4GB", 
+          storage: "20 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
           region: "🇮🇩 Indonesia • 🇺🇸 USA" 
         },
@@ -204,6 +205,7 @@ const Pricing = () => {
         specs: { 
           cpu: "4 vCPU", 
           ram: "8GB", 
+          storage: "40 GB SSD".
           os: "Windows 10 atau 11 (Spectre Edition)",
           region: "🇮🇩 Indonesia • 🇺🇸 USA" 
         },
@@ -217,6 +219,7 @@ const Pricing = () => {
         specs: { 
           cpu: "6 vCPU", 
           ram: "16GB", 
+          storage: "60 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
           region: "🇮🇩 Indonesia • 🇺🇸 USA"
         },
@@ -234,7 +237,7 @@ const Pricing = () => {
           ram: "8GB",
           storage: "256GB SSD",
           bandwidth: "Unlimited",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-blue-500 to-cyan-500",
       },
@@ -248,7 +251,7 @@ const Pricing = () => {
           ram: "16GB",
           storage: "256GB SSD",
           bandwidth: "Unlimited",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-purple-500 to-pink-500",
       },
@@ -262,7 +265,7 @@ const Pricing = () => {
           ram: "24GB",
           storage: "256GB SSD",
           bandwidth: "Unlimited",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -276,7 +279,7 @@ const Pricing = () => {
           ram: "32GB",
           storage: "256GB SSD",
           bandwidth: "Unlimited",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
       },
@@ -290,7 +293,7 @@ const Pricing = () => {
           ram: "32GB",
           storage: "512GB SSD",
           bandwidth: "Unlimited",
-          region: "Indonesia"
+          region: "🇮🇩 Indonesia"
         },
         gradient: "from-purple-500 to-pink-500",
       },
@@ -304,7 +307,7 @@ const Pricing = () => {
           ram: "64GB",
           storage: "1TB SSD",
           bandwidth: "Unlimited",
-          region: "USA"
+          region: "🇺🇸 USA"
         },
         gradient: "from-indigo-500 to-purple-500",
       },

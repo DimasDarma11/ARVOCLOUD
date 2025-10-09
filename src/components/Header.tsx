@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Server } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,50 +17,51 @@ const Header = () => {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
+        isScrolled
+          ? "bg-white/70 backdrop-blur-md shadow-sm"
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2 cursor-pointer select-none">
-          <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-lg">
-            <Server className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-xl font-semibold tracking-tight text-gray-800">
-            ARVOCLOUD
-          </span>
+        <div className="flex items-center space-x-3 cursor-pointer select-none group">
+          <img
+            src="https://i.ibb.co.com/Xrzm1whv/Arvocloud.jpg"
+            alt="Arvocloud Logo"
+            className="h-8 w-auto rounded-md transition-transform duration-300 group-hover:scale-105"
+          />
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Menu */}
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
           {menuItems.map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="text-gray-700 hover:text-blue-600 transition-colors"
+              className="relative text-gray-700 hover:text-blue-600 transition-colors group"
             >
               {item}
+              <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
 
-          {/* Aturan Pemakaian */}
           <Link
             to="/rules"
-            className="text-gray-700 hover:text-blue-600 transition-colors"
+            className="relative text-gray-700 hover:text-blue-600 transition-colors group"
           >
             Aturan
+            <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full" />
           </Link>
 
-          {/* Login Button */}
           <Link
             to="/login"
-            className="ml-6 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium shadow-sm hover:opacity-90 transition-opacity"
+            className="ml-6 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium shadow-sm hover:shadow-md hover:opacity-90 transition-all duration-300"
           >
             Login
           </Link>
         </nav>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Button */}
         <button
           className="md:hidden p-2 text-gray-700 focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -70,33 +71,38 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-lg shadow-md border-t border-gray-200">
-          <nav className="flex flex-col space-y-3 py-4 px-6 text-sm font-medium">
-            {menuItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                {item}
-              </a>
-            ))}
-            <Link
-              to="/rules"
+      <div
+        className={`md:hidden fixed top-16 left-0 w-full bg-white/95 backdrop-blur-lg shadow-lg border-t border-gray-200 transform transition-transform duration-300 ${
+          isMenuOpen ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <nav className="flex flex-col space-y-3 py-5 px-6 text-sm font-medium">
+          {menuItems.map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
               className="text-gray-700 hover:text-blue-600 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
             >
-              Aturan
-            </Link>
-            <Link
-              to="/login"
-              className="mt-3 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium text-center shadow-sm hover:opacity-90 transition-opacity"
-            >
-              Login
-            </Link>
-          </nav>
-        </div>
-      )}
+              {item}
+            </a>
+          ))}
+          <Link
+            to="/rules"
+            className="text-gray-700 hover:text-blue-600 transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Aturan
+          </Link>
+          <Link
+            to="/login"
+            className="mt-3 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium text-center shadow-sm hover:opacity-90 transition-opacity"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Login
+          </Link>
+        </nav>
+      </div>
     </header>
   );
 };

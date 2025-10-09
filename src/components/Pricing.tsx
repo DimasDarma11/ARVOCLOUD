@@ -32,7 +32,7 @@ const Pricing = () => {
           storage: "15GB SSD NVMe", 
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-cyan-500 to-blue-500",
@@ -48,7 +48,7 @@ const Pricing = () => {
           storage: "20GB SSD NVMe", 
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-cyan-500 to-blue-500",
@@ -64,7 +64,7 @@ const Pricing = () => {
           storage: "50GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-purple-500 to-pink-500",
@@ -80,7 +80,7 @@ const Pricing = () => {
           storage: "60GB SSD NVMe", 
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-cyan-500 to-blue-500",
@@ -96,7 +96,7 @@ const Pricing = () => {
           storage: "70GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
@@ -112,7 +112,7 @@ const Pricing = () => {
           storage: "80GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
@@ -128,7 +128,7 @@ const Pricing = () => {
           storage: "100GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
@@ -144,7 +144,7 @@ const Pricing = () => {
           storage: "100GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
@@ -160,7 +160,7 @@ const Pricing = () => {
           storage: "120GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
@@ -176,7 +176,7 @@ const Pricing = () => {
           storage: "120GB SSD NVMe",
           network: "Speed UpTo 10 Gbps",
           ip: "1 IPv4",
-          os: "Ubuntu / Debian",
+          os: "Ubuntu atau Debian",
           region: "Indonesia"
         },
         gradient: "from-orange-500 to-red-500",
@@ -191,8 +191,8 @@ const Pricing = () => {
         specs: { 
           cpu: "2 vCPU", 
           ram: "4GB", 
-          os: "Win 10/11 Spectre",
-          region: "Indonesia/USA" 
+          os: "Windows 10 atau 11 (Spectre Edition)",
+          region: "🇮🇩 Indonesia • 🇺🇸 USA" 
         },
         gradient: "from-blue-500 to-cyan-500",
       },
@@ -204,8 +204,8 @@ const Pricing = () => {
         specs: { 
           cpu: "4 vCPU", 
           ram: "8GB", 
-          os: "Win 10/11 Spectre",
-          region: "Indonesia/USA" 
+          os: "Windows 10 atau 11 (Spectre Edition)",
+          region: "🇮🇩 Indonesia • 🇺🇸 USA" 
         },
         gradient: "from-purple-500 to-pink-500",
       },
@@ -217,13 +217,13 @@ const Pricing = () => {
         specs: { 
           cpu: "6 vCPU", 
           ram: "16GB", 
-          os: "Win 10/11 Spectre",
-          region: "Indonesia/USA"
+          os: "Windows 10 atau 11 (Spectre Edition)",
+          region: "🇮🇩 Indonesia • 🇺🇸 USA"
         },
         gradient: "from-orange-500 to-red-500",
       },
     ],
-        baremetal: [
+    baremetal: [
       {
         name: "Bare Metal ID 1",
         icon: Zap,

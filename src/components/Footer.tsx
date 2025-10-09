@@ -11,13 +11,12 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <div className="relative">
-                <div className="bg-gradient-to-br from-blue-500 via-cyan-400 to-purple-600 p-2 rounded-xl shadow-lg shadow-blue-500/20">
-                  <Cloud className="h-6 w-6 text-white" />
-                </div>
+                <img
+                  src="https://ibb.co.com/hJKpbqPt"
+                  alt="ARVOCLOUD Logo"
+                  className="h-10 w-auto rounded-lg shadow-lg shadow-blue-500/20 hover:shadow-cyan-500/30 transition-shadow duration-300"
+                />
               </div>
-              <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-500 bg-clip-text text-transparent tracking-wide">
-                ARVOCLOUD
-              </span>
             </div>
 
             <p className="text-sm leading-relaxed">

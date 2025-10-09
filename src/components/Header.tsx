@@ -24,7 +24,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center space-x-3 cursor-pointer select-none group">
           <img
-            src="https://i.ibb.co/Xrzm1whv/Arvocloud.jpg"
+            src="https://i.ibb.co/VWzggVqJ/Arvocloud1.png"
             alt="Arvocloud Logo"
             className="h-8 w-auto rounded-md transition-transform duration-300 group-hover:scale-105"
           />

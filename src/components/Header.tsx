@@ -24,10 +24,9 @@ const Header = () => {
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2 cursor-pointer select-none">
-          <div className="flex items-center space-x-3 cursor-pointer select-none group">
+        <div className="flex items-center space-x-3 cursor-pointer select-none group">
           <img
-            src="https://i.ibb.co.com/Xrzm1whv/Arvocloud.jpg"
+            src="https://i.ibb.co/Xrzm1whv/Arvocloud.jpg"
             alt="Arvocloud Logo"
             className="h-8 w-auto rounded-md transition-transform duration-300 group-hover:scale-105"
           />
@@ -104,7 +103,6 @@ const Header = () => {
           </Link>
         </nav>
       </div>
-      )}
     </header>
   );
 };

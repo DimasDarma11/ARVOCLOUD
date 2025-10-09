@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Server } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +24,8 @@ const Header = () => {
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-3 cursor-pointer select-none group">
+        <div className="flex items-center space-x-2 cursor-pointer select-none">
+          <div className="flex items-center space-x-3 cursor-pointer select-none group">
           <img
             src="https://i.ibb.co.com/Xrzm1whv/Arvocloud.jpg"
             alt="Arvocloud Logo"
@@ -103,6 +104,7 @@ const Header = () => {
           </Link>
         </nav>
       </div>
+      )}
     </header>
   );
 };

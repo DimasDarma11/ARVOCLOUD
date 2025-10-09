@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="flex items-center space-x-3 mb-4">
               <div className="relative">
                 <img
-                  src="https://ibb.co.com/hJKpbqPt"
+                  src="https://i.ibb.co.com/Xrzm1whv/Arvocloud.jpg"
                   alt="ARVOCLOUD Logo"
                   className="h-10 w-auto rounded-lg shadow-lg shadow-blue-500/20 hover:shadow-cyan-500/30 transition-shadow duration-300"
                 />

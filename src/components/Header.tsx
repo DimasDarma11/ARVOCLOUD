@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Server } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +17,9 @@ const Header = () => {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
+        isScrolled
+          ? "bg-white/80 backdrop-blur-md shadow-sm"
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -30,7 +32,7 @@ const Header = () => {
           />
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Menu */}
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
           {menuItems.map((item) => (
             <a
@@ -41,31 +43,30 @@ const Header = () => {
               {item}
             </a>
           ))}
-
-          {/* Aturan Pemakaian */}
           <Link
             to="/rules"
             className="text-gray-700 hover:text-blue-600 transition-colors"
           >
             Aturan
           </Link>
+        </nav>
 
-          {/* Login Button */}
+
+        <div className="flex items-center space-x-3">
           <Link
             to="/login"
-            className="hidden md:inline-block ml-6 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium shadow-sm transition-all"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md shadow-sm transition-all"
           >
             Login
           </Link>
-        </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden p-2 text-gray-700 focus:outline-none"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          <button
+            className="md:hidden p-2 text-gray-700 focus:outline-none"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -86,12 +87,6 @@ const Header = () => {
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
               Aturan
-            </Link>
-            <Link
-              to="/login"
-              className="mt-3 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium text-center shadow-sm transition-all"
-            >
-              Login
             </Link>
           </nav>
         </div>

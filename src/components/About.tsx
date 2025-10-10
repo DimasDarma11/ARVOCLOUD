@@ -40,7 +40,7 @@ const About = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Mengapa{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-blue-600">
               ARVOCLOUD
             </span>
             ?
@@ -61,7 +61,7 @@ const About = () => {
               viewport={{ once: true }}
               className="text-center p-6 rounded-xl hover:shadow-md transition-all duration-300"
             >
-              <div className="w-16 h-16 mx-auto mb-5 flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+              <div className="w-16 h-16 mx-auto mb-5 flex items-center justify-center rounded-xl bg-blue-600/10 text-blue-600">
                 <Icon className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
@@ -81,7 +81,7 @@ const About = () => {
           {stats.map(({ icon: Icon, number, label }, i) => (
             <div
               key={i}
-              className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-all duration-300"
+              className="bg-blue-50 p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-all duration-300 border border-blue-100"
             >
               <Icon className="h-8 w-8 text-blue-600 mx-auto mb-3" />
               <div className="text-3xl font-bold text-gray-900">{number}</div>

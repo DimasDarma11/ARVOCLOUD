@@ -362,7 +362,7 @@ const Pricing = () => {
               onClick={() => setSelectedCategory(c.id)}
               className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
                 selectedCategory === c.id
-                  ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
                   : "bg-slate-800 text-gray-400 hover:bg-slate-700 hover:text-white"
               }`}
             >

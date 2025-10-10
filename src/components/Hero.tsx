@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, Play, Activity, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
+  const [stats, setStats] = useState({
+    cpu: 27,
+    mem: 52,
+    net: 14,
+  });
+
+  // Simulasi update real-time setiap 5 detik (fluktuasi kecil)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats((prev) => ({
+        cpu: Math.min(100, Math.max(5, prev.cpu + (Math.random() * 10 - 5))),
+        mem: Math.min(100, Math.max(10, prev.mem + (Math.random() * 8 - 4))),
+        net: Math.min(100, Math.max(3, prev.net + (Math.random() * 6 - 3))),
+      }));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       id="home"
       className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100"
     >
-      {/* Subtle blurred orbs (neutral tone, not RGB) */}
+      {/* Soft neutral background blobs */}
       <div className="absolute inset-0">
         <motion.div
           className="absolute top-20 left-24 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-40"
@@ -93,11 +111,7 @@ const Hero = () => {
         >
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-3">
-              <motion.div
-                className="w-3 h-3 rounded-full bg-green-500"
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ duration: 1.8, repeat: Infinity }}
-              />
+              <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
               <span className="font-semibold text-gray-800">Server Online</span>
             </div>
             <Shield className="text-green-500 w-5 h-5" />
@@ -105,24 +119,21 @@ const Hero = () => {
 
           <div className="space-y-5">
             {[
-              { label: "CPU Load", value: "27%", color: "from-green-600 to-blue-600" },
-              { label: "Memory Usage", value: "52%", color: "from-blue-600 to-slate-600" },
-              { label: "Network", value: "14%", color: "from-slate-600 to-gray-600" },
+              { label: "CPU Load", value: stats.cpu, color: "bg-green-500" },
+              { label: "Memory Usage", value: stats.mem, color: "bg-blue-500" },
+              { label: "Network", value: stats.net, color: "bg-slate-500" },
             ].map((item, i) => (
               <div key={i}>
                 <div className="flex justify-between text-sm text-gray-600 mb-1">
                   <span>{item.label}</span>
-                  <span className="font-medium text-gray-800">{item.value}</span>
+                  <span className="font-medium text-gray-800">
+                    {item.value.toFixed(0)}%
+                  </span>
                 </div>
                 <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                  <motion.div
-                    className={`h-2 rounded-full bg-gradient-to-r ${item.color}`}
-                    animate={{ width: ["30%", "70%", "30%"] }}
-                    transition={{
-                      duration: 6 + i,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                  <div
+                    className={`h-2 rounded-full ${item.color}`}
+                    style={{ width: `${item.value}%`, transition: "width 1s ease-in-out" }}
                   />
                 </div>
               </div>

@@ -35,7 +35,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-cyan-500 to-blue-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
       {
         name: "VPS TURBO 2",
@@ -51,7 +51,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-cyan-500 to-blue-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
       {
         name: "VPS TURBO 3",
@@ -67,7 +67,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-purple-500 to-pink-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
       {
         name: "VPS TURBO 4",
@@ -83,7 +83,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-cyan-500 to-blue-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
       {
         name: "VPS TURBO 5",
@@ -99,7 +99,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-indigo-600 to-purple-600",
       },
       {
         name: "VPS TURBO 6",
@@ -115,7 +115,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
       {
         name: "VPS TURBO 7",
@@ -131,7 +131,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
       {
         name: "VPS TURBO 8",
@@ -147,7 +147,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
       {
         name: "VPS TURBO 9",
@@ -163,7 +163,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
       {
         name: "VPS TURBO 10",
@@ -179,7 +179,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
     ],
     rdp: [
@@ -193,9 +193,10 @@ const Pricing = () => {
           ram: "4 GB", 
           storage: "20 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
-          region: "🇮🇩 Indonesia • 🇺🇸 USA" 
+          region: "🇮🇩 Indonesia • 🇺🇸 USA",
+          emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-blue-500 to-cyan-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
       {
         name: "RDP 2",
@@ -207,9 +208,10 @@ const Pricing = () => {
           ram: "8 GB", 
           storage: "40 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
-          region: "🇮🇩 Indonesia • 🇺🇸 USA" 
+          region: "🇮🇩 Indonesia • 🇺🇸 USA",
+          emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-purple-500 to-pink-500",
+        gradient: "from-indigo-600 to-purple-600",
       },
       {
         name: "RDP 3",
@@ -221,9 +223,10 @@ const Pricing = () => {
           ram: "16 GB", 
           storage: "60 GB SSD",
           os: "Windows 10 atau 11 (Spectre Edition)",
-          region: "🇮🇩 Indonesia • 🇺🇸 USA"
+          region: "🇮🇩 Indonesia • 🇺🇸 USA",
+          emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
     ],
     baremetal: [
@@ -237,9 +240,10 @@ const Pricing = () => {
           ram: "8 GB",
           storage: "256 GB SSD",
           bandwidth: "Unlimited",
-          region: "🇮🇩 Indonesia"
+          region: "🇮🇩 Indonesia",
+          emulator: "✅ Support emulator & game"
         },
-        gradient: "from-blue-500 to-cyan-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
       {
         name: "Bare Metal ID 2",
@@ -251,9 +255,10 @@ const Pricing = () => {
           ram: "16 GB",
           storage: "256 GB SSD",
           bandwidth: "Unlimited",
-          region: "🇮🇩 Indonesia"
+          region: "🇮🇩 Indonesia",
+          emulator: "✅ Support emulator & game"
         },
-        gradient: "from-purple-500 to-pink-500",
+        gradient: "from-indigo-600 to-purple-600",
       },
       {
         name: "Bare Metal ID 3",
@@ -265,9 +270,10 @@ const Pricing = () => {
           ram: "24 GB",
           storage: "256 GB SSD",
           bandwidth: "Unlimited",
-          region: "🇮🇩 Indonesia"
+          region: "🇮🇩 Indonesia",
+          emulator: "✅ Support emulator & game"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
       {
         name: "Bare Metal ID 4",
@@ -279,9 +285,10 @@ const Pricing = () => {
           ram: "32 GB",
           storage: "256 GB SSD",
           bandwidth: "Unlimited",
-          region: "🇮🇩 Indonesia"
+          region: "🇮🇩 Indonesia",
+          emulator: "✅ Support emulator & game"
         },
-        gradient: "from-orange-500 to-red-500",
+        gradient: "from-purple-600 to-blue-700",
       },
       {
         name: "Bare Metal ID 5",
@@ -293,9 +300,10 @@ const Pricing = () => {
           ram: "32 GB",
           storage: "512 GB SSD",
           bandwidth: "Unlimited",
-          region: "🇮🇩 Indonesia"
+          region: "🇮🇩 Indonesia",
+          emulator: "✅ Support emulator & game"
         },
-        gradient: "from-purple-500 to-pink-500",
+        gradient: "from-indigo-600 to-purple-600",
       },
       {
         name: "Bare Metal USA",
@@ -307,7 +315,8 @@ const Pricing = () => {
           ram: "64 GB",
           storage: "1 TB SSD",
           bandwidth: "Unlimited",
-          region: "🇺🇸 USA"
+          region: "🇺🇸 USA",
+          emulator: "✅ Support emulator & game"
         },
         gradient: "from-indigo-500 to-purple-500",
       },
@@ -320,7 +329,7 @@ const Pricing = () => {
         price: { bulanan: 45000, tahunan: 540000 },
         desc: "Proxy fleksibel dengan rotasi IP cepat",
         specs: { Bandwidth: "1GB", Rotasi: "1-120 Menit" },
-        gradient: "from-purple-500 to-pink-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
       {
         name: "Proxy Residential Static",
@@ -328,7 +337,7 @@ const Pricing = () => {
         price: { bulanan: 140000, tahunan: 1680000 },
         desc: "Proxy statis untuk kestabilan tinggi",
         specs: { Bandwidth: "Unlimited", Negara: "27+ Country" },
-        gradient: "from-cyan-500 to-blue-500",
+        gradient: "from-blue-600 to-indigo-600",
       },
     ],
   };
@@ -339,7 +348,7 @@ const Pricing = () => {
     <section id="pricing" className="py-20 bg-slate-900">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Harga yang <span className="text-cyan-400">Transparan</span>
+          Harga yang <span className="bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Transparan</span>
         </h2>
         <p className="text-gray-400 mb-10">
           Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
@@ -379,7 +388,7 @@ const Pricing = () => {
             className="relative w-16 h-8 bg-slate-700 rounded-full p-1"
           >
             <div
-              className={`w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transform transition-transform ${
+              className={`w-6 h-6 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transform transition-transform ${
                 billingCycle === "tahunan" ? "translate-x-8" : ""
               }`}
             ></div>
@@ -398,7 +407,7 @@ const Pricing = () => {
           {currentPlans.map((plan, i) => (
             <div
               key={i}
-              className="bg-slate-800 rounded-2xl p-8 border border-slate-700 hover:border-cyan-500 transition-all"
+              className="bg-slate-800/60 backdrop-blur-lg rounded-2xl p-8 border border-slate-700 hover:border-indigo-500 transition-all"
             >
               <div className={`w-14 h-14 mx-auto mb-4 bg-gradient-to-r ${plan.gradient} rounded-xl flex items-center justify-center`}>
                 <plan.icon className="w-6 h-6 text-white" />
@@ -460,12 +469,12 @@ const Pricing = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
               >
-                <div className="animate-spin rounded-full h-14 w-14 border-4 border-cyan-400 border-t-transparent mx-auto mb-4"></div>
+                <div className="animate-spin rounded-full h-14 w-14 border-4 border-blue-500 border-t-transparent mx-auto mb-4"></div>
                 <h3 className="text-white font-semibold text-lg mb-2">
                   Mengarahkan ke WhatsApp...
                 </h3>
                 <p className="text-gray-400 text-sm">
-                  Paket <span className="text-cyan-400 font-semibold">{message}</span>
+                  Paket <span className="text-indigo-400 font-semibold">{message}</span>
                 </p>
               </motion.div>
             </motion.div>

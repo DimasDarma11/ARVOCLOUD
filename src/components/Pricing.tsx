@@ -99,7 +99,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-indigo-600 to-purple-600",
+        gradient: "from-indigo-500 to-violet-600",
       },
       {
         name: "VPS TURBO 6",
@@ -115,7 +115,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
       {
         name: "VPS TURBO 7",
@@ -131,7 +131,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
       {
         name: "VPS TURBO 8",
@@ -147,7 +147,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
       {
         name: "VPS TURBO 9",
@@ -163,7 +163,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
       {
         name: "VPS TURBO 10",
@@ -179,7 +179,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
     ],
     rdp: [
@@ -211,7 +211,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia • 🇺🇸 USA",
           emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-indigo-600 to-purple-600",
+        gradient: "from-indigo-500 to-purple-600",
       },
       {
         name: "RDP 3",
@@ -226,7 +226,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia • 🇺🇸 USA",
           emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
     ],
     baremetal: [
@@ -258,7 +258,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-indigo-600 to-purple-600",
+        gradient: "from-indigo-500 to-purple-600",
       },
       {
         name: "Bare Metal ID 3",
@@ -273,7 +273,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
       {
         name: "Bare Metal ID 4",
@@ -288,7 +288,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-purple-600 to-blue-700",
+        gradient: "from-sky-500 to-blue-600",
       },
       {
         name: "Bare Metal ID 5",
@@ -303,7 +303,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-indigo-600 to-purple-600",
+        gradient: "from-sky-500 to-blue-600",
       },
       {
         name: "Bare Metal USA",
@@ -318,7 +318,7 @@ const Pricing = () => {
           region: "🇺🇸 USA",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-indigo-500 to-purple-500",
+        gradient: "from-sky-500 to-blue-600",
       },
     ],
 
@@ -407,7 +407,7 @@ const Pricing = () => {
           {currentPlans.map((plan, i) => (
             <div
               key={i}
-              className="bg-slate-800/60 backdrop-blur-lg rounded-2xl p-8 border border-slate-700 hover:border-indigo-500 transition-all"
+              className="bg-slate-800/80 hover:bg-slate-700 transition-all rounded-2xl p-8 border border-slate-700 hover:border-blue-500 shadow-lg hover:shadow-blue-500/10"
             >
               <div className={`w-14 h-14 mx-auto mb-4 bg-gradient-to-r ${plan.gradient} rounded-xl flex items-center justify-center`}>
                 <plan.icon className="w-6 h-6 text-white" />
@@ -427,7 +427,7 @@ const Pricing = () => {
                 {Object.entries(plan.specs).map(([k, v]) => (
                   <div key={k} className="flex justify-between">
                     <span className="capitalize">{k}:</span>
-                    <span className="text-cyan-400">{v}</span>
+                    <span className="text-gray-200">{v}</span>
                   </div>
                 ))}
               </div>

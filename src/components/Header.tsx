@@ -53,7 +53,7 @@ const Header = () => {
           {/* Login Button */}
           <Link
             to="/login"
-            className="ml-6 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium shadow-sm hover:opacity-90 transition-opacity"
+            className="hidden md:inline-block ml-6 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium shadow-sm transition-all"
           >
             Login
           </Link>
@@ -89,7 +89,7 @@ const Header = () => {
             </Link>
             <Link
               to="/login"
-              className="mt-3 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md font-medium text-center shadow-sm hover:opacity-90 transition-opacity"
+              className="mt-3 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium text-center shadow-sm transition-all"
             >
               Login
             </Link>

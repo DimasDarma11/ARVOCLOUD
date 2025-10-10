@@ -4,12 +4,20 @@ import { motion } from "framer-motion";
 import NoticeModal from "./NoticeModal";
 
 const Hero = () => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [stats, setStats] = useState({
     cpu: 27,
     mem: 52,
     net: 14,
   });
+
+  useEffect(() => {
+    const hasSeenNotice = localStorage.getItem("hasSeenNotice");
+    if (!hasSeenNotice) {
+      setShowModal(true);
+      localStorage.setItem("hasSeenNotice", "true");
+    }
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,6 +31,8 @@ const Hero = () => {
   }, []);
 
   return (
+   <>
+    <NoticeModal isOpen={showModal} onClose={() => setShowModal(false)} />
     <section
       id="home"
       className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100"
@@ -155,6 +165,7 @@ const Hero = () => {
         </motion.div>
       </div>
     </section>
+   </>
   );
 };
 

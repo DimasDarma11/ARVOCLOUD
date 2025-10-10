@@ -5,27 +5,27 @@ const Services = () => {
   const services = [
     {
       icon: Server,
-      title: "VPS Hosting",
+      title: "Server VPS",
       desc: "Server virtual cepat dan stabil dengan akses penuh root, ideal untuk bisnis dan pengembangan.",
-      iconBg: "from-blue-700 to-blue-500",
+      iconBg: "from-blue-600 to-blue-600",
     },
     {
       icon: Monitor,
       title: "Server RDP",
       desc: "Akses desktop Windows jarak jauh dengan performa tinggi dan koneksi stabil (tidak mendukung emulator).",
-      iconBg: "from-sky-700 to-sky-500",
+      iconBg: "from-sky-600 to-sky-600",
     },
     {
       icon: Cpu,
       title: "Bare Metal",
       desc: "Server fisik dedicated untuk performa maksimal — cocok untuk emulator dan aplikasi berat.",
-      iconBg: "from-gray-700 to-gray-500",
+      iconBg: "from-gray-600 to-gray-600",
     },
     {
       icon: Settings,
-      title: "Solusi Kustom",
+      title: "Custom Spesifikasi",
       desc: "Konfigurasi server fleksibel sesuai kebutuhan bisnis atau proyek Anda.",
-      iconBg: "from-slate-700 to-slate-500",
+      iconBg: "from-slate-600 to-slate-600",
     },
   ];
 

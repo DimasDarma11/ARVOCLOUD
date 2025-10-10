@@ -22,13 +22,18 @@ function App() {
       <Footer />
 
       <a
-        href="https://wa.me/6283197183724?text=Halo%20Arvocloud!"
+        href="https://wa.me/6283197183724?text=Halo%20ArvoCloud!"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-semibold transition-all hover:scale-105 z-50"
+        className="fixed bottom-6 right-6 flex items-center justify-center w-12 h-12 rounded-full backdrop-blur-lg bg-blue-500/20 border border-blue-400/30 shadow-md hover:bg-blue-500/30 transition-all duration-300"
       >
-        💬 Chat Admin
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+          alt="WhatsApp"
+          className="w-6 h-6 opacity-90 hover:opacity-100 transition-opacity"
+        />
       </a>
+
     </div>
   );
 }

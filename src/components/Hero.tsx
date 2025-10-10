@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Play, Activity, Shield } from "lucide-react";
 import { motion } from "framer-motion";
+import NoticeModal from "./NoticeModal";
 
 const Hero = () => {
+  const [showModal, setShowModal] = useState(true);
   const [stats, setStats] = useState({
     cpu: 27,
     mem: 52,
     net: 14,
   });
 
-  // Simulasi update real-time setiap 5 detik (fluktuasi kecil)
   useEffect(() => {
     const interval = setInterval(() => {
       setStats((prev) => ({
@@ -26,7 +27,6 @@ const Hero = () => {
       id="home"
       className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100"
     >
-      {/* Soft neutral background blobs */}
       <div className="absolute inset-0">
         <motion.div
           className="absolute top-20 left-24 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-40"
@@ -40,9 +40,8 @@ const Hero = () => {
         />
       </div>
 
-      {/* Content */}
+
       <div className="container relative z-10 px-6 py-20 mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        {/* Left Side */}
         <div className="text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -102,7 +101,6 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Right Side — Status Card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

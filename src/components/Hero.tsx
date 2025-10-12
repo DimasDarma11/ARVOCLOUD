@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { ArrowRight, Play, Activity, ShieldCheck, Server } from "lucide-react";
+import { ArrowRight, Play, Activity, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import NoticeModal from "./NoticeModal";
 
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
   const [stats, setStats] = useState({ cpu: 27, mem: 52, net: 14 });
+  const status = "online";
 
   useEffect(() => {
     const hasSeenNotice = localStorage.getItem("hasSeenNotice");
@@ -26,104 +27,91 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const status = "online";
-
   return (
     <>
       <NoticeModal isOpen={showModal} onClose={() => setShowModal(false)} />
+
       <section
         id="home"
-        className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100"
+        className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0]"
       >
-        {/* Background aura */}
+        {/* Ambient light blur */}
         <div className="absolute inset-0">
           <motion.div
-            className="absolute top-20 left-24 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-40"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 10, repeat: Infinity }}
+            className="absolute top-32 left-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl"
+            animate={{ y: [0, 20, 0], opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 12, repeat: Infinity }}
           />
           <motion.div
-            className="absolute bottom-24 right-24 w-64 h-64 bg-slate-100 rounded-full blur-3xl opacity-40"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 10, repeat: Infinity, delay: 2 }}
+            className="absolute bottom-32 right-20 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl"
+            animate={{ y: [0, -20, 0], opacity: [0.6, 0.9, 0.6] }}
+            transition={{ duration: 10, repeat: Infinity }}
           />
         </div>
 
-        <div className="container relative z-10 px-6 py-20 mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT TEXT SECTION */}
-          <div className="text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6"
-            >
-              <Activity className="w-4 h-4 mr-2" />
+        <div className="relative z-10 container mx-auto px-6 py-24 grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
+          >
+            <div className="inline-flex items-center backdrop-blur-md bg-white/30 px-4 py-2 rounded-full text-sm font-medium text-gray-800/80 shadow-inner ring-1 ring-white/40 mb-6">
+              <Activity className="w-4 h-4 mr-2 text-blue-600" />
               Infrastruktur Cloud Handal
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-gray-900"
-            >
+            <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-gray-800/90 drop-shadow-sm">
               Solusi{" "}
-              <span className="bg-gradient-to-r from-blue-700 to-slate-700 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">
                 VPS & RDP Premium
               </span>{" "}
-              untuk bisnis anda
-            </motion.h1>
+              untuk bisnis anda.
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-lg text-gray-600 mb-10 max-w-xl"
-            >
-              Rasakan performa tinggi, uptime 99.8%, dan dukungan 24/7.
-              Infrastruktur modern untuk kebutuhan bisnis, developer, dan kreator.
-            </motion.p>
+            <p className="text-lg text-gray-600/90 mb-10 max-w-xl mx-auto lg:mx-0">
+              Rasakan performa tinggi, uptime 99.8%, dan dukungan 24/7. Infrastruktur modern untuk kebutuhan bisnis, developer, dan kreator.
+            </p>
 
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a
                 href="#pricing"
-                className="group bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-md transition-all flex items-center justify-center"
+                className="group bg-white/60 backdrop-blur-xl shadow-lg ring-1 ring-white/40 hover:ring-blue-400/50 text-gray-900 px-8 py-4 rounded-2xl text-lg font-semibold transition-all flex items-center justify-center"
               >
                 Mulai Sekarang
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform text-blue-600" />
               </a>
+
               <a
                 href="https://wa.me/6283197183724?text=Halo,%20saya%20mau%20trial%20VPS/RDP"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group border-2 border-gray-300 hover:border-blue-700 text-gray-700 hover:text-blue-700 px-8 py-4 rounded-lg text-lg font-semibold transition-all flex items-center justify-center"
+                className="group border border-gray-300/70 hover:border-blue-500/70 text-gray-700/90 hover:text-blue-600 px-8 py-4 rounded-2xl text-lg font-semibold backdrop-blur-lg transition-all flex items-center justify-center"
               >
                 <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                 Trial
               </a>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
 
+          {/* Right Glass Panel */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6 }}
-            className="relative bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-8 border border-gray-100"
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
+            className="relative backdrop-blur-2xl bg-white/25 border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] rounded-3xl p-8"
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <div
                   className={`w-3 h-3 rounded-full ${
-                    status === "online" ? "bg-emerald-500 animate-pulse" : "bg-red-500"
+                    status === "online"
+                      ? "bg-emerald-400 animate-pulse"
+                      : "bg-red-400"
                   }`}
                 />
-                <span className="font-semibold text-gray-800">
+                <span className="font-medium text-gray-700/90">
                   {status === "online" ? "Server Aktif" : "Server Offline"}
                 </span>
               </div>
@@ -139,27 +127,27 @@ const Hero = () => {
                 {
                   label: "CPU Load",
                   value: stats.cpu,
-                  gradient: "from-emerald-400 to-emerald-600",
+                  gradient: "from-emerald-300 to-emerald-500",
                 },
                 {
                   label: "Memory Usage",
                   value: stats.mem,
-                  gradient: "from-blue-400 to-blue-600",
+                  gradient: "from-blue-300 to-blue-500",
                 },
                 {
                   label: "Network",
                   value: stats.net,
-                  gradient: "from-slate-400 to-slate-600",
+                  gradient: "from-indigo-300 to-indigo-500",
                 },
               ].map((item, i) => (
                 <div key={i}>
                   <div className="flex justify-between text-sm text-gray-600 mb-1">
                     <span>{item.label}</span>
-                    <span className="font-medium text-gray-800">
+                    <span className="font-medium text-gray-800/80">
                       {item.value.toFixed(0)}%
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-gray-200/60 overflow-hidden">
                     <motion.div
                       className={`h-2 rounded-full bg-gradient-to-r ${item.gradient}`}
                       style={{ width: `${item.value}%` }}
@@ -170,18 +158,18 @@ const Hero = () => {
               ))}
             </div>
 
-            <div className="grid grid-cols-3 text-center mt-8 border-t border-gray-200 pt-6">
+            <div className="grid grid-cols-3 text-center mt-8 border-t border-white/30 pt-6">
               <div>
                 <div className="text-2xl font-bold text-blue-700">99.8%</div>
-                <div className="text-sm text-gray-500">Uptime</div>
+                <div className="text-sm text-gray-600/80">Uptime</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-slate-700">24/7</div>
-                <div className="text-sm text-gray-500">Support</div>
+                <div className="text-2xl font-bold text-gray-800">24/7</div>
+                <div className="text-sm text-gray-600/80">Support</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">100+</div>
-                <div className="text-sm text-gray-500">Clients</div>
+                <div className="text-2xl font-bold text-indigo-700">100+</div>
+                <div className="text-sm text-gray-600/80">Clients</div>
               </div>
             </div>
           </motion.div>

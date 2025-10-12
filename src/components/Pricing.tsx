@@ -390,13 +390,17 @@ const Pricing = () => {
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl border transition-all duration-300 ${
                 selectedCategory === c.id
-                  ? "bg-primary text-on-primary shadow-lg"
-                  : "bg-surface text-secondary hover:bg-surface-hover hover:text-on-surface"
+                  ? "bg-primary text-white border-primary shadow-md shadow-primary/30"
+                  : "bg-white/70 text-gray-600 border-gray-300 hover:bg-white hover:shadow-sm hover:text-gray-800 backdrop-blur-sm"
               }`}
             >
-              <c.icon className="w-5 h-5" />
+              <c.icon 
+                className="w-5 h-5" ${
+                  selectedCategory === c.id ? "text-white" : "text-gray-500"
+                }`}
+              />
               {c.name}
             </button>
           ))}
@@ -406,7 +410,9 @@ const Pricing = () => {
         {/* Billing Toggle */}
         <div className="flex items-center justify-center mb-12">
           <span
-            className={`mr-3 ${billingCycle === "bulanan" ? "text-primary" : "text-secondary"}`}
+            className={`mr-3 text-sm font-medium ${
+              billingCycle === "bulanan" ? "text-primary" : "text-gray-500"
+            }`}
           >
             Bulanan
           </span>
@@ -415,17 +421,23 @@ const Pricing = () => {
             onClick={() =>
               setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")
           }
-          className="relative w-16 h-8 bg-surface rounded-full p-1 shadow-md"
+          className="relative w-16 h-8 bg-gray-300/40 rounded-full p-1 transition-all duration-300 backdrop-blur-sm"
         >
           <div
-            className={`w-6 h-6 bg-primary rounded-full transform transition-transform ${
-              billingCycle === "tahunan" ? "translate-x-8" : ""
+            className={`w-6 h-6 rounded-full transform transition-transform duration-300 shadow-md ${
+              billingCycle === "tahunan" 
+              ? "translate-x-8 bg-primary" 
+              : "bg-primary/80"
             }`}
           ></div>
         </button>
 
         <span
-          className={`ml-3 ${billingCycle === "tahunan" ? "text-primary" : "text-secondary"}`}
+          className={`ml-3 text-sm font-medium ${
+            billingCycle === "tahunan" 
+            ? "text-primary" 
+            : "text-gray-500"
+          }`}
         >
           Tahunan
         </span>

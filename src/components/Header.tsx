@@ -12,23 +12,26 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
+  }, [isMenuOpen]);
+
   const menuItems = ["Services", "Pricing", "About", "Contact"];
 
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-white/70 backdrop-blur-lg shadow-sm"
+          ? "bg-white/60 backdrop-blur-lg shadow-sm"
           : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
         <div className="flex items-center space-x-3 cursor-pointer select-none group">
           <img
             src="https://i.ibb.co/VWzggVqJ/Arvocloud1.png"
             alt="Arvocloud Logo"
-            className="h-8 w-auto rounded-md transition-transform duration-500 group-hover:scale-110"
+            className="h-8 w-auto transition-transform duration-500 group-hover:scale-110"
           />
         </div>
 
@@ -51,7 +54,6 @@ const Header = () => {
           </Link>
         </nav>
 
-        {/* Login + Hamburger */}
         <div className="flex items-center space-x-3">
           <Link
             to="/login"
@@ -60,7 +62,6 @@ const Header = () => {
             Login
           </Link>
 
-          {/* Hamburger Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center group"
@@ -83,58 +84,49 @@ const Header = () => {
               }
               transition={{ duration: 0.4, ease: "easeInOut" }}
             />
-            <motion.div
-              className="absolute inset-0 rounded-full bg-blue-100/0 group-hover:bg-blue-100/40 transition-all duration-500"
-            />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="fixed inset-0 top-[64px] bg-white/70 backdrop-blur-2xl shadow-2xl 
-                       border-t border-gray-100 flex flex-col items-center justify-center space-y-6
-                       text-lg font-medium"
+            key="menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-40 bg-white/60 backdrop-blur-2xl flex flex-col items-center justify-center space-y-8 text-lg font-semibold text-gray-900"
           >
             {menuItems.map((item, index) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-gray-800 hover:text-blue-600 transition-colors"
+                className="hover:text-blue-600 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
               >
                 {item}
               </motion.a>
             ))}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+
+            <Link
+              to="/rules"
+              onClick={() => setIsMenuOpen(false)}
+              className="hover:text-blue-600 transition-colors"
             >
-              <Link
-                to="/rules"
-                className="text-gray-800 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Aturan
-              </Link>
-            </motion.div>
+              Aturan
+            </Link>
 
             <motion.button
               onClick={() => setIsMenuOpen(false)}
-              className="mt-8 px-6 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300"
-              initial={{ opacity: 0, y: 10 }}
+              className="px-6 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.5 }}
             >
               Tutup Menu
             </motion.button>

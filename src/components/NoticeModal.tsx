@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertCircle } from "lucide-react";
+import { Info } from "lucide-react";
 
 const NoticeModal = () => {
   const [show, setShow] = useState(false);
@@ -21,16 +21,14 @@ const NoticeModal = () => {
     <AnimatePresence>
       {show && (
         <>
-          {/* Backdrop animasi */}
           <motion.div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-gray-900/60 backdrop-blur-md z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.3 }}
           />
 
-          {/* Modal box */}
           <motion.div
             className="fixed inset-0 flex items-center justify-center z-50 px-4"
             initial={{ opacity: 0 }}
@@ -38,58 +36,56 @@ const NoticeModal = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              initial={{ y: 40, opacity: 0, scale: 0.95, filter: "blur(6px)" }}
-              animate={{
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                filter: "blur(0px)",
-              }}
-              exit={{ y: 40, opacity: 0, scale: 0.95, filter: "blur(6px)" }}
+              initial={{ y: 40, opacity: 0, scale: 0.97 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 40, opacity: 0, scale: 0.97 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="bg-gray-900/95 text-white p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700 shadow-[0_0_25px_rgba(0,0,0,0.25)]"
+              className="bg-white/90 backdrop-blur-lg border border-gray-200 rounded-2xl shadow-xl w-full max-w-md p-8 text-center"
             >
-              {/* Header */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex items-center justify-center mb-5"
+                transition={{ delay: 0.15 }}
+                className="flex items-center justify-center mb-4"
               >
-                <AlertCircle className="text-blue-400 w-8 h-8 mr-2" />
-                <h2 className="text-2xl font-semibold text-blue-400">
-                  Pemberitahuan
-                </h2>
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100">
+                  <Info className="text-blue-700 w-6 h-6" />
+                </div>
               </motion.div>
 
-              {/* Text */}
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
+              <motion.h2
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-sm text-gray-300 text-center mb-7 leading-relaxed"
+                transition={{ delay: 0.2 }}
+                className="text-xl font-semibold text-gray-900 mb-3"
+              >
+                Pemberitahuan Penting
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="text-sm text-gray-600 leading-relaxed mb-6"
               >
                 Untuk kebutuhan{" "}
-                <span className="font-medium text-white">
+                <span className="font-semibold text-gray-900">
                   emulator, game, atau Roblox
-                </span>
-                , silakan pilih paket{" "}
-                <span className="font-semibold text-blue-400">Baremetal</span>.
+                </span>{" "}
+                silakan gunakan paket{" "}
+                <span className="font-semibold text-blue-700">Baremetal</span>.
                 <br />
-                <span className="text-gray-400">
-                  RDP & VPS Standar tidak mendukung emulator/game.
+                <span className="text-gray-500">
+                  RDP & VPS Standar tidak mendukung penggunaan emulator atau game.
                 </span>
               </motion.p>
 
-              {/* Tombol muncul bertahap */}
               <motion.div
-                className="flex justify-center space-x-3"
+                className="flex justify-center gap-3"
                 initial="hidden"
                 animate="visible"
                 variants={{
-                  visible: {
-                    transition: { staggerChildren: 0.1 },
-                  },
+                  visible: { transition: { staggerChildren: 0.1 } },
                 }}
               >
                 <motion.a
@@ -101,9 +97,9 @@ const NoticeModal = () => {
                     hidden: { opacity: 0, y: 10 },
                     visible: { opacity: 1, y: 0 },
                   }}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all"
+                  className="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all"
                 >
-                  Lihat Harga
+                  Lihat Paket
                 </motion.a>
                 <motion.button
                   onClick={handleClose}
@@ -113,7 +109,7 @@ const NoticeModal = () => {
                     hidden: { opacity: 0, y: 10 },
                     visible: { opacity: 1, y: 0 },
                   }}
-                  className="border border-gray-500 hover:bg-gray-800 px-5 py-2.5 rounded-lg text-sm font-medium transition-all text-gray-300"
+                  className="border border-gray-300 hover:bg-gray-100 px-5 py-2.5 rounded-lg text-sm font-medium text-gray-700 transition-all"
                 >
                   Tutup
                 </motion.button>

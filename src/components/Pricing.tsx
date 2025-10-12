@@ -35,7 +35,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
       {
         name: "VPS TURBO 2",
@@ -51,7 +51,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
       {
         name: "VPS TURBO 3",
@@ -67,7 +67,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
       {
         name: "VPS TURBO 4",
@@ -83,7 +83,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
       {
         name: "VPS TURBO 5",
@@ -99,7 +99,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-indigo-500 to-violet-600",
+        gradient: "from-indigo-500 to-indigo-500",
       },
       {
         name: "VPS TURBO 6",
@@ -115,7 +115,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
       },
       {
         name: "VPS TURBO 7",
@@ -131,7 +131,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
       },
       {
         name: "VPS TURBO 8",
@@ -147,7 +147,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
       },
       {
         name: "VPS TURBO 9",
@@ -163,7 +163,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
       },
       {
         name: "VPS TURBO 10",
@@ -179,7 +179,7 @@ const Pricing = () => {
           os: "Ubuntu atau Debian",
           region: "🇮🇩 Indonesia"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
       },
     ],
     rdp: [
@@ -196,7 +196,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia • 🇺🇸 USA",
           emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
       {
         name: "RDP 2",
@@ -211,12 +211,12 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia • 🇺🇸 USA",
           emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-indigo-500 to-purple-600",
+        gradient: "from-indigo-500 to-indigo-500",
       },
       {
         name: "RDP 3",
         icon: Crown,
-        price: { bulanan: 250000, tahunan: 2750000 },
+        price: { bulanan: 260000, tahunan: 2860000 },
         desc: "Performa tinggi dengan dukungan 24/7",
         specs: { 
           cpu: "6 vCPU", 
@@ -226,7 +226,22 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia • 🇺🇸 USA",
           emulator: "⚠️ Tidak support emulator / game"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
+      },
+      {
+        name: "RDP 4",
+        icon: Crown,
+        price: { bulanan: 275000, tahunan: 3025000 },
+        desc: "Performa tinggi dengan dukungan 24/7",
+        specs: { 
+          cpu: "8 vCPU", 
+          ram: "16 GB", 
+          storage: "80 GB SSD",
+          os: "Windows 10 atau 11 (Spectre Edition)",
+          region: "🇮🇩 Indonesia • 🇺🇸 USA",
+          emulator: "⚠️ Tidak support emulator / game"
+        },
+        gradient: "from-blue-500 to-blue-500",
       },
     ],
     baremetal: [
@@ -243,7 +258,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
       {
         name: "Bare Metal ID 2",
@@ -258,7 +273,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-indigo-500 to-purple-600",
+        gradient: "from-indigo-500 to-indigo-500",
       },
       {
         name: "Bare Metal ID 3",
@@ -273,7 +288,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
       },
       {
         name: "Bare Metal ID 4",
@@ -288,7 +303,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-blue-500 to-blue-500",
       },
       {
         name: "Bare Metal ID 5",
@@ -303,7 +318,7 @@ const Pricing = () => {
           region: "🇮🇩 Indonesia",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-indigo-500 to-indigo-500",
       },
       {
         name: "Bare Metal USA",
@@ -318,7 +333,7 @@ const Pricing = () => {
           region: "🇺🇸 USA",
           emulator: "✅ Support emulator & game"
         },
-        gradient: "from-sky-500 to-blue-600",
+        gradient: "from-indigo-500 to-indigo-500",
       },
     ],
 
@@ -329,7 +344,7 @@ const Pricing = () => {
         price: { bulanan: 45000, tahunan: 540000 },
         desc: "Proxy fleksibel dengan rotasi IP cepat",
         specs: { Bandwidth: "1GB", Rotasi: "1-120 Menit" },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
       {
         name: "Proxy Residential Static",
@@ -337,7 +352,7 @@ const Pricing = () => {
         price: { bulanan: 140000, tahunan: 1680000 },
         desc: "Proxy statis untuk kestabilan tinggi",
         specs: { Bandwidth: "Unlimited", Negara: "27+ Country" },
-        gradient: "from-blue-600 to-indigo-600",
+        gradient: "from-blue-600 to-blue-600",
       },
     ],
   };

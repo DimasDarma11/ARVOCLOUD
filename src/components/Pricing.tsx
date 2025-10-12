@@ -418,6 +418,8 @@ const Pricing = () => {
 
 
         {/* Pricing Cards */}
+      <div className="grid md:grid-cols-3 gap-8">
+       {currentPlans.map((plan, i) => (
         <div
           key={i}
           className="bg-surface/80 hover:bg-surface-hover transition-all rounded-2xl p-8 border border-outline shadow-lg hover:shadow-md"

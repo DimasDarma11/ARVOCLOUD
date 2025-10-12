@@ -31,9 +31,12 @@ const Header = () => {
           <img
             src="https://i.ibb.co/VWzggVqJ/Arvocloud1.png"
             alt="Arvocloud Logo"
-            className="h-8 w-auto rounded-md transition-transform duration-300 group-hover:scale-105"
+            className="h-10 md:h-12 w-auto transition-all duration-500 group-hover:scale-105 drop-shadow-sm"
           />
-        </div>
+        <span className="text-lg md:text-xl font-semibold text-gray-800 tracking-tight">
+          ARVOCLOUD
+        </span>
+      </div>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
@@ -57,7 +60,10 @@ const Header = () => {
         <div className="flex items-center space-x-3">
           <Link
             to="/login"
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md shadow-sm transition-all"
+            className="relative px-5 py-2.5 rounded-xl text-sm font-medium text-gray-800 
+            border border-gray-200 bg-white/60 backdrop-blur-lg 
+            shadow-sm hover:shadow-md hover:-translate-y-[1px]
+            transition-all duration-300"
           >
             Login
           </Link>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail, Phone, MapPin, MessageSquare, Clock } from "lucide-react";
+import { Mail, MessageSquare, Clock, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Contact = () => {
@@ -8,7 +8,7 @@ const Contact = () => {
       icon: Mail,
       color: "bg-blue-100 text-blue-600",
       title: "Email",
-      desc: "Respons dalam 1–3 jam kerja",
+      desc: "Respons cepat dalam 1–3 jam kerja",
       value: "arvocloudserver@gmail.com",
       link: "mailto:arvocloudserver@gmail.com",
     },
@@ -24,7 +24,7 @@ const Contact = () => {
       icon: Clock,
       color: "bg-blue-100 text-blue-600",
       title: "Dukungan 24/7",
-      desc: "Kami siap melayani Anda setiap saat.",
+      desc: "Kami siap membantu kapan pun dibutuhkan.",
       value: "Online Sekarang",
       link: null,
     },
@@ -39,7 +39,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-28 bg-gradient-to-b from-[#e2e8f0] via-[#dbe2e8] to-[#cbd5e1] backdrop-blur-xl border-t border-gray-100">
       <div className="container mx-auto px-6 max-w-5xl">
         {/* Header */}
         <motion.div
@@ -49,12 +49,11 @@ const Contact = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Hubungi <span className="text-blue-600">Tim Kami</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tim support ARVOCLOUD siap membantu Anda kapan pun dibutuhkan —
-            cepat, ramah, dan profesional.
+            Tim support ARVOCLOUD siap membantu Anda — cepat, ramah, dan profesional.
           </p>
         </motion.div>
 
@@ -67,7 +66,7 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className="flex flex-col items-center text-center p-6 border border-gray-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              className="flex flex-col items-center text-center p-6 rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
             >
               <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${color}`}>
                 <Icon className="h-6 w-6" />
@@ -102,13 +101,13 @@ const Contact = () => {
             Butuh bantuan lebih lanjut?
           </h3>
           <p className="text-gray-600 mb-6">
-            Hubungi kami melalui WhatsApp atau email — tim kami tersedia 24 jam.
+            Hubungi kami melalui WhatsApp atau email — tim kami siap 24 jam penuh.
           </p>
           <a
             href="https://wa.me/6283197183724"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+            className="inline-block px-8 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all duration-300"
           >
             Hubungi Sekarang
           </a>

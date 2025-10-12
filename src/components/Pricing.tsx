@@ -463,7 +463,7 @@ const Pricing = () => {
           </div>
 
           <button
-            onClick={() => { /* WhatsApp redirect */ }}
+            onClick={() => handleRedirect(plan.name)}
             className="w-full bg-primary text-on-primary py-3 rounded-lg font-semibold hover:opacity-90"
           >
             Mulai Sekarang

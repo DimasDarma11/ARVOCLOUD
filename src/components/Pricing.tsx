@@ -360,12 +360,12 @@ const Pricing = () => {
   const currentPlans = plans[selectedCategory] || [];
 
   return (
-    <section id="pricing" className="py-20 bg-slate-900">
+    <section id="pricing" className="py-20 bg-gradient-to-b from-white to-gray-100">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Harga yang <span className="bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Transparan</span>
+        <h2 className="text-4xl md:text-5xl font-bold text-grey-800 mb-4">
+          Harga yang <span className="bg-gradient-to-r from-gray-800 to-gray-800 bg-clip-text text-transparent">Transparan</span>
         </h2>
-        <p className="text-gray-400 mb-10">
+        <p className="text-gray-600/90 text-lg max-w-2xl mx-auto mb-20">
           Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
         </p>
 

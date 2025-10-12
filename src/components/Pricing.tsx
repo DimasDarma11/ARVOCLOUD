@@ -375,9 +375,9 @@ const Pricing = () => {
   const currentPlans = plans[selectedCategory] || [];
 
   return (
-    <section id="pricing" className="py-28 h-16 bg-gradient-to-b from-transparent via-[#f8fafc]/80 to-[#e2e8f0]">
+    <section id="pricing" className="py-28 bg-gradient-to-b from-transparent via-[#f8fafc]/80 to-[#e2e8f0]">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-grey-800 mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Harga yang <span className="bg-gradient-to-r from-gray-800 to-gray-800 bg-clip-text text-transparent">Transparan</span>
         </h2>
         <p className="text-gray-600/90 text-lg max-w-2xl mx-auto mb-10">

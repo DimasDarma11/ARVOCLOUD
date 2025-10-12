@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,9 +17,7 @@ const Header = () => {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/80 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
+        isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -59,57 +57,54 @@ const Header = () => {
           </Link>
 
           <button
-            className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center group"
+            className="md:hidden flex flex-col justify-between w-6 h-4 group relative"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <motion.span
-              animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
-            />
-            <motion.span
-              animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
-            />
-            <motion.span
-              animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
-            />
+            {[0, 1, 2].map((i) => (
+              <motion.span
+                key={i}
+                animate={{
+                  opacity: isMenuOpen ? 0.6 : 1,
+                  scale: isMenuOpen ? 0.95 : 1,
+                }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="block h-[2px] w-full bg-gray-800 rounded-full"
+              />
+            ))}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={
-          isMenuOpen
-            ? { height: "auto", opacity: 1 }
-            : { height: 0, opacity: 0 }
-        }
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden bg-white/95 backdrop-blur-lg shadow-md border-t border-gray-200"
-      >
-        <nav className="flex flex-col space-y-3 py-4 px-6 text-sm font-medium">
-          {menuItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-gray-700 hover:text-blue-600 transition-colors"
-            >
-              {item}
-            </a>
-          ))}
-          <Link
-            to="/rules"
-            className="text-gray-700 hover:text-blue-600 transition-colors"
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white/95 backdrop-blur-lg shadow-md border-t border-gray-200"
           >
-            Aturan
-          </Link>
-        </nav>
-      </motion.div>
+            <nav className="flex flex-col space-y-3 py-4 px-6 text-sm font-medium">
+              {menuItems.map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                >
+                  {item}
+                </a>
+              ))}
+              <Link
+                to="/rules"
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                Aturan
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

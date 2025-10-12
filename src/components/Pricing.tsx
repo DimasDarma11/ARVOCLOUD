@@ -380,7 +380,7 @@ const Pricing = () => {
         <h2 className="text-4xl md:text-5xl font-bold text-grey-800 mb-4">
           Harga yang <span className="bg-gradient-to-r from-gray-800 to-gray-800 bg-clip-text text-transparent">Transparan</span>
         </h2>
-        <p className="text-gray-600/90 text-lg max-w-2xl mx-auto mb-20">
+        <p className="text-gray-600/90 text-lg max-w-2xl mx-auto mb-10">
           Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
         </p>
 
@@ -398,7 +398,7 @@ const Pricing = () => {
             >
               <c.icon 
                 className={`w-5 h-5 ${
-                  selectedCategory === c.id ? "text-white" : "text-gray-500"
+                  selectedCategory === c.id ? "text-blue-100" : "text-gray-500"
                 }`}
               />
               {c.name}
@@ -410,8 +410,8 @@ const Pricing = () => {
         {/* Billing Toggle */}
         <div className="flex items-center justify-center mb-12">
           <span
-            className={`mr-3 text-sm font-medium ${
-              billingCycle === "bulanan" ? "text-primary" : "text-gray-500"
+            className={`mr-3 text-sm font-medium transition-colors duration-300 ${
+              billingCycle === "bulanan" ? "text-primary font-semibold" : "text-gray-500"
             }`}
           >
             Bulanan
@@ -420,22 +420,27 @@ const Pricing = () => {
           <button
             onClick={() =>
               setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")
-          }
-          className="relative w-16 h-8 bg-gray-300/40 rounded-full p-1 transition-all duration-300 backdrop-blur-sm"
-        >
+            }
+            className={`relative w-16 h-8 rounded-full p-1 transition-all duration-300 border backdrop-blur-sm ${
+              billingCycle === "tahunan"
+                ? "bg-primary/20 border-primary/60 shadow-primary/30"
+                : "bg-gray-200 border-gray-300 shadow-inner"
+            }`}
+          >
+
           <div
             className={`w-6 h-6 rounded-full transform transition-transform duration-300 shadow-md ${
               billingCycle === "tahunan" 
-              ? "translate-x-8 bg-primary" 
-              : "bg-primary/80"
+              ? "translate-x-0 bg-primary shadow-primary/40" 
+              : "translate-x-0 bg-primary shadow-primary/40"
             }`}
           ></div>
         </button>
 
         <span
-          className={`ml-3 text-sm font-medium ${
+          className={`ml-3 text-sm font-medium transition-colors duration-300 ${
             billingCycle === "tahunan" 
-            ? "text-primary" 
+            ? "text-primary font-semibold" 
             : "text-gray-500"
           }`}
         >

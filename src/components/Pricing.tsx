@@ -377,8 +377,8 @@ const Pricing = () => {
               onClick={() => setSelectedCategory(c.id)}
               className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
                 selectedCategory === c.id
-                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
-                  : "bg-slate-800 text-gray-400 hover:bg-slate-700 hover:text-white"
+                  ? "bg-primary text-on-primary shadow-lg"
+                  : "bg-surface text-secondary hover:bg-surface-hover hover:text-on-surface"
               }`}
             >
               <c.icon className="w-5 h-5" />
@@ -387,114 +387,99 @@ const Pricing = () => {
           ))}
         </div>
 
+
         {/* Billing Toggle */}
         <div className="flex items-center justify-center mb-12">
           <span
-            className={`mr-3 ${
-              billingCycle === "bulanan" ? "text-white" : "text-gray-400"
-            }`}
+            className={`mr-3 ${billingCycle === "bulanan" ? "text-primary" : "text-secondary"}`}
           >
             Bulanan
           </span>
+
           <button
             onClick={() =>
               setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")
-            }
-            className="relative w-16 h-8 bg-slate-700 rounded-full p-1"
-          >
-            <div
-              className={`w-6 h-6 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transform transition-transform ${
-                billingCycle === "tahunan" ? "translate-x-8" : ""
-              }`}
-            ></div>
-          </button>
-          <span
-            className={`ml-3 ${
-              billingCycle === "tahunan" ? "text-white" : "text-gray-400"
+          }
+          className="relative w-16 h-8 bg-surface rounded-full p-1 shadow-md"
+        >
+          <div
+            className={`w-6 h-6 bg-primary rounded-full transform transition-transform ${
+              billingCycle === "tahunan" ? "translate-x-8" : ""
             }`}
-          >
-            Tahunan
-          </span>
-        </div>
+          ></div>
+        </button>
+
+        <span
+          className={`ml-3 ${billingCycle === "tahunan" ? "text-primary" : "text-secondary"}`}
+        >
+          Tahunan
+        </span>
+      </div>
+
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {currentPlans.map((plan, i) => (
-            <div
-              key={i}
-              className="bg-slate-800/80 hover:bg-slate-700 transition-all rounded-2xl p-8 border border-slate-700 hover:border-blue-500 shadow-lg hover:shadow-blue-500/10"
-            >
-              <div className={`w-14 h-14 mx-auto mb-4 bg-gradient-to-r ${plan.gradient} rounded-xl flex items-center justify-center`}>
-                <plan.icon className="w-6 h-6 text-white" />
+        <div
+          key={i}
+          className="bg-surface/80 hover:bg-surface-hover transition-all rounded-2xl p-8 border border-outline shadow-lg hover:shadow-md"
+        >
+          <div className="w-14 h-14 mx-auto mb-4 bg-surface-variant rounded-xl flex items-center justify-center">
+            <plan.icon className="w-6 h-6 text-on-surface" />
+          </div>
+
+          <h3 className="text-xl font-bold text-primary mb-1">{plan.name}</h3>
+          <p className="text-secondary text-sm mb-6">{plan.desc}</p>
+
+          <div className="text-4xl font-bold text-primary mb-6">
+            Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+            <span className="text-secondary text-sm ml-1">
+              /{billingCycle === "bulanan" ? "bulan" : "tahun"}
+            </span>
+          </div>
+
+          <div className="text-on-surface text-sm space-y-2 mb-6">
+            {Object.entries(plan.specs).map(([k, v]) => (
+              <div key={k} className="flex justify-between">
+                <span className="capitalize">{k}:</span>
+                <span>{v}</span>
               </div>
+            ))}
+          </div>
 
-              <h3 className="text-xl font-bold text-white mb-1">{plan.name}</h3>
-              <p className="text-gray-400 text-sm mb-6">{plan.desc}</p>
-
-              <div className="text-4xl font-bold text-white mb-6">
-                Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-                <span className="text-sm text-gray-400 ml-1">
-                  /{billingCycle === "bulanan" ? "bulan" : "tahun"}
-                </span>
-              </div>
-
-              <div className="text-gray-300 text-sm space-y-2 mb-6">
-                {Object.entries(plan.specs).map(([k, v]) => (
-                  <div key={k} className="flex justify-between">
-                    <span className="capitalize">{k}:</span>
-                    <span className="text-gray-200">{v}</span>
-                  </div>
-                ))}
-              </div>
-
-              <button
-                onClick={() => {
-                  setRedirecting(true);
-                  setMessage(plan.name);
-                  setTimeout(() => {
-                    window.open(
-                      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                        whatsappMessage(plan.name)
-                      )}`,
-                      "_blank"
-                    );
-                    setRedirecting(false);
-                  }, 1500);
-                }}
-                className={`w-full bg-gradient-to-r ${plan.gradient} text-white py-3 rounded-lg font-semibold hover:opacity-90`}
-              >
-                Mulai Sekarang
-              </button>
-            </div>
-          ))}
+          <button
+            onClick={() => { /* WhatsApp redirect */ }}
+            className="w-full bg-primary text-on-primary py-3 rounded-lg font-semibold hover:opacity-90"
+          >
+            Mulai Sekarang
+          </button>
         </div>
+
 
         {/* Redirect Modal */}
         <AnimatePresence>
-          {redirecting && (
+        {redirecting && (
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center bg-surface/70 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <motion.div
-              className="fixed inset-0 flex items-center justify-center bg-black/70 z-50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              className="bg-surface p-8 rounded-2xl text-center shadow-2xl"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
             >
-              <motion.div
-                className="bg-slate-800 p-8 rounded-2xl text-center shadow-2xl"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-              >
-                <div className="animate-spin rounded-full h-14 w-14 border-4 border-blue-500 border-t-transparent mx-auto mb-4"></div>
-                <h3 className="text-white font-semibold text-lg mb-2">
-                  Mengarahkan ke WhatsApp...
-                </h3>
-                <p className="text-gray-400 text-sm">
-                  Paket <span className="text-indigo-400 font-semibold">{message}</span>
-                </p>
-              </motion.div>
+              <div className="animate-spin rounded-full h-14 w-14 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
+              <h3 className="text-primary font-semibold text-lg mb-2">
+                Mengarahkan ke WhatsApp...
+              </h3>
+              <p className="text-secondary text-sm">
+                Paket <span className="font-semibold">{message}</span>
+              </p>
             </motion.div>
-          )}
-        </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
       </div>
     </section>
   );

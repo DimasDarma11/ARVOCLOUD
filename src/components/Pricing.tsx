@@ -385,20 +385,20 @@ const Pricing = () => {
         </p>
 
         {/* Category Tabs */}
-        <div className="flex justify-center gap-3 mb-10 flex-wrap">
+        <div className="flex justify-center gap-3 mb-8 flex-wrap">
           {categories.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
               className={`flex items-center gap-2 px-6 py-3 rounded-xl border transition-all duration-300 ${
                 selectedCategory === c.id
-                  ? "bg-primary text-white border-primary shadow-md shadow-primary/30"
+                  ? "bg-white text-primary border-primary shadow-[0_0_15px_rgba(59,130,246,0.25)] backdrop-blur-md"
                   : "bg-white/70 text-gray-600 border-gray-300 hover:bg-white hover:shadow-sm hover:text-gray-800 backdrop-blur-sm"
               }`}
             >
               <c.icon 
-                className={`w-5 h-5 ${
-                  selectedCategory === c.id ? "text-blue-100" : "text-gray-500"
+                className={`w-5 h-5 transition-colors duration-300 ${
+                  selectedCategory === c.id ? "text-primary" : "text-gray-500"
                 }`}
               />
               {c.name}
@@ -431,7 +431,7 @@ const Pricing = () => {
           <div
             className={`w-6 h-6 rounded-full transform transition-transform duration-300 shadow-md ${
               billingCycle === "tahunan" 
-              ? "translate-x-0 bg-primary shadow-primary/40" 
+              ? "translate-x-8 bg-primary shadow-primary/40" 
               : "translate-x-0 bg-primary shadow-primary/40"
             }`}
           ></div>

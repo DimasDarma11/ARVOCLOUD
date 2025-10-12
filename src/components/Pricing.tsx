@@ -375,7 +375,7 @@ const Pricing = () => {
   const currentPlans = plans[selectedCategory] || [];
 
   return (
-    <section id="pricing" className="py-28 bg-gradient-to-b from-[#ffffff] via-[#f8fafc] to-[#f1f5f9]">
+    <section id="pricing" className="py-28 bg-gradient-to-b from-[#f8fafc]/90 via-[#f1f5f9]/90 to-[#e2e8f0]/90 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-grey-800 mb-4">
           Harga yang <span className="bg-gradient-to-r from-gray-800 to-gray-800 bg-clip-text text-transparent">Transparan</span>
@@ -410,8 +410,8 @@ const Pricing = () => {
         {/* Billing Toggle */}
         <div className="flex items-center justify-center mb-12">
           <span
-            className={`mr-3 text-sm font-medium transition-colors duration-300 ${
-              billingCycle === "bulanan" ? "text-primary font-semibold" : "text-gray-500"
+            className={`mr-3 text-sm md:text-base font-medium transition-all duration-300 ${
+              billingCycle === "bulanan" ? "text-primary font-semibold scale-105" : "text-gray-500 scale-105"
             }`}
           >
             Bulanan
@@ -421,27 +421,40 @@ const Pricing = () => {
             onClick={() =>
               setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")
             }
-            className={`relative w-16 h-8 rounded-full p-1 transition-all duration-300 border backdrop-blur-sm ${
+            className={`relative w-20 h-10 rounded-full p-1 flex items-center transition-all duration-500 backdrop-blur-md border ${
               billingCycle === "tahunan"
-                ? "bg-primary/20 border-primary/60 shadow-primary/30"
-                : "bg-gray-200 border-gray-300 shadow-inner"
+                ? "bg-blue-100/70 border-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.35)]"
+                : "bg-gray-200/60 border-gray-300 shadow-inner"
             }`}
           >
 
-          <div
-            className={`w-6 h-6 rounded-full transform transition-transform duration-300 shadow-md ${
-              billingCycle === "tahunan" 
-              ? "translate-x-8 bg-primary shadow-primary/40" 
-              : "translate-x-0 bg-primary shadow-primary/40"
-            }`}
-          ></div>
+          <motion.div
+            layout
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center 
+              ${
+                billingCycle === "tahunan"
+                  ? "translate-x-10 bg-blue-600 shadow-blue-400/50"
+                  : "translate-x-0 bg-blue-600 shadow-blue-400/50"
+              }`}
+          >
+            <motion.span
+              key={billingCycle}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              className="text-white text-[10px] font-semibold select-none"
+            >
+              {billingCycle === "bulanan" ? "B" : "T"}
+            </motion.span>
+          </motion.div>
         </button>
 
         <span
-          className={`ml-3 text-sm font-medium transition-colors duration-300 ${
+          className={`ml-3 text-sm md:text-base font-medium transition-all duration-300 ${
             billingCycle === "tahunan" 
-            ? "text-primary font-semibold" 
-            : "text-gray-500"
+            ? "text-blue-600 font-semibold scale-105" 
+            : "text-gray-500 scale-100"
           }`}
         >
           Tahunan

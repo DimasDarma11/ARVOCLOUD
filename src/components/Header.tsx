@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +23,6 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
         <div className="flex items-center space-x-3 cursor-pointer select-none group">
           <img
             src="https://i.ibb.co/VWzggVqJ/Arvocloud1.png"
@@ -51,7 +50,6 @@ const Header = () => {
           </Link>
         </nav>
 
-
         <div className="flex items-center space-x-3">
           <Link
             to="/login"
@@ -61,36 +59,57 @@ const Header = () => {
           </Link>
 
           <button
-            className="md:hidden p-2 text-gray-700 focus:outline-none"
+            className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center group"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <motion.span
+              animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
+            />
+            <motion.span
+              animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
+            />
+            <motion.span
+              animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
+            />
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-lg shadow-md border-t border-gray-200">
-          <nav className="flex flex-col space-y-3 py-4 px-6 text-sm font-medium">
-            {menuItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                {item}
-              </a>
-            ))}
-            <Link
-              to="/rules"
+      <motion.div
+        initial={{ height: 0, opacity: 0 }}
+        animate={
+          isMenuOpen
+            ? { height: "auto", opacity: 1 }
+            : { height: 0, opacity: 0 }
+        }
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="md:hidden overflow-hidden bg-white/95 backdrop-blur-lg shadow-md border-t border-gray-200"
+      >
+        <nav className="flex flex-col space-y-3 py-4 px-6 text-sm font-medium">
+          {menuItems.map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
-              Aturan
-            </Link>
-          </nav>
-        </div>
-      )}
+              {item}
+            </a>
+          ))}
+          <Link
+            to="/rules"
+            className="text-gray-700 hover:text-blue-600 transition-colors"
+          >
+            Aturan
+          </Link>
+        </nav>
+      </motion.div>
     </header>
   );
 };

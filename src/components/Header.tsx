@@ -57,20 +57,27 @@ const Header = () => {
           </Link>
 
           <button
-            className="md:hidden flex flex-col justify-between w-6 h-4 group relative"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center group"
           >
-            {[0, 1, 2].map((i) => (
-              <motion.span
-                key={i}
-                animate={{
-                  opacity: isMenuOpen ? 0.6 : 1,
-                  scale: isMenuOpen ? 0.95 : 1,
-                }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="block h-[2px] w-full bg-gray-800 rounded-full"
-              />
-            ))}
+            <motion.span
+              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
+              animate={
+                isMenuOpen
+                  ? { rotate: 45, y: 6, backgroundColor: "#1E3A8A" }
+                  : { rotate: 0, y: -6, backgroundColor: "#111827" }
+              }
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+            />
+            <motion.span
+              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
+              animate={
+                isMenuOpen
+                  ? { rotate: -45, y: -6, backgroundColor: "#1E3A8A" }
+                  : { rotate: 0, y: 6, backgroundColor: "#111827" }
+              }
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+            />
           </button>
         </div>
       </div>
@@ -82,7 +89,7 @@ const Header = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
             className="md:hidden bg-white/95 backdrop-blur-lg shadow-md border-t border-gray-200"
           >
             <nav className="flex flex-col space-y-3 py-4 px-6 text-sm font-medium">
@@ -91,6 +98,7 @@ const Header = () => {
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   className="text-gray-700 hover:text-blue-600 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item}
                 </a>
@@ -98,6 +106,7 @@ const Header = () => {
               <Link
                 to="/rules"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Aturan
               </Link>

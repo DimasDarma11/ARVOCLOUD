@@ -29,7 +29,7 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="relative py-28 overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0]"
+      className="relative py-28 overflow-hidden bg-gradient-to-b from-[#e2e8f0] via-[#dbe2e8] to-[#cbd5e1]"
     >
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none">

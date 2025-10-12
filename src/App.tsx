@@ -16,7 +16,13 @@ function App() {
       <Header />
       <Hero />
       <Services />
+
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300/20 to-transparent"></div>
+      
       <Pricing />
+
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300/20 to-transparent"></div>
+      
       <About />
       <Contact />
       <Footer />

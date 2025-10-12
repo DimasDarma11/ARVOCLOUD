@@ -375,7 +375,7 @@ const Pricing = () => {
   const currentPlans = plans[selectedCategory] || [];
 
   return (
-    <section id="pricing" className="py-20 bg-gradient-to-b from-[#f8fafc] to-[#e2e8f0]">
+    <section id="pricing" className="py-28 bg-gradient-to-b from-[#ffffff] via-[#f8fafc] to-[#f1f5f9]">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-grey-800 mb-4">
           Harga yang <span className="bg-gradient-to-r from-gray-800 to-gray-800 bg-clip-text text-transparent">Transparan</span>
@@ -437,14 +437,14 @@ const Pricing = () => {
        {currentPlans.map((plan, i) => (
         <div
           key={i}
-          className="bg-surface/80 hover:bg-surface-hover transition-all rounded-2xl p-8 border border-outline shadow-lg hover:shadow-md"
+          className="bg-white hover:bg-gray-50 transition-all rounded-2xl p-8 border border-gray-200 shadow-lg hover:shadow-md"
         >
-          <div className="w-14 h-14 mx-auto mb-4 bg-surface-variant rounded-xl flex items-center justify-center">
-            <plan.icon className="w-6 h-6 text-on-surface" />
+          <div className="w-14 h-14 mx-auto mb-4 bg-blue-50 rounded-xl flex items-center justify-center">
+            <plan.icon className="w-6 h-6 text-blue-600" />
           </div>
 
-          <h3 className="text-xl font-bold text-primary mb-1">{plan.name}</h3>
-          <p className="text-secondary text-sm mb-6">{plan.desc}</p>
+          <h3 className="text-xl font-bold text-gray-800 mb-1">{plan.name}</h3>
+          <p className="text-gray-600 text-sm mb-6">{plan.desc}</p>
 
           <div className="text-4xl font-bold text-primary mb-6">
             Rp{plan.price[billingCycle].toLocaleString("id-ID")}
@@ -464,7 +464,7 @@ const Pricing = () => {
 
           <button
             onClick={() => handleRedirect(plan.name)}
-            className="w-full bg-primary text-on-primary py-3 rounded-lg font-semibold hover:opacity-90"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
           >
             Mulai Sekarang
           </button>
@@ -477,13 +477,13 @@ const Pricing = () => {
         <AnimatePresence>
         {redirecting && (
           <motion.div
-            className="fixed inset-0 flex items-center justify-center bg-surface/70 z-50"
+            className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-surface p-8 rounded-2xl text-center shadow-2xl"
+              className="bg-white p-8 rounded-2xl text-center shadow-2xl"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}

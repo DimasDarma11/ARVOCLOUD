@@ -397,7 +397,7 @@ const Pricing = () => {
               }`}
             >
               <c.icon 
-                className="w-5 h-5" ${
+                className={'w-5 h-5 ${
                   selectedCategory === c.id ? "text-white" : "text-gray-500"
                 }`}
               />

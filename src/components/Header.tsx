@@ -12,6 +12,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock scroll when menu open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
   }, [isMenuOpen]);
@@ -20,21 +21,24 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-[60] transition-all duration-500 ${
-        isScrolled ? "bg-white/70 backdrop-blur-md shadow-sm" : "bg-transparent"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-white/70 backdrop-blur-md shadow-sm"
+          : "bg-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2 select-none cursor-pointer">
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center space-x-3 select-none group">
           <img
             src="https://i.ibb.co/VWzggVqJ/Arvocloud1.png"
             alt="Arvocloud Logo"
-            className="h-8 w-auto transition-transform duration-300 hover:scale-105"
+            className="h-8 w-auto transition-transform duration-500 group-hover:scale-110"
           />
         </div>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
           {menuItems.map((item) => (
             <a
               key={item}
@@ -52,58 +56,59 @@ const Header = () => {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
+        {/* Login + Hamburger */}
+        <div className="flex items-center space-x-3">
           <Link
             to="/login"
-            className="hidden md:inline-block px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all"
+            className="hidden md:inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-md transition-all"
           >
             Login
           </Link>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden w-10 h-10 flex flex-col justify-center items-center relative"
+            className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center group"
           >
             <motion.span
               className="absolute w-6 h-[2px] bg-gray-900 rounded-full"
               animate={
                 isMenuOpen
                   ? { rotate: 45, y: 6, backgroundColor: "#2563EB" }
-                  : { rotate: 0, y: -6, backgroundColor: "#111827" }
+                  : { rotate: 0, y: -6 }
               }
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
             />
             <motion.span
               className="absolute w-6 h-[2px] bg-gray-900 rounded-full"
               animate={
                 isMenuOpen
                   ? { rotate: -45, y: -6, backgroundColor: "#2563EB" }
-                  : { rotate: 0, y: 6, backgroundColor: "#111827" }
+                  : { rotate: 0, y: 6 }
               }
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
             />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Fullscreen Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.4 }}
-            className="fixed top-0 left-0 w-full h-full z-[70] bg-white/80 backdrop-blur-2xl flex flex-col items-center justify-center space-y-8 text-lg font-semibold text-gray-900"
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="fixed inset-0 z-40 bg-white/80 backdrop-blur-2xl flex flex-col items-center justify-center space-y-8"
           >
             {menuItems.map((item, index) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
+                className="text-2xl text-gray-800 hover:text-blue-600 font-medium transition-colors"
                 onClick={() => setIsMenuOpen(false)}
-                className="hover:text-blue-600 transition-all"
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * index }}
               >
@@ -111,21 +116,33 @@ const Header = () => {
               </motion.a>
             ))}
 
-            <Link
-              to="/rules"
-              onClick={() => setIsMenuOpen(false)}
-              className="hover:text-blue-600 transition-all"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
             >
-              Aturan
-            </Link>
+              <Link
+                to="/rules"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-2xl text-gray-800 hover:text-blue-600 font-medium transition-colors"
+              >
+                Aturan
+              </Link>
+            </motion.div>
 
-            <motion.button
-              onClick={() => setIsMenuOpen(false)}
-              className="px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition-all"
-              whileHover={{ scale: 1.05 }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.45 }}
             >
-              Tutup Menu
-            </motion.button>
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="mt-8 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300"
+              >
+                Login
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -454,6 +454,8 @@ const Pricing = () => {
             Mulai Sekarang
           </button>
         </div>
+      ))}
+    </div>
 
 
         {/* Redirect Modal */}

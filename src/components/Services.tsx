@@ -64,7 +64,7 @@ const Services = () => {
           transition={{ delay: 0.2 }}
           className="text-gray-600/90 text-lg max-w-2xl mx-auto mb-20"
         >
-          Infrastruktur yang stabil, efisien, dan elegan — dibangun untuk pengalaman pengguna sekelas sistem Apple.
+          Infrastruktur yang stabil, efisien, dan bisa diandalkan.
         </motion.p>
 
         {/* Grid */}

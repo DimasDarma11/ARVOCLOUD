@@ -375,7 +375,7 @@ const Pricing = () => {
   const currentPlans = plans[selectedCategory] || [];
 
   return (
-    <section id="pricing" className="py-28 bg-gradient-to-b from-[#f8fafc]/90 via-[#f1f5f9]/90 to-[#e2e8f0]/90 backdrop-blur-xl">
+    <section id="pricing" className="py-28 h-16 bg-gradient-to-b from-transparent via-[#f8fafc]/80 to-[#e2e8f0]">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-grey-800 mb-4">
           Harga yang <span className="bg-gradient-to-r from-gray-800 to-gray-800 bg-clip-text text-transparent">Transparan</span>
@@ -390,18 +390,18 @@ const Pricing = () => {
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl border transition-all duration-300 ${
+              className={`flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all duration-300 ${
                 selectedCategory === c.id
-                  ? "bg-white text-primary border-primary shadow-[0_0_15px_rgba(59,130,246,0.25)] backdrop-blur-md"
-                  : "bg-white/70 text-gray-600 border-gray-300 hover:bg-white hover:shadow-sm hover:text-gray-800 backdrop-blur-sm"
+                  ? "bg-white/80 text-primary border-primary/60 shadow-[0_0_25px_rgba(59,130,246,0.25)] backdrop-blur-md scale-[1.03]"
+                  : "bg-white/40 text-gray-700 border-gray-200 hover:bg-white/70 hover:text-primary/90 hover:shadow-[0_0_10px_rgba(59,130,246,0.15)] backdrop-blur-sm"
               }`}
             >
               <c.icon 
-                className={`w-5 h-5 transition-colors duration-300 ${
-                  selectedCategory === c.id ? "text-primary" : "text-gray-500"
+                className={`w-5 h-5 transition-all duration-300 ${
+                  selectedCategory === c.id ? "text-primary drop-shadow-[0_0_6px_rgba(59,130,246,0.35)]" : "text-gray-500"
                 }`}
               />
-              {c.name}
+              <span className="font-medium tracking-wide">{c.name}</span>
             </button>
           ))}
         </div>
@@ -467,37 +467,44 @@ const Pricing = () => {
        {currentPlans.map((plan, i) => (
         <div
           key={i}
-          className="bg-white hover:bg-gray-50 transition-all rounded-2xl p-8 border border-gray-200 shadow-lg hover:shadow-md"
+          className={`relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md
+            ${plan.featured
+              ? "bg-white/80 border-blue-200 shadow-[0_8px_32px_rgba(59,130,246,0.15)] scale-[1.02]"
+              : "bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]"
+            }`}
         >
-          <div className="w-14 h-14 mx-auto mb-4 bg-blue-50 rounded-xl flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto mb-5 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center shadow-inner">
             <plan.icon className="w-6 h-6 text-blue-600" />
           </div>
 
-          <h3 className="text-xl font-bold text-gray-800 mb-1">{plan.name}</h3>
-          <p className="text-gray-600 text-sm mb-6">{plan.desc}</p>
+          <h3 className="text-xl font-bold text-gray-800 mb-1 text-center">{plan.name}</h3>
+          <p className="text-gray-600 text-sm mb-6 text-center">{plan.desc}</p>
 
-          <div className="text-4xl font-bold text-primary mb-6">
+          <div className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
             Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-            <span className="text-secondary text-sm ml-1">
+            <span className="text-gray-500 text-sm ml-1 font-medium">
               /{billingCycle === "bulanan" ? "bulan" : "tahun"}
             </span>
           </div>
 
-          <div className="text-on-surface text-sm space-y-2 mb-6">
+          <div className="text-gray-700 text-sm space-y-2 mb-8">
             {Object.entries(plan.specs).map(([k, v]) => (
-              <div key={k} className="flex justify-between">
+              <div key={k} className="flex justify-between text-sm">
                 <span className="capitalize">{k}:</span>
-                <span>{v}</span>
+                <span className="font-medium">{v}</span>
               </div>
             ))}
           </div>
 
           <button
             onClick={() => handleRedirect(plan.name)}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
+            className="w-full py-3 rounded-xl font-semibold transition-all duration-300
+              bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-[0_4px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_4px_30px_rgba(59,130,246,0.35)]"
           >
             Mulai Sekarang
           </button>
+
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent via-blue-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         </div>
       ))}
     </div>

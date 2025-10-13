@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
-const Header = () => {
+interface HeaderProps {
+  onAboutClick: () => void;
+  onContactClick: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -16,8 +21,8 @@ const Header = () => {
   const menuItems = [
     { name: "Services", desc: "Solusi cloud & sistem digital modern", href: "#services" },
     { name: "Pricing", desc: "Paket fleksibel untuk setiap kebutuhan", href: "#pricing" },
-    { name: "About", desc: "Cerita dan misi kami di balik Arvocloud", href: "#about" },
-    { name: "Contact", desc: "Hubungi tim kami untuk kolaborasi", href: "#contact" },
+    { name: "About", desc: "Cerita dan misi kami di balik Arvocloud", action: onAboutClick },
+    { name: "Contact", desc: "Hubungi tim kami untuk kolaborasi", action: onContactClick },
   ];
 
   return (
@@ -33,21 +38,18 @@ const Header = () => {
             alt="Arvocloud Logo"
             className="h-10 md:h-12 w-auto transition-all duration-500 group-hover:scale-105 drop-shadow-sm"
           />
-        <span className="text-lg md:text-xl font-semibold text-gray-800 tracking-tight">
-          ARVOCLOUD
-        </span>
-      </div>
+        </div>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
           {menuItems.map((item) => (
-            <a
+            <button
               key={item.name}
-              href={item.href}
+              onClick={() => item.action ? item.action() : null}
               className="text-gray-700 hover:text-blue-600 transition-colors"
             >
               {item.name}
-            </a>
+            </button>
           ))}
           <Link
             to="/rules"
@@ -57,6 +59,7 @@ const Header = () => {
           </Link>
         </nav>
 
+        {/* Login + Hamburger */}
         <div className="flex items-center space-x-3">
           <Link
             to="/login"
@@ -94,7 +97,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 🔹 Mobile Dropdown */}
+      {/* Mobile Dropdown */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -107,11 +110,13 @@ const Header = () => {
           >
             <div className="flex flex-col py-5 px-6 space-y-4">
               {menuItems.map((item, i) => (
-                <motion.a
+                <motion.button
                   key={item.name}
-                  href={item.href}
-                  className="flex items-start justify-between group"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    item.action ? item.action() : null;
+                  }}
+                  className="flex items-start justify-between group w-full text-left"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i }}
@@ -120,15 +125,13 @@ const Header = () => {
                     <p className="text-gray-900 font-medium group-hover:text-blue-600 transition-colors">
                       {item.name}
                     </p>
-                    <p className="text-xs text-gray-500">
-                      {item.desc}
-                    </p>
+                    <p className="text-xs text-gray-500">{item.desc}</p>
                   </div>
                   <ChevronRight
                     size={16}
                     className="text-gray-400 group-hover:text-blue-600 transition-all mt-1"
                   />
-                </motion.a>
+                </motion.button>
               ))}
               <hr className="border-gray-200 my-2" />
               <Link

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -8,22 +8,33 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
+  const [showAbout, setShowAbout] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+
   return (
     <div className="min-h-screen relative">
-      <Header />
+      <Header 
+        onAboutClick={() => setShowAbout(true)}
+        onContactClick={() => setShowContact(true)}
+      />
+
+      {/* Section utama */}
       <Hero />
       <Services />
 
       <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300/20 to-transparent"></div>
-    
+
       <Pricing />
 
       <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300/20 to-transparent"></div>
-      
-      <About />
-      <Contact />
+
+      {/* Section tambahan */}
+      {showAbout && <About />}
+      {showContact && <Contact />}
+
       <Footer />
 
+      {/* WhatsApp fixed button */}
       <a
         href="https://wa.me/6283197183724?text=Halo%20ArvoCloud!"
         target="_blank"
@@ -36,10 +47,8 @@ function App() {
           className="w-6 h-6 opacity-90 hover:opacity-100 transition-opacity"
         />
       </a>
-
     </div>
   );
 }
 
 export default App;
-

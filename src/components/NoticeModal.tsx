@@ -6,15 +6,12 @@ const NoticeModal = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const alreadyShown = localStorage.getItem("noticeShown");
-    if (!alreadyShown) {
-      setTimeout(() => setShow(true), 800);
-    }
+    const timer = setTimeout(() => setShow(true), 800);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setShow(false);
-    localStorage.setItem("noticeShown", "true");
   };
 
   return (

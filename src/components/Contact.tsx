@@ -33,7 +33,7 @@ const Contact = () => {
       color: "bg-gray-100 text-gray-600",
       title: "Lokasi",
       desc: "Global Data Center Network",
-      value: "Jakarta • Singapore • USA",
+      value: "Indonesia • United States",
       link: null,
     },
   ];

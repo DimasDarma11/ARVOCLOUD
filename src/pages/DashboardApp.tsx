@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginPage2 } from '../pages/LoginPage2';
-import { DashboardLayout } from '../pages/DashboardLayout';
-import { DashboardOverview } from '../pages/DashboardOverview';
-import { OrderServer } from '../pages/OrderServer';
-import { InvoiceList } from '../pages/InvoiceList';
-import { InvoiceDetail } from '../pages/InvoiceDetail';
-import { PaymentPage } from '../pages/PaymentPage';
-import { MyServers } from '../pages/MyServers';
+import { LoginPage2 } from '../LoginPage2';
+import { DashboardLayout } from '../DashboardLayout';
+import { DashboardOverview } from '../DashboardOverview';
+import { OrderServer } from '../OrderServer';
+import { InvoiceList } from '../InvoiceList';
+import { InvoiceDetail } from '../InvoiceDetail';
+import { PaymentPage } from '../PaymentPage';
+import { MyServers } from '../MyServers';
 
 function DashboardContent() {
   const { user, loading } = useAuth();
@@ -24,7 +24,7 @@ function DashboardContent() {
     );
   }
 
-  if (!user) return <LoginPage />;
+  if (!user) return <LoginPage2 />;
 
   const handleOrderComplete = () => setCurrentPage('invoices');
   const handlePayInvoice = (invoiceId: string) => setPaymentInvoice(invoiceId);

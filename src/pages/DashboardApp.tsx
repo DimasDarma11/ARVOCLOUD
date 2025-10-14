@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginPage2 } from './LoginPage2';
+import LoginPage2 from './LoginPage2';
 import { DashboardLayout } from './DashboardLayout';
 import { DashboardOverview } from './DashboardOverview';
 import { OrderServer } from './OrderServer';

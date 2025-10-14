@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginPage } from '../components/LoginPage';
-import { DashboardLayout } from '../components/DashboardLayout';
-import { DashboardOverview } from '../components/DashboardOverview';
-import { OrderServer } from '../components/OrderServer';
-import { InvoiceList } from '../components/InvoiceList';
-import { InvoiceDetail } from '../components/InvoiceDetail';
-import { PaymentPage } from '../components/PaymentPage';
-import { MyServers } from '../components/MyServers';
+import { LoginPage2 } from '../pages/LoginPage2';
+import { DashboardLayout } from '../pages/DashboardLayout';
+import { DashboardOverview } from '../pages/DashboardOverview';
+import { OrderServer } from '../pages/OrderServer';
+import { InvoiceList } from '../pages/InvoiceList';
+import { InvoiceDetail } from '../pages/InvoiceDetail';
+import { PaymentPage } from '../pages/PaymentPage';
+import { MyServers } from '../pages/MyServers';
 
 function DashboardContent() {
   const { user, loading } = useAuth();

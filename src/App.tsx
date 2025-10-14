@@ -6,6 +6,8 @@ import Pricing from './components/Pricing';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { motion } from 'framer-motion';
+import { MessageCircle } from 'lucide-react';
 
 function App() {
   const [showAbout, setShowAbout] = useState(false);

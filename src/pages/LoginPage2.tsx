@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Cloud } from "lucide-react";
 
-export const LoginPage: React.FC = () => {
+export const LoginPage2: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

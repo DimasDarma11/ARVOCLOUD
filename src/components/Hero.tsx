@@ -168,7 +168,7 @@ const Hero = () => {
                 <div className="text-sm text-gray-600/80">Support</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-indigo-700">100+</div>
+                <div className="text-2xl font-bold text-indigo-700">50+</div>
                 <div className="text-sm text-gray-600/80">Clients</div>
               </div>
             </div>

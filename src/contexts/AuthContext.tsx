@@ -16,14 +16,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // ===== Sync session from Supabase =====
   useEffect(() => {
-    const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       setLoading(false);
-    };
-    getSession();
+    });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
@@ -32,9 +29,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, []);
 
-  // ===== Login =====
   const signIn = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
     if (error) {
       if (error.message.toLowerCase().includes("invalid login credentials")) {
         throw new Error("Email atau kata sandi yang Anda masukkan tidak sesuai.");
@@ -44,35 +41,45 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error("Terjadi kesalahan saat masuk. Silakan coba lagi nanti.");
       }
     }
+
     setUser(data.user ?? null);
   };
 
-  // ===== Register =====
   const signUp = async (email: string, password: string, fullName: string) => {
-    const { data, error } = await supabase.auth.signUp(
-      { email, password },
-      { data: { full_name: fullName } } 
-    );
+    // cek dulu apakah email sudah ada di profiles
+    const { data: existing } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('email', email)
+      .single();
+
+    if (existing) throw new Error("Email sudah terdaftar di sistem.");
+
+    // daftar di Auth
+    const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw new Error(error.message);
 
     if (data.user) {
       setUser(data.user);
 
-      // Simpan ke table profiles
+      // insert ke profiles
       const { error: profileError } = await supabase.from('profiles').insert({
         id: data.user.id,
         email,
         full_name: fullName,
       });
-      if (profileError) throw new Error(profileError.message);
+
+      if (profileError) {
+        // Kalau insert gagal, beri alert, karena frontend biasa tidak bisa rollback Auth
+        console.error("Gagal membuat profil:", profileError.message);
+        alert("Pendaftaran berhasil tapi profil gagal dibuat. Silakan hubungi admin.");
+      }
     }
   };
 
-  // ===== Logout =====
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    if (error) throw new Error(error.message);
-    setUser(null);
+    if (error) throw new Error("Gagal keluar dari akun. Silakan coba lagi.");
   };
 
   return (
@@ -82,8 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// ===== Hook =====
-export const useAuth = (): AuthContextType => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;

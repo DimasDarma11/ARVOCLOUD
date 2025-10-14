@@ -1,21 +1,20 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import LandingApp from './pages/LandingApp';
 import DashboardApp from './pages/DashboardApp';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Landing page */}
-        <Route path="/" element={<LandingApp />} />
+    <Routes>
+      {/* Landing page */}
+      <Route path="/" element={<LandingApp />} />
 
-        {/* Dashboard system */}
-        <Route path="/dashboard/*" element={<DashboardApp />} />
-      </Routes>
-    </BrowserRouter>
+      {/* Dashboard system */}
+      <Route path="/dashboard/*" element={<DashboardApp />} />
+    </Routes>
   );
 }
 
 export default App;
+
 

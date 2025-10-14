@@ -23,16 +23,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      (async () => {
-        setUser(session?.user ?? null);
-      })();
+      setUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       if (error.message.toLowerCase().includes("invalid login credentials")) {
         throw new Error("Email atau kata sandi yang Anda masukkan tidak sesuai.");
@@ -40,6 +38,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error("Email Anda belum dikonfirmasi. Silakan cek kotak masuk Anda.");
       } else {
         throw new Error("Terjadi kesalahan saat masuk. Silakan coba lagi nanti.");
+      } else {
+        setUser(data.user ?? null);
       }
     }
   };
@@ -49,6 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (error) throw error;
 
     if (data.user) {
+      setUser(data.user);
       await supabase.from('profiles').insert({
         id: data.user.id,
         email,

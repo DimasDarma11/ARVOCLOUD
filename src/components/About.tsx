@@ -22,9 +22,9 @@ const About = () => {
   ];
 
   const stats = [
-    { icon: Users, number: "100+", label: "Pelanggan Aktif" },
+    { icon: Users, number: "50+", label: "Pelanggan Aktif" },
     { icon: Clock, number: "99.8%", label: "Uptime Terjamin" },
-    { icon: Award, number: "2+", label: "Tahun Pengalaman" },
+    { icon: Award, number: "1+", label: "Tahun Pengalaman" },
   ];
 
   return (
@@ -42,7 +42,7 @@ const About = () => {
       >
         <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-4 tracking-tight">
           Mengapa{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-600">
             ArvoCloud
           </span>
           ?

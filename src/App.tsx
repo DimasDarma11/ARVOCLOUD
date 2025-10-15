@@ -5,7 +5,6 @@ import DashboardApp from './pages/DashboardApp';
 
 function App() {
   return (
-    <BrowserRouter>
       <Routes>
         {/* Landing page */}
         <Route path="/" element={<LandingApp />} />
@@ -13,7 +12,6 @@ function App() {
         {/* Dashboard system */}
         <Route path="/app/*" element={<DashboardApp />} />
       </Routes>
-    </BrowserRouter>
   );
 }
 

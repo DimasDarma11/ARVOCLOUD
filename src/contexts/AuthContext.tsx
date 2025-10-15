@@ -1,96 +1,120 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import supabase from '../lib/supabase';
-import { User } from '@supabase/supabase-js';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { User, Session } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabase';
+
+interface Profile {
+  id: string;
+  whatsapp_number: string;
+  full_name: string | null;
+  is_admin: boolean;
+}
 
 interface AuthContextType {
   user: User | null;
+  session: Session | null;
+  profile: Profile | null;
   loading: boolean;
+  signUp: (email: string, password: string, fullName: string, whatsappNumber: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, fullName: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
       setUser(session?.user ?? null);
-      setLoading(false);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      } else {
+        setLoading(false);
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      (async () => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          await fetchProfile(session.user.id);
+        } else {
+          setProfile(null);
+          setLoading(false);
+        }
+      })();
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
-  const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  const fetchProfile = async (userId: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .maybeSingle();
 
-    if (error) {
-      if (error.message.toLowerCase().includes("invalid login credentials")) {
-        throw new Error("Email atau kata sandi yang Anda masukkan tidak sesuai.");
-      } else if (error.message.toLowerCase().includes("email not confirmed")) {
-        throw new Error("Email Anda belum dikonfirmasi. Silakan cek kotak masuk Anda.");
-      } else {
-        throw new Error("Terjadi kesalahan saat masuk. Silakan coba lagi nanti.");
-      }
+    if (!error && data) {
+      setProfile(data);
     }
-
-    setUser(data.user ?? null);
+    setLoading(false);
   };
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    // cek dulu apakah email sudah ada di profiles
-    const { data: existing } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('email', email)
-      .single();
+  const signUp = async (email: string, password: string, fullName: string, whatsappNumber: string) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
 
-    if (existing) throw new Error("Email sudah terdaftar di sistem.");
-
-    // daftar di Auth
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) throw new Error(error.message);
+    if (error) throw error;
 
     if (data.user) {
-      setUser(data.user);
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: data.user.id,
+          whatsapp_number: whatsappNumber,
+          full_name: fullName,
+          is_admin: false,
+        });
 
-      // insert ke profiles
-      const { error: profileError } = await supabase.from('profiles').insert({
-        id: data.user.id,
-        email,
-        full_name: fullName,
-      });
-
-      if (profileError) {
-        // Kalau insert gagal, beri alert, karena frontend biasa tidak bisa rollback Auth
-        console.error("Gagal membuat profil:", profileError.message);
-        alert("Pendaftaran berhasil tapi profil gagal dibuat. Silakan hubungi admin.");
-      }
+      if (profileError) throw profileError;
     }
+  };
+
+  const signIn = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) throw error;
   };
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    if (error) throw new Error("Gagal keluar dari akun. Silakan coba lagi.");
+    if (error) throw error;
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, profile, loading, signUp, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be used within an AuthProvider');
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
   return context;
-};
+}
+

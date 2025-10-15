@@ -1,65 +1,82 @@
-import React, { useState } from 'react';
-import { AuthProvider, useAuth } from '../contexts/AuthContext';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { DashboardLayout } from './DashboardLayout';
-import { DashboardOverview } from './DashboardOverview';
-import { OrderServer } from './OrderServer';
-import { InvoiceList } from './InvoiceList';
-import { InvoiceDetail } from './InvoiceDetail';
-import { PaymentPage } from './PaymentPage';
-import { MyServers } from './MyServers';
-import LoginPage2 from './LoginPage2';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { Login } from './pages/Login';
+import { Signup } from './pages/Signup';
+import { Dashboard } from './pages/Dashboard';
+import { OrderServer } from './pages/OrderServer';
+import { Checkout } from './pages/Checkout';
+import { Invoices } from './pages/Invoices';
+import { Admin } from './pages/Admin';
+import { Profile } from './pages/Profile';
 
-function DashboardContent() {
-  const { user, loading } = useAuth();
-  const [currentPage, setCurrentPage] = useState('overview');
-  const [selectedInvoice, setSelectedInvoice] = useState<string | null>(null);
-  const [paymentInvoice, setPaymentInvoice] = useState<string | null>(null);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-500"></div>
-      </div>
-    );
-  }
-
-  if (!user) return <LoginPage2 />;
-
-  const handleOrderComplete = () => setCurrentPage('invoices');
-  const handlePayInvoice = (invoiceId: string) => setPaymentInvoice(invoiceId);
-  const handleViewInvoice = (invoiceId: string) => setSelectedInvoice(invoiceId);
-  const handlePaymentComplete = () => {
-    setPaymentInvoice(null);
-    setCurrentPage('overview');
-  };
-
-  const renderPage = () => {
-    if (paymentInvoice)
-      return <PaymentPage invoiceId={paymentInvoice} onBack={() => setPaymentInvoice(null)} onPaymentComplete={handlePaymentComplete} />;
-    if (selectedInvoice)
-      return <InvoiceDetail invoiceId={selectedInvoice} onBack={() => setSelectedInvoice(null)} />;
-
-    switch (currentPage) {
-      case 'overview': return <DashboardOverview />;
-      case 'servers': return <MyServers />;
-      case 'order': return <OrderServer onOrderComplete={handleOrderComplete} />;
-      case 'invoices': return <InvoiceList onPayInvoice={handlePayInvoice} onViewInvoice={handleViewInvoice} />;
-      default: return <DashboardOverview />;
-    }
-  };
-
+function DashboardApp() {
   return (
-    <DashboardLayout currentPage={currentPage} onPageChange={setCurrentPage}>
-      {renderPage()}
-    </DashboardLayout>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/order"
+            element={
+              <ProtectedRoute>
+                <OrderServer />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/checkout/:invoiceId"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/invoices"
+            element={
+              <ProtectedRoute>
+                <Invoices />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute adminOnly>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
-export default function DashboardApp() {
-  return (
-    <AuthProvider>
-      <DashboardContent />
-    </AuthProvider>
-  );
-}
+export default DashboardApp;

@@ -10,7 +10,7 @@ function App() {
       <Route path="/" element={<LandingApp />} />
 
       {/* Dashboard system */}
-      <Route path="/dashboard/*" element={<DashboardApp />} />
+      <Route path="/app/*" element={<DashboardApp />} />
     </Routes>
   );
 }

@@ -3,7 +3,7 @@ import { AuthProvider } from '../contexts/AuthContext';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { Login } from './Login';
 import { Signup } from './Signup';
-import { Dashboard } from './Dashboard';
+import { CustomerDashboard } from './CustomerDashboard';
 import { OrderServer } from './OrderServer';
 import { Checkout } from './Checkout';
 import { Invoices } from './Invoices';
@@ -19,10 +19,10 @@ function DashboardApp() {
           <Route path="/signup" element={<Signup />} />
 
           <Route
-            path="/dashboard"
+            path=""
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <CustomerDashboard />
               </ProtectedRoute>
             }
           />

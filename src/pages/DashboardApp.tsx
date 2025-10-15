@@ -12,14 +12,13 @@ import { Profile } from './Profile';
 
 function DashboardApp() {
   return (
-    <BrowserRouter>
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
           <Route
-            path=""
+            path="/dashboard"
             element={
               <ProtectedRoute>
                 <CustomerDashboard />
@@ -75,7 +74,6 @@ function DashboardApp() {
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
-    </BrowserRouter>
   );
 }
 

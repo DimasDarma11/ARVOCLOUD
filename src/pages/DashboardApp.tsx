@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { Login } from './pages/Login';
-import { Signup } from './pages/Signup';
-import { Dashboard } from './pages/Dashboard';
-import { OrderServer } from './pages/OrderServer';
-import { Checkout } from './pages/Checkout';
-import { Invoices } from './pages/Invoices';
-import { Admin } from './pages/Admin';
-import { Profile } from './pages/Profile';
+import { AuthProvider } from '../contexts/AuthContext';
+import { ProtectedRoute } from '../components/ProtectedRoute';
+import { Login } from './Login';
+import { Signup } from './Signup';
+import { Dashboard } from './Dashboard';
+import { OrderServer } from './OrderServer';
+import { Checkout } from './Checkout';
+import { Invoices } from './Invoices';
+import { Admin } from './Admin';
+import { Profile } from './Profile';
 
 function DashboardApp() {
   return (

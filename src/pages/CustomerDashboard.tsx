@@ -23,7 +23,7 @@ interface Credentials {
   password: string | null;
 }
 
-export function Dashboard() {
+export function CustomerDashboard() {
   const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);

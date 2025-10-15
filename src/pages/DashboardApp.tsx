@@ -14,11 +14,11 @@ function DashboardApp() {
   return (
       <AuthProvider>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
 
           <Route
-            path="/dashboard"
+            path="dashboard"
             element={
               <ProtectedRoute>
                 <CustomerDashboard />
@@ -27,7 +27,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="/order"
+            path="order"
             element={
               <ProtectedRoute>
                 <OrderServer />
@@ -36,7 +36,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="/checkout/:invoiceId"
+            path="checkout/:invoiceId"
             element={
               <ProtectedRoute>
                 <Checkout />
@@ -45,7 +45,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="/invoices"
+            path="invoices"
             element={
               <ProtectedRoute>
                 <Invoices />
@@ -54,7 +54,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="/profile"
+            path="profile"
             element={
               <ProtectedRoute>
                 <Profile />
@@ -63,7 +63,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="/admin"
+            path="admin"
             element={
               <ProtectedRoute adminOnly>
                 <Admin />
@@ -71,7 +71,7 @@ function DashboardApp() {
             }
           />
 
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/" element={<Navigate to="." replace />} />
         </Routes>
       </AuthProvider>
   );

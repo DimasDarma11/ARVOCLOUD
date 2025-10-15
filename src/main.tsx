@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/*" element={<App />} />
 
         {/* Halaman tambahan khusus */}
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/loginpage" element={<LoginPage />} />
         <Route path="/rules" element={<Rules />} />
         <Route path="/status" element={<Status />} />
       </Routes>

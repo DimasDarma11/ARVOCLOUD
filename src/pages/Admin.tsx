@@ -95,13 +95,12 @@ export function Admin() {
       .select('*')
       .order('created_at', { ascending: false });
     if (!error && data) {
-      setProducts(data.map(p => ({ 
-        ...p, 
-        specs:
-         typeof p.specs === 'string'
-            ? JSON.parse(p.specs.replace(/\\/g, ''))
-            : p.specs || {}, 
-      })));
+      setProducts(
+        data.map(p => ({ 
+          ...p, 
+          specs: p.specs || {}, 
+        }))
+      );
     }
   };
 
@@ -127,7 +126,7 @@ export function Admin() {
       name: product.name,
       description: product.description,
       price_per_month: product.price_per_month,
-      specs: JSON.stringify(product.specs),
+      specs: product.specs,
       is_active: product.is_active,
     };
 

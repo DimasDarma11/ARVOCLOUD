@@ -135,6 +135,29 @@ export function Admin() {
     }
   };
 
+  const handleUpdateStatus = async (orderId: string, newStatus: string) => {
+    try {
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+
+      if (error) throw error;
+
+      alert('✅ Status berhasil diperbarui.');
+      fetchOrders();
+      setModal((prev) =>
+        prev && prev.data
+          ? { ...prev, data: { ...prev.data, status: newStatus } }
+          : prev
+      );
+    } catch (err) {
+      console.error(err);
+      alert('❌ Gagal memperbarui status.');
+    }
+  };
+
+
   if (!profile?.is_admin)
     return (
       <Layout>
@@ -312,6 +335,21 @@ export function Admin() {
                 <p>{modal.data.profiles.full_name} ({modal.data.profiles.whatsapp_number})</p>
                 <p>OS: {modal.data.os_choice}</p>
                 <p>Total: Rp {modal.data.total_price.toLocaleString('id-ID')}</p>
+
+                <div className="mt-3">
+                  <label className="text-sm font-semibold block mb-1">Status Order</label>
+                  <select
+                    value={modal.data.status}
+                    onChange={(e) => handleUpdateStatus(modal.data.id, e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2 text-sm"
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="provisioning">Provisioning</option>
+                    <option value="active">Active</option>
+                    <option value="suspended">Suspended</option>
+                    <option value="expired">Expired</option>
+                  </select>
+                </div>
 
                 <div className="border-t pt-3 space-y-2">
                   <h4 className="font-semibold">Server Credentials</h4>

@@ -166,7 +166,7 @@ export function OrderServer() {
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Order Server</h1>
-          <p className="text-gray-600 mt-2">Choose your cloud infrastructure solution</p>
+          <p className="text-gray-600 mt-2">Choose your cloud solution</p>
         </div>
 
         <div className="flex space-x-4 border-b border-gray-200">
@@ -243,9 +243,13 @@ export function OrderServer() {
                 <div className="pt-4 border-t border-gray-200">
                   <div className="flex items-baseline space-x-2">
                     <span className="text-2xl font-bold text-gray-900">
-                      ${product.price_per_month}
+                      {product.price_per_month.toLocaleString('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0,
+                      })}
                     </span>
-                    <span className="text-gray-500">/month</span>
+                    <span className="text-gray-500">/bulan</span>
                   </div>
                 </div>
               </div>

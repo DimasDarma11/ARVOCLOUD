@@ -10,6 +10,7 @@ import {
   CheckCircle,
   Edit2,
   Save,
+  XCircle,
 } from 'lucide-react';
 
 export function Admin() {
@@ -292,41 +293,64 @@ export function Admin() {
                       <tr key={inv.id} className="hover:bg-gray-50">
                         <td className="px-4 py-3">{inv.invoice_number}</td>
                         <td className="px-4 py-3">{inv.profiles.full_name}</td>
-                        <td className="px-4 py-3 font-semibold">${inv.amount.toFixed(2)}</td>
+                        <td className="px-4 py-3 font-semibold">Rp {inv.amount?.toLocaleString('id-ID')}}</td>
                         <td className="px-4 py-3">
                           <span
                             className={`px-2 py-1 text-xs font-medium rounded-full ${
-                              inv.status === 'paid'
+                              inv.status === 'verified'
                                 ? 'bg-green-100 text-green-800'
-                                : inv.status === 'pending_verification'
-                                ? 'bg-yellow-100 text-yellow-800'
-                                : 'bg-red-100 text-red-800'
+                                : inv.status === 'rejected'
+                                ? 'bg-red-100 text-red-800'
+                                : 'bg-yellow-100 text-yellow-800'
                             }`}
                           >
-                            {inv.status.replace('_', ' ')}
+                            {inv.status.charAt(0).toUpperCase() + inv.status.slice(1)}
                           </span>
                         </td>
+
                         <td className="px-4 py-3 whitespace-nowrap">
-                          {new Date(inv.created_at).toLocaleDateString()}
+                          {new Date(inv.created_at).toLocaleDateString('id-ID')}
                         </td>
-                        <td className="px-4 py-3">
-                          {inv.status === 'pending_verification' && (
-                            <button
-                              onClick={() =>
-                                supabase
-                                  .from('invoices')
-                                  .select('order_id')
-                                  .eq('id', inv.id)
-                                  .single()
-                                  .then(({ data }) => {
-                                    if (data)
-                                      alert(`Verified payment for ${data.order_id}`);
-                                  })
-                              }
-                              className="flex items-center text-green-600 hover:text-green-700 text-sm"
-                            >
-                              <CheckCircle className="w-4 h-4 mr-1" /> Verify
-                            </button>
+
+                        <td className="px-4 py-3 space-x-2 flex items-center">
+                          {inv.status === 'pending' && (
+                            <>
+                              <button
+                                onClick={async () => {
+                                  const confirmVerify = confirm('Verify this payment?');
+                                    if (!confirmVerify) return;
+
+                                  const { error } = await supabase
+                                    .from('invoices')
+                                    .update({ status: 'verified' })
+                                    .eq('id', inv.id);
+
+                                  if (error) alert('Failed to verify payment.');
+                                  else alert('Payment verified successfully.');
+                                }}
+                                className="flex items-center text-green-600 hover:text-green-700 text-sm"
+                              >
+                                <CheckCircle className="w-4 h-4 mr-1" /> Verify
+                              </button>
+
+                              <button
+                                onClick={async () => {
+                                  const confirmReject = confirm('Reject this payment?');
+                                  if (!confirmReject) return;
+
+                                  const { error } = await supabase
+                                    .from('invoices')
+                                    .update({ status: 'rejected' })
+                                    .eq('id', inv.id);
+
+                                  if (error) alert('Failed to reject payment.');
+                                  else alert('Payment rejected.');
+                                }}
+                                className="flex items-center text-red-600 hover:text-red-700 text-sm"
+                              >
+                                <XCircle className="w-4 h-4 mr-1" /> Reject
+                              </button>
+                            </>
                           )}
                         </td>
                       </tr>

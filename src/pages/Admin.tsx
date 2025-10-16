@@ -115,6 +115,7 @@ export function Admin() {
   const updateProductSpecs = (index: number, key: string, value: string) => {
     setProducts(prev => {
       const updated = [...prev];
+      updated[index].specs = updated[index].specs
       updated[index].specs[key] = value;
       return updated;
     });
@@ -444,7 +445,7 @@ export function Admin() {
                         <input
                           key={s}
                           type="text"
-                          value={p.specs[s] || ''}
+                          value={p.specs?.[s] ?? ''}
                           onChange={(e) =>
                             updateProductSpecs(index, s, e.target.value)
                           }

@@ -115,8 +115,8 @@ export function OrderServer() {
           invoice_number: invoiceNumber,
           order_id: orderData.id,
           user_id: user.id,
-          amount: totalPrice,
-          status: 'unpaid',
+          amount: Number(totalPrice),
+          status: 'pending',
         })
         .select()
         .single();

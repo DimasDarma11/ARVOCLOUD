@@ -1,10 +1,7 @@
 name: Deploy Supabase Edge Functions
 
 on:
-  # Bisa dijalankan manual dari tab Actions
   workflow_dispatch:
-
-  # Otomatis jalan tiap push ke branch main, khusus folder functions
   push:
     branches:
       - main
@@ -20,7 +17,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Supabase CLI
-        run: npm install -g supabase
+        run: |
+          curl -fsSL https://cli.supabase.com/install.sh | sh -s -- -b /usr/local/bin
 
       - name: Deploy Supabase Edge Functions
         env:

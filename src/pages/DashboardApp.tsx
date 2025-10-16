@@ -71,7 +71,7 @@ function DashboardApp() {
             }
           />
 
-          <Route path="/app" element={<Navigate to="dashboard" replace />} />
+          <Route path="/" element={<Navigate to="dashboard" replace />} />
         </Routes>
       </AuthProvider>
   );

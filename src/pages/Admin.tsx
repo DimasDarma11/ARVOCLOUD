@@ -97,7 +97,10 @@ export function Admin() {
     if (!error && data) {
       setProducts(data.map(p => ({ 
         ...p, 
-        specs: typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs || {}, 
+        specs:
+         typeof p.specs === 'string'
+            ? JSON.parse(p.specs.replace(/\\/g, ''))
+            : p.specs || {}, 
       })));
     }
   };
@@ -324,7 +327,7 @@ export function Admin() {
                         </td>
 
                         <td className="px-4 py-3 space-x-2 flex items-center">
-                          {inv.status === 'pending' && (
+                          {inv.status === 'pending_verification' && (
                             <>
                               <button
                                 onClick={async () => {

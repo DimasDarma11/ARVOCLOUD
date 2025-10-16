@@ -208,7 +208,7 @@ export function Checkout() {
                   <div className="flex items-center justify-between">
                     <p className="text-2xl font-bold text-blue-600">{formatRupiah(invoice.amount)}</p>
                     <button
-                      onClick={() => handleCopy{formatRupiah(invoice.amount))}
+                      onClick={() => handleCopy(formatRupiah(invoice.amount))}
                       className="text-blue-600 hover:text-blue-700"
                     >
                       {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}

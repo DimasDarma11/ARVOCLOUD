@@ -23,8 +23,13 @@ export function Layout({ children }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/app/login');
+    try {
+      await signOut();
+      setMenuOpen(false);
+      setTimeout(() => navigate('/app/login'), 200);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   const isActive = (path: string) => location.pathname === path;

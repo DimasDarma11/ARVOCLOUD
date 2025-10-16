@@ -29,7 +29,7 @@ export function Layout({ children }: LayoutProps) {
   const isActive = (path: string) => location.pathname === path;
 
   const navLinks = [
-    { to: '/app/dashboard', label: 'My Servers', icon: <img src="/icons/server.svg" className="w-5 h-5" /> },
+    { to: '/app/dashboard', label: 'My Servers', icon: <Server className="w-5 h-5" /> },
     { to: '/app/order', label: 'Order Server', icon: <ShoppingCart className="w-5 h-5" /> },
     { to: '/app/invoices', label: 'Invoices', icon: <FileText className="w-5 h-5" /> },
   ];

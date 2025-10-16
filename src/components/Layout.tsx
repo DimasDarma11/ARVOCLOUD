@@ -14,7 +14,7 @@ export function Layout({ children }: LayoutProps) {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/login');
+    navigate('/app/login');
   };
 
   const isActive = (path: string) => location.pathname === path;

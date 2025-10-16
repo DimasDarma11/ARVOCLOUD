@@ -18,23 +18,58 @@ function DashboardApp() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
 
-        {/* Semua halaman dalam /app/ */}
-        <Route path="/app/*" element={
-          <ProtectedRoute>
-            <Routes>
-              <Route path="dashboard" element={<CustomerDashboard />} />
-              <Route path="order" element={<OrderServer />} />
-              <Route path="checkout/:invoiceId" element={<Checkout />} />
-              <Route path="invoices" element={<Invoices />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="admin" element={<Admin />} />
-              <Route index element={<Navigate to="dashboard" replace />} />
-            </Routes>
-          </ProtectedRoute>
-        }/>
+        {/* Protected routes */}
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <CustomerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="order"
+          element={
+            <ProtectedRoute>
+              <OrderServer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="checkout/:invoiceId"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="invoices"
+          element={
+            <ProtectedRoute>
+              <Invoices />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="admin"
+          element={
+            <ProtectedRoute adminOnly>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Default redirect */}
-        <Route path="/" element={<Navigate to="/app/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="dashboard" replace />} />
       </Routes>
     </AuthProvider>
   );

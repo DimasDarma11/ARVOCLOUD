@@ -444,9 +444,7 @@ export function Admin() {
                 >
                   <option value="VPS">VPS</option>
                   <option value="RDP">RDP</option>
-                  <option value="License">License</option>
-                  <option value="Bot">Bot</option>
-                  <option value="Other">Other</option>
+                  <option value="Baremetal">Baremetal</option>
                 </select>
 
                 <input

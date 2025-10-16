@@ -91,19 +91,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     fullName: string,
     whatsappNumber: string
   ) => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+          whatsapp_number: whatsappNumber,
+        },
+      },
+    });
+
     if (error) throw error;
 
     if (data.user) {
-      const { error: profileError } = await supabase.from('profiles').insert({
-        id: data.user.id,
-        whatsapp_number: whatsappNumber,
-        full_name: fullName,
-        is_admin: false,
-      });
-
-      if (profileError) throw profileError;
-      await fetchProfile(data.user.id);
+      setTimeout(() => fetchProfile(data.user!.id), 1500);
     }
   };
 

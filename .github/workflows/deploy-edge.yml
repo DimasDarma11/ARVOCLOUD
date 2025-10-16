@@ -1,0 +1,24 @@
+name: Deploy Supabase Edge Function
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'supabase/functions/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Supabase CLI
+        run: npm install -g supabase
+
+      - name: Deploy Telegram Function
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          supabase login --token $SUPABASE_ACCESS_TOKEN
+          supabase functions deploy telegram-notify
+          supabase functions deploy check-expiring-servers

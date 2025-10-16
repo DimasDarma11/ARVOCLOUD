@@ -153,7 +153,7 @@ export function OrderServer() {
         console.error('Failed to send Telegram notification:', notifyError);
       }
 
-      navigate(`/checkout/${invoiceData.id}`);
+      navigate(`/app/checkout/${invoiceData.id}`);
     } catch (error: any) {
       alert('Failed to create order: ' + error.message);
     } finally {

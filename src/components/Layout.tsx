@@ -35,7 +35,7 @@ export function Layout({ children }: LayoutProps) {
 
             <div className="flex items-center space-x-4">
               <Link
-                to="/dashboard"
+                to="/app/dashboard"
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
                   isActive('/dashboard')
                     ? 'bg-blue-50 text-blue-600'
@@ -47,7 +47,7 @@ export function Layout({ children }: LayoutProps) {
               </Link>
 
               <Link
-                to="/order"
+                to="/app/order"
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
                   isActive('/order')
                     ? 'bg-blue-50 text-blue-600'
@@ -59,7 +59,7 @@ export function Layout({ children }: LayoutProps) {
               </Link>
 
               <Link
-                to="/invoices"
+                to="/app/invoices"
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
                   isActive('/invoices')
                     ? 'bg-blue-50 text-blue-600'
@@ -72,7 +72,7 @@ export function Layout({ children }: LayoutProps) {
 
               {profile?.is_admin && (
                 <Link
-                  to="/admin"
+                  to="/app/admin"
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
                     isActive('/admin')
                       ? 'bg-blue-50 text-blue-600'
@@ -86,7 +86,7 @@ export function Layout({ children }: LayoutProps) {
 
               <div className="flex items-center space-x-3 pl-4 border-l border-gray-200">
                 <Link
-                  to="/profile"
+                  to="/app/profile"
                   className="flex items-center space-x-2 text-gray-700 hover:text-blue-600"
                 >
                   <User className="w-5 h-5" />

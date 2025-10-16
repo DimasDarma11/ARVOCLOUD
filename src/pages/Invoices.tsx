@@ -79,13 +79,6 @@ export function Invoices() {
           <p className="text-gray-600 mt-2">Lihat dan kelola riwayat tagihan Anda di sini.</p>
         </div>
 
-        <div className="text-sm text-gray-500 mt-4">
-          <p>
-            <span className="font-semibold text-orange-600">REJECTED</span> = Pembayaran Anda ditolak, 
-            silakan transfer ulang sesuai nominal yang benar.
-          </p>
-        </div>
-
         {loading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

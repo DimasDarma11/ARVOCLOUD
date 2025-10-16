@@ -155,19 +155,21 @@ export function Checkout() {
 
             <div
               className={`px-4 py-2 rounded-lg inline-block ${
-                invoice.status === 'paid'
+                invoice.status === 'verified'
                   ? 'bg-green-100 text-green-800'
-                  : invoice.status === 'pending_verification'
+                  : invoice.status === 'pending'
                   ? 'bg-yellow-100 text-yellow-800'
+                  : invoice.status === 'rejected'
+                  ? 'bg-red-100 text-red-800'
                   : 'bg-gray-100 text-gray-800'
               }`}
             >
-              Status: {invoice.status.replace('_', ' ').toUpperCase()}
+              Status: {invoice.status.toUpperCase()}
             </div>
           </div>
         </div>
 
-        {invoice.status === 'unpaid' && (
+        {(invoice.status === 'unpaid' || invoice.status === 'rejected') && (
           <div className="bg-white rounded-xl shadow-lg p-8 space-y-6">
             <div className="flex items-center space-x-3 mb-4">
               <CreditCard className="w-8 h-8 text-blue-600" />
@@ -261,6 +263,21 @@ export function Checkout() {
                 <p className="text-green-800">
                   Pembayaran Anda telah berhasil diverifikasi dan server sedang disiapkan. Anda dapat
                   melihat detail login server di halaman <strong>Server Saya</strong> setelah aktif.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {invoice.status === 'rejected' && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+            <div className="flex items-start space-x-3">
+              <CheckCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-semibold text-red-900 mb-2">Pembayaran Ditolak</h3>
+                <p className="text-red-800">
+                  Pembayaran Anda tidak dapat diverifikasi. Pastikan Anda telah mentransfer ke rekening yang benar
+                  dan sesuai dengan nominal invoice. Silakan ulangi pembayaran atau hubungi admin.
                 </p>
               </div>
             </div>

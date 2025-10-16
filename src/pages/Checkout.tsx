@@ -76,7 +76,7 @@ export function Checkout() {
       .eq('id', invoiceId);
 
     alert('Notifikasi pembayaran telah dikirim! Admin akan segera memverifikasi pembayaran Anda.');
-    navigate('/invoices');
+    navigate('/app/invoices');
   };
 
   if (loading) {

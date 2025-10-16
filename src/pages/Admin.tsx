@@ -90,8 +90,16 @@ export function Admin() {
   }, [activeTab]);
 
   const fetchProducts = async () => {
-    const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
-    if (!error && data) setProducts(data.map(p => ({ ...p, specs: JSON.parse(p.specs || '{}') })));
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (!error && data) {
+      setProducts(data.map(p => ({ 
+        ...p, 
+        specs: typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs || {}, 
+      })));
+    }
   };
 
   const updateProductField = (index: number, field: string, value: any) => {
@@ -363,6 +371,7 @@ export function Admin() {
             {/* PRODUCTS & TELEGRAM */}
             {activeTab === 'products' && (
               <div className="space-y-6">
+                
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold text-gray-900">Product Management</h3>
                   <button
@@ -394,6 +403,15 @@ export function Admin() {
                     className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 space-y-3"
                   >
                     <div className="space-y-2">
+                      <select
+                        value={p.category}
+                        onChange={(e) => updateProductField(index, 'category', e.target.value)}
+                        className="w-full px-3 py-2 border rounded-lg text-sm bg-white"
+                      >
+                        <option value="VPS">VPS</option>
+                        <option value="RDP">RDP</option>
+                        <option value="Baremetal">Baremetal</option>
+                      </select>
                       <input
                         type="text"
                         value={p.name}

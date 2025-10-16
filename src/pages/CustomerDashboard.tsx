@@ -122,7 +122,7 @@ export function CustomerDashboard() {
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No servers yet</h3>
             <p className="text-gray-600 mb-6">Get started by ordering your first server</p>
             <a
-              href="/order"
+              href="/app/order"
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
               Order Server

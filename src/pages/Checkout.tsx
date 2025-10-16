@@ -28,6 +28,9 @@ export function Checkout() {
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
+  const formatRupiah = (value: number) =>
+  value.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+
   useEffect(() => {
     fetchInvoice();
   }, [invoiceId]);
@@ -72,7 +75,7 @@ export function Checkout() {
       .update({ status: 'pending_verification' })
       .eq('id', invoiceId);
 
-    alert('Payment notification sent! Admin will verify your payment shortly.');
+    alert('Notifikasi pembayaran telah dikirim! Admin akan segera memverifikasi pembayaran Anda.');
     navigate('/invoices');
   };
 
@@ -90,7 +93,7 @@ export function Checkout() {
     return (
       <Layout>
         <div className="text-center py-12">
-          <p className="text-gray-600">Invoice not found</p>
+          <p className="text-gray-600">Invoice tidak ditemukan</p>
         </div>
       </Layout>
     );
@@ -106,12 +109,12 @@ export function Checkout() {
                 <FileText className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Invoice</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Detail Invoice</h1>
                 <p className="text-gray-600">{invoice.invoice_number}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-600">Created</p>
+              <p className="text-sm text-gray-600">Dibuat pada</p>
               <p className="font-medium text-gray-900">
                 {new Date(invoice.created_at).toLocaleDateString()}
               </p>
@@ -119,15 +122,15 @@ export function Checkout() {
           </div>
 
           <div className="border-t border-b border-gray-200 py-6 space-y-4">
-            <h2 className="font-semibold text-gray-900 text-lg">Order Details</h2>
+            <h2 className="font-semibold text-gray-900 text-lg">Detail Pesanan</h2>
 
             <div className="flex justify-between">
-              <span className="text-gray-600">Product:</span>
+              <span className="text-gray-600">Produk:</span>
               <span className="font-medium text-gray-900">{invoice.orders.products.name}</span>
             </div>
 
             <div className="flex justify-between">
-              <span className="text-gray-600">Category:</span>
+              <span className="text-gray-600">Kategori:</span>
               <span className="font-medium text-gray-900">{invoice.orders.products.category}</span>
             </div>
 
@@ -137,7 +140,7 @@ export function Checkout() {
             </div>
 
             <div className="flex justify-between">
-              <span className="text-gray-600">Duration:</span>
+              <span className="text-gray-600">Durasi:</span>
               <span className="font-medium text-gray-900">
                 {invoice.orders.duration_value} {invoice.orders.duration_unit}
               </span>
@@ -146,8 +149,8 @@ export function Checkout() {
 
           <div className="pt-6">
             <div className="flex justify-between items-center mb-6">
-              <span className="text-xl font-semibold text-gray-900">Total Amount:</span>
-              <span className="text-3xl font-bold text-blue-600">${invoice.amount.toFixed(2)}</span>
+              <span className="text-xl font-semibold text-gray-900">Total Pembayaran:</span>
+              <span className="text-3xl font-bold text-blue-600">{formatRupiah(invoice.amount)}</span>
             </div>
 
             <div
@@ -168,26 +171,26 @@ export function Checkout() {
           <div className="bg-white rounded-xl shadow-lg p-8 space-y-6">
             <div className="flex items-center space-x-3 mb-4">
               <CreditCard className="w-8 h-8 text-blue-600" />
-              <h2 className="text-2xl font-bold text-gray-900">Payment Information</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Informasi Pembayaran</h2>
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 space-y-4">
-              <p className="text-gray-700 font-medium">Please transfer to the following account:</p>
+              <p className="text-gray-700 font-medium">Silakan lakukan transfer ke rekening berikut:</p>
 
               <div className="space-y-3">
                 <div className="bg-white rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Bank Name</p>
+                  <p className="text-sm text-gray-600 mb-1">Nama Bank</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-lg font-semibold text-gray-900">Bank Central Asia (BCA)</p>
+                    <p className="text-lg font-semibold text-gray-900">Bank Rakyat Indonesia (BRI)</p>
                   </div>
                 </div>
 
                 <div className="bg-white rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Account Number</p>
+                  <p className="text-sm text-gray-600 mb-1">Nomer Rekening</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-lg font-mono font-semibold text-gray-900">1234567890</p>
+                    <p className="text-lg font-mono font-semibold text-gray-900">211801016387508</p>
                     <button
-                      onClick={() => handleCopy('1234567890')}
+                      onClick={() => handleCopy('211801016387508')}
                       className="text-blue-600 hover:text-blue-700"
                     >
                       {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
@@ -196,16 +199,16 @@ export function Checkout() {
                 </div>
 
                 <div className="bg-white rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Account Holder</p>
-                  <p className="text-lg font-semibold text-gray-900">ARVOCLOUD PT</p>
+                  <p className="text-sm text-gray-600 mb-1">Atas Nama</p>
+                  <p className="text-lg font-semibold text-gray-900">Dimaz Darma</p>
                 </div>
 
                 <div className="bg-white rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Amount to Transfer</p>
+                  <p className="text-sm text-gray-600 mb-1">Jumlah yang Harus Dibayar</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-2xl font-bold text-blue-600">${invoice.amount.toFixed(2)}</p>
+                    <p className="text-2xl font-bold text-blue-600">{formatRupiah(invoice.amount)}</p>
                     <button
-                      onClick={() => handleCopy(invoice.amount.toFixed(2))}
+                      onClick={() => handleCopy{formatRupiah(invoice.amount))}
                       className="text-blue-600 hover:text-blue-700"
                     >
                       {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
@@ -217,7 +220,9 @@ export function Checkout() {
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <p className="text-sm text-yellow-800">
-                <strong>Important:</strong> After making the payment, please click the button below to notify our admin team. Your payment will be verified manually, and your server will be activated once confirmed.
+                <strong>Penting:</strong> Setelah melakukan pembayaran, klik tombol di bawah ini
+                untuk mengirim notifikasi ke admin. Pembayaran Anda akan diverifikasi secara manual
+                dan server akan aktif setelah dikonfirmasi.
               </p>
             </div>
 
@@ -226,7 +231,7 @@ export function Checkout() {
               className="w-full bg-green-600 text-white py-4 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center space-x-2"
             >
               <CheckCircle className="w-5 h-5" />
-              <span>I Have Completed Payment</span>
+              <span>Saya Sudah Melakukan Pembayaran</span>
             </button>
           </div>
         )}
@@ -236,9 +241,11 @@ export function Checkout() {
             <div className="flex items-start space-x-3">
               <CheckCircle className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-yellow-900 mb-2">Payment Pending Verification</h3>
+                <h3 className="font-semibold text-yellow-900 mb-2">Pembayaran Menunggu Verifikasi</h3>
                 <p className="text-yellow-800">
-                  Your payment notification has been received. Our admin team will verify your payment shortly and activate your server. You will receive a notification via WhatsApp once the verification is complete.
+                  Notifikasi pembayaran Anda telah diterima. Tim admin kami akan segera memverifikasi
+                  dan mengaktifkan server Anda. Anda akan menerima notifikasi melalui WhatsApp
+                  setelah verifikasi selesai.
                 </p>
               </div>
             </div>
@@ -250,9 +257,10 @@ export function Checkout() {
             <div className="flex items-start space-x-3">
               <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-green-900 mb-2">Payment Verified</h3>
+                <h3 className="font-semibold text-green-900 mb-2">Pembayaran Terverifikasi</h3>
                 <p className="text-green-800">
-                  Your payment has been verified and your server is being provisioned. You can view your server credentials in the My Servers page once it's active.
+                  Pembayaran Anda telah berhasil diverifikasi dan server sedang disiapkan. Anda dapat
+                  melihat detail login server di halaman <strong>Server Saya</strong> setelah aktif.
                 </p>
               </div>
             </div>

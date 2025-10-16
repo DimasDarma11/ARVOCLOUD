@@ -62,12 +62,19 @@ export function Invoices() {
     }
   };
 
+  const formatRupiah = (value: number) =>
+    value.toLocaleString('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+    });
+
   return (
     <Layout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Invoices</h1>
-          <p className="text-gray-600 mt-2">View and manage your billing history</p>
+          <h1 className="text-3xl font-bold text-gray-900">Daftar Invoice</h1>
+          <p className="text-gray-600 mt-2">Lihat dan kelola riwayat tagihan Anda di sini.</p>
         </div>
 
         {loading ? (
@@ -77,8 +84,8 @@ export function Invoices() {
         ) : invoices.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm p-12 text-center">
             <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No invoices yet</h3>
-            <p className="text-gray-600">Your invoices will appear here after placing orders</p>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Belum ada invoice</h3>
+            <p className="text-gray-600">Invoice Anda akan muncul di sini setelah melakukan pemesanan.</p>
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -86,19 +93,19 @@ export function Invoices() {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Invoice Number
+                    Nomor Invoice
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Product
+                    Produk
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
+                    Jumlah
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
+                    Tanggal
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -121,7 +128,7 @@ export function Invoices() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="text-sm font-semibold text-gray-900">
-                        ${invoice.amount.toFixed(2)}
+                        {formatRupiah(invoice.amount)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">

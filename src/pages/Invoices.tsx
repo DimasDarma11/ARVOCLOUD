@@ -57,6 +57,8 @@ export function Invoices() {
         return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'unpaid':
         return 'bg-red-100 text-red-800 border-red-200';
+      case 'rejected':
+        return 'bg-orange-100 text-orange-800 border-orange-200';
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200';
     }
@@ -75,6 +77,13 @@ export function Invoices() {
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Daftar Invoice</h1>
           <p className="text-gray-600 mt-2">Lihat dan kelola riwayat tagihan Anda di sini.</p>
+        </div>
+
+        <div className="text-sm text-gray-500 mt-4">
+          <p>
+            <span className="font-semibold text-orange-600">REJECTED</span> = Pembayaran Anda ditolak, 
+            silakan transfer ulang sesuai nominal yang benar.
+          </p>
         </div>
 
         {loading ? (

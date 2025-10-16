@@ -145,7 +145,7 @@ export function Invoices() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <Link
-                        to={`/checkout/${invoice.id}`}
+                        to={`/app/checkout/${invoice.id}`}
                         className="text-blue-600 hover:text-blue-900 flex items-center space-x-1"
                       >
                         <Eye className="w-4 h-4" />

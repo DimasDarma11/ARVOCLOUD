@@ -8,14 +8,9 @@ import {
   Server,
   Settings,
   CheckCircle,
-  Edit2,
-  Save,
   Trash2,
   PlusCircle,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
 
 // ====================== INTERFACES ======================
 interface Order {
@@ -110,7 +105,7 @@ export function Admin() {
     if (data) setTelegramConfig(data);
   };
 
-  // ====================== INVOICE HANDLER ======================
+  // ====================== HANDLERS ======================
   const handleVerifyPayment = async (invoiceId: string) => {
     const { data: inv } = await supabase.from('invoices').select('order_id').eq('id', invoiceId).single();
     const orderId = inv?.order_id;
@@ -121,7 +116,6 @@ export function Admin() {
     fetchInvoices();
   };
 
-  // ====================== PRODUCT HANDLERS ======================
   const handleAddProduct = async () => {
     const newProduct = {
       category: 'vps',
@@ -146,7 +140,6 @@ export function Admin() {
     fetchProducts();
   };
 
-  // ====================== TELEGRAM HANDLER ======================
   const handleSaveTelegramConfig = async () => {
     const { data } = await supabase.from('telegram_config').select('id').single();
     if (data) {
@@ -202,7 +195,6 @@ export function Admin() {
           ))}
         </div>
 
-        {/* Loading Spinner */}
         {loading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin h-12 w-12 border-b-2 border-blue-600 rounded-full"></div>
@@ -216,10 +208,7 @@ export function Admin() {
                   <thead className="bg-gray-50">
                     <tr>
                       {['Invoice #', 'Customer', 'Amount', 'Status', 'Date', 'Actions'].map((h) => (
-                        <th
-                          key={h}
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                        >
+                        <th key={h} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                           {h}
                         </th>
                       ))}
@@ -244,18 +233,15 @@ export function Admin() {
                             {i.status}
                           </span>
                         </td>
-                        <td className="px-6 py-3 text-sm">
-                          {new Date(i.created_at).toLocaleDateString()}
-                        </td>
+                        <td className="px-6 py-3 text-sm">{new Date(i.created_at).toLocaleDateString()}</td>
                         <td className="px-6 py-3">
                           {i.status === 'pending_verification' && (
-                            <Button
+                            <button
                               onClick={() => handleVerifyPayment(i.id)}
-                              className="bg-green-600 hover:bg-green-700 text-white text-xs"
+                              className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded flex items-center"
                             >
-                              <CheckCircle className="w-4 h-4 mr-1" />
-                              Verify
-                            </Button>
+                              <CheckCircle className="w-4 h-4 mr-1" /> Verify
+                            </button>
                           )}
                         </td>
                       </tr>
@@ -270,9 +256,12 @@ export function Admin() {
               <div className="bg-white rounded-xl shadow-sm p-6 space-y-4">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-semibold text-gray-800">Product Management</h3>
-                  <Button onClick={handleAddProduct} className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <button
+                    onClick={handleAddProduct}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded flex items-center"
+                  >
                     <PlusCircle className="w-4 h-4 mr-1" /> Add Product
-                  </Button>
+                  </button>
                 </div>
 
                 <table className="min-w-full divide-y divide-gray-200 text-sm">
@@ -288,22 +277,25 @@ export function Admin() {
                     {products.map((p) => (
                       <tr key={p.id} className="border-b">
                         <td className="px-4 py-2">
-                          <Input
+                          <input
                             value={p.name}
                             onChange={(e) => handleUpdateProduct(p.id, 'name', e.target.value)}
+                            className="border rounded px-2 py-1 w-full"
                           />
                         </td>
                         <td className="px-4 py-2">
-                          <Input
+                          <input
                             type="number"
                             value={p.price}
                             onChange={(e) => handleUpdateProduct(p.id, 'price', Number(e.target.value))}
+                            className="border rounded px-2 py-1 w-full"
                           />
                         </td>
-                        <td className="px-4 py-2">
-                          <Switch
+                        <td className="px-4 py-2 text-center">
+                          <input
+                            type="checkbox"
                             checked={p.is_active}
-                            onCheckedChange={(v) => handleUpdateProduct(p.id, 'is_active', v)}
+                            onChange={(e) => handleUpdateProduct(p.id, 'is_active', e.target.checked)}
                           />
                         </td>
                         <td className="px-4 py-2">
@@ -325,34 +317,41 @@ export function Admin() {
             {activeTab === 'telegram' && (
               <div className="bg-white rounded-xl shadow-sm p-6 space-y-4 max-w-xl">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Telegram Configuration</h3>
-                <Input
+                <input
                   placeholder="Bot Token"
                   value={telegramConfig.bot_token}
                   onChange={(e) => setTelegramConfig({ ...telegramConfig, bot_token: e.target.value })}
+                  className="border rounded px-3 py-2 w-full"
                 />
-                <Input
+                <input
                   placeholder="Chat ID"
                   value={telegramConfig.chat_id}
                   onChange={(e) => setTelegramConfig({ ...telegramConfig, chat_id: e.target.value })}
+                  className="border rounded px-3 py-2 w-full"
                 />
-                <Input
+                <input
                   type="number"
                   placeholder="Expiry Warning Days"
                   value={telegramConfig.expiry_warning_days}
                   onChange={(e) =>
                     setTelegramConfig({ ...telegramConfig, expiry_warning_days: Number(e.target.value) })
                   }
+                  className="border rounded px-3 py-2 w-full"
                 />
                 <div className="flex items-center justify-between">
                   <span>Active</span>
-                  <Switch
+                  <input
+                    type="checkbox"
                     checked={telegramConfig.is_active}
-                    onCheckedChange={(v) => setTelegramConfig({ ...telegramConfig, is_active: v })}
+                    onChange={(e) => setTelegramConfig({ ...telegramConfig, is_active: e.target.checked })}
                   />
                 </div>
-                <Button onClick={handleSaveTelegramConfig} className="bg-blue-600 text-white w-full">
+                <button
+                  onClick={handleSaveTelegramConfig}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full"
+                >
                   Save Configuration
-                </Button>
+                </button>
               </div>
             )}
           </>

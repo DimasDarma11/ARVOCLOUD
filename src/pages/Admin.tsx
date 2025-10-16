@@ -115,6 +115,26 @@ export function Admin() {
     setModal(null);
   };
 
+  const handleDeleteOrder = async (orderId: string) => {
+    if (!confirm('Yakin ingin menghapus order ini? Data akan dihapus permanen.')) return;
+
+    try {
+      // Hapus credentials terkait
+      await supabase.from('server_credentials').delete().eq('order_id', orderId);
+
+      // Hapus order utama
+      const { error } = await supabase.from('orders').delete().eq('id', orderId);
+      if (error) throw error;
+
+      alert('✅ Order berhasil dihapus.');
+      setModal(null);
+      fetchOrders(); 
+    } catch (err) {
+      console.error(err);
+      alert('❌ Gagal menghapus order. Silakan coba lagi.');
+    }
+  };
+
   if (!profile?.is_admin)
     return (
       <Layout>
@@ -316,6 +336,14 @@ export function Admin() {
                     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-full mt-2"
                   >
                     <Save className="w-4 h-4 inline-block mr-1" /> Save
+                    
+                  </button>
+                  <button
+                    onClick={() => handleDeleteOrder(modal.data.id)}
+                    className="flex items-center justify-center gap-2 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg mt-4"
+                  >
+                    <XCircle className="w-4 h-4" />
+                      Hapus Order
                   </button>
                 </div>
               </>
@@ -358,20 +386,56 @@ export function Admin() {
             {/* PRODUCT DETAIL */}
             {modal.type === 'product' && (
               <>
-                <h3 className="text-xl font-semibold">{modal.data._isNew ? 'Add Product' : 'Edit Product'}</h3>
+                <h3 className="text-xl font-semibold">
+                  {modal.data._isNew ? 'Add Product' : 'Edit Product'}
+                </h3>
+
+                {/* CATEGORY DROPDOWN */}
+                <label className="block text-sm font-medium text-gray-700 mt-2">
+                  Category
+                </label>
+                <select
+                  value={modal.data.category}
+                  onChange={(e) =>
+                    setModal((prev: any) => ({
+                      ...prev,
+                      data: { ...prev.data, category: e.target.value },
+                    }))
+                  }            
+                  className="w-full border px-3 py-2 rounded-lg text-sm"
+                >
+                  <option value="VPS">VPS</option>
+                  <option value="RDP">RDP</option>
+                  <option value="License">License</option>
+                  <option value="Bot">Bot</option>
+                  <option value="Other">Other</option>
+                </select>
+
                 <input
                   type="text"
                   placeholder="Name"
                   value={modal.data.name}
-                  onChange={(e) => setModal((prev: any) => ({ ...prev, data: { ...prev.data, name: e.target.value } }))}
-                  className="w-full border px-3 py-2 rounded-lg text-sm"
+                  onChange={(e) =>
+                    setModal((prev: any) => ({
+                      ...prev,
+                      data: { ...prev.data, name: e.target.value },
+                    }))
+                  }
+                  className="w-full border px-3 py-2 rounded-lg text-sm mt-2"
                 />
+
                 <textarea
                   placeholder="Description"
                   value={modal.data.description}
-                  onChange={(e) => setModal((prev: any) => ({ ...prev, data: { ...prev.data, description: e.target.value } }))}
-                  className="w-full border px-3 py-2 rounded-lg text-sm"
+                  onChange={(e) =>
+                    setModal((prev: any) => ({
+                      ...prev,
+                      data: { ...prev.data, description: e.target.value },
+                    }))
+                  }
+                  className="w-full border px-3 py-2 rounded-lg text-sm mt-2"
                 />
+
                 <input
                   type="number"
                   placeholder="Price per month"
@@ -382,8 +446,9 @@ export function Admin() {
                       data: { ...prev.data, price_per_month: Number(e.target.value) },
                     }))
                   }
-                  className="w-full border px-3 py-2 rounded-lg text-sm"
+                  className="w-full border px-3 py-2 rounded-lg text-sm mt-2"
                 />
+
                 {['cpu', 'ram', 'storage', 'bandwidth'].map((s) => (
                   <input
                     key={s}
@@ -392,37 +457,40 @@ export function Admin() {
                     value={modal.data.specs?.[s] || ''}
                     onChange={(e) =>
                       setModal((prev: any) => ({
-                        ...prev,
-                        data: {
-                          ...prev.data,
-                          specs: { ...prev.data.specs, [s]: e.target.value },
-                        },
-                      }))
-                    }
-                    className="w-full border px-3 py-2 rounded-lg text-sm"
-                  />
-                ))}
-                <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={modal.data.is_active}
-                    onChange={(e) =>
-                      setModal((prev: any) => ({
-                        ...prev,
-                        data: { ...prev.data, is_active: e.target.checked },
-                      }))
-                    }
-                  />
-                  Active
-                </label>
-                <button
+                      ...prev,
+                      data: {
+                        ...prev.data,
+                        specs: { ...prev.data.specs, [s]: e.target.value },
+                      },
+                    }))
+                  }
+                  className="w-full border px-3 py-2 rounded-lg text-sm mt-2"
+                />
+              ))}
+
+              <label className="flex items-center gap-2 text-sm mt-2">
+                <input
+                  type="checkbox"
+                  checked={modal.data.is_active}
+                  onChange={(e) =>
+                    setModal((prev: any) => ({
+                      ...prev,
+                      data: { ...prev.data, is_active: e.target.checked },
+                    }))
+                  }
+                />
+                Active
+              </label>
+
+              <button
                   onClick={() => handleSaveProduct(modal.data)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-full"
-                >
-                  <Save className="w-4 h-4 inline mr-1" /> Save
-                </button>
-              </>
-            )}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-full mt-3"
+              >
+                <Save className="w-4 h-4 inline mr-1" /> Save
+              </button>
+            </>
+          )}
+
 
             {/* TELEGRAM CONFIG */}
             {modal.type === 'telegram' && (

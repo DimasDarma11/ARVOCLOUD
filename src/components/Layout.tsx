@@ -9,6 +9,7 @@ import {
   User,
   Menu,
   X,
+  Server,
 } from 'lucide-react';
 
 interface LayoutProps {

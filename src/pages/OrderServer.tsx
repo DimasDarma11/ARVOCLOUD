@@ -321,7 +321,11 @@ export function OrderServer() {
               <div className="flex justify-between items-center pt-4 border-t border-blue-200">
                 <span className="text-lg font-semibold text-gray-900">Total Price:</span>
                 <span className="text-2xl font-bold text-blue-600">
-                  ${calculateTotalPrice().toFixed(2)}
+                  {calculateTotalPrice().toLocaleString('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                  })}
                 </span>
               </div>
             </div>

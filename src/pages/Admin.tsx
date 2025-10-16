@@ -502,6 +502,7 @@ export function Admin() {
                           </button>
                         </>
                       )}
+                        
                       {!p._isNew && p.status !== 'pending_verification' && (
                         <button
                           onClick={() => saveProduct(p)}
@@ -512,9 +513,11 @@ export function Admin() {
                       )}
                     </div>
                   </div>
-                ))}
-              </div>
-          )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
 
             {activeTab === 'telegram' && (

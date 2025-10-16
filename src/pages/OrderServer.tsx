@@ -116,7 +116,7 @@ export function OrderServer() {
           order_id: orderData.id,
           user_id: user.id,
           amount: Number(totalPrice),
-          status: 'pending',
+          status: 'unpaid',
         })
         .select()
         .single();
@@ -304,7 +304,6 @@ export function OrderServer() {
                   onChange={(e) => setDuration({ ...duration, unit: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="days">Days</option>
                   <option value="months">Months</option>
                   <option value="years">Years</option>
                 </select>

@@ -12,68 +12,31 @@ import { Profile } from './Profile';
 
 function DashboardApp() {
   return (
-      <AuthProvider>
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
+    <AuthProvider>
+      <Routes>
+        {/* Public routes */}
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
 
-          <Route
-            path="dashboard"
-            element={
-              <ProtectedRoute>
-                <CustomerDashboard />
-              </ProtectedRoute>
-            }
-          />
+        {/* Semua halaman dalam /app/ */}
+        <Route path="/app/*" element={
+          <ProtectedRoute>
+            <Routes>
+              <Route path="dashboard" element={<CustomerDashboard />} />
+              <Route path="order" element={<OrderServer />} />
+              <Route path="checkout/:invoiceId" element={<Checkout />} />
+              <Route path="invoices" element={<Invoices />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="admin" element={<Admin />} />
+              <Route index element={<Navigate to="dashboard" replace />} />
+            </Routes>
+          </ProtectedRoute>
+        }/>
 
-          <Route
-            path="/app/order"
-            element={
-              <ProtectedRoute>
-                <OrderServer />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/app/checkout/:invoiceId"
-            element={
-              <ProtectedRoute>
-                <Checkout />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/app/invoices"
-            element={
-              <ProtectedRoute>
-                <Invoices />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/app/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/app/admin"
-            element={
-              <ProtectedRoute adminOnly>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route path="/" element={<Navigate to="dashboard" replace />} />
-        </Routes>
-      </AuthProvider>
+        {/* Default redirect */}
+        <Route path="/" element={<Navigate to="/app/dashboard" replace />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 

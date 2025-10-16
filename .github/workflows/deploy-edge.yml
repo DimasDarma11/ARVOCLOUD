@@ -1,5 +1,10 @@
-name: Deploy Supabase Edge Function
+name: Deploy Supabase Edge Functions
+
 on:
+  # Bisa dijalankan manual dari tab Actions
+  workflow_dispatch:
+
+  # Otomatis jalan tiap push ke branch main, khusus folder functions
   push:
     branches:
       - main
@@ -9,13 +14,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Install Supabase CLI
         run: npm install -g supabase
 
-      - name: Deploy Telegram Function
+      - name: Deploy Supabase Edge Functions
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |

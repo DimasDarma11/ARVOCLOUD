@@ -486,34 +486,34 @@ export function Admin() {
                               className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
                             >
                               Approve
+                            </button>
+                            <button
+                              onClick={async () => {
+                                const { error } = await supabase
+                                  .from('products')
+                                  .update({ status: 'rejected' })
+                                  .eq('id', p.id);
+                                if (!error) alert('Product rejected!');
+                                fetchProducts();
+                              }}
+                              className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+                            >
+                              Reject
                           </button>
-                          <button
-                            onClick={async () => {
-                              const { error } = await supabase
-                                .from('products')
-                                .update({ status: 'rejected' })
-                                .eq('id', p.id);
-                              if (!error) alert('Product rejected!');
-                              fetchProducts();
-                            }}
-                            className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
-                          >
-                            Reject
+                        </>
+                      )}
+                      {!p._isNew && p.status !== 'pending_verification' && (
+                        <button
+                          onClick={() => saveProduct(p)}
+                          className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                        >
+                          Update
                         </button>
-                      </>
-                    )}
-                    {!p._isNew && p.status !== 'pending_verification' && (
-                      <button
-                        onClick={() => saveProduct(p)}
-                        className="text-blue-600 hover:text-blue-700 text-sm font-medium"
-                      >
-                        Update
-                      </button>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
           )}
 
 

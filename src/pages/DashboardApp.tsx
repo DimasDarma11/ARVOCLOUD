@@ -27,7 +27,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="order"
+            path="/app/order"
             element={
               <ProtectedRoute>
                 <OrderServer />
@@ -36,7 +36,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="checkout/:invoiceId"
+            path="/app/checkout/:invoiceId"
             element={
               <ProtectedRoute>
                 <Checkout />
@@ -45,7 +45,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="invoices"
+            path="/app/invoices"
             element={
               <ProtectedRoute>
                 <Invoices />
@@ -54,7 +54,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="profile"
+            path="/app/profile"
             element={
               <ProtectedRoute>
                 <Profile />
@@ -63,7 +63,7 @@ function DashboardApp() {
           />
 
           <Route
-            path="admin"
+            path="/app/admin"
             element={
               <ProtectedRoute adminOnly>
                 <Admin />

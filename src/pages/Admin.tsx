@@ -8,9 +8,12 @@ import {
   Server,
   Settings,
   CheckCircle,
-  Trash2,
   PlusCircle,
+  Trash2,
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
 
 // ====================== INTERFACES ======================
 interface Order {
@@ -32,6 +35,7 @@ interface Invoice {
   amount: number;
   created_at: string;
   profiles: { full_name: string };
+  order_id: string;
 }
 
 interface Product {
@@ -42,6 +46,7 @@ interface Product {
   price: number;
   specs: any;
   is_active: boolean;
+  created_at?: string;
 }
 
 interface TelegramConfig {
@@ -77,35 +82,41 @@ export function Admin() {
 
   const fetchOrders = async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('orders')
       .select('*, profiles(full_name, whatsapp_number), products(name)')
       .order('created_at', { ascending: false });
+    if (error) console.error('Orders fetch error:', error.message);
     if (data) setOrders(data);
     setLoading(false);
   };
 
   const fetchInvoices = async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('invoices')
       .select('*, profiles(full_name)')
       .order('created_at', { ascending: false });
+    if (error) console.error('Invoices fetch error:', error.message);
     if (data) setInvoices(data);
     setLoading(false);
   };
 
   const fetchProducts = async () => {
-    const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) console.error('Products fetch error:', error.message);
     if (data) setProducts(data);
   };
 
   const fetchTelegramConfig = async () => {
-    const { data } = await supabase.from('telegram_config').select('*').single();
+    const { data } = await supabase.from('telegram_config').select('*').maybeSingle();
     if (data) setTelegramConfig(data);
   };
 
-  // ====================== HANDLERS ======================
+  // ====================== INVOICE HANDLER ======================
   const handleVerifyPayment = async (invoiceId: string) => {
     const { data: inv } = await supabase.from('invoices').select('order_id').eq('id', invoiceId).single();
     const orderId = inv?.order_id;
@@ -116,22 +127,27 @@ export function Admin() {
     fetchInvoices();
   };
 
+  // ====================== PRODUCT HANDLERS ======================
   const handleAddProduct = async () => {
     const newProduct = {
       category: 'vps',
       name: 'New Product',
       description: 'Edit me',
-      price: 0,
+      price: 10000,
       specs: {},
       is_active: true,
     };
     const { error } = await supabase.from('products').insert([newProduct]);
-    if (!error) fetchProducts();
+    if (error) alert('❌ ' + error.message);
+    else {
+      alert('✅ Product added!');
+      fetchProducts();
+    }
   };
 
   const handleUpdateProduct = async (id: string, field: keyof Product, value: any) => {
     const { error } = await supabase.from('products').update({ [field]: value }).eq('id', id);
-    if (error) alert('Failed: ' + error.message);
+    if (error) alert('❌ Failed: ' + error.message);
   };
 
   const handleDeleteProduct = async (id: string) => {
@@ -140,8 +156,9 @@ export function Admin() {
     fetchProducts();
   };
 
+  // ====================== TELEGRAM HANDLER ======================
   const handleSaveTelegramConfig = async () => {
-    const { data } = await supabase.from('telegram_config').select('id').single();
+    const { data } = await supabase.from('telegram_config').select('id').maybeSingle();
     if (data) {
       await supabase.from('telegram_config').update(telegramConfig).eq('id', data.id);
     } else {
@@ -195,12 +212,46 @@ export function Admin() {
           ))}
         </div>
 
+        {/* Loading Spinner */}
         {loading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin h-12 w-12 border-b-2 border-blue-600 rounded-full"></div>
           </div>
         ) : (
           <>
+            {/* ORDERS TAB */}
+            {activeTab === 'orders' && (
+              <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      {['Order ID', 'Customer', 'Product', 'Status', 'Created'].map((h) => (
+                        <th
+                          key={h}
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {orders.map((o) => (
+                      <tr key={o.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-3 font-medium text-gray-800">{o.id}</td>
+                        <td className="px-6 py-3">{o.profiles?.full_name || '—'}</td>
+                        <td className="px-6 py-3">{o.products?.name || '—'}</td>
+                        <td className="px-6 py-3">{o.status}</td>
+                        <td className="px-6 py-3 text-sm">
+                          {new Date(o.created_at).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
             {/* INVOICES TAB */}
             {activeTab === 'invoices' && (
               <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -208,7 +259,10 @@ export function Admin() {
                   <thead className="bg-gray-50">
                     <tr>
                       {['Invoice #', 'Customer', 'Amount', 'Status', 'Date', 'Actions'].map((h) => (
-                        <th key={h} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        <th
+                          key={h}
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                        >
                           {h}
                         </th>
                       ))}
@@ -218,9 +272,9 @@ export function Admin() {
                     {invoices.map((i) => (
                       <tr key={i.id} className="hover:bg-gray-50">
                         <td className="px-6 py-3 font-medium">{i.invoice_number}</td>
-                        <td className="px-6 py-3">{i.profiles.full_name}</td>
+                        <td className="px-6 py-3">{i.profiles?.full_name}</td>
                         <td className="px-6 py-3 font-semibold text-gray-800">
-                          Rp {i.amount.toLocaleString('id-ID')}
+                          Rp {i.amount?.toLocaleString('id-ID')}
                         </td>
                         <td className="px-6 py-3">
                           <span
@@ -233,15 +287,18 @@ export function Admin() {
                             {i.status}
                           </span>
                         </td>
-                        <td className="px-6 py-3 text-sm">{new Date(i.created_at).toLocaleDateString()}</td>
+                        <td className="px-6 py-3 text-sm">
+                          {new Date(i.created_at).toLocaleDateString()}
+                        </td>
                         <td className="px-6 py-3">
                           {i.status === 'pending_verification' && (
-                            <button
+                            <Button
                               onClick={() => handleVerifyPayment(i.id)}
-                              className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded flex items-center"
+                              className="bg-green-600 hover:bg-green-700 text-white text-xs"
                             >
-                              <CheckCircle className="w-4 h-4 mr-1" /> Verify
-                            </button>
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              Verify
+                            </Button>
                           )}
                         </td>
                       </tr>
@@ -256,12 +313,9 @@ export function Admin() {
               <div className="bg-white rounded-xl shadow-sm p-6 space-y-4">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-semibold text-gray-800">Product Management</h3>
-                  <button
-                    onClick={handleAddProduct}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded flex items-center"
-                  >
+                  <Button onClick={handleAddProduct} className="bg-blue-600 hover:bg-blue-700 text-white">
                     <PlusCircle className="w-4 h-4 mr-1" /> Add Product
-                  </button>
+                  </Button>
                 </div>
 
                 <table className="min-w-full divide-y divide-gray-200 text-sm">
@@ -277,25 +331,22 @@ export function Admin() {
                     {products.map((p) => (
                       <tr key={p.id} className="border-b">
                         <td className="px-4 py-2">
-                          <input
+                          <Input
                             value={p.name}
                             onChange={(e) => handleUpdateProduct(p.id, 'name', e.target.value)}
-                            className="border rounded px-2 py-1 w-full"
                           />
                         </td>
                         <td className="px-4 py-2">
-                          <input
+                          <Input
                             type="number"
-                            value={p.price}
+                            value={p.price ?? 0}
                             onChange={(e) => handleUpdateProduct(p.id, 'price', Number(e.target.value))}
-                            className="border rounded px-2 py-1 w-full"
                           />
                         </td>
-                        <td className="px-4 py-2 text-center">
-                          <input
-                            type="checkbox"
+                        <td className="px-4 py-2">
+                          <Switch
                             checked={p.is_active}
-                            onChange={(e) => handleUpdateProduct(p.id, 'is_active', e.target.checked)}
+                            onCheckedChange={(v) => handleUpdateProduct(p.id, 'is_active', v)}
                           />
                         </td>
                         <td className="px-4 py-2">
@@ -317,41 +368,34 @@ export function Admin() {
             {activeTab === 'telegram' && (
               <div className="bg-white rounded-xl shadow-sm p-6 space-y-4 max-w-xl">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Telegram Configuration</h3>
-                <input
+                <Input
                   placeholder="Bot Token"
                   value={telegramConfig.bot_token}
                   onChange={(e) => setTelegramConfig({ ...telegramConfig, bot_token: e.target.value })}
-                  className="border rounded px-3 py-2 w-full"
                 />
-                <input
+                <Input
                   placeholder="Chat ID"
                   value={telegramConfig.chat_id}
                   onChange={(e) => setTelegramConfig({ ...telegramConfig, chat_id: e.target.value })}
-                  className="border rounded px-3 py-2 w-full"
                 />
-                <input
+                <Input
                   type="number"
                   placeholder="Expiry Warning Days"
                   value={telegramConfig.expiry_warning_days}
                   onChange={(e) =>
                     setTelegramConfig({ ...telegramConfig, expiry_warning_days: Number(e.target.value) })
                   }
-                  className="border rounded px-3 py-2 w-full"
                 />
                 <div className="flex items-center justify-between">
                   <span>Active</span>
-                  <input
-                    type="checkbox"
+                  <Switch
                     checked={telegramConfig.is_active}
-                    onChange={(e) => setTelegramConfig({ ...telegramConfig, is_active: e.target.checked })}
+                    onCheckedChange={(v) => setTelegramConfig({ ...telegramConfig, is_active: v })}
                   />
                 </div>
-                <button
-                  onClick={handleSaveTelegramConfig}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full"
-                >
+                <Button onClick={handleSaveTelegramConfig} className="bg-blue-600 text-white w-full">
                   Save Configuration
-                </button>
+                </Button>
               </div>
             )}
           </>

@@ -200,16 +200,19 @@ export function Admin() {
                     className="bg-white rounded-xl shadow-sm p-4 md:p-6 space-y-4"
                   >
                     {/* Header */}
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                       <div className="space-y-1">
-                        <h3 className="text-base md:text-lg font-semibold text-gray-900">
+                        <h3 className="text-lg md:text-xl font-semibold text-gray-900">
                           {order.products.name}
                         </h3>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-500">
                           {order.profiles.full_name} ({order.profiles.whatsapp_number})
                         </p>
-                        <p className="text-sm text-gray-600">
-                          OS: {order.os_choice} — ${order.total_price.toFixed(2)}
+                        <p className="text-sm text-gray-500">
+                          OS: {order.os_choice} —{' '}
+                          <span className="font-medium text-gray-900">
+                            {order.total_price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}
+                          </span>
                         </p>
                       </div>
 
@@ -221,8 +224,8 @@ export function Admin() {
                             .update({ status: e.target.value })
                             .eq('id', order.id)
                             .then(fetchOrders)
-                        }
-                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 w-full md:w-auto"
+                        }              
+                        className="px-4 py-2 border border-gray-300 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 w-full md:w-auto bg-gray-50 hover:bg-gray-100 transition"
                       >
                         <option value="pending">Pending</option>
                         <option value="provisioning">Provisioning</option>
@@ -231,22 +234,22 @@ export function Admin() {
                         <option value="expired">Expired</option>
                       </select>
                     </div>
-
+         
                     {/* Credentials */}
-                    <div className="border-t border-gray-200 pt-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-medium text-gray-900">Server Credentials</h4>
+                    <div className="mt-4 border-t border-gray-200 pt-5 bg-white p-6 rounded-2xl shadow-sm">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-semibold text-gray-900 text-md">Server Credentials</h4>
                         {editingCredentials === order.id ? (
                           <button
                             onClick={() => handleSaveCredentials(order.id)}
-                            className="flex items-center text-green-600 hover:text-green-700 text-sm"
+                            className="flex items-center text-green-600 hover:text-green-700 font-medium text-sm transition"
                           >
                             <Save className="w-4 h-4 mr-1" /> Save
                           </button>
                         ) : (
                           <button
                             onClick={() => setEditingCredentials(order.id)}
-                            className="flex items-center text-blue-600 hover:text-blue-700 text-sm"
+                            className="flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition"
                           >
                             <Edit2 className="w-4 h-4 mr-1" /> Edit
                           </button>
@@ -254,20 +257,18 @@ export function Admin() {
                       </div>
 
                       {credentialsForms[order.id] && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                           {['ip_address', 'username', 'password'].map((field) => (
                             <div key={field}>
-                              <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
+                              <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
                                 {field.replace('_', ' ')}
                               </label>
                               <input
                                 type="text"
                                 value={credentialsForms[order.id][field] || ''}
-                                onChange={(e) =>
-                                  updateCredentialField(order.id, field, e.target.value)
-                                }
+                                onChange={(e) => updateCredentialField(order.id, field, e.target.value)}
                                 disabled={editingCredentials !== order.id}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm disabled:bg-gray-50"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-xl text-sm disabled:bg-gray-50 focus:ring-1 focus:ring-blue-400 transition"
                                 placeholder={field === 'password' ? '••••••••' : field}
                               />
                             </div>
@@ -301,7 +302,9 @@ export function Admin() {
                       <tr key={inv.id} className="hover:bg-gray-50">
                         <td className="px-4 py-3">{inv.invoice_number}</td>
                         <td className="px-4 py-3">{inv.profiles.full_name}</td>
-                        <td className="px-4 py-3 font-semibold">Rp {inv.amount?.toLocaleString('id-ID')}}</td>
+                        <td className="px-4 py-3 font-semibold">
+                          Rp {inv.amount?.toLocaleString('id-ID')}
+                        </td>
                         <td className="px-4 py-3">
                           <span
                             className={`px-2 py-1 text-xs font-medium rounded-full ${

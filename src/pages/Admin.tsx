@@ -23,6 +23,17 @@ export function Admin() {
   const [credentialsForms, setCredentialsForms] = useState<Record<string, any>>({});
 
   useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (!session) {
+          console.log('Session expired. Please login again.');
+        }
+      }
+    )
+    return () => authListener?.unsubscribe()
+  }, []);
+  
+  useEffect(() => {
     if (activeTab === 'orders') fetchOrders();
     else if (activeTab === 'invoices') fetchInvoices();
   }, [activeTab]);
@@ -98,7 +109,7 @@ export function Admin() {
       setProducts(
         data.map(p => ({ 
           ...p, 
-          specs: p.specs || {}, 
+          specs: typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs || {}, 
         }))
       );
     }
@@ -115,7 +126,9 @@ export function Admin() {
   const updateProductSpecs = (index: number, key: string, value: string) => {
     setProducts(prev => {
       const updated = [...prev];
-      updated[index].specs = updated[index].specs
+      updated[index].specs = typeof updated[index].specs === 'string'
+        ? JSON.parse(updated[index].specs)
+        : updated[index].specs || {};
       updated[index].specs[key] = value;
       return updated;
     });

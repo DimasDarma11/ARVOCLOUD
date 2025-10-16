@@ -82,6 +82,55 @@ export function Admin() {
     }));
   };
 
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (activeTab === 'products') fetchProducts();
+  }, [activeTab]);
+
+  const fetchProducts = async () => {
+    const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+    if (!error && data) setProducts(data.map(p => ({ ...p, specs: JSON.parse(p.specs || '{}') })));
+  };
+
+  const updateProductField = (index: number, field: string, value: any) => {
+    setProducts(prev => {
+      const updated = [...prev];
+      updated[index][field] = value;
+      return updated;
+    });
+  };
+
+  const updateProductSpecs = (index: number, key: string, value: string) => {
+    setProducts(prev => {
+      const updated = [...prev];
+      updated[index].specs[key] = value;
+      return updated;
+    });
+  };
+
+  const saveProduct = async (product: any) => {
+    const payload = {
+      category: product.category,
+      name: product.name,
+      description: product.description,
+      price_per_month: product.price_per_month,
+      specs: JSON.stringify(product.specs),
+      is_active: product.is_active,
+    };
+
+    if (product._isNew) {
+      const { error } = await supabase.from('products').insert([payload]);
+      if (!error) alert('Product added successfully!');
+    } else {
+      const { error } = await supabase.from('products').update(payload).eq('id', product.id);
+      if (!error) alert('Product updated successfully!');
+    }
+
+    fetchProducts();
+  };
+
+
   if (!profile?.is_admin) {
     return (
       <Layout>
@@ -289,10 +338,98 @@ export function Admin() {
 
             {/* PRODUCTS & TELEGRAM */}
             {activeTab === 'products' && (
-              <div className="bg-white rounded-xl shadow-sm p-6 text-sm text-gray-600">
-                Manage products directly in the database or through a dedicated form.
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-gray-900">Product Management</h3>
+                  <button
+                    onClick={() =>
+                      setProducts((prev) => [
+                        ...prev,
+                      {
+                        id: `temp-${Date.now()}`,
+                        category: 'VPS',
+                        name: '',
+                        description: '',
+                        price_per_month: 0,
+                        specs: { cpu: '', ram: '', storage: '', bandwidth: '' },
+                        is_active: true,
+                        _isNew: true,
+                      },
+                    ])
+                  }
+                  className="bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700"
+                >
+                  + Add Product
+                </button>
               </div>
-            )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {products.map((p, index) => (
+                  <div
+                    key={p.id}
+                    className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 space-y-3"
+                  >
+                    <div className="space-y-2">
+                      <input
+                        type="text"
+                        value={p.name}
+                        onChange={(e) => updateProductField(index, 'name', e.target.value)}
+                        placeholder="Product name"
+                        className="w-full px-3 py-2 border rounded-lg text-sm"
+                      />
+                      <textarea
+                        value={p.description}
+                        onChange={(e) => updateProductField(index, 'description', e.target.value)}
+                        placeholder="Description"
+                        className="w-full px-3 py-2 border rounded-lg text-sm"
+                      />
+                      <input
+                        type="number"
+                        value={p.price_per_month}
+                        onChange={(e) => updateProductField(index, 'price_per_month', Number(e.target.value))}
+                        placeholder="Price per month (Rp)"
+                        className="w-full px-3 py-2 border rounded-lg text-sm"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      {['cpu', 'ram', 'storage', 'bandwidth'].map((s) => (
+                        <input
+                          key={s}
+                          type="text"
+                          value={p.specs[s] || ''}
+                          onChange={(e) =>
+                            updateProductSpecs(index, s, e.target.value)
+                          }
+                          placeholder={s.toUpperCase()}
+                          className="w-full px-2 py-2 border rounded-lg text-xs"
+                        />
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between mt-2">
+                      <label className="flex items-center space-x-2 text-sm">
+                        <input
+                          type="checkbox"
+                          checked={p.is_active}
+                          onChange={(e) => updateProductField(index, 'is_active', e.target.checked)}
+                        />
+                        <span>Active</span>
+                      </label>
+
+                      <button
+                        onClick={() => saveProduct(p)}
+                        className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                      >
+                        {p._isNew ? 'Save' : 'Update'}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
 
             {activeTab === 'telegram' && (
               <div className="bg-white rounded-xl shadow-sm p-6 text-sm text-gray-600 space-y-2">

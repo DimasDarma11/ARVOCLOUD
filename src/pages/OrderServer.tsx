@@ -45,7 +45,7 @@ export function OrderServer() {
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .eq('category', selectedCategory.toLowerCase())
+      .eq('category', selectedCategory.toUpperCase())
       .eq('is_active', true)
       .order('price_per_month', { ascending: true });
 

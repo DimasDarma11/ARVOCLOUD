@@ -222,6 +222,7 @@ export function Admin() {
                       </p>
                       <p className="text-sm text-gray-500">
                         OS: {o.os_choice} — Region: <span className="font-medium">{o.region}</span> —{' '}
+                        IP: <span className="font-medium">{o.ip_type === 'public' ? 'Public' : 'NAT'}</span> —{' '}
                         <span className="font-medium text-gray-800">
                           {o.total_price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}
                         </span>
@@ -346,6 +347,7 @@ export function Admin() {
                 <h3 className="text-xl font-semibold">{modal.data.products.name}</h3>
                 <p>{modal.data.profiles.full_name} ({modal.data.profiles.whatsapp_number})</p>
                 <p>OS: {modal.data.os_choice}</p>
+                <p>IP Type: {modal.data.ip_type === 'public' ? 'Public' : 'NAT'}</p>
                 
                 <div className="mt-3">
                   <label className="text-sm font-semibold block mb-1">Server Region</label>

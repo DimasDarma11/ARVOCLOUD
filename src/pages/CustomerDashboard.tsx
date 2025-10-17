@@ -88,19 +88,19 @@ export function CustomerDashboard() {
           {
             user_id: user?.id,
             order_id: order.id,
-            amount: order.products?.price_per_month || 100000, // fallback harga
+            amount: order.products?.price_per_month || 100000,
             status: 'unpaid',
             renewal_for: order.id,
+            invoice_number: invoiceNumber,
           },
         ])
-        .select()
-        .single();
+        .select('*');
 
       if (error) throw error;
-      alert('Invoice perpanjangan berhasil dibuat! Silakan lakukan pembayaran.');
+      alert(`✅ Invoice berhasil dibuat!\nNomor: ${newInvoice[0].invoice_number}`);
     } catch (err) {
       console.error(err);
-      alert('Gagal membuat invoice perpanjangan.');
+      alert('❌ Gagal membuat invoice perpanjangan.');
     } finally {
       setRenewing(null);
     }
@@ -236,12 +236,12 @@ export function CustomerDashboard() {
                         <button
                           onClick={() => handleRenew(order)}
                           disabled={renewing === order.id}
-                          className="text-green-600 hover:text-green-700"
+                          className="flex items-center gap-1 text-green-600 hover:text-green-700 font-medium"
                         >
                           {renewing === order.id ? (
-                            <Clock className="w-5 h-5 animate-spin" />
+                            <Clock className="w-4 h-4 animate-spin" />
                           ) : (
-                            <RefreshCcw className="w-5 h-5" />
+                            <RefreshCcw className="w-4 h-4 />
                           )}
                           <span>{renewing === order.id ? 'Renewing...' : 'Renew'}</span>
                         </button>

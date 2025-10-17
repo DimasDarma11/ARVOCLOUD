@@ -444,6 +444,7 @@ export function OrderServer() {
 
 
               <div className="grid grid-cols-2 gap-4">
+                <label className="text-sm font-medium text-gray-700">Duration</label>
                 <input
                   type="number"
                   min="1"

@@ -40,8 +40,11 @@ export function OrderServer() {
   const [showMobileForm, setShowMobileForm] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<'USA' | 'Indonesia' | ''>('');
   const [ipType, setIpType] = useState<'NAT' | 'Public'>('NAT');
-  const totalPrice = Math.round(calculateTotalPrice());
+  const [totalPrice, setTotalPrice] = useState(0);
 
+  useEffect(() => {
+    setTotalPrice(Math.round(calculateTotalPrice()));
+  }, [selectedProduct, duration, ipType, selectedCategory]);
 
   useEffect(() => {
     fetchProducts();

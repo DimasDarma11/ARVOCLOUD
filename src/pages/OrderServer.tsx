@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
-import { Server, Cpu, HardDrive, Zap, ShoppingCart } from 'lucide-react';
+import { Server, Cpu, HardDrive, Zap, ShoppingCart, X } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -167,6 +167,7 @@ export function OrderServer() {
       alert('Failed to create order: ' + error.message);
     } finally {
       setSubmitting(false);
+      setShowMobileForm(false);
     }
   };
 
@@ -287,7 +288,7 @@ export function OrderServer() {
             </div>
 
             {/* ✅ Form normal hanya tampil di DESKTOP */}
-            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6 mb-24">
+            <form onSubmit={handleSubmit} className="hidden md:block bg-white rounded-xl shadow-lg p-8 space-y-6 mb-24">
               <h2 className="text-2xl font-bold text-gray-900">Configure Your Order</h2>
 
               <div>

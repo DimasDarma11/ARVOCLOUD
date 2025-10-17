@@ -103,6 +103,8 @@ export function Admin() {
       price_per_month: product.price_per_month,
       specs: product.specs,
       is_active: product.is_active,
+      available_usa: product.available_usa || false,
+      available_indonesia: product.available_indonesia || false,
     };
     if (product._isNew) {
       await supabase.from('products').insert([payload]);
@@ -550,6 +552,39 @@ export function Admin() {
                 />
                 Active
               </label>
+
+              {/* REGION AVAILABILITY */}
+              <div className="mt-3">
+                <label className="block text-sm font-semibold mb-1">Available Regions</label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={modal.data.available_usa || false}
+                      onChange={(e) =>
+                        setModal((prev: any) => ({
+                          ...prev,
+                          data: { ...prev.data, available_usa: e.target.checked },
+                        }))
+                      }
+                    />
+                    USA
+                  </label>
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={modal.data.available_indonesia || false}
+                      onChange={(e) =>
+                        setModal((prev: any) => ({
+                          ...prev,
+                          data: { ...prev.data, available_indonesia: e.target.checked },
+                        }))
+                      }
+                    />
+                    Indonesia
+                  </label>
+                </div>
+              </div>
 
               <button
                   onClick={() => handleSaveProduct(modal.data)}

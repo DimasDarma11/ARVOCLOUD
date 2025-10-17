@@ -254,6 +254,13 @@ export function Admin() {
                           {inv.status}
                         </span>
                       </p>
+                      {inv.proof_url && (
+                        <p>
+                          <a href={inv.proof_url} target="_blank" className="text-blue-600 hover:underline">
+                            Lihat Bukti
+                          </a>
+                        </p>
+                      )}
                     </div>
                     <p className="text-xs text-gray-400">{new Date(inv.created_at).toLocaleDateString('id-ID')}</p>
                   </div>
@@ -394,6 +401,14 @@ export function Admin() {
                 <p>{modal.data.profiles.full_name}</p>
                 <p>Rp {modal.data.amount.toLocaleString('id-ID')}</p>
                 <p>Status: {modal.data.status}</p>
+                
+                {modal.data.proof_url && (
+                  <div className="mt-3">
+                    <label className="text-sm font-semibold block mb-1">Bukti Pembayaran:</label>
+                    <img src={modal.data.proof_url} alt="Proof" className="w-full rounded-md border" />
+                  </div>
+                )}
+
                 {modal.data.status === 'pending_verification' && (
                   <div className="flex gap-3 mt-4">
                     <button

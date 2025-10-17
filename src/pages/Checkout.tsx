@@ -22,7 +22,7 @@ interface Invoice {
 }
 
 export function Checkout() {
-  const { invoiceId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);
@@ -33,7 +33,7 @@ export function Checkout() {
 
   // Fungsi upload bukti ke Supabase Storage
   const handleUploadProof = async () => {
-    if (!selectedFile || !invoiceId) {
+    if (!selectedFile || !id) {
       alert("Silakan pilih file bukti transfer terlebih dahulu!");
       return;
     }
@@ -41,7 +41,7 @@ export function Checkout() {
     setUploading(true);
     try {
       const fileExt = selectedFile.name.split('.').pop();
-      const fileName = `${invoiceId}_${Date.now()}.${fileExt}`;
+      const fileName = `${id}_${Date.now()}.${fileExt}`;
       const filePath = `payment_proofs/${fileName}`;
 
       // Upload ke Supabase Storage
@@ -68,7 +68,7 @@ export function Checkout() {
           status: 'pending_verification',
           proof_url: publicUrl,
         })
-        .eq('id', invoiceId);
+        .eq('id', id);
 
       if (updateError) throw updateError;
 
@@ -87,10 +87,10 @@ export function Checkout() {
 
   useEffect(() => {
     fetchInvoice();
-  }, [invoiceId]);
+  }, [id]);
 
   const fetchInvoice = async () => {
-    if (!invoiceId) return;
+    if (!id) return;
 
     const { data, error } = await supabase
       .from('invoices')
@@ -106,7 +106,7 @@ export function Checkout() {
           duration_unit
         )
       `)
-      .eq('id', invoiceId)
+      .eq('id', id)
       .single();
 
     if (!error && data) {
@@ -122,12 +122,12 @@ export function Checkout() {
   };
 
   const handleMarkAsPaid = async () => {
-    if (!invoiceId) return;
+    if (!id) return;
 
     await supabase
       .from('invoices')
       .update({ status: 'pending_verification' })
-      .eq('id', invoiceId);
+      .eq('id', id);
 
     alert('Notifikasi pembayaran telah dikirim! Admin akan segera memverifikasi pembayaran Anda.');
     navigate('/app/invoices');

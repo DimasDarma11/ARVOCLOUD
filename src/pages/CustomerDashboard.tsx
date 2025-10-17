@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
-import { Server, Clock, CheckCircle, AlertCircle, XCircle, Eye, X } from 'lucide-react';
+import { Server, Clock, CheckCircle, AlertCircle, XCircle, Eye, X, RefreshCcw } from 'lucide-react';
 
 interface Order {
   id: string;
@@ -30,6 +30,8 @@ export function CustomerDashboard() {
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [credentials, setCredentials] = useState<Credentials | null>(null);
+  const [renewing, setRenewing] = useState<string | null>(null);
+  const [showRenew, setShowRenew] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -84,7 +86,7 @@ export function CustomerDashboard() {
             user_id: user?.id,
             order_id: order.id,
             amount: order.products?.price_per_month || 100000, // fallback harga
-            status: 'pending',
+            status: 'unpaid',
             renewal_for: order.id,
           },
         ])
@@ -123,22 +125,6 @@ export function CustomerDashboard() {
     }
   };
 
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'active':
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'pending':
-        return <Clock className="w-5 h-5 text-yellow-500" />;
-      case 'provisioning':
-        return <AlertCircle className="w-5 h-5 text-blue-500" />;
-      case 'suspended':
-      case 'expired':
-        return <XCircle className="w-5 h-5 text-red-500" />;
-      default:
-        return <Clock className="w-5 h-5 text-gray-500" />;
-    }
-  };
 
   const getStatusColor = (status: string) => {
     switch (status) {

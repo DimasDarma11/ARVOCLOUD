@@ -266,107 +266,109 @@ export function OrderServer() {
         )}
 
         {selectedProduct && (
-          <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6 mb-24">
-            <h2 className="text-2xl font-bold text-gray-900">Configure Your Order</h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Operating System
-              </label>
-              <select
-                value={selectedOS}
-                onChange={(e) => setSelectedOS(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              >
-                <option value="">Select OS</option>
-                {OS_OPTIONS[selectedCategory].map((os) => (
-                  <option key={os} value={os}>
-                    {os}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Duration
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={duration.value}
-                  onChange={(e) => setDuration({ ...duration, value: parseInt(e.target.value) })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
-                />
-              </div>
+          <>
+            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6 mb-24">
+              <h2 className="text-2xl font-bold text-gray-900">Configure Your Order</h2>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Unit
+                  Operating System
                 </label>
                 <select
-                  value={duration.unit}
-                  onChange={(e) => setDuration({ ...duration, unit: e.target.value })}
+                  value={selectedOS}
+                  onChange={(e) => setSelectedOS(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
                 >
-                  <option value="months">Months</option>
-                  <option value="years">Years</option>
+                  <option value="">Select OS</option>
+                  {OS_OPTIONS[selectedCategory].map((os) => (
+                    <option key={os} value={os}>
+                      {os}
+                    </option>
+                  ))}
                 </select>
               </div>
-            </div>
 
-            <div className="bg-blue-50 rounded-lg p-6">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-gray-700">Selected Product:</span>
-                <span className="font-semibold text-gray-900">{selectedProduct.name}</span>
-              </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-gray-700">Duration:</span>
-                <span className="font-semibold text-gray-900">
-                  {duration.value} {duration.unit}
-                </span>
-              </div>
-              <div className="flex justify-between items-center pt-4 border-t border-blue-200">
-                <span className="text-lg font-semibold text-gray-900">Total Price:</span>
-                <span className="text-2xl font-bold text-blue-600">
-                  {calculateTotalPrice().toLocaleString('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
-                    minimumFractionDigits: 0,
-                  })}
-                </span>
-              </div>
-            </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Duration
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={duration.value}
+                    onChange={(e) => setDuration({ ...duration, value: parseInt(e.target.value) })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
 
-            <button
-              type="submit"
-              disabled={submitting || !selectedOS}
-              className="w-full bg-blue-600 text-white py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              <span>{submitting ? 'Creating Order...' : 'Proceed to Payment'}</span>
-            </button>
-          </form>
-          <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-between items-center md:hidden">
-            <span className="font-semibold text-gray-900">
-              Total:{" "}
-              {calculateTotalPrice().toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-                minimumFractionDigits: 0,
-              })}
-            </span>
-            <button
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                onClick={handleSubmit}
-                disabled={submitting}
-            >
-              {submitting ? "Processing..." : "Checkout"}
-            </button>
-          </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Unit
+                  </label>
+                  <select
+                    value={duration.unit}
+                    onChange={(e) => setDuration({ ...duration, unit: e.target.value })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="months">Months</option>
+                    <option value="years">Years</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 rounded-lg p-6">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-700">Selected Product:</span>
+                  <span className="font-semibold text-gray-900">{selectedProduct.name}</span>
+                </div>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-700">Duration:</span>
+                  <span className="font-semibold text-gray-900">
+                    {duration.value} {duration.unit}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center pt-4 border-t border-blue-200">
+                  <span className="text-lg font-semibold text-gray-900">Total Price:</span>
+                  <span className="text-2xl font-bold text-blue-600">
+                    {calculateTotalPrice().toLocaleString('id-ID', {
+                      style: 'currency',
+                      currency: 'IDR',
+                      minimumFractionDigits: 0,
+                    })}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting || !selectedOS}
+                className="w-full bg-blue-600 text-white py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                <span>{submitting ? 'Creating Order...' : 'Proceed to Payment'}</span>
+              </button>
+            </form>
+            <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-between items-center md:hidden">
+              <span className="font-semibold text-gray-900">
+                Total:{" "}
+                {calculateTotalPrice().toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                  minimumFractionDigits: 0,
+                })}
+              </span>
+              <button
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={handleSubmit}
+                  disabled={submitting}
+              >
+                {submitting ? "Processing..." : "Checkout"}
+              </button>
+            </div>
+          </>
         )}
       </div>
     </Layout>

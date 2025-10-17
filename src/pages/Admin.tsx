@@ -139,7 +139,10 @@ export function Admin() {
     try {
       const { error } = await supabase
         .from('orders')
-        .update({ status: newStatus })
+        .update({ 
+          status: newStatus,
+          region: modal.data.region,
+        })
         .eq('id', orderId);
 
       if (error) throw error;
@@ -216,11 +219,11 @@ export function Admin() {
                         {o.profiles.full_name} ({o.profiles.whatsapp_number})
                       </p>
                       <p className="text-sm text-gray-500">
-                        OS: {o.os_choice} —{' '}
+                        OS: {o.os_choice} — Region: <span className="font-medium">{o.region}</span> —{' '}
                         <span className="font-medium text-gray-800">
                           {o.total_price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}
                         </span>
-                      </p>
+                      </p>             
                     </div>
                     <span className="text-xs px-3 py-1 rounded-full bg-gray-100">{o.status}</span>
                   </div>
@@ -341,6 +344,21 @@ export function Admin() {
                 <h3 className="text-xl font-semibold">{modal.data.products.name}</h3>
                 <p>{modal.data.profiles.full_name} ({modal.data.profiles.whatsapp_number})</p>
                 <p>OS: {modal.data.os_choice}</p>
+                
+                <div className="mt-3">
+                  <label className="text-sm font-semibold block mb-1">Server Region</label>
+                  <select
+                    value={modal.data.region}
+                    onChange={(e) =>
+                      setModal((prev) => prev && prev.data ? { ...prev, data: { ...prev.data, region: e.target.value } } : prev)
+                    }
+                    className="w-full border rounded-lg px-3 py-2 text-sm"
+                  >
+                    <option value="USA">USA</option>
+                    <option value="Indonesia">Indonesia</option>
+                  </select>
+                </div>
+                
                 <p>Total: Rp {modal.data.total_price.toLocaleString('id-ID')}</p>
 
                 <div className="mt-3">

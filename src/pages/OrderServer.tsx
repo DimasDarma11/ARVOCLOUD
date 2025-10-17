@@ -36,6 +36,7 @@ export function OrderServer() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [showMobileForm, setShowMobileForm] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState<'USA' | 'Indonesia' | ''>('');
 
   useEffect(() => {
     fetchProducts();
@@ -87,6 +88,7 @@ export function OrderServer() {
           user_id: user.id,
           product_id: selectedProduct.id,
           os_choice: selectedOS,
+          region: selectedRegion,
           duration_value: duration.value,
           duration_unit: duration.unit,
           total_price: totalPrice,
@@ -310,6 +312,22 @@ export function OrderServer() {
                 </select>
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Server Region
+                </label>
+                <select
+                  value={selectedRegion}
+                  onChange={(e) => setSelectedRegion(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
+                >
+                  <option value="">Select Region</option>
+                  <option value="USA">USA</option>
+                  <option value="Indonesia">Indonesia</option>
+                </select>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -402,6 +420,21 @@ export function OrderServer() {
                   ))}
                 </select>
               </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">Server Region</label>
+                <select
+                  value={selectedRegion}
+                  onChange={(e) => setSelectedRegion(e.target.value)}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  required
+                >
+                  <option value="">Select Region</option>
+                  <option value="USA">USA</option>
+                  <option value="Indonesia">Indonesia</option>
+                </select>
+              </div>
+
 
               <div className="grid grid-cols-2 gap-4">
                 <input

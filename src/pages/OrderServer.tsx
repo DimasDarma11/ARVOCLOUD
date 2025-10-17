@@ -39,6 +39,8 @@ export function OrderServer() {
   const [submitting, setSubmitting] = useState(false);
   const [showMobileForm, setShowMobileForm] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<'USA' | 'Indonesia' | ''>('');
+  const [ipType, setIpType] = useState<'NAT' | 'Public'>('NAT');
+
 
   useEffect(() => {
     fetchProducts();
@@ -71,7 +73,13 @@ export function OrderServer() {
       multiplier = duration.value * 12;
     }
 
-    return monthlyPrice * multiplier;
+    let total = monthlyPrice * multiplier;
+
+    if (selectedCategory === 'RDP' && ipType === 'Public') {
+      total += 85000 * multiplier;
+    }
+
+    return total;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -96,6 +104,7 @@ export function OrderServer() {
           product_id: selectedProduct.id,
           os_choice: selectedOS,
           region: selectedRegion,
+          ip_type: selectedCategory === 'Baremetal' ? 'Local' : ipType,
           duration_value: duration.value,
           duration_unit: duration.unit,
           total_price: totalPrice,
@@ -334,6 +343,35 @@ export function OrderServer() {
                   {selectedProduct?.available_indonesia && <option value="Indonesia">Indonesia</option>}
                 </select>
               </div>
+              
+              {selectedCategory === 'RDP' ? (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    IP Type
+                  </label>
+                  <select
+                    value={ipType}
+                    onChange={(e) => setIpType(e.target.value as 'NAT' | 'Public')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="NAT">NAT (Shared IP)</option>
+                    <option value="Public">Public IP (+Rp85.000)</option>
+                  </select>
+                </div>
+              ) : selectedCategory === 'VPS' ? (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    IP Type
+                  </label>
+                  <input
+                    type="text"
+                    value="Public"
+                    disabled
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700"
+                  />
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -442,6 +480,34 @@ export function OrderServer() {
                 </select>
               </div>
 
+              {selectedCategory === 'RDP' ? (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    IP Type
+                  </label>
+                  <select
+                    value={ipType}
+                    onChange={(e) => setIpType(e.target.value as 'NAT' | 'Public')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="NAT">NAT (Shared IP)</option>
+                    <option value="Public">Public IP (+Rp85.000)</option>
+                  </select>
+                </div>
+              ) : selectedCategory === 'VPS' ? (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    IP Type
+                  </label>
+                  <input
+                    type="text"
+                    value="Public"
+                    disabled
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700"
+                  />
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-4">
                 <label className="text-sm font-medium text-gray-700">Duration</label>

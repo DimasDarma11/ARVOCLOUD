@@ -11,6 +11,7 @@ interface Order {
   status: string;
   created_at: string;
   expires_at: string | null;
+  region: string | null;
   products: {
     name: string;
     category: string;
@@ -42,6 +43,7 @@ export function CustomerDashboard() {
       .from('orders')
       .select(`
         *,
+        region, 
         products (
           name,
           category
@@ -158,6 +160,10 @@ export function CustomerDashboard() {
                     <span className="text-gray-600">OS:</span>
                     <span className="font-medium text-gray-900">{order.os_choice}</span>
                   </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Region:</span>
+                    <span className="font-medium text-gray-900">{order.region || '-'}</span>
+                  </div>
                   {order.expires_at && (
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Expires:</span>
@@ -203,6 +209,11 @@ export function CustomerDashboard() {
               <div className="bg-gray-50 rounded-lg p-4">
                 <h3 className="text-sm font-medium text-gray-600 mb-1">Server Name</h3>
                 <p className="text-lg font-semibold text-gray-900">{selectedOrder.products.name}</p>
+              </div>
+
+              <div className="bg-purple-50 rounded-lg p-4">
+                <h3 className="text-sm font-medium text-purple-600 mb-1">Region</h3>
+                <p className="text-lg font-semibold text-gray-900">{selectedOrder.region || 'Not assigned'}</p>
               </div>
 
               <div className="bg-blue-50 rounded-lg p-4">

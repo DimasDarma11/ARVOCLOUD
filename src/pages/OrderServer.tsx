@@ -40,6 +40,7 @@ export function OrderServer() {
   const [showMobileForm, setShowMobileForm] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<'USA' | 'Indonesia' | ''>('');
   const [ipType, setIpType] = useState<'NAT' | 'Public'>('NAT');
+  const totalPrice = Math.round(calculateTotalPrice());
 
 
   useEffect(() => {
@@ -94,7 +95,7 @@ export function OrderServer() {
     setSubmitting(true);
 
     try {
-      const totalPrice = calculateTotalPrice();
+      const totalPrice = Math.round(calculateTotalPrice());
       const whatsappContact = profile?.whatsapp_number || '';
 
       const { data: orderData, error: orderError } = await supabase
@@ -121,9 +122,9 @@ export function OrderServer() {
       if (duration.unit === 'days') {
         durationMs = duration.value * 24 * 60 * 60 * 1000;
       } else if (duration.unit === 'months') {
-        durationMs = duration.value * 30 * 24 * 60 * 60 * 1000; // asumsikan 1 bulan = 30 hari
+        durationMs = duration.value * 30 * 24 * 60 * 60 * 1000;
       } else if (duration.unit === 'years') {
-        durationMs = duration.value * 365 * 24 * 60 * 60 * 1000; // 1 tahun = 365 hari
+        durationMs = duration.value * 365 * 24 * 60 * 60 * 1000; 
       }
 
       // Hitung tanggal kadaluarsa dari sekarang
@@ -134,7 +135,12 @@ export function OrderServer() {
         .update({ expires_at: expiresAt })
         .eq('id', orderData.id);
 
-      const invoiceNumber = `INV-${new Date().toISOString().split('T')[0].replace(/-/g, '')}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
+      const invoiceNumber = `INV-${new Date()
+        .toISOString()
+        .split('T')[0]
+        .replace(/-/g, '')}-${Math.floor(Math.random() * 10000)
+        .toString()
+        .padStart(4, '0')}`;
 
       const { data: invoiceData, error: invoiceError } = await supabase
         .from('invoices')

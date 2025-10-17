@@ -35,6 +35,7 @@ export function OrderServer() {
   const [duration, setDuration] = useState({ value: 1, unit: 'months' });
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [showMobileForm, setShowMobileForm] = useState(false);
 
   useEffect(() => {
     fetchProducts();

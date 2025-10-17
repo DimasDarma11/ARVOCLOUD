@@ -46,10 +46,10 @@ export function Checkout() {
 
       // Upload ke Supabase Storage
       const { error: uploadError } = await supabase.storage
-        .from('proofs') // pastikan bucket "proofs" sudah dibuat di Supabase
+        .from('proofs') 
         .upload(filePath, selectedFile, {
           cacheControl: '3600',
-          upsert: false,
+          upsert: true,
         });
 
       if (uploadError) throw uploadError;

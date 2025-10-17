@@ -79,6 +79,9 @@ export function CustomerDashboard() {
   const handleRenew = async (order: Order) => {
     try {
       setRenewing(order.id);
+
+      const invoiceNumber = `INV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      
       const { data: newInvoice, error } = await supabase
         .from('invoices')
         .insert([
@@ -240,6 +243,7 @@ export function CustomerDashboard() {
                           ) : (
                             <RefreshCcw className="w-5 h-5" />
                           )}
+                          <span>{renewing === order.id ? 'Renewing...' : 'Renew'}</span>
                         </button>
                       )}
                     </div>

@@ -74,6 +74,56 @@ export function CustomerDashboard() {
     }
   };
 
+  const handleRenew = async (order: Order) => {
+    try {
+      setRenewing(order.id);
+      const { data: newInvoice, error } = await supabase
+        .from('invoices')
+        .insert([
+          {
+            user_id: user?.id,
+            order_id: order.id,
+            amount: order.products?.price_per_month || 100000, // fallback harga
+            status: 'pending',
+            renewal_for: order.id,
+          },
+        ])
+        .select()
+        .single();
+
+      if (error) throw error;
+      alert('Invoice perpanjangan berhasil dibuat! Silakan lakukan pembayaran.');
+    } catch (err) {
+      console.error(err);
+      alert('Gagal membuat invoice perpanjangan.');
+    } finally {
+      setRenewing(null);
+    }
+  };
+
+  const daysLeft = (expires_at: string | null) => {
+    if (!expires_at) return null;
+    const diffMs = new Date(expires_at).getTime() - new Date().getTime();
+    return Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'active':
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
+      case 'pending':
+        return <Clock className="w-5 h-5 text-yellow-500" />;
+      case 'provisioning':
+        return <AlertCircle className="w-5 h-5 text-blue-500" />;
+      case 'suspended':
+      case 'expired':
+        return <XCircle className="w-5 h-5 text-red-500" />;
+      default:
+        return <Clock className="w-5 h-5 text-gray-500" />;
+    }
+  };
+
+
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'active':
@@ -183,7 +233,30 @@ export function CustomerDashboard() {
                     {order.status.toUpperCase()}
                   </span>
                   {order.status === 'active' && (
-                    <Eye className="w-5 h-5 text-blue-600" />
+                     <div className="flex gap-2">
+                      {order.status === 'active' && (
+                        <button
+                          onClick={() => handleViewCredentials(order)}
+                          className="text-blue-600 hover:text-blue-700"
+                        >
+                          <Eye className="w-5 h-5" />
+                        </button>
+                      )}
+
+                      {showRenew && (
+                        <button
+                          onClick={() => handleRenew(order)}
+                          disabled={renewing === order.id}
+                          className="text-green-600 hover:text-green-700"
+                        >
+                          {renewing === order.id ? (
+                            <Clock className="w-5 h-5 animate-spin" />
+                          ) : (
+                            <RefreshCcw className="w-5 h-5" />
+                          )}
+                        </button>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>

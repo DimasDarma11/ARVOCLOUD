@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
-import { FileText, CreditCard, CheckCircle, Copy, Check } from 'lucide-react';
+import { FileText, CreditCard, CheckCircle, Copy, Check, X } from 'lucide-react';
 
 interface Invoice {
   id: string;
@@ -27,6 +27,60 @@ export function Checkout() {
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+
+  // Fungsi upload bukti ke Supabase Storage
+  const handleUploadProof = async () => {
+    if (!selectedFile || !invoiceId) {
+      alert("Silakan pilih file bukti transfer terlebih dahulu!");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const fileExt = selectedFile.name.split('.').pop();
+      const fileName = `${invoiceId}_${Date.now()}.${fileExt}`;
+      const filePath = `payment_proofs/${fileName}`;
+
+      // Upload ke Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('proofs') // pastikan bucket "proofs" sudah dibuat di Supabase
+        .upload(filePath, selectedFile, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Ambil URL file
+      const { data: publicData } = supabase.storage
+        .from('proofs')
+        .getPublicUrl(filePath);
+
+      const publicUrl = publicData?.publicUrl;
+
+      // Update status invoice & simpan link bukti
+      const { error: updateError } = await supabase
+        .from('invoices')
+        .update({
+          status: 'pending_verification',
+          proof_url: publicUrl,
+        })
+        .eq('id', invoiceId);
+
+      if (updateError) throw updateError;
+
+      alert('Bukti pembayaran berhasil diunggah! Admin akan segera memverifikasi.');
+      navigate('/app/invoices');
+    } catch (error) {
+      console.error(error);
+      alert('Gagal mengunggah bukti pembayaran.');
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const formatRupiah = (value: number) =>
   value.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
@@ -229,7 +283,7 @@ export function Checkout() {
             </div>
 
             <button
-              onClick={handleMarkAsPaid}
+              onClick={() => setShowUploadModal(true)}
               className="w-full bg-green-600 text-white py-4 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center space-x-2"
             >
               <CheckCircle className="w-5 h-5" />
@@ -280,6 +334,38 @@ export function Checkout() {
                   dan sesuai dengan nominal invoice. Silakan ulangi pembayaran atau hubungi admin.
                 </p>
               </div>
+            </div>
+          </div>
+        )}
+
+        {showUploadModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl shadow-lg p-6 w-11/12 max-w-md relative">
+              <button
+                onClick={() => setShowUploadModal(false)}
+                className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Upload Bukti Pembayaran
+              </h2>
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                className="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg p-2 mb-4"
+              />
+
+              <button
+                onClick={handleUploadProof}
+                disabled={uploading}
+                className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 transition-colors"
+              >
+                {uploading ? 'Mengunggah...' : 'Kirim Bukti Pembayaran'}
+              </button>
             </div>
           </div>
         )}

@@ -30,7 +30,7 @@ export function Admin() {
   useEffect(() => {
     if (activeTab === 'orders') fetchOrders();
     if (activeTab === 'invoices') fetchInvoices();
-    if (activeTab === 'products') fetchProducts();
+    if (activeTab === 'products' && products.length === 0) fetchProducts();
   }, [activeTab]);
 
   const fetchOrders = async () => {

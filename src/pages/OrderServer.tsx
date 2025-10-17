@@ -267,6 +267,25 @@ export function OrderServer() {
 
         {selectedProduct && (
           <>
+            {/* ✅ Tombol Checkout untuk MOBILE */}
+            <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-between items-center md:hidden">
+              <span className="font-semibold text-gray-900">
+                Total:{" "}
+                {calculateTotalPrice().toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                  minimumFractionDigits: 0,
+                })}
+              </span>
+              <button
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium"
+                onClick={() => setShowMobileForm(true)}
+              >
+                Checkout
+              </button>
+            </div>
+
+            {/* ✅ Form normal hanya tampil di DESKTOP */}
             <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6 mb-24">
               <h2 className="text-2xl font-bold text-gray-900">Configure Your Order</h2>
 
@@ -351,26 +370,78 @@ export function OrderServer() {
                 <span>{submitting ? 'Creating Order...' : 'Proceed to Payment'}</span>
               </button>
             </form>
-            <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-between items-center md:hidden">
-              <span className="font-semibold text-gray-900">
-                Total:{" "}
-                {calculateTotalPrice().toLocaleString("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
-                  minimumFractionDigits: 0,
-                })}
-              </span>
-              <button
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                  onClick={handleSubmit}
-                  disabled={submitting}
-              >
-                {submitting ? "Processing..." : "Checkout"}
-              </button>
-            </div>
           </>
         )}
       </div>
+
+      {/* ✅ Popup form untuk MOBILE */}
+      {showMobileForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 relative">
+            <button
+              onClick={() => setShowMobileForm(false)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <h3 className="text-xl font-bold mb-4">Configure Order</h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700">Operating System</label>
+                <select
+                  value={selectedOS}
+                  onChange={(e) => setSelectedOS(e.target.value)}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  required
+                >
+                  <option value="">Select OS</option>
+                  {OS_OPTIONS[selectedCategory].map((os) => (
+                    <option key={os}>{os}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="number"
+                  min="1"
+                  value={duration.value}
+                  onChange={(e) => setDuration({ ...duration, value: parseInt(e.target.value) })}
+                  className="px-4 py-2 border rounded-lg"
+                  placeholder="Duration"
+                />
+                <select
+                  value={duration.unit}
+                  onChange={(e) => setDuration({ ...duration, unit: e.target.value })}
+                  className="px-4 py-2 border rounded-lg"
+                >
+                  <option value="months">Months</option>
+                  <option value="years">Years</option>
+                </select>
+              </div>
+
+              <div className="flex justify-between items-center mt-4">
+                <span className="font-semibold">Total:</span>
+                <span className="text-blue-600 font-bold text-lg">
+                  {calculateTotalPrice().toLocaleString('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                  })}
+                </span>
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-full bg-blue-600 text-white py-3 rounded-lg mt-4 font-medium"
+              >
+                {submitting ? 'Processing...' : 'Proceed to Payment'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 }

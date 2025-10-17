@@ -17,6 +17,8 @@ interface Product {
     storage?: string;
     bandwidth?: string;
   };
+  available_usa?: boolean;
+  available_indonesia?: boolean;
 }
 
 const OS_OPTIONS = {
@@ -46,7 +48,7 @@ export function OrderServer() {
     setLoading(true);
     const { data, error } = await supabase
       .from('products')
-      .select('*')
+      .select('*, available_usa, available_indonesia')
       .eq('category', selectedCategory)
       .eq('is_active', true)
       .order('price_per_month', { ascending: true });
@@ -75,6 +77,11 @@ export function OrderServer() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProduct || !selectedOS || !user) return;
+    if (!selectedRegion) {
+      alert('Please select a region available for this product!');
+      setSubmitting(false);
+      return;
+    }
 
     setSubmitting(true);
 
@@ -318,13 +325,13 @@ export function OrderServer() {
                 </label>
                 <select
                   value={selectedRegion}
-                  onChange={(e) => setSelectedRegion(e.target.value)}
+                  onChange={(e) => setSelectedRegion(e.target.value as 'USA' | 'Indonesia')}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   required
                 >
                   <option value="">Select Region</option>
-                  <option value="USA">USA</option>
-                  <option value="Indonesia">Indonesia</option>
+                  {selectedProduct?.available_usa && <option value="USA">USA</option>}
+                  {selectedProduct?.available_indonesia && <option value="Indonesia">Indonesia</option>}
                 </select>
               </div>
 
@@ -425,13 +432,13 @@ export function OrderServer() {
                 <label className="text-sm font-medium text-gray-700">Server Region</label>
                 <select
                   value={selectedRegion}
-                  onChange={(e) => setSelectedRegion(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-lg"
+                  onChange={(e) => setSelectedRegion(e.target.value as 'USA' | 'Indonesia')}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   required
                 >
                   <option value="">Select Region</option>
-                  <option value="USA">USA</option>
-                  <option value="Indonesia">Indonesia</option>
+                  {selectedProduct?.available_usa && <option value="USA">USA</option>}
+                  {selectedProduct?.available_indonesia && <option value="Indonesia">Indonesia</option>}
                 </select>
               </div>
 

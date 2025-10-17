@@ -32,9 +32,9 @@ export function CustomerDashboard() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetchOrders();
-  }, [user]);
-
+    if (user?.id) fetchOrders();
+  }, [user?.id]);
+  
   const fetchOrders = async () => {
     if (!user) return;
 

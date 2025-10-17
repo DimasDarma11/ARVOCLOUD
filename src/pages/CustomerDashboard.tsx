@@ -241,7 +241,7 @@ export function CustomerDashboard() {
                           {renewing === order.id ? (
                             <Clock className="w-4 h-4 animate-spin" />
                           ) : (
-                            <RefreshCcw className="w-4 h-4 />
+                            <RefreshCcw className="w-4 h-4" />
                           )}
                           <span>{renewing === order.id ? 'Renewing...' : 'Renew'}</span>
                         </button>

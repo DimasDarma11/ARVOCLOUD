@@ -371,7 +371,7 @@ export function OrderServer() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700"
                   />
                 </div>
-              )}
+              ) : null }
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -507,7 +507,7 @@ export function OrderServer() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700"
                   />
                 </div>
-              )}
+              ) : null }
 
               <div className="grid grid-cols-2 gap-4">
                 <label className="text-sm font-medium text-gray-700">Duration</label>

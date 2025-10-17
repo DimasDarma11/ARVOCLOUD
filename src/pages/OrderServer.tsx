@@ -97,14 +97,22 @@ export function OrderServer() {
 
       if (orderError) throw orderError;
 
-      const { data: expiryData } = await supabase.rpc('calculate_expiry_date', {
-        duration_val: duration.value,
-        duration_unit: duration.unit,
-      });
+      let durationMs = 0;
+
+      if (duration.unit === 'days') {
+        durationMs = duration.value * 24 * 60 * 60 * 1000;
+      } else if (duration.unit === 'months') {
+        durationMs = duration.value * 30 * 24 * 60 * 60 * 1000; // asumsikan 1 bulan = 30 hari
+      } else if (duration.unit === 'years') {
+        durationMs = duration.value * 365 * 24 * 60 * 60 * 1000; // 1 tahun = 365 hari
+      }
+
+      // Hitung tanggal kadaluarsa dari sekarang
+      const expiresAt = new Date(Date.now() + durationMs).toISOString();
 
       await supabase
         .from('orders')
-        .update({ expires_at: expiryData })
+        .update({ expires_at: expiresAt })
         .eq('id', orderData.id);
 
       const invoiceNumber = `INV-${new Date().toISOString().split('T')[0].replace(/-/g, '')}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
@@ -258,7 +266,7 @@ export function OrderServer() {
         )}
 
         {selectedProduct && (
-          <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6">
+          <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6 mb-24">
             <h2 className="text-2xl font-bold text-gray-900">Configure Your Order</h2>
 
             <div>
@@ -342,6 +350,23 @@ export function OrderServer() {
               <span>{submitting ? 'Creating Order...' : 'Proceed to Payment'}</span>
             </button>
           </form>
+          <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-between items-center md:hidden">
+            <span className="font-semibold text-gray-900">
+              Total:{" "}
+              {calculateTotalPrice().toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+              })}
+            </span>
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={handleSubmit}
+                disabled={submitting}
+            >
+              {submitting ? "Processing..." : "Checkout"}
+            </button>
+          </div>
         )}
       </div>
     </Layout>

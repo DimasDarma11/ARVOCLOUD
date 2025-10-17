@@ -24,11 +24,13 @@ export function Invoices() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchInvoices();
+    if (user?.id) {
+      fetchInvoices();
+    }
   }, [user]);
 
   const fetchInvoices = async () => {
-    if (!user) return;
+    if (!user?.id) return;
 
     const { data, error } = await supabase
       .from('invoices')

@@ -1,5 +1,4 @@
-
-    import React, { useState } from "react";
+import React, { useState } from "react";
 import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -544,8 +543,11 @@ Apakah konfigurasi ini tersedia?`;
 
   // Handle Messenger order
   const handleMessengerOrder = () => {
-    const message = generateOrderMessage();
-    const messengerUrl = `https://m.me/${messengerUsername}?text=${encodeURIComponent(message)}`;
+    const message = generateOrderMessage()
+        .replaceAll("\n", "%0A")
+        .replaceAll(" ", "%20");
+    
+    const messengerUrl = `https://m.me/${messengerUsername}?text=${message}`;
     window.open(messengerUrl, "_blank");
     handleCloseModal();
   };

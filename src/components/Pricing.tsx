@@ -412,7 +412,8 @@ const Pricing = () => {
         quantity: 1,
         usage: "",
         os: "N/A - Proxy Service",
-        duration: ""
+        duration: "",
+        ipPublic: false
       });
     } else {
       setFormData({
@@ -420,7 +421,8 @@ const Pricing = () => {
         quantity: 1,
         usage: "",
         os: "",
-        duration: ""
+        duration: "",
+        ipPublic: false
       });
     }
   };
@@ -435,7 +437,8 @@ const Pricing = () => {
       quantity: 1,
       usage: "",
       os: "",
-      duration: ""
+      duration: "",
+      ipPublic: false
     });
   };
 
@@ -492,12 +495,21 @@ const Pricing = () => {
 
   // Get price based on duration
   const getFinalPrice = () => {
+    let basePrice = 0;
+    
     if (formData.duration === "1 Bulan (30 Hari)") {
-      return selectedPlan.price.bulanan * formData.quantity;
+      basePrice = selectedPlan.price.bulanan * formData.quantity;
     } else if (formData.duration === "1 Tahun") {
-      return selectedPlan.price.tahunan * formData.quantity;
+      basePrice = selectedPlan.price.tahunan * formData.quantity;
     }
-    return 0;
+    
+    // Tambah biaya IP Public untuk RDP jika dipilih
+    if (selectedCategory === "rdp" && formData.ipPublic) {
+      const ipPublicCost = 85000 * formData.quantity;
+      basePrice += ipPublicCost;
+    }
+    
+    return basePrice;
   };
 
   // Generate order message
@@ -519,6 +531,20 @@ const Pricing = () => {
 Apakah konfigurasi ini tersedia?`;
     }
     
+    // Get IP info based on category
+    let ipInfo = "";
+    if (selectedCategory === "vps") {
+      ipInfo = "✅ IP Public (Included)";
+    } else if (selectedCategory === "rdp") {
+      if (formData.ipPublic) {
+        ipInfo = "✅ IP Public (+Rp85.000)\n*IP Public untuk open all port";
+      } else {
+        ipInfo = "🔒 IP NAT (Default)";
+      }
+    } else if (selectedCategory === "baremetal") {
+      ipInfo = "🏠 IP Local";
+    }
+    
     return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:
 
 📦 Nama Paket: ${selectedPlan.name}
@@ -526,6 +552,7 @@ Apakah konfigurasi ini tersedia?`;
 💻 OS: ${formData.os}
 ⚡ CPU: ${selectedPlan.specs.cpu}
 🧠 RAM: ${selectedPlan.specs.ram}
+🌐 IP: ${ipInfo}
 🔢 Kuantitas: ${formData.quantity}
 🛡️ Garansi: ${getGuarantee()}
 💰 Harga: Rp${getFinalPrice().toLocaleString("id-ID")}
@@ -545,8 +572,8 @@ Apakah konfigurasi ini tersedia?`;
   // Handle Messenger order
   const handleTelegramOrder = () => {
     const message = generateOrderMessage();
-    const telegramUrl = `https://m.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
-    window.open(telegramrUrl, "_blank");
+    const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
+    window.open(messengerUrl, "_blank");
     handleCloseModal();
   };
 
@@ -700,7 +727,7 @@ Apakah konfigurasi ini tersedia?`;
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Modal Header */}
-                <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 rounded-t-2xl">
+                <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 rounded-t-2xl z-10">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-2xl font-bold">{selectedPlan.name}</h3>
@@ -831,7 +858,7 @@ Apakah konfigurasi ini tersedia?`;
                       </motion.div>
                     )}
 
-                    {/* Step 3 (or 2 for Proxy): Operating System / Duration for Proxy */}
+                    {/* Step 3: Operating System with IP Options */}
                     {currentStep === 3 && selectedCategory !== "proxy" && (
                       <motion.div
                         key="step3"
@@ -861,6 +888,53 @@ Apakah konfigurasi ini tersedia?`;
                             </button>
                           ))}
                         </div>
+                        
+                        {/* IP Public Option for RDP */}
+                        {selectedCategory === "rdp" && (
+                          <div className="mt-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-200">
+                            <div className="flex items-start gap-3">
+                              <input
+                                type="checkbox"
+                                id="ipPublic"
+                                checked={formData.ipPublic}
+                                onChange={(e) => setFormData({ ...formData, ipPublic: e.target.checked })}
+                                className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                              />
+                              <div className="flex-1">
+                                <label htmlFor="ipPublic" className="font-semibold text-gray-800 cursor-pointer block">
+                                  Tambah IP Public (+Rp85.000/bulan)
+                                </label>
+                                <p className="text-sm text-gray-600 mt-1">
+                                  Default menggunakan IP NAT. Pilih IP Public jika membutuhkan open all port untuk kebutuhan tertentu.
+                                </p>
+                                {formData.ipPublic && (
+                                  <p className="text-xs text-blue-600 font-semibold mt-2 bg-white/70 p-2 rounded">
+                                    ℹ️ *IP Public memungkinkan open all port untuk kebutuhan yang membutuhkan port tertentu
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Info for VPS - IP Public Included */}
+                        {selectedCategory === "vps" && (
+                          <div className="mt-6 p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border-2 border-green-200">
+                            <div className="flex items-center gap-2">
+                              <Check className="w-5 h-5 text-green-600" />
+                              <span className="font-semibold text-gray-800">IP Public sudah termasuk dalam paket</span>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Info for Baremetal - IP Local */}
+                        {selectedCategory === "baremetal" && (
+                          <div className="mt-6 p-4 bg-gradient-to-br from-gray-50 to-slate-50 rounded-xl border-2 border-gray-200">
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold text-gray-800">🏠 Menggunakan IP Local</span>
+                            </div>
+                          </div>
+                        )}
                       </motion.div>
                     )}
 
@@ -875,32 +949,45 @@ Apakah konfigurasi ini tersedia?`;
                       >
                         <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Durasi</h4>
                         <div className="grid gap-3">
-                          {["1 Bulan (30 Hari)", "1 Tahun"].map((duration) => (
-                            <button
-                              key={duration}
-                              onClick={() => setFormData({ ...formData, duration })}
-                              className={`p-4 rounded-xl border-2 transition-all text-left ${
-                                formData.duration === duration
-                                  ? "border-blue-600 bg-blue-50 shadow-md"
-                                  : "border-gray-200 bg-white hover:border-blue-300"
-                              }`}
-                            >
-                              <div className="flex items-center justify-between">
-                                <div>
-                                  <span className="text-lg font-semibold text-gray-800 block">{duration}</span>
-                                  <span className="text-sm text-gray-600">
-                                    Rp{(duration === "1 Bulan (30 Hari)" 
-                                      ? selectedPlan.price.bulanan * formData.quantity
-                                      : selectedPlan.price.tahunan * formData.quantity
-                                    ).toLocaleString("id-ID")}
-                                  </span>
+                          {["1 Bulan (30 Hari)", "1 Tahun"].map((duration) => {
+                            let basePrice = duration === "1 Bulan (30 Hari)" 
+                              ? selectedPlan.price.bulanan * formData.quantity
+                              : selectedPlan.price.tahunan * formData.quantity;
+                            
+                            // Add IP Public cost for RDP if selected
+                            if (selectedCategory === "rdp" && formData.ipPublic) {
+                              basePrice += 85000 * formData.quantity;
+                            }
+                            
+                            return (
+                              <button
+                                key={duration}
+                                onClick={() => setFormData({ ...formData, duration })}
+                                className={`p-4 rounded-xl border-2 transition-all text-left ${
+                                  formData.duration === duration
+                                    ? "border-blue-600 bg-blue-50 shadow-md"
+                                    : "border-gray-200 bg-white hover:border-blue-300"
+                                }`}
+                              >
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <span className="text-lg font-semibold text-gray-800 block">{duration}</span>
+                                    <span className="text-sm text-gray-600">
+                                      Rp{basePrice.toLocaleString("id-ID")}
+                                    </span>
+                                    {selectedCategory === "rdp" && formData.ipPublic && (
+                                      <span className="text-xs text-blue-600 block mt-1">
+                                        (Termasuk IP Public)
+                                      </span>
+                                    )}
+                                  </div>
+                                  {formData.duration === duration && (
+                                    <Check className="w-6 h-6 text-blue-600" />
+                                  )}
                                 </div>
-                                {formData.duration === duration && (
-                                  <Check className="w-6 h-6 text-blue-600" />
-                                )}
-                              </div>
-                            </button>
-                          ))}
+                              </button>
+                            );
+                          })}
                         </div>
                       </motion.div>
                     )}
@@ -940,6 +1027,24 @@ Apakah konfigurasi ini tersedia?`;
                                 <span className="text-gray-600 font-medium">🧠 RAM:</span>
                                 <span className="text-gray-900 font-semibold text-right">{selectedPlan.specs.ram}</span>
                               </div>
+                              
+                              {/* IP Information */}
+                              <div className="flex justify-between items-start">
+                                <span className="text-gray-600 font-medium">🌐 IP:</span>
+                                <span className="text-gray-900 font-semibold text-right">
+                                  {selectedCategory === "vps" && "✅ IP Public (Included)"}
+                                  {selectedCategory === "rdp" && (formData.ipPublic ? "✅ IP Public (+Rp85.000)" : "🔒 IP NAT (Default)")}
+                                  {selectedCategory === "baremetal" && "🏠 IP Local"}
+                                </span>
+                              </div>
+                              
+                              {selectedCategory === "rdp" && formData.ipPublic && (
+                                <div className="bg-blue-100/70 p-3 rounded-lg">
+                                  <p className="text-xs text-blue-800 font-medium">
+                                    ℹ️ *IP Public untuk open all port, cocok untuk kebutuhan yang membutuhkan port tertentu
+                                  </p>
+                                </div>
+                              )}
                             </>
                           )}
                           

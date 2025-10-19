@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck } from "lucide-react";
+import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Pricing = () => {
@@ -7,10 +7,21 @@ const Pricing = () => {
   const [selectedCategory, setSelectedCategory] = useState("vps");
   const [redirecting, setRedirecting] = useState(false);
   const [message, setMessage] = useState("");
+  
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [formData, setFormData] = useState({
+    region: "",
+    quantity: 1,
+    usage: "",
+    os: "",
+    duration: ""
+  });
 
   const whatsappNumber = "6283197183724";
-  const whatsappMessage = (planName) =>
-    `Halo, saya tertarik dengan paket ${planName}. Bisa dibantu informasinya?`;
+  const messengerUsername = "jagoanneon44";
 
   const categories = [
     { id: "vps", name: "VPS", icon: Server },
@@ -18,21 +29,6 @@ const Pricing = () => {
     { id: "baremetal", name: "Bare Metal", icon: Cpu },
     { id: "proxy", name: "Proxy", icon: ShieldCheck },
   ];
-
-  const handleRedirect = (planName) => {
-    setMessage(planName);
-    setRedirecting(true);
-
-  const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-      whatsappMessage(planName)
-  )}`;
-
-    setTimeout(() => {
-      window.open(waUrl, "_blank");
-      setRedirecting(false);
-    }, 1800);
-  };
-
 
   const plans = {
     vps: [
@@ -351,7 +347,6 @@ const Pricing = () => {
         gradient: "from-indigo-500 to-indigo-500",
       },
     ],
-
     proxy: [
       {
         name: "Proxy Rotating IP",
@@ -373,6 +368,145 @@ const Pricing = () => {
   };
 
   const currentPlans = plans[selectedCategory] || [];
+
+  // Get available regions based on category
+  const getAvailableRegions = () => {
+    if (selectedCategory === "vps") {
+      return ["🇮🇩 Indonesia"];
+    } else if (selectedCategory === "rdp") {
+      return ["🇺🇸 USA", "🇮🇩 Indonesia"];
+    } else if (selectedCategory === "baremetal") {
+      if (selectedPlan?.name.includes("USA")) {
+        return ["🇺🇸 USA"];
+      }
+      return ["🇮🇩 Indonesia"];
+    }
+    return [];
+  };
+
+  // Get available OS based on category
+  const getAvailableOS = () => {
+    if (selectedCategory === "vps") {
+      return ["Ubuntu 22.04", "Ubuntu 24.04", "Debian 12", "Debian 14"];
+    } else if (selectedCategory === "rdp" || selectedCategory === "baremetal") {
+      return ["Windows 10 Ghost Spectre", "Windows 11 Ghost Spectre"];
+    }
+    return [];
+  };
+
+  // Open modal
+  const handleOpenModal = (plan) => {
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
+    setCurrentStep(1);
+    setFormData({
+      region: "",
+      quantity: 1,
+      usage: "",
+      os: "",
+      duration: ""
+    });
+  };
+
+  // Close modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setCurrentStep(1);
+    setSelectedPlan(null);
+    setFormData({
+      region: "",
+      quantity: 1,
+      usage: "",
+      os: "",
+      duration: ""
+    });
+  };
+
+  // Validate current step
+  const canProceed = () => {
+    switch (currentStep) {
+      case 1:
+        return formData.region !== "";
+      case 2:
+        return formData.quantity >= 1 && formData.usage.trim() !== "";
+      case 3:
+        return formData.os !== "";
+      case 4:
+        return formData.duration !== "";
+      default:
+        return false;
+    }
+  };
+
+  // Handle next step
+  const handleNext = () => {
+    if (canProceed() && currentStep < 5) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  // Handle previous step
+  const handlePrev = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  // Get guarantee text
+  const getGuarantee = () => {
+    if (selectedPlan?.desc.toLowerCase().includes("garansi")) {
+      const match = selectedPlan.desc.match(/garansi[^.!?]*/i);
+      return match ? match[0] : "Garansi uptime 100%";
+    }
+    return "Garansi uptime 100%";
+  };
+
+  // Get price based on duration
+  const getFinalPrice = () => {
+    if (formData.duration === "1 Bulan (30 Hari)") {
+      return selectedPlan.price.bulanan * formData.quantity;
+    } else if (formData.duration === "1 Tahun") {
+      return selectedPlan.price.tahunan * formData.quantity;
+    }
+    return 0;
+  };
+
+  // Generate order message
+  const generateOrderMessage = () => {
+    const categoryName = selectedCategory === "vps" ? "VPS" : 
+                        selectedCategory === "rdp" ? "RDP" : 
+                        selectedCategory === "baremetal" ? "Bare Metal" : "Proxy";
+    
+    return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:
+
+📦 Nama Paket: ${selectedPlan.name}
+🌍 Region: ${formData.region}
+💻 Sistem Operasi: ${formData.os}
+⚡ CPU: ${selectedPlan.specs.cpu}
+🧠 RAM: ${selectedPlan.specs.ram}
+🔢 Kuantitas: ${formData.quantity}
+🛡️ Garansi: ${getGuarantee()}
+💰 Harga: Rp${getFinalPrice().toLocaleString("id-ID")}
+🎯 Digunakan Untuk: ${formData.usage}
+
+Apakah konfigurasi ini tersedia?`;
+  };
+
+  // Handle WhatsApp order
+  const handleWhatsAppOrder = () => {
+    const message = generateOrderMessage();
+    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank");
+    handleCloseModal();
+  };
+
+  // Handle Messenger order
+  const handleMessengerOrder = () => {
+    const message = generateOrderMessage();
+    const messengerUrl = `https://m.me/${messengerUsername}?text=${encodeURIComponent(message)}`;
+    window.open(messengerUrl, "_blank");
+    handleCloseModal();
+  };
 
   return (
     <section id="pricing" className="py-28 bg-gradient-to-b from-transparent via-[#f8fafc]/80 to-[#e2e8f0]">
@@ -406,7 +540,6 @@ const Pricing = () => {
           ))}
         </div>
 
-
         {/* Billing Toggle */}
         <div className="flex items-center justify-center mb-12">
           <span
@@ -427,115 +560,440 @@ const Pricing = () => {
                 : "bg-gray-200/60 border-gray-300 shadow-inner"
             }`}
           >
-
-          <motion.div
-            layout
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-            className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center 
-              ${
-                billingCycle === "tahunan"
-                  ? "translate-x-10 bg-blue-600 shadow-blue-400/50"
-                  : "translate-x-0 bg-blue-600 shadow-blue-400/50"
-              }`}
-          >
-            <motion.span
-              key={billingCycle}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              className="text-white text-[10px] font-semibold select-none"
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center 
+                ${
+                  billingCycle === "tahunan"
+                    ? "translate-x-10 bg-blue-600 shadow-blue-400/50"
+                    : "translate-x-0 bg-blue-600 shadow-blue-400/50"
+                }`}
             >
-              {billingCycle === "bulanan" ? "B" : "T"}
-            </motion.span>
-          </motion.div>
-        </button>
-
-        <span
-          className={`ml-3 text-sm md:text-base font-medium transition-all duration-300 ${
-            billingCycle === "tahunan" 
-            ? "text-blue-600 font-semibold scale-105" 
-            : "text-gray-500 scale-100"
-          }`}
-        >
-          Tahunan
-        </span>
-      </div>
-
-
-        {/* Pricing Cards */}
-      <div className="grid md:grid-cols-3 gap-8">
-       {currentPlans.map((plan, i) => (
-        <div
-          key={i}
-          className={`relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md
-            ${plan.featured
-              ? "bg-white/80 border-blue-200 shadow-[0_8px_32px_rgba(59,130,246,0.15)] scale-[1.02]"
-              : "bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]"
-            }`}
-        >
-          <div className="w-14 h-14 mx-auto mb-5 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center shadow-inner">
-            <plan.icon className="w-6 h-6 text-blue-600" />
-          </div>
-
-          <h3 className="text-xl font-bold text-gray-800 mb-1 text-center">{plan.name}</h3>
-          <p className="text-gray-600 text-sm mb-6 text-center">{plan.desc}</p>
-
-          <div className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
-            Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-            <span className="text-gray-500 text-sm ml-1 font-medium">
-              /{billingCycle === "bulanan" ? "bulan" : "tahun"}
-            </span>
-          </div>
-
-          <div className="text-gray-700 text-sm space-y-2 mb-8">
-            {Object.entries(plan.specs).map(([k, v]) => (
-              <div key={k} className="flex justify-between text-sm">
-                <span className="capitalize">{k}:</span>
-                <span className="font-medium">{v}</span>
-              </div>
-            ))}
-          </div>
-
-          <button
-            onClick={() => handleRedirect(plan.name)}
-            className="w-full py-3 rounded-xl font-semibold transition-all duration-300
-              bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-[0_4px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_4px_30px_rgba(59,130,246,0.35)]"
-          >
-            Mulai Sekarang
+              <motion.span
+                key={billingCycle}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                className="text-white text-[10px] font-semibold select-none"
+              >
+                {billingCycle === "bulanan" ? "B" : "T"}
+              </motion.span>
+            </motion.div>
           </button>
 
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent via-blue-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-        </div>
-      ))}
-    </div>
-
-
-        {/* Redirect Modal */}
-        <AnimatePresence>
-        {redirecting && (
-          <motion.div
-            className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <span
+            className={`ml-3 text-sm md:text-base font-medium transition-all duration-300 ${
+              billingCycle === "tahunan" 
+              ? "text-blue-600 font-semibold scale-105" 
+              : "text-gray-500 scale-100"
+            }`}
           >
-            <motion.div
-              className="bg-white p-8 rounded-2xl text-center shadow-2xl"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
+            Tahunan
+          </span>
+        </div>
+
+        {/* Pricing Cards */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {currentPlans.map((plan, i) => (
+            <div
+              key={i}
+              className={`relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md
+                ${plan.featured
+                  ? "bg-white/80 border-blue-200 shadow-[0_8px_32px_rgba(59,130,246,0.15)] scale-[1.02]"
+                  : "bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]"
+                }`}
             >
-              <div className="animate-spin rounded-full h-14 w-14 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-              <h3 className="text-primary font-semibold text-lg mb-2">
-                Mengarahkan ke WhatsApp...
-              </h3>
-              <p className="text-secondary text-sm">
-                Paket <span className="font-semibold">{message}</span>
-              </p>
+              <div className="w-14 h-14 mx-auto mb-5 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center shadow-inner">
+                <plan.icon className="w-6 h-6 text-blue-600" />
+              </div>
+
+              <h3 className="text-xl font-bold text-gray-800 mb-1 text-center">{plan.name}</h3>
+              <p className="text-gray-600 text-sm mb-6 text-center">{plan.desc}</p>
+
+              <div className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
+                Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+                <span className="text-gray-500 text-sm ml-1 font-medium">
+                  /{billingCycle === "bulanan" ? "bulan" : "tahun"}
+                </span>
+              </div>
+
+              <div className="text-gray-700 text-sm space-y-2 mb-8">
+                {Object.entries(plan.specs).map(([k, v]) => (
+                  <div key={k} className="flex justify-between text-sm">
+                    <span className="capitalize">{k}:</span>
+                    <span className="font-medium">{v}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => handleOpenModal(plan)}
+                className="w-full py-3 rounded-xl font-semibold transition-all duration-300
+                  bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-[0_4px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_4px_30px_rgba(59,130,246,0.35)]"
+              >
+                Mulai Sekarang
+              </button>
+
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent via-blue-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            </div>
+          ))}
+        </div>
+
+        {/* Order Modal */}
+        <AnimatePresence>
+          {isModalOpen && selectedPlan && (
+            <motion.div
+              className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleCloseModal}
+            >
+              <motion.div
+                className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Header */}
+                <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 rounded-t-2xl">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-2xl font-bold">{selectedPlan.name}</h3>
+                      <p className="text-blue-100 text-sm mt-1">Lengkapi formulir pemesanan</p>
+                    </div>
+                    <button
+                      onClick={handleCloseModal}
+                      className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  
+                  {/* Step Indicator */}
+                  <div className="flex items-center justify-between mt-6">
+                    {[1, 2, 3, 4, 5].map((step) => (
+                      <div key={step} className="flex items-center">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                          currentStep >= step 
+                            ? "bg-white text-blue-600" 
+                            : "bg-white/30 text-white"
+                        }`}>
+                          {step}
+                        </div>
+                        {step < 5 && (
+                          <div className={`w-8 h-1 mx-1 rounded transition-all ${
+                            currentStep > step ? "bg-white" : "bg-white/30"
+                          }`} />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-8">
+                  <AnimatePresence mode="wait">
+                    {/* Step 1: Region */}
+                    {currentStep === 1 && (
+                      <motion.div
+                        key="step1"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-4"
+                      >
+                        <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Region</h4>
+                        <div className="grid gap-3">
+                          {getAvailableRegions().map((region) => (
+                            <button
+                              key={region}
+                              onClick={() => setFormData({ ...formData, region })}
+                              className={`p-4 rounded-xl border-2 transition-all text-left ${
+                                formData.region === region
+                                  ? "border-blue-600 bg-blue-50 shadow-md"
+                                  : "border-gray-200 bg-white hover:border-blue-300"
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="text-lg font-semibold text-gray-800">{region}</span>
+                                {formData.region === region && (
+                                  <Check className="w-6 h-6 text-blue-600" />
+                                )}
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 2: Quantity & Usage */}
+                    {currentStep === 2 && (
+                      <motion.div
+                        key="step2"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
+                        <h4 className="text-xl font-bold text-gray-800 mb-4">Kuantitas dan Kegunaan</h4>
+                        
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Jumlah Unit
+                          </label>
+                          <input
+                            type="number"
+                            min="1"
+                            value={formData.quantity}
+                            onChange={(e) => setFormData({ ...formData, quantity: Math.max(1, parseInt(e.target.value) || 1) })}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-600 focus:outline-none transition-all"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Digunakan Untuk Apa? <span className="text-red-500">*</span>
+                          </label>
+                          <textarea
+                            value={formData.usage}
+                            onChange={(e) => setFormData({ ...formData, usage: e.target.value })}
+                            placeholder="Contoh: Hosting website e-commerce, development aplikasi, dll."
+                            rows="4"
+                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-600 focus:outline-none transition-all resize-none"
+                          />
+                          {formData.usage.trim() === "" && (
+                            <p className="text-red-500 text-xs mt-1">Field ini wajib diisi</p>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 3: Operating System */}
+                    {currentStep === 3 && (
+                      <motion.div
+                        key="step3"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-4"
+                      >
+                        <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Sistem Operasi</h4>
+                        <div className="grid gap-3">
+                          {getAvailableOS().map((os) => (
+                            <button
+                              key={os}
+                              onClick={() => setFormData({ ...formData, os })}
+                              className={`p-4 rounded-xl border-2 transition-all text-left ${
+                                formData.os === os
+                                  ? "border-blue-600 bg-blue-50 shadow-md"
+                                  : "border-gray-200 bg-white hover:border-blue-300"
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="text-lg font-semibold text-gray-800">{os}</span>
+                                {formData.os === os && (
+                                  <Check className="w-6 h-6 text-blue-600" />
+                                )}
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 4: Duration */}
+                    {currentStep === 4 && (
+                      <motion.div
+                        key="step4"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-4"
+                      >
+                        <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Durasi</h4>
+                        <div className="grid gap-3">
+                          {["1 Bulan (30 Hari)", "1 Tahun"].map((duration) => (
+                            <button
+                              key={duration}
+                              onClick={() => setFormData({ ...formData, duration })}
+                              className={`p-4 rounded-xl border-2 transition-all text-left ${
+                                formData.duration === duration
+                                  ? "border-blue-600 bg-blue-50 shadow-md"
+                                  : "border-gray-200 bg-white hover:border-blue-300"
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <span className="text-lg font-semibold text-gray-800 block">{duration}</span>
+                                  <span className="text-sm text-gray-600">
+                                    Rp{(duration === "1 Bulan (30 Hari)" 
+                                      ? selectedPlan.price.bulanan * formData.quantity
+                                      : selectedPlan.price.tahunan * formData.quantity
+                                    ).toLocaleString("id-ID")}
+                                  </span>
+                                </div>
+                                {formData.duration === duration && (
+                                  <Check className="w-6 h-6 text-blue-600" />
+                                )}
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 5: Confirmation */}
+                    {currentStep === 5 && (
+                      <motion.div
+                        key="step5"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
+                        <h4 className="text-xl font-bold text-gray-800 mb-4">Konfirmasi Pesanan</h4>
+                        
+                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 space-y-3">
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">📦 Nama Paket:</span>
+                            <span className="text-gray-900 font-bold text-right">{selectedPlan.name}</span>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">🌍 Region:</span>
+                            <span className="text-gray-900 font-semibold text-right">{formData.region}</span>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">💻 Sistem Operasi:</span>
+                            <span className="text-gray-900 font-semibold text-right">{formData.os}</span>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">⚡ CPU:</span>
+                            <span className="text-gray-900 font-semibold text-right">{selectedPlan.specs.cpu}</span>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">🧠 RAM:</span>
+                            <span className="text-gray-900 font-semibold text-right">{selectedPlan.specs.ram}</span>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">🔢 Kuantitas:</span>
+                            <span className="text-gray-900 font-semibold text-right">{formData.quantity}</span>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">🛡️ Garansi:</span>
+                            <span className="text-gray-900 font-semibold text-right">{getGuarantee()}</span>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <span className="text-gray-600 font-medium">⏱️ Durasi:</span>
+                            <span className="text-gray-900 font-semibold text-right">{formData.duration}</span>
+                          </div>
+                          <div className="flex justify-between items-start pt-3 border-t-2 border-blue-200">
+                            <span className="text-gray-600 font-medium">💰 Total Harga:</span>
+                            <span className="text-blue-600 font-bold text-xl text-right">
+                              Rp{getFinalPrice().toLocaleString("id-ID")}
+                            </span>
+                          </div>
+                          <div className="flex flex-col pt-3 border-t-2 border-blue-200">
+                            <span className="text-gray-600 font-medium mb-2">🎯 Digunakan Untuk:</span>
+                            <span className="text-gray-900 font-semibold bg-white/70 p-3 rounded-lg">
+                              {formData.usage}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Order Buttons */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                          <button
+                            onClick={handleWhatsAppOrder}
+                            className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-600 text-white shadow-lg hover:shadow-xl"
+                          >
+                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            Pesan via WhatsApp
+                          </button>
+                          <button
+                            onClick={handleMessengerOrder}
+                            className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg hover:shadow-xl"
+                          >
+                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
+                            </svg>
+                            Pesan via Messenger
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Modal Footer - Navigation */}
+                {currentStep < 5 && (
+                  <div className="sticky bottom-0 bg-gray-50 p-6 rounded-b-2xl border-t flex items-center justify-between">
+                    <button
+                      onClick={handlePrev}
+                      disabled={currentStep === 1}
+                      className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                        currentStep === 1
+                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                          : "bg-white text-gray-700 border-2 border-gray-300 hover:border-blue-600 hover:text-blue-600"
+                      }`}
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                      Kembali
+                    </button>
+
+                    <div className="text-sm text-gray-500 font-medium">
+                      Langkah {currentStep} dari 5
+                    </div>
+
+                    <button
+                      onClick={handleNext}
+                      disabled={!canProceed()}
+                      className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                        canProceed()
+                          ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-600 shadow-md hover:shadow-lg"
+                          : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      }`}
+                    >
+                      Lanjut
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+
+        {/* Redirect Modal (Original) */}
+        <AnimatePresence>
+          {redirecting && (
+            <motion.div
+              className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="bg-white p-8 rounded-2xl text-center shadow-2xl"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+              >
+                <div className="animate-spin rounded-full h-14 w-14 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
+                <h3 className="text-primary font-semibold text-lg mb-2">
+                  Mengarahkan ke WhatsApp...
+                </h3>
+                <p className="text-secondary text-sm">
+                  Paket <span className="font-semibold">{message}</span>
+                </p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

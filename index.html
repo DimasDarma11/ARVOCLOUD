@@ -3,7 +3,7 @@
   <head>
     <!-- ✅ Basic SEO -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ARVOCLOUD — VPS, RDP, & Bare Metal Premium untuk Bisnis Modern</title>
     <meta
       name="description"
@@ -15,11 +15,9 @@
     />
     <meta name="author" content="ARVOCLOUD" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-
-    <!-- ✅ Canonical -->
     <link rel="canonical" href="https://arvocloud.web.id/" />
 
-    <!-- ✅ Open Graph / Facebook -->
+    <!-- ✅ Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://arvocloud.web.id/" />
     <meta property="og:title" content="ARVOCLOUD — Solusi VPS, RDP & Bare Metal Premium" />
@@ -27,34 +25,37 @@
       property="og:description"
       content="Solusi server profesional dengan performa tinggi, uptime 99.9%, dan dukungan 24/7. Infrastruktur cloud terbaik untuk bisnis Anda."
     />
-    <meta property="og:image" content="https://i.ibb.co/VWzggVqJ/Arvocloud1.png" />
+    <meta property="og:image" content="https://i.ibb.co/VYh29p8y/Arvocloud1.webp" />
     <meta property="og:site_name" content="ARVOCLOUD" />
 
     <!-- ✅ Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@arvocloud" />
     <meta name="twitter:title" content="ARVOCLOUD — VPS & RDP Premium" />
     <meta
       name="twitter:description"
       content="Cloud infrastructure performa tinggi & uptime 99.9%. Temukan solusi terbaik untuk bisnis Anda di ARVOCLOUD."
     />
-    <meta name="twitter:image" content="https://arvocloud.web.id/preview.png" />
+    <meta name="twitter:image" content="https://i.ibb.co/VYh29p8y/Arvocloud1.webp" />
+
+    <!-- ✅ Preconnect untuk CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- ✅ Favicon -->
-    <link rel="icon" type="image/png" href="https://i.ibb.co/VWzggVqJ/Arvocloud1.png" />
-    <link rel="apple-touch-icon" href="https://i.ibb.co/VWzggVqJ/Arvocloud1.png" />
+    <link rel="icon" type="image/webp" href="https://i.ibb.co/VYh29p8y/Arvocloud1.webp" />
+    <link rel="apple-touch-icon" href="https://i.ibb.co/VYh29p8y/Arvocloud1.webp" />
 
     <!-- ✅ Manifest -->
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- ✅ Schema.org (Google Rich Results) -->
+    <!-- ✅ Schema.org -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "ARVOCLOUD",
         "url": "https://arvocloud.web.id/",
-        "logo": "https://arvocloud.web.id/favicon.png",
+        "logo": "https://i.ibb.co/VYh29p8y/Arvocloud1.webp",
         "sameAs": [
           "https://www.instagram.com/dimazdarmaa",
           "https://github.com/DimasDarma11"
@@ -68,11 +69,16 @@
         }
       }
     </script>
+
+    <!-- ✅ Cache & Performance -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable" />
   </head>
 
   <body>
     <noscript>Harap aktifkan JavaScript untuk menggunakan situs ARVOCLOUD.</noscript>
     <div id="root"></div>
+
+    <!-- ✅ Script utama React -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

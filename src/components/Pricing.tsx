@@ -456,9 +456,9 @@ const Pricing = () => {
   const getGuarantee = () => {
     if (selectedPlan?.desc.toLowerCase().includes("garansi")) {
       const match = selectedPlan.desc.match(/garansi[^.!?]*/i);
-      return match ? match[0] : "Garansi uptime 100%";
+      return match ? match[0] : "Garansi full";
     }
-    return "Garansi full selama masa aktif";
+    return "Garansi full";
   };
 
   // Get price based on duration
@@ -481,7 +481,7 @@ const Pricing = () => {
 
 📦 Nama Paket: ${selectedPlan.name}
 🌍 Region: ${formData.region}
-💻 Sistem Operasi: ${formData.os}
+💻 OS: ${formData.os}
 ⚡ CPU: ${selectedPlan.specs.cpu}
 🧠 RAM: ${selectedPlan.specs.ram}
 🔢 Kuantitas: ${formData.quantity}
@@ -503,7 +503,7 @@ Apakah konfigurasi ini tersedia?`;
   // Handle Messenger order
   const handleMessengerOrder = () => {
     const message = generateOrderMessage();
-    const messengerUrl = `https://m.me/${messengerUsername}?text=${encodeURIComponent(message)}`;
+    const messengerUrl = `https://m.me/${messengerUsername}?text=${encodeURIComponent(message)`;
     window.open(messengerUrl, "_blank");
     handleCloseModal();
   };
@@ -866,7 +866,7 @@ Apakah konfigurasi ini tersedia?`;
                             <span className="text-gray-900 font-semibold text-right">{formData.region}</span>
                           </div>
                           <div className="flex justify-between items-start">
-                            <span className="text-gray-600 font-medium">💻 Sistem Operasi:</span>
+                            <span className="text-gray-600 font-medium">💻 OS:</span>
                             <span className="text-gray-900 font-semibold text-right">{formData.os}</span>
                           </div>
                           <div className="flex justify-between items-start">

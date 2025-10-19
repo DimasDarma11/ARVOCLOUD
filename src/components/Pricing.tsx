@@ -573,7 +573,7 @@ Apakah konfigurasi ini tersedia?`;
   const handleTelegramOrder = () => {
     const message = generateOrderMessage();
     const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
-    window.open(messengerUrl, "_blank");
+    window.open(telegramUrl, "_blank");
     handleCloseModal();
   };
 

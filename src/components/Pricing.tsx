@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+    import React, { useState } from "react";
 import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -380,6 +381,8 @@ const Pricing = () => {
         return ["🇺🇸 USA"];
       }
       return ["🇮🇩 Indonesia"];
+    } else if (selectedCategory === "proxy") {
+      return ["🌍 Global"];
     }
     return [];
   };
@@ -390,6 +393,8 @@ const Pricing = () => {
       return ["Ubuntu 22.04", "Ubuntu 24.04", "Debian 12", "Debian 14"];
     } else if (selectedCategory === "rdp" || selectedCategory === "baremetal") {
       return ["Windows 10 Ghost Spectre", "Windows 11 Ghost Spectre"];
+    } else if (selectedCategory === "proxy") {
+      return ["N/A - Proxy Service"];
     }
     return [];
   };
@@ -399,13 +404,25 @@ const Pricing = () => {
     setSelectedPlan(plan);
     setIsModalOpen(true);
     setCurrentStep(1);
-    setFormData({
-      region: "",
-      quantity: 1,
-      usage: "",
-      os: "",
-      duration: ""
-    });
+    
+    // For proxy, auto-fill region and OS since they don't need selection
+    if (selectedCategory === "proxy") {
+      setFormData({
+        region: "🌍 Global",
+        quantity: 1,
+        usage: "",
+        os: "N/A - Proxy Service",
+        duration: ""
+      });
+    } else {
+      setFormData({
+        region: "",
+        quantity: 1,
+        usage: "",
+        os: "",
+        duration: ""
+      });
+    }
   };
 
   // Close modal
@@ -424,23 +441,35 @@ const Pricing = () => {
 
   // Validate current step
   const canProceed = () => {
-    switch (currentStep) {
-      case 1:
-        return formData.region !== "";
-      case 2:
-        return formData.quantity >= 1 && formData.usage.trim() !== "";
-      case 3:
-        return formData.os !== "";
-      case 4:
-        return formData.duration !== "";
-      default:
-        return false;
+    if (selectedCategory === "proxy") {
+      switch (currentStep) {
+        case 1:
+          return formData.quantity >= 1 && formData.usage.trim() !== "";
+        case 2:
+          return formData.duration !== "";
+        default:
+          return false;
+      }
+    } else {
+      switch (currentStep) {
+        case 1:
+          return formData.region !== "";
+        case 2:
+          return formData.quantity >= 1 && formData.usage.trim() !== "";
+        case 3:
+          return formData.os !== "";
+        case 4:
+          return formData.duration !== "";
+        default:
+          return false;
+      }
     }
   };
 
   // Handle next step
   const handleNext = () => {
-    if (canProceed() && currentStep < 5) {
+    const maxStep = selectedCategory === "proxy" ? 3 : 5;
+    if (canProceed() && currentStep < maxStep) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -456,7 +485,7 @@ const Pricing = () => {
   const getGuarantee = () => {
     if (selectedPlan?.desc.toLowerCase().includes("garansi")) {
       const match = selectedPlan.desc.match(/garansi[^.!?]*/i);
-      return match ? match[0] : "Garansi full";
+      return match ? match[0] : "Garans full";
     }
     return "Garansi full";
   };
@@ -476,6 +505,19 @@ const Pricing = () => {
     const categoryName = selectedCategory === "vps" ? "VPS" : 
                         selectedCategory === "rdp" ? "RDP" : 
                         selectedCategory === "baremetal" ? "Bare Metal" : "Proxy";
+    
+    // For proxy, use different message format
+    if (selectedCategory === "proxy") {
+      return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:
+
+📦 Nama Paket: ${selectedPlan.name}
+🌍 Region: ${formData.region}
+🔢 Kuantitas: ${formData.quantity}
+💰 Harga: Rp${getFinalPrice().toLocaleString("id-ID")}
+🎯 Digunakan Untuk: ${formData.usage}
+
+Apakah konfigurasi ini tersedia?`;
+    }
     
     return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:
 
@@ -503,7 +545,7 @@ Apakah konfigurasi ini tersedia?`;
   // Handle Messenger order
   const handleMessengerOrder = () => {
     const message = generateOrderMessage();
-    const messengerUrl = `https://m.me/${messengerUsername}?text=${encodeURIComponent(message)`;
+    const messengerUrl = `https://m.me/${messengerUsername}?text=${encodeURIComponent(message)}`;
     window.open(messengerUrl, "_blank");
     handleCloseModal();
   };
@@ -674,30 +716,48 @@ Apakah konfigurasi ini tersedia?`;
                   
                   {/* Step Indicator */}
                   <div className="flex items-center justify-between mt-6">
-                    {[1, 2, 3, 4, 5].map((step) => (
-                      <div key={step} className="flex items-center">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
-                          currentStep >= step 
-                            ? "bg-white text-blue-600" 
-                            : "bg-white/30 text-white"
-                        }`}>
-                          {step}
-                        </div>
-                        {step < 5 && (
-                          <div className={`w-8 h-1 mx-1 rounded transition-all ${
-                            currentStep > step ? "bg-white" : "bg-white/30"
-                          }`} />
-                        )}
-                      </div>
-                    ))}
+                    {selectedCategory === "proxy" 
+                      ? [1, 2, 3].map((step) => (
+                          <div key={step} className="flex items-center">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                              currentStep >= step 
+                                ? "bg-white text-blue-600" 
+                                : "bg-white/30 text-white"
+                            }`}>
+                              {step}
+                            </div>
+                            {step < 3 && (
+                              <div className={`w-16 h-1 mx-1 rounded transition-all ${
+                                currentStep > step ? "bg-white" : "bg-white/30"
+                              }`} />
+                            )}
+                          </div>
+                        ))
+                      : [1, 2, 3, 4, 5].map((step) => (
+                          <div key={step} className="flex items-center">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                              currentStep >= step 
+                                ? "bg-white text-blue-600" 
+                                : "bg-white/30 text-white"
+                            }`}>
+                              {step}
+                            </div>
+                            {step < 5 && (
+                              <div className={`w-8 h-1 mx-1 rounded transition-all ${
+                                currentStep > step ? "bg-white" : "bg-white/30"
+                              }`} />
+                            )}
+                          </div>
+                        ))
+                    }
                   </div>
                 </div>
 
                 {/* Modal Content */}
                 <div className="p-8">
                   <AnimatePresence mode="wait">
-                    {/* Step 1: Region */}
-                    {currentStep === 1 && (
+                    {/* Step 1: Region (Skip for Proxy) */}
+                    {currentStep === 1 && selectedCategory !== "proxy" && (
                       <motion.div
                         key="step1"
                         initial={{ opacity: 0, x: 20 }}
@@ -729,8 +789,8 @@ Apakah konfigurasi ini tersedia?`;
                       </motion.div>
                     )}
 
-                    {/* Step 2: Quantity & Usage */}
-                    {currentStep === 2 && (
+                    {/* Step 2 (or 1 for Proxy): Quantity & Usage */}
+                    {((currentStep === 2 && selectedCategory !== "proxy") || (currentStep === 1 && selectedCategory === "proxy")) && (
                       <motion.div
                         key="step2"
                         initial={{ opacity: 0, x: 20 }}
@@ -771,8 +831,8 @@ Apakah konfigurasi ini tersedia?`;
                       </motion.div>
                     )}
 
-                    {/* Step 3: Operating System */}
-                    {currentStep === 3 && (
+                    {/* Step 3 (or 2 for Proxy): Operating System / Duration for Proxy */}
+                    {currentStep === 3 && selectedCategory !== "proxy" && (
                       <motion.div
                         key="step3"
                         initial={{ opacity: 0, x: 20 }}
@@ -804,8 +864,8 @@ Apakah konfigurasi ini tersedia?`;
                       </motion.div>
                     )}
 
-                    {/* Step 4: Duration */}
-                    {currentStep === 4 && (
+                    {/* Step 4 (or 2 for Proxy): Duration */}
+                    {((currentStep === 4 && selectedCategory !== "proxy") || (currentStep === 2 && selectedCategory === "proxy")) && (
                       <motion.div
                         key="step4"
                         initial={{ opacity: 0, x: 20 }}
@@ -845,8 +905,8 @@ Apakah konfigurasi ini tersedia?`;
                       </motion.div>
                     )}
 
-                    {/* Step 5: Confirmation */}
-                    {currentStep === 5 && (
+                    {/* Step 5 (or 3 for Proxy): Confirmation */}
+                    {((currentStep === 5 && selectedCategory !== "proxy") || (currentStep === 3 && selectedCategory === "proxy")) && (
                       <motion.div
                         key="step5"
                         initial={{ opacity: 0, x: 20 }}
@@ -865,26 +925,36 @@ Apakah konfigurasi ini tersedia?`;
                             <span className="text-gray-600 font-medium">🌍 Region:</span>
                             <span className="text-gray-900 font-semibold text-right">{formData.region}</span>
                           </div>
-                          <div className="flex justify-between items-start">
-                            <span className="text-gray-600 font-medium">💻 OS:</span>
-                            <span className="text-gray-900 font-semibold text-right">{formData.os}</span>
-                          </div>
-                          <div className="flex justify-between items-start">
-                            <span className="text-gray-600 font-medium">⚡ CPU:</span>
-                            <span className="text-gray-900 font-semibold text-right">{selectedPlan.specs.cpu}</span>
-                          </div>
-                          <div className="flex justify-between items-start">
-                            <span className="text-gray-600 font-medium">🧠 RAM:</span>
-                            <span className="text-gray-900 font-semibold text-right">{selectedPlan.specs.ram}</span>
-                          </div>
+                          
+                          {selectedCategory !== "proxy" && (
+                            <>
+                              <div className="flex justify-between items-start">
+                                <span className="text-gray-600 font-medium">💻 OS:</span>
+                                <span className="text-gray-900 font-semibold text-right">{formData.os}</span>
+                              </div>
+                              <div className="flex justify-between items-start">
+                                <span className="text-gray-600 font-medium">⚡ CPU:</span>
+                                <span className="text-gray-900 font-semibold text-right">{selectedPlan.specs.cpu}</span>
+                              </div>
+                              <div className="flex justify-between items-start">
+                                <span className="text-gray-600 font-medium">🧠 RAM:</span>
+                                <span className="text-gray-900 font-semibold text-right">{selectedPlan.specs.ram}</span>
+                              </div>
+                            </>
+                          )}
+                          
                           <div className="flex justify-between items-start">
                             <span className="text-gray-600 font-medium">🔢 Kuantitas:</span>
                             <span className="text-gray-900 font-semibold text-right">{formData.quantity}</span>
                           </div>
-                          <div className="flex justify-between items-start">
-                            <span className="text-gray-600 font-medium">🛡️ Garansi:</span>
-                            <span className="text-gray-900 font-semibold text-right">{getGuarantee()}</span>
-                          </div>
+                          
+                          {selectedCategory !== "proxy" && (
+                            <div className="flex justify-between items-start">
+                              <span className="text-gray-600 font-medium">🛡️ Garansi:</span>
+                              <span className="text-gray-900 font-semibold text-right">{getGuarantee()}</span>
+                            </div>
+                          )}
+                          
                           <div className="flex justify-between items-start">
                             <span className="text-gray-600 font-medium">⏱️ Durasi:</span>
                             <span className="text-gray-900 font-semibold text-right">{formData.duration}</span>
@@ -930,7 +1000,7 @@ Apakah konfigurasi ini tersedia?`;
                 </div>
 
                 {/* Modal Footer - Navigation */}
-                {currentStep < 5 && (
+                {((selectedCategory !== "proxy" && currentStep < 5) || (selectedCategory === "proxy" && currentStep < 3)) && (
                   <div className="sticky bottom-0 bg-gray-50 p-6 rounded-b-2xl border-t flex items-center justify-between">
                     <button
                       onClick={handlePrev}
@@ -946,7 +1016,7 @@ Apakah konfigurasi ini tersedia?`;
                     </button>
 
                     <div className="text-sm text-gray-500 font-medium">
-                      Langkah {currentStep} dari 5
+                      Langkah {currentStep} dari {selectedCategory === "proxy" ? "3" : "5"}
                     </div>
 
                     <button
@@ -999,4 +1069,4 @@ Apakah konfigurasi ini tersedia?`;
   );
 };
 
-export default Pricing;
+export default Pricing;  

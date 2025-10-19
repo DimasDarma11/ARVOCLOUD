@@ -458,7 +458,7 @@ const Pricing = () => {
       const match = selectedPlan.desc.match(/garansi[^.!?]*/i);
       return match ? match[0] : "Garansi uptime 100%";
     }
-    return "Garansi uptime 100%";
+    return "Garansi full selama masa aktif";
   };
 
   // Get price based on duration

@@ -18,7 +18,7 @@ const Pricing = () => {
     usage: "",
     os: "",
     duration: "",
-    ipPublic: false // untuk RDP
+    ipPublic: false
   });
 
   const whatsappNumber = "6283197183724";
@@ -545,11 +545,9 @@ Apakah konfigurasi ini tersedia?`;
   // Handle Messenger order
   const handleTelegramOrder = () => {
     const message = generateOrderMessage();
-    
     const telegramUrl = `https://m.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
     window.open(telegramrUrl, "_blank");
     handleCloseModal();
-    });
   };
 
   return (

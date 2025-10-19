@@ -17,11 +17,12 @@ const Pricing = () => {
     quantity: 1,
     usage: "",
     os: "",
-    duration: ""
+    duration: "",
+    ipPublic: false // untuk RDP
   });
 
   const whatsappNumber = "6283197183724";
-  const messengerUsername = "jagoanneon44";
+  const telegramUsername = "superku15";
 
   const categories = [
     { id: "vps", name: "VPS", icon: Server },
@@ -484,7 +485,7 @@ const Pricing = () => {
   const getGuarantee = () => {
     if (selectedPlan?.desc.toLowerCase().includes("garansi")) {
       const match = selectedPlan.desc.match(/garansi[^.!?]*/i);
-      return match ? match[0] : "Garans full";
+      return match ? match[0] : "Garansi full";
     }
     return "Garansi full";
   };
@@ -542,14 +543,13 @@ Apakah konfigurasi ini tersedia?`;
   };
 
   // Handle Messenger order
-  const handleMessengerOrder = () => {
-    const message = generateOrderMessage()
-        .replaceAll("\n", "%0A")
-        .replaceAll(" ", "%20");
+  const handleTelegramOrder = () => {
+    const message = generateOrderMessage();
     
-    const messengerUrl = `https://m.me/${messengerUsername}?text=${message}`;
-    window.open(messengerUrl, "_blank");
+    const telegramUrl = `https://m.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
+    window.open(telegramrUrl, "_blank");
     handleCloseModal();
+    });
   };
 
   return (
@@ -987,13 +987,13 @@ Apakah konfigurasi ini tersedia?`;
                             Pesan via WhatsApp
                           </button>
                           <button
-                            onClick={handleMessengerOrder}
+                            onClick={handleTelegramOrder}
                             className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg hover:shadow-xl"
                           >
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
                             </svg>
-                            Pesan via Messenger
+                            Pesan via Telegram
                           </button>
                         </div>
                       </motion.div>
@@ -1071,4 +1071,4 @@ Apakah konfigurasi ini tersedia?`;
   );
 };
 
-export default Pricing;  
+export default Pricing;

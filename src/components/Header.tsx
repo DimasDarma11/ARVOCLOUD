@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-3 cursor-pointer select-none group">
           <img
-            src="https://i.ibb.co/VWzggVqJ/Arvocloud1.png"
+            src="https://i.ibb.co/VYh29p8y/Arvocloud1.webp"
             alt="Arvocloud Logo"
             className="h-10 md:h-12 w-auto transition-all duration-500 group-hover:scale-105 drop-shadow-sm"
           />

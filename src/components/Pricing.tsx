@@ -662,52 +662,56 @@ Apakah konfigurasi ini tersedia?`;
           </span>
         </div>
 
-        {/* Pricing Cards */}
+        {/* Pricing Cards (optimized single-file version) */}
         <div className="grid md:grid-cols-3 gap-8">
-          {currentPlans.map((plan, i) => (
-            <div
-              key={i}
-              className={`relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md
-                ${plan.featured
-                  ? "bg-white/80 border-blue-200 shadow-[0_8px_32px_rgba(59,130,246,0.15)] scale-[1.02]"
-                  : "bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]"
-                }`}
-            >
-              <div className="w-14 h-14 mx-auto mb-5 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center shadow-inner">
-                <plan.icon className="w-6 h-6 text-blue-600" />
-              </div>
-
-              <h3 className="text-xl font-bold text-gray-800 mb-1 text-center">{plan.name}</h3>
-              <p className="text-gray-600 text-sm mb-6 text-center">{plan.desc}</p>
-
-              <div className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
-                Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-                <span className="text-gray-500 text-sm ml-1 font-medium">
-                  /{billingCycle === "bulanan" ? "bulan" : "tahun"}
-                </span>
-              </div>
-
-              <div className="text-gray-700 text-sm space-y-2 mb-8">
-                {Object.entries(plan.specs).map(([k, v]) => (
-                  <div key={k} className="flex justify-between text-sm">
-                    <span className="capitalize">{k}:</span>
-                    <span className="font-medium">{v}</span>
+          {currentPlans.map((plan, i) => {
+            const MemoCard = React.memo(() => (
+              <div
+                key={i}
+                className={`relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md
+                  ${plan.featured
+                    ? "bg-white/80 border-blue-200 shadow-[0_8px_32px_rgba(59,130,246,0.15)] scale-[1.02]"
+                    : "bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]"
+                  }`}
+                >
+                  <div className="w-14 h-14 mx-auto mb-5 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center shadow-inner">
+                    <plan.icon className="w-6 h-6 text-blue-600" loading="lazy" />
                   </div>
-                ))}
-              </div>
 
-              <button
-                onClick={() => handleOpenModal(plan)}
-                className="w-full py-3 rounded-xl font-semibold transition-all duration-300
-                  bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-[0_4px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_4px_30px_rgba(59,130,246,0.35)]"
-              >
-                Mulai Sekarang
-              </button>
+                  <h3 className="text-xl font-bold text-gray-800 mb-1 text-center">{plan.name}</h3>
+                  <p className="text-gray-600 text-sm mb-6 text-center">{plan.desc}</p>
 
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent via-blue-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-            </div>
-          ))}
-        </div>
+                  <div className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
+                    Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+                    <span className="text-gray-500 text-sm ml-1 font-medium">
+                      /{billingCycle === "bulanan" ? "bulan" : "tahun"}
+                    </span>
+                  </div>
+
+                  <div className="text-gray-700 text-sm space-y-2 mb-8">
+                    {Object.entries(plan.specs).map(([k, v]) => (
+                      <div key={k} className="flex justify-between text-sm">
+                        <span className="capitalize">{k}:</span>
+                        <span className="font-medium">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => handleOpenModal(plan)}
+                    className="w-full py-3 rounded-xl font-semibold transition-all duration-300
+                      bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-[0_4px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_4px_30px_rgba(59,130,246,0.35)]"
+                  >
+                    Mulai Sekarang
+                  </button>
+
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent via-blue-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                </div>
+              ));
+              return <MemoCard key={i} />;
+            })}
+          </div>
+
 
         {/* Order Modal */}
         <AnimatePresence>
@@ -785,13 +789,7 @@ Apakah konfigurasi ini tersedia?`;
                   <AnimatePresence mode="wait">
                     {/* Step 1: Region (Skip for Proxy) */}
                     {currentStep === 1 && selectedCategory !== "proxy" && (
-                      <motion.div
-                        key="step1"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-4"
-                      >
+                      <>
                         <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Region</h4>
                         <div className="grid gap-3">
                           {getAvailableRegions().map((region) => (
@@ -813,18 +811,12 @@ Apakah konfigurasi ini tersedia?`;
                             </button>
                           ))}
                         </div>
-                      </motion.div>
+                      </>
                     )}
 
                     {/* Step 2 (or 1 for Proxy): Quantity & Usage */}
                     {((currentStep === 2 && selectedCategory !== "proxy") || (currentStep === 1 && selectedCategory === "proxy")) && (
-                      <motion.div
-                        key="step2"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-6"
-                      >
+                      <>
                         <h4 className="text-xl font-bold text-gray-800 mb-4">Kuantitas dan Kegunaan</h4>
                         
                         <div>
@@ -855,18 +847,12 @@ Apakah konfigurasi ini tersedia?`;
                             <p className="text-red-500 text-xs mt-1">Field ini wajib diisi</p>
                           )}
                         </div>
-                      </motion.div>
+                      </>
                     )}
 
                     {/* Step 3: Operating System with IP Options */}
                     {currentStep === 3 && selectedCategory !== "proxy" && (
-                      <motion.div
-                        key="step3"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-4"
-                      >
+                      <>
                         <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Sistem Operasi</h4>
                         <div className="grid gap-3">
                           {getAvailableOS().map((os) => (
@@ -935,18 +921,12 @@ Apakah konfigurasi ini tersedia?`;
                             </div>
                           </div>
                         )}
-                      </motion.div>
+                      </>
                     )}
 
                     {/* Step 4 (or 2 for Proxy): Duration */}
                     {((currentStep === 4 && selectedCategory !== "proxy") || (currentStep === 2 && selectedCategory === "proxy")) && (
-                      <motion.div
-                        key="step4"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-4"
-                      >
+                      <>
                         <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Durasi</h4>
                         <div className="grid gap-3">
                           {["1 Bulan (30 Hari)", "1 Tahun"].map((duration) => {
@@ -989,18 +969,12 @@ Apakah konfigurasi ini tersedia?`;
                             );
                           })}
                         </div>
-                      </motion.div>
+                      </>
                     )}
 
                     {/* Step 5 (or 3 for Proxy): Confirmation */}
                     {((currentStep === 5 && selectedCategory !== "proxy") || (currentStep === 3 && selectedCategory === "proxy")) && (
-                      <motion.div
-                        key="step5"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-6"
-                      >
+                      <>
                         <h4 className="text-xl font-bold text-gray-800 mb-4">Konfirmasi Pesanan</h4>
                         
                         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 space-y-3">
@@ -1099,7 +1073,7 @@ Apakah konfigurasi ini tersedia?`;
                             Pesan via Telegram
                           </button>
                         </div>
-                      </motion.div>
+                      </>
                     )}
                   </AnimatePresence>
                 </div>

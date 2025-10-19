@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense, useCallback, useMemo } from "react";
 import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -31,7 +31,7 @@ const Pricing = () => {
     { id: "proxy", name: "Proxy", icon: ShieldCheck },
   ];
 
-  const plans = {
+  const plans = useMemo(() => ({
     vps: [
       {
         name: "VPS TURBO 1",
@@ -366,7 +366,7 @@ const Pricing = () => {
         gradient: "from-blue-600 to-blue-600",
       },
     ],
-  };
+  }), []);
 
   const currentPlans = plans[selectedCategory] || [];
 
@@ -400,7 +400,7 @@ const Pricing = () => {
   };
 
   // Open modal
-  const handleOpenModal = (plan) => {
+  const handleOpenModal = useCallback((plan) => {
     setSelectedPlan(plan);
     setIsModalOpen(true);
     setCurrentStep(1);
@@ -425,10 +425,10 @@ const Pricing = () => {
         ipPublic: false
       });
     }
-  };
+  }, [selectedCategory]);
 
   // Close modal
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
     setCurrentStep(1);
     setSelectedPlan(null);
@@ -440,7 +440,7 @@ const Pricing = () => {
       duration: "",
       ipPublic: false
     });
-  };
+  }, []);
 
   // Validate current step
   const canProceed = () => {
@@ -470,12 +470,12 @@ const Pricing = () => {
   };
 
   // Handle next step
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     const maxStep = selectedCategory === "proxy" ? 3 : 5;
     if (canProceed() && currentStep < maxStep) {
       setCurrentStep(currentStep + 1);
     }
-  };
+  }, [currentStep]);
 
   // Handle previous step
   const handlePrev = () => {
@@ -562,20 +562,20 @@ Apakah konfigurasi ini tersedia?`;
   };
 
   // Handle WhatsApp order
-  const handleWhatsAppOrder = () => {
+  const handleWhatsAppOrder = useCallback(() => {
     const message = generateOrderMessage();
     const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, "_blank");
     handleCloseModal();
-  };
+  }, [generateOrderMessage, whatsappNumber, handleCloseModal]);
 
   // Handle Messenger order
-  const handleTelegramOrder = () => {
+  const handleTelegramOrder = useCallback(() => {
     const message = generateOrderMessage();
     const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
     window.open(telegramUrl, "_blank");
     handleCloseModal();
-  };
+  }, [generateOrderMessage, telegramUsername, handleCloseModal]);
 
   return (
     <section id="pricing" className="py-28 bg-gradient-to-b from-transparent via-[#f8fafc]/80 to-[#e2e8f0]">

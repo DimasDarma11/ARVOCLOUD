@@ -31,15 +31,15 @@ const Services = () => {
       id="services"
       className="relative py-28 overflow-hidden bg-gradient-to-b from-[#e2e8f0] via-[#dbe2e8] to-[#cbd5e1]"
     >
-      {/* Ambient glow */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Ambient glow hanya untuk desktop */}
+      <div className="absolute inset-0 pointer-events-none hidden md:block">
         <motion.div
-          className="absolute top-32 left-24 w-72 h-72 bg-white/40 rounded-full blur-3xl"
+          className="absolute top-32 left-24 w-72 h-72 bg-white/40 rounded-full blur-2xl"
           animate={{ y: [0, 20, 0], opacity: [0.4, 0.6, 0.4] }}
           transition={{ duration: 10, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-32 right-24 w-96 h-96 bg-slate-300/30 rounded-full blur-3xl"
+          className="absolute bottom-32 right-24 w-96 h-96 bg-slate-300/30 rounded-full blur-2xl"
           animate={{ y: [0, -20, 0], opacity: [0.5, 0.7, 0.5] }}
           transition={{ duration: 12, repeat: Infinity }}
         />
@@ -70,15 +70,12 @@ const Services = () => {
         {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map(({ icon: Icon, title, desc }, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.6, type: "spring" }}
-              className="group relative p-8 rounded-3xl backdrop-blur-2xl bg-white/30 border border-white/50 shadow-[0_8px_32px_rgba(31,38,135,0.08)] hover:shadow-[0_12px_48px_rgba(31,38,135,0.15)] transition-all duration-500"
+              className="group relative p-6 md:p-8 rounded-2xl bg-white/30 md:backdrop-blur-2xl border border-white/30 md:shadow-[0_8px_32px_rgba(31,38,135,0.08)] hover:md:shadow-[0_12px_48px_rgba(31,38,135,0.15)] transition-all duration-300"
             >
               {/* Floating icon */}
-              <div className="inline-flex items-center justify-center w-14 h-14 mb-6 rounded-2xl bg-white/60 backdrop-blur-xl shadow-inner ring-1 ring-white/40 group-hover:scale-105 transition-transform duration-300">
+              <div className="inline-flex items-center justify-center w-14 h-14 mb-6 rounded-2xl bg-white/60 md:backdrop-blur-xl shadow-inner ring-1 ring-white/40 group-hover:md:scale-105 transition-transform duration-300">
                 <Icon className="h-7 w-7 text-gray-700/90" />
               </div>
 
@@ -89,12 +86,9 @@ const Services = () => {
                 {desc}
               </p>
 
-              {/* Soft hover glow */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                layoutId={`hover-glow-${i}`}
-              />
-            </motion.div>
+              {/* Soft hover glow untuk desktop */}
+              <div className="absolute inset-0 rounded-2xl bg-white/10 opacity-0 group-hover:md:opacity-100 transition-opacity duration-500" />
+            </div>
           ))}
         </div>
       </div>

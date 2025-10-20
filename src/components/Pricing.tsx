@@ -1,15 +1,18 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X } from "lucide-react";
+import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { StepRegion, StepQuantity, StepOS, StepDuration, StepConfirm } from "./ModalSteps";
 
 const Pricing = () => {
-  const [billingCycle, setBillingCycle] = useState<"bulanan" | "tahunan">("bulanan");
-  const [category, setCategory] = useState("vps");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [billingCycle, setBillingCycle] = useState("bulanan");
+  const [selectedCategory, setSelectedCategory] = useState("vps");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const [planSelected, setPlanSelected] = useState<any>(null);
-  const [formData, setFormData] = useState<any>({ region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [formData, setFormData] = useState({ region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
+
+  const whatsappNumber = "6283197183724";
+  const telegramUsername = "superku15";
 
   const categories = useMemo(() => [
     { id: "vps", name: "VPS", icon: Server },
@@ -51,75 +54,118 @@ const Pricing = () => {
     ],
   }), []);
 
-  const currentPlans = useMemo(() => plans[category] || [], [category, plans]);
+  const currentPlans = useMemo(() => plans[selectedCategory] || [], [plans, selectedCategory]);
+  const isProxyCategory = selectedCategory === "proxy";
+  const maxStep = isProxyCategory ? 3 : 5;
 
-  const openModal = useCallback((plan: any) => {
-    setPlanSelected(plan);
-    setModalOpen(true);
+  const handleOpenModal = useCallback((plan) => {
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
     setCurrentStep(1);
+    setFormData(isProxyCategory ? { region: "🌍 Global", quantity: 1, usage: "", os: "N/A - Proxy", duration: "", ipPublic: false } : { region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
+  }, [isProxyCategory]);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setCurrentStep(1);
+    setSelectedPlan(null);
     setFormData({ region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
   }, []);
 
-  const closeModal = useCallback(() => { setModalOpen(false); setPlanSelected(null); setCurrentStep(1); }, []);
+  const canProceed = useCallback(() => {
+    if (isProxyCategory) return (currentStep === 1 && formData.quantity >= 1 && formData.usage) || (currentStep === 2 && formData.duration);
+    return (currentStep === 1 && formData.region) || (currentStep === 2 && formData.quantity >= 1 && formData.usage) || (currentStep === 3 && formData.os) || (currentStep === 4 && formData.duration);
+  }, [currentStep, formData, isProxyCategory]);
+
+  const handleNext = useCallback(() => { if (canProceed() && currentStep < maxStep) setCurrentStep(currentStep + 1); }, [currentStep, canProceed, maxStep]);
+  const handlePrev = useCallback(() => { if (currentStep > 1) setCurrentStep(currentStep - 1); }, [currentStep]);
+
+  const getFinalPrice = useCallback(() => {
+    if (!selectedPlan) return 0;
+    let price = (formData.duration?.includes("Bulan") ? selectedPlan.price.bulanan : selectedPlan.price.tahunan) * formData.quantity;
+    if (selectedCategory === "rdp" && formData.ipPublic) price += 85000 * formData.quantity;
+    return price;
+  }, [selectedPlan, formData, selectedCategory]);
+
+  const generateOrderMessage = useCallback(() => {
+    if (!selectedPlan) return "";
+    const ipInfo = selectedCategory === "vps" ? "✅ IP Public" : selectedCategory === "rdp" ? (formData.ipPublic ? "✅ IP Public (+Rp85.000)" : "🔒 IP NAT") : "🏠 IP Local";
+    const base = `Halo, saya ingin memesan ${selectedCategory.toUpperCase()}:\n📦 Paket: ${selectedPlan.name}\n🌍 Region: ${formData.region}\n💻 OS: ${formData.os}\n⚡ CPU: ${selectedPlan.specs.cpu}\n🧠 RAM: ${selectedPlan.specs.ram}\n🌐 IP: ${ipInfo}\n🔢 Qty: ${formData.quantity}\n💰 Harga: Rp${getFinalPrice().toLocaleString()}\n🎯 Untuk: ${formData.usage}`;
+    return base;
+  }, [selectedPlan, selectedCategory, formData, getFinalPrice]);
+
+  const handleWhatsAppOrder = useCallback(() => { window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank"); handleCloseModal(); }, [generateOrderMessage, handleCloseModal]);
+  const handleTelegramOrder = useCallback(() => { window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank"); handleCloseModal(); }, [generateOrderMessage, handleCloseModal]);
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="pricing" className="py-20 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold mb-4">Pilih Paket Sesuai Kebutuhan</h2>
-        <p className="text-gray-600 mb-10">Harga transparan, dukungan 24/7, dan setup cepat.</p>
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">Harga <span className="text-blue-600">Transparan</span></h2>
+        <p className="text-gray-600 mb-10">Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.</p>
 
-        {/* Category Selector */}
-        <div className="flex justify-center gap-3 flex-wrap mb-12">
-          {categories.map((c) => (
-            <button key={c.id} onClick={() => setCategory(c.id)} className={`flex items-center gap-2 px-5 py-2 rounded-full border transition ${category === c.id ? "bg-white/90 text-blue-600 shadow-lg" : "bg-white/40 text-gray-700 hover:bg-white/70"}`}>
+        <div className="flex justify-center gap-3 flex-wrap mb-8">
+          {categories.map(c => (
+            <button key={c.id} onClick={() => setSelectedCategory(c.id)} className={`flex items-center gap-2 px-5 py-2 rounded-2xl transition ${selectedCategory===c.id?'bg-white text-blue-600 shadow':'bg-gray-100 text-gray-700 hover:bg-white'}`}>
               <c.icon className="w-5 h-5" />
-              {c.name}
+              <span>{c.name}</span>
             </button>
           ))}
         </div>
 
-        {/* Plans Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {currentPlans.map((p, i) => (
-            <motion.div key={i} whileHover={{ scale: 1.02 }} className="bg-white/70 dark:bg-gray-800 rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer">
-              <div className="flex justify-center mb-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-xl">
-                  <p.icon className="w-6 h-6 text-blue-600" />
-                </div>
+        <div className="flex items-center justify-center gap-3 mb-12">
+          <span className={billingCycle==="bulanan"?"font-semibold text-blue-600":"text-gray-500"}>Bulanan</span>
+          <button onClick={()=>setBillingCycle(billingCycle==="bulanan"?"tahunan":"bulanan")} className="w-16 h-8 bg-gray-200 rounded-full relative">
+            <motion.div layout className={`w-7 h-7 bg-blue-600 rounded-full absolute top-0 ${billingCycle==="tahunan"?"right-0":"left-0"}`} />
+          </button>
+          <span className={billingCycle==="tahunan"?"font-semibold text-blue-600":"text-gray-500"}>Tahunan</span>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {currentPlans.map((plan, i) => (
+            <div key={i} className="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition relative flex flex-col">
+              <div className="w-12 h-12 mb-4 flex items-center justify-center bg-blue-100 rounded-lg mx-auto">
+                <plan.icon className="w-6 h-6 text-blue-600"/>
               </div>
-              <h3 className="text-xl font-bold mb-2">{p.name}</h3>
-              <p className="text-gray-600 text-sm mb-4">{p.desc}</p>
-              <div className="text-2xl font-bold text-blue-600 mb-4">
-                Rp{p.price[billingCycle].toLocaleString("id-ID")}
-                <span className="text-gray-500 text-sm">/{billingCycle === "bulanan" ? "bulan" : "tahun"}</span>
+              <h3 className="text-lg font-bold text-gray-800 text-center">{plan.name}</h3>
+              <p className="text-gray-500 text-sm text-center mb-4">{plan.desc}</p>
+              <div className="text-2xl font-bold text-blue-600 text-center mb-4">
+                Rp{plan.price[billingCycle].toLocaleString()}<span className="text-gray-400 text-sm">/{billingCycle==="bulanan"?"bulan":"tahun"}</span>
               </div>
-              <ul className="text-sm text-gray-700 mb-6 space-y-1">
-                {Object.entries(p.specs).map(([k, v]) => (
-                  <li key={k} className="flex justify-between"><span className="capitalize">{k}:</span> <span className="font-medium">{v}</span></li>
+              <div className="text-gray-700 text-sm mb-4 flex flex-col gap-1">
+                {Object.entries(plan.specs).map(([k,v])=>(
+                  <div key={k} className="flex justify-between"><span>{k}</span><span className="font-medium">{v}</span></div>
                 ))}
-              </ul>
-              <button onClick={() => openModal(p)} className="w-full py-3 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md hover:shadow-lg transition">Mulai Sekarang</button>
-            </motion.div>
+              </div>
+              <button onClick={()=>handleOpenModal(plan)} className="mt-auto py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-500 hover:to-blue-600 transition">Mulai Sekarang</button>
+            </div>
           ))}
         </div>
 
-        {/* Modal */}
         <AnimatePresence>
-          {modalOpen && planSelected && (
-            <motion.div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal}>
-              <motion.div className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl font-bold">{planSelected.name}</h3>
-                  <button onClick={closeModal} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"><X className="w-5 h-5" /></button>
+          {isModalOpen && selectedPlan && (
+            <motion.div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={handleCloseModal}>
+              <motion.div className="bg-white rounded-2xl shadow-lg max-w-xl w-full max-h-[90vh] overflow-auto" initial={{scale:0.95}} animate={{scale:1}} exit={{scale:0.95}} onClick={e=>e.stopPropagation()}>
+                <div className="sticky top-0 bg-blue-600 text-white p-5 rounded-t-2xl flex justify-between items-center">
+                  <div><h3 className="text-xl font-bold">{selectedPlan.name}</h3></div>
+                  <button onClick={handleCloseModal}><X className="w-5 h-5"/></button>
                 </div>
-                {/* Step Content */}
-                <div>
-                  {currentStep === 1 && <StepRegion regions={["🇮🇩 Indonesia"]} selected={formData.region} onSelect={(r) => setFormData({ ...formData, region: r })} />}
-                  {currentStep === 2 && <StepQuantity quantity={formData.quantity} usage={formData.usage} onQuantityChange={(q) => setFormData({ ...formData, quantity: q })} onUsageChange={(u) => setFormData({ ...formData, usage: u })} />}
-                  {currentStep === 3 && <StepOS osList={["Ubuntu 22.04","Debian 12"]} selected={formData.os} onSelect={(os) => setFormData({ ...formData, os })} category={category} ipPublic={formData.ipPublic} onIPToggle={(ip) => setFormData({ ...formData, ipPublic: ip })} />}
-                  {currentStep === 4 && <StepDuration durations={["1 Bulan", "1 Tahun"]} selected={formData.duration} onSelect={(d) => setFormData({ ...formData, duration: d })} plan={planSelected} quantity={formData.quantity} category={category} ipPublic={formData.ipPublic} />}
-                  {currentStep === 5 && <StepConfirm plan={planSelected} formData={formData} category={category} finalPrice={formData.quantity * planSelected.price[billingCycle]} onWhatsApp={() => {}} onTelegram={() => {}} />}
+                <div className="p-6 space-y-4">
+                  <AnimatePresence mode="wait">
+                    {currentStep===1&&!isProxyCategory&&<motion.div key="s1" initial={{opacity:0,x:20}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-20}}><StepRegion regions={["🇮🇩","🇺🇸"]} selected={formData.region} onSelect={r=>setFormData({...formData,region:r})} /></motion.div>}
+                    {(currentStep===2&&!isProxyCategory)||(currentStep===1&&isProxyCategory)&&<motion.div key="s2" initial={{opacity:0,x:20}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-20}}><StepQuantity quantity={formData.quantity} usage={formData.usage} onQuantityChange={q=>setFormData({...formData,quantity:q})} onUsageChange={u=>setFormData({...formData,usage:u})}/></motion.div>}
+                    {currentStep===3&&!isProxyCategory&&<motion.div key="s3" initial={{opacity:0,x:20}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-20}}><StepOS osList={["Ubuntu","Debian"]} selected={formData.os} onSelect={os=>setFormData({...formData,os})} category={selectedCategory} ipPublic={formData.ipPublic} onIPToggle={ip=>setFormData({...formData,ipPublic:ip})}/></motion.div>}
+                    {((currentStep===4&&!isProxyCategory)||(currentStep===2&&isProxyCategory))&&<motion.div key="s4" initial={{opacity:0,x:20}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-20}}><StepDuration durations={["1 Bulan","1 Tahun"]} selected={formData.duration} onSelect={d=>setFormData({...formData,duration:d})} plan={selectedPlan} quantity={formData.quantity} category={selectedCategory} ipPublic={formData.ipPublic}/></motion.div>}
+                    {((currentStep===5&&!isProxyCategory)||(currentStep===3&&isProxyCategory))&&<motion.div key="s5" initial={{opacity:0,x:20}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-20}}><StepConfirm plan={selectedPlan} formData={formData} category={selectedCategory} finalPrice={getFinalPrice()} onWhatsApp={handleWhatsAppOrder} onTelegram={handleTelegramOrder}/></motion.div>}
+                  </AnimatePresence>
                 </div>
+
+                {currentStep<maxStep&&(
+                  <div className="sticky bottom-0 bg-gray-50 p-5 flex justify-between items-center border-t">
+                    <button onClick={handlePrev} disabled={currentStep===1} className="px-4 py-2 rounded-xl border hover:border-blue-600 disabled:opacity-50 flex items-center gap-2"><ChevronLeft className="w-4 h-4"/>Kembali</button>
+                    <span className="text-gray-500 text-sm">Langkah {currentStep} dari {maxStep}</span>
+                    <button onClick={handleNext} disabled={!canProceed()} className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold disabled:opacity-50 flex items-center gap-2">Lanjut<ChevronRight className="w-4 h-4"/></button>
+                  </div>
+                )}
               </motion.div>
             </motion.div>
           )}

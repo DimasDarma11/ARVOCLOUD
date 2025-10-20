@@ -327,10 +327,9 @@ const Pricing = () => {
     handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
-  const handleMessengerOrder = useCallback(() => {
+  const handleTelegramOrder = useCallback(() => {
     window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank");
-      handleCloseModal();
-    });
+    handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
   const maxStep = selectedCategory === "proxy" ? 3 : 5;

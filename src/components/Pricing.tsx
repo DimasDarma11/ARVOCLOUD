@@ -19,7 +19,7 @@ const Pricing = () => {
   });
 
   const whatsappNumber = "6283197183724";
-  const messengerUsername = "superku15";
+  const telegramUsername = "superku15";
 
   const categories = useMemo(() => [
     { id: "vps", name: "VPS", icon: Server },
@@ -139,10 +139,10 @@ const Pricing = () => {
     handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
-  const handleMessengerOrder = useCallback(() => {
-    window.open(`https://m.me/${messengerUsername}`, "_blank");
+  const handleTelegramOrder = useCallback(() => {
+    window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank");
     handleCloseModal();
-  }, [handleCloseModal]);
+  }, [generateOrderMessage, handleCloseModal]);
 
   const maxStep = selectedCategory === "proxy" ? 3 : 5;
   const isProxyCategory = selectedCategory === "proxy";
@@ -250,7 +250,7 @@ const Pricing = () => {
 
                     {((currentStep === 5 && !isProxyCategory) || (currentStep === 3 && isProxyCategory)) && (
                       <motion.div key="s5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                        <StepConfirm plan={selectedPlan} formData={formData} category={selectedCategory} finalPrice={getFinalPrice()} onWhatsApp={handleWhatsAppOrder} onMessenger={handleMessengerOrder} />
+                        <StepConfirm plan={selectedPlan} formData={formData} category={selectedCategory} finalPrice={getFinalPrice()} onWhatsApp={handleWhatsAppOrder} onTelegram={handleTelegramOrder} />
                       </motion.div>
                     )}
                   </AnimatePresence>

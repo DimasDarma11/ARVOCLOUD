@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 // Types
 interface PlanSpec {

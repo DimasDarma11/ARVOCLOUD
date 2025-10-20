@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { ArrowRight, Play, Activity, ShieldCheck } from "lucide-react";
-import { motion } from "framer-motion";
 import NoticeModal from "./NoticeModal";
 
+// Memoized Stats Bar Component
+const StatsBar = memo(({ label, value, gradientFrom, gradientTo }) => (
+  <div>
+    <div className="flex justify-between text-sm text-gray-600 mb-1">
+      <span>{label}</span>
+      <span className="font-medium text-gray-800/80">{value.toFixed(0)}%</span>
+    </div>
+    <div className="w-full h-2 rounded-full bg-gray-200/60 overflow-hidden">
+      <div
+        className={`h-2 rounded-full bg-gradient-to-r transition-all duration-700 ease-out ${gradientFrom} ${gradientTo}`}
+        style={{ width: `${value}%` }}
+      />
+    </div>
+  </div>
+));
+
+StatsBar.displayName = 'StatsBar';
+
 const Hero = () => {
-  const [showModal, setShowModal] = useState(false);
   const [stats, setStats] = useState({ cpu: 27, mem: 52, net: 14 });
   const status = "online";
 
-  useEffect(() => {
-    const hasSeenNotice = localStorage.getItem("hasSeenNotice");
-    if (!hasSeenNotice) {
-      setShowModal(true);
-      localStorage.setItem("hasSeenNotice", "true");
-    }
-  }, []);
-
+  // Optimized stats update
   useEffect(() => {
     const interval = setInterval(() => {
       setStats((prev) => ({
@@ -29,34 +38,21 @@ const Hero = () => {
 
   return (
     <>
-      <NoticeModal isOpen={showModal} onClose={() => setShowModal(false)} />
+      <NoticeModal />
 
       <section
         id="home"
         className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0]"
       >
-        {/* Ambient light blur */}
-        <div className="absolute inset-0">
-          <motion.div
-            className="absolute top-32 left-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl"
-            animate={{ y: [0, 20, 0], opacity: [0.5, 0.8, 0.5] }}
-            transition={{ duration: 12, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute bottom-32 right-20 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl"
-            animate={{ y: [0, -20, 0], opacity: [0.6, 0.9, 0.6] }}
-            transition={{ duration: 10, repeat: Infinity }}
-          />
+        {/* Ambient light blur - Optimized dengan CSS animations */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-32 left-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-32 right-20 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-float-delay" />
         </div>
 
         <div className="relative z-10 container mx-auto px-6 py-24 grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center lg:text-left"
-          >
+          {/* Left Text - CSS animations instead of framer-motion */}
+          <div className="text-center lg:text-left animate-fade-in-up">
             <div className="inline-flex items-center backdrop-blur-md bg-white/30 px-4 py-2 rounded-full text-sm font-medium text-gray-800/80 shadow-inner ring-1 ring-white/40 mb-6">
               <Activity className="w-4 h-4 mr-2 text-blue-600" />
               Infrastruktur Cloud Handal
@@ -93,15 +89,10 @@ const Hero = () => {
                 Trial
               </a>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Glass Panel */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-            className="relative backdrop-blur-2xl bg-white/25 border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] rounded-3xl p-8"
-          >
+          {/* Right Glass Panel - CSS animations */}
+          <div className="relative backdrop-blur-2xl bg-white/25 border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] rounded-3xl p-8 animate-fade-in-scale">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <div
@@ -123,39 +114,24 @@ const Hero = () => {
             </div>
 
             <div className="space-y-5">
-              {[
-                {
-                  label: "CPU Load",
-                  value: stats.cpu,
-                  gradient: "from-emerald-300 to-emerald-500",
-                },
-                {
-                  label: "Memory Usage",
-                  value: stats.mem,
-                  gradient: "from-blue-300 to-blue-500",
-                },
-                {
-                  label: "Network",
-                  value: stats.net,
-                  gradient: "from-indigo-300 to-indigo-500",
-                },
-              ].map((item, i) => (
-                <div key={i}>
-                  <div className="flex justify-between text-sm text-gray-600 mb-1">
-                    <span>{item.label}</span>
-                    <span className="font-medium text-gray-800/80">
-                      {item.value.toFixed(0)}%
-                    </span>
-                  </div>
-                  <div className="w-full h-2 rounded-full bg-gray-200/60 overflow-hidden">
-                    <motion.div
-                      className={`h-2 rounded-full bg-gradient-to-r ${item.gradient}`}
-                      style={{ width: `${item.value}%` }}
-                      transition={{ duration: 0.8, ease: "easeInOut" }}
-                    />
-                  </div>
-                </div>
-              ))}
+              <StatsBar
+                label="CPU Load"
+                value={stats.cpu}
+                gradientFrom="from-emerald-500"
+                gradientTo="to-emerald-500"
+              />
+              <StatsBar
+                label="Memory Usage"
+                value={stats.mem}
+                gradientFrom="from-blue-500"
+                gradientTo="to-blue-500"
+              />
+              <StatsBar
+                label="Network"
+                value={stats.net}
+                gradientFrom="from-indigo-500"
+                gradientTo="to-indigo-500"
+              />
             </div>
 
             <div className="grid grid-cols-3 text-center mt-8 border-t border-white/30 pt-6">
@@ -172,8 +148,48 @@ const Hero = () => {
                 <div className="text-sm text-gray-600/80">Clients</div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
+
+        {/* CSS Animations */}
+        <style>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0.5; }
+            50% { transform: translateY(20px); opacity: 0.8; }
+          }
+          
+          @keyframes float-delay {
+            0%, 100% { transform: translateY(0px); opacity: 0.6; }
+            50% { transform: translateY(-20px); opacity: 0.9; }
+          }
+          
+          @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          
+          @keyframes fade-in-scale {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+          }
+          
+          .animate-float {
+            animation: float 12s ease-in-out infinite;
+          }
+          
+          .animate-float-delay {
+            animation: float-delay 10s ease-in-out infinite;
+          }
+          
+          .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+          }
+          
+          .animate-fade-in-scale {
+            animation: fade-in-scale 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+          }
+        `}</style>
       </section>
     </>
   );

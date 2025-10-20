@@ -1,19 +1,17 @@
-import React, { useState, useMemo, useCallback } from "react";
-import dynamic from "next/dynamic";
+import React, { useState, useMemo, useCallback, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Check = dynamic(() => import("lucide-react").then(m => m.Check), { ssr: false });
-const Star = dynamic(() => import("lucide-react").then(m => m.Star), { ssr: false });
-const Zap = dynamic(() => import("lucide-react").then(m => m.Zap), { ssr: false });
-const Crown = dynamic(() => import("lucide-react").then(m => m.Crown), { ssr: false });
-const Server = dynamic(() => import("lucide-react").then(m => m.Server), { ssr: false });
-const Monitor = dynamic(() => import("lucide-react").then(m => m.Monitor), { ssr: false });
-const Cpu = dynamic(() => import("lucide-react").then(m => m.Cpu), { ssr: false });
-const ShieldCheck = dynamic(() => import("lucide-react").then(m => m.ShieldCheck), { ssr: false });
-const X = dynamic(() => import("lucide-react").then(m => m.X), { ssr: false });
-const ChevronRight = dynamic(() => import("lucide-react").then(m => m.ChevronRight), { ssr: false });
-const ChevronLeft = dynamic(() => import("lucide-react").then(m => m.ChevronLeft), { ssr: false });
-
+const Check = React.lazy(() => import("lucide-react").then(m => ({ default: m.Check })));
+const Star = React.lazy(() => import("lucide-react").then(m => ({ default: m.Star })));
+const Zap = React.lazy(() => import("lucide-react").then(m => ({ default: m.Zap })));
+const Crown = React.lazy(() => import("lucide-react").then(m => ({ default: m.Crown })));
+const Server = React.lazy(() => import("lucide-react").then(m => ({ default: m.Server })));
+const Monitor = React.lazy(() => import("lucide-react").then(m => ({ default: m.Monitor })));
+const Cpu = React.lazy(() => import("lucide-react").then(m => ({ default: m.Cpu })));
+const ShieldCheck = React.lazy(() => import("lucide-react").then(m => ({ default: m.ShieldCheck })));
+const X = React.lazy(() => import("lucide-react").then(m => ({ default: m.X })));
+const ChevronRight = React.lazy(() => import("lucide-react").then(m => ({ default: m.ChevronRight })));
+const ChevronLeft = React.lazy(() => import("lucide-react").then(m => ({ default: m.ChevronLeft })));
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState("bulanan");

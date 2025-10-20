@@ -168,7 +168,9 @@ const Pricing = () => {
         <div className="flex justify-center gap-3 mb-8 flex-wrap">
           {categories.map((c) => (
             <button key={c.id} onClick={() => setSelectedCategory(c.id)} className={`flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all duration-300 ${selectedCategory === c.id ? "bg-white/80 text-primary border-primary/60 shadow-[0_0_25px_rgba(59,130,246,0.25)] backdrop-blur-md scale-[1.03]" : "bg-white/40 text-gray-700 border-gray-200 hover:bg-white/70 hover:text-primary/90 hover:shadow-[0_0_10px_rgba(59,130,246,0.15)] backdrop-blur-sm"}`}>
-              <c.icon className={`w-5 h-5 transition-all duration-300 ${selectedCategory === c.id ? "text-primary drop-shadow-[0_0_6px_rgba(59,130,246,0.35)]" : "text-gray-500"}`} />
+              <Suspense fallback={<div className="w-5 h-5 bg-gray-200 rounded animate-pulse" />}>
+                <c.icon className={`w-5 h-5 transition-all duration-300 ${selectedCategory === c.id ? "text-primary drop-shadow-[0_0_6px_rgba(59,130,246,0.35)]" : "text-gray-500"}`} />
+              </Suspense>
               <span className="font-medium tracking-wide">{c.name}</span>
             </button>
           ))}
@@ -188,7 +190,9 @@ const Pricing = () => {
           {currentPlans.map((plan, i) => (
             <div key={i} className="relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]" style={{ willChange: "transform, opacity" }}>
               <div className="w-14 h-14 mx-auto mb-5 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center shadow-inner">
-                <plan.icon className="w-6 h-6 text-blue-600" />
+                <Suspense fallback={<div className="w-6 h-6 bg-blue-100 rounded animate-pulse" />}>
+                  <plan.icon className="w-6 h-6 text-blue-600" />
+                </Suspense>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-1 text-center">{plan.name}</h3>
               <p className="text-gray-600 text-sm mb-6 text-center">{plan.desc}</p>

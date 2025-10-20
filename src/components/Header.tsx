@@ -12,8 +12,18 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Optimasi scroll listener dengan requestAnimationFrame
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 40);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -28,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
+        isScrolled ? "bg-white/80 md:backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -36,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
           <img
             src="https://i.ibb.co/VYh29p8y/Arvocloud1.webp"
             alt="Arvocloud Logo"
-            className="h-10 md:h-12 w-auto transition-all duration-500 group-hover:scale-105 drop-shadow-sm"
+            className="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-105 will-change-transform"
           />
         </div>
 
@@ -64,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
           <Link
             to="/login"
             className="relative px-5 py-2.5 rounded-xl text-sm font-medium text-gray-800 
-            border border-gray-200 bg-white/60 backdrop-blur-lg 
+            border border-gray-200 bg-white/60 md:backdrop-blur-lg 
             shadow-sm hover:shadow-md hover:-translate-y-[1px]
             transition-all duration-300"
           >
@@ -75,23 +85,16 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center group"
           >
-            <motion.span
-              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
-              animate={
-                isMenuOpen
-                  ? { rotate: 45, y: 6, backgroundColor: "#1E3A8A" }
-                  : { rotate: 0, y: -6, backgroundColor: "#111827" }
-              }
-              transition={{ duration: 0.35, ease: "easeInOut" }}
+            {/* Hamburger animation disederhanakan */}
+            <span
+              className={`absolute w-6 h-[2px] bg-gray-800 rounded-full transition-transform duration-300 ${
+                isMenuOpen ? "rotate-45 translate-y-1.5" : "rotate-0 translate-y-0"
+              }`}
             />
-            <motion.span
-              className="absolute w-6 h-[2px] bg-gray-800 rounded-full"
-              animate={
-                isMenuOpen
-                  ? { rotate: -45, y: -6, backgroundColor: "#1E3A8A" }
-                  : { rotate: 0, y: 6, backgroundColor: "#111827" }
-              }
-              transition={{ duration: 0.35, ease: "easeInOut" }}
+            <span
+              className={`absolute w-6 h-[2px] bg-gray-800 rounded-full transition-transform duration-300 ${
+                isMenuOpen ? "-rotate-45 -translate-y-1.5" : "rotate-0 translate-y-0"
+              }`}
             />
           </button>
         </div>
@@ -105,8 +108,8 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="md:hidden absolute top-full left-0 w-full bg-white/90 backdrop-blur-xl shadow-xl border-t border-gray-100"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="md:hidden absolute top-full left-0 w-full bg-white/90 backdrop-blur-none md:backdrop-blur-xl shadow-md border-t border-gray-100"
           >
             <div className="flex flex-col py-5 px-6 space-y-4">
               {menuItems.map((item, i) => (
@@ -116,20 +119,18 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
                     setIsMenuOpen(false);
                     item.action ? item.action() : null;
                   }}
-                  className="flex items-start justify-between group w-full text-left"
-                  initial={{ opacity: 0, y: 15 }}
+                  className="flex items-start justify-between w-full text-left"
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i }}
                 >
                   <div>
-                    <p className="text-gray-900 font-medium group-hover:text-blue-600 transition-colors">
-                      {item.name}
-                    </p>
+                    <p className="text-gray-900 font-medium">{item.name}</p>
                     <p className="text-xs text-gray-500">{item.desc}</p>
                   </div>
                   <ChevronRight
                     size={16}
-                    className="text-gray-400 group-hover:text-blue-600 transition-all mt-1"
+                    className="text-gray-400 mt-1"
                   />
                 </motion.button>
               ))}
@@ -137,7 +138,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
               <Link
                 to="/rules"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-gray-800 hover:text-blue-600 text-sm font-medium transition-colors"
+                className="text-gray-800 text-sm font-medium"
               >
                 Aturan Platform
               </Link>

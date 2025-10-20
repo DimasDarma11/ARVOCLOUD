@@ -8,18 +8,21 @@ export default defineConfig({
     viteCompression({
       algorithm: 'brotliCompress',
       ext: '.br',
+      threshold: 1024, 
     }),
   ],
+
   optimizeDeps: {
-    exclude: ['lucide-react'],
+    include: ['lucide-react', 'framer-motion', 'react', 'react-dom'],
   },
+
   build: {
-    chunkSizeWarningLimit: 500,
+    target: 'esnext',
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 2000, 
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-        },
+        manualChunks: undefined, 
       },
     },
   },

@@ -1,6 +1,19 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft } from "lucide-react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
+
+const Check = dynamic(() => import("lucide-react").then(m => m.Check), { ssr: false });
+const Star = dynamic(() => import("lucide-react").then(m => m.Star), { ssr: false });
+const Zap = dynamic(() => import("lucide-react").then(m => m.Zap), { ssr: false });
+const Crown = dynamic(() => import("lucide-react").then(m => m.Crown), { ssr: false });
+const Server = dynamic(() => import("lucide-react").then(m => m.Server), { ssr: false });
+const Monitor = dynamic(() => import("lucide-react").then(m => m.Monitor), { ssr: false });
+const Cpu = dynamic(() => import("lucide-react").then(m => m.Cpu), { ssr: false });
+const ShieldCheck = dynamic(() => import("lucide-react").then(m => m.ShieldCheck), { ssr: false });
+const X = dynamic(() => import("lucide-react").then(m => m.X), { ssr: false });
+const ChevronRight = dynamic(() => import("lucide-react").then(m => m.ChevronRight), { ssr: false });
+const ChevronLeft = dynamic(() => import("lucide-react").then(m => m.ChevronLeft), { ssr: false });
+
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState("bulanan");
@@ -139,8 +152,8 @@ const Pricing = () => {
   }, [generateOrderMessage, handleCloseModal]);
 
   const handleTelegramOrder = useCallback(() => {
-      window.open(`https://t.me/${messengerUsername}?text=${encodeURIComponent(msg)}`, "_blank");
-      handleCloseModal();
+    window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank");
+    handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
   const maxStep = selectedCategory === "proxy" ? 3 : 5;
@@ -175,7 +188,7 @@ const Pricing = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           {currentPlans.map((plan, i) => (
-            <div key={i} className="relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]">
+            <div key={i} className="relative group transition-all duration-500 rounded-2xl p-8 border backdrop-blur-md bg-white/60 border-gray-200 hover:bg-white/80 hover:shadow-[0_8px_32px_rgba(59,130,246,0.1)]" style={{ willChange: "transform, opacity" }}>
               <div className="w-14 h-14 mx-auto mb-5 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center shadow-inner">
                 <plan.icon className="w-6 h-6 text-blue-600" />
               </div>
@@ -222,7 +235,7 @@ const Pricing = () => {
                 </div>
 
                 <div className="p-8">
-                  <AnimatePresence initial={false}>
+                  <AnimatePresence initial={false} mode="wait">
                     {currentStep === 1 && !isProxyCategory && (
                       <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-4">
                         <h4 className="text-xl font-bold text-gray-800 mb-4">Pilih Region</h4>
@@ -431,4 +444,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default React.memo(Pricing);

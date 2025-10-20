@@ -104,7 +104,7 @@ export const StepDuration = memo(({ durations, selected, onSelect, plan, quantit
   </div>
 ));
 
-export const StepConfirm = memo(({ plan, formData, category, finalPrice, onWhatsApp, onMessenger }) => {
+export const StepConfirm = memo(({ plan, formData, category, finalPrice, onWhatsApp, onTelegram }) => {
   const isProxy = category === "proxy";
   
   return (

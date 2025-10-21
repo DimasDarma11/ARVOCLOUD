@@ -60,3 +60,17 @@
 ---
 
 ## 🧩 **Struktur Folder**
+📦 arvocloud/
+┣ 📂 public/
+┃ ┣ 📜 robots.txt
+┃ ┣ 📜 sitemap.xml
+┃ ┗ 📜 manifest.json
+┣ 📂 src/
+┃ ┣ 📂 pages/
+┃ ┣ 📂 components/
+┃ ┣ 📂 contexts/
+┃ ┣ 📜 main.tsx
+┃ ┗ 📜 index.css
+┣ 📜 index.html
+┣ 📜 vite.config.ts
+┗ 📜 README.md

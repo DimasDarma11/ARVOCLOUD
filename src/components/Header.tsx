@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 
 interface HeaderProps {
-  onAboutClick: () => void;
-  onContactClick: () => void;
+  onAboutClick?: () => void;
+  onContactClick?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Optimasi scroll listener dengan requestAnimationFrame
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -24,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
         ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -35,10 +33,20 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
     { name: "Contact", desc: "Hubungi tim kami untuk kolaborasi", action: onContactClick },
   ];
 
+  const handleMenuClick = (item: typeof menuItems[0]) => {
+    setIsMenuOpen(false);
+    if (item.action) {
+      item.action();
+    } else if (item.href) {
+      const element = document.querySelector(item.href);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/80 md:backdrop-blur-md shadow-sm" : "bg-transparent"
+      className={`fixed w-full z-50 transition-all duration-200 ${
+        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -46,7 +54,8 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
           <img
             src="https://i.ibb.co/VYh29p8y/Arvocloud1.webp"
             alt="Arvocloud Logo"
-            className="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-105 will-change-transform"
+            className="h-10 md:h-12 w-auto transition-transform duration-200 group-hover:scale-105"
+            loading="eager"
           />
         </div>
 
@@ -55,97 +64,54 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
           {menuItems.map((item) => (
             <button
               key={item.name}
-              onClick={() => item.action ? item.action() : null}
-              className="text-gray-700 hover:text-blue-600 transition-colors"
+              onClick={() => handleMenuClick(item)}
+              className="text-foreground/70 hover:text-primary transition-colors duration-200"
             >
               {item.name}
             </button>
           ))}
-          <Link
-            to="/rules"
-            className="text-gray-700 hover:text-blue-600 transition-colors"
-          >
-            Aturan
-          </Link>
         </nav>
 
         {/* Login + Hamburger */}
         <div className="flex items-center space-x-3">
           <Link
             to="/login"
-            className="relative px-5 py-2.5 rounded-xl text-sm font-medium text-gray-800 
-            border border-gray-200 bg-white/60 md:backdrop-blur-lg 
-            shadow-sm hover:shadow-md hover:-translate-y-[1px]
-            transition-all duration-300"
+            className="px-5 py-2.5 rounded-xl text-sm font-medium bg-card text-card-foreground
+            border border-border hover:border-primary/50 transition-all duration-200"
           >
             Login
           </Link>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center group"
+            className="md:hidden p-2 hover:bg-accent/50 rounded-lg transition-colors duration-200"
+            aria-label="Toggle menu"
           >
-            {/* Hamburger animation disederhanakan */}
-            <span
-              className={`absolute w-6 h-[2px] bg-gray-800 rounded-full transition-transform duration-300 ${
-                isMenuOpen ? "rotate-45 translate-y-1.5" : "rotate-0 translate-y-0"
-              }`}
-            />
-            <span
-              className={`absolute w-6 h-[2px] bg-gray-800 rounded-full transition-transform duration-300 ${
-                isMenuOpen ? "-rotate-45 -translate-y-1.5" : "rotate-0 translate-y-0"
-              }`}
-            />
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            key="dropdown"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="md:hidden absolute top-full left-0 w-full bg-white/90 backdrop-blur-none md:backdrop-blur-xl shadow-md border-t border-gray-100"
-          >
-            <div className="flex flex-col py-5 px-6 space-y-4">
-              {menuItems.map((item, i) => (
-                <motion.button
-                  key={item.name}
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    item.action ? item.action() : null;
-                  }}
-                  className="flex items-start justify-between w-full text-left"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * i }}
-                >
-                  <div>
-                    <p className="text-gray-900 font-medium">{item.name}</p>
-                    <p className="text-xs text-gray-500">{item.desc}</p>
-                  </div>
-                  <ChevronRight
-                    size={16}
-                    className="text-gray-400 mt-1"
-                  />
-                </motion.button>
-              ))}
-              <hr className="border-gray-200 my-2" />
-              <Link
-                to="/rules"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-800 text-sm font-medium"
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-background/95 backdrop-blur-sm border-b border-border">
+          <div className="flex flex-col py-5 px-6 space-y-4">
+            {menuItems.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => handleMenuClick(item)}
+                className="flex items-start justify-between w-full text-left transition-colors duration-200"
               >
-                Aturan Platform
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <div>
+                  <p className="text-foreground font-medium">{item.name}</p>
+                  <p className="text-xs text-muted-foreground">{item.desc}</p>
+                </div>
+                <ChevronRight size={16} className="text-muted-foreground mt-1" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 };

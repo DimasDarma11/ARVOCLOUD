@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ArrowRight, Play, Activity, ShieldCheck } from "lucide-react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import NoticeModal from "./NoticeModal";
 import { cn } from "../lib/utils";
 
 // ============ BUTTON COMPONENT ============
@@ -84,6 +85,7 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
+    <NoticeModal />
     <section
       id="home"
       className="relative flex items-center justify-center min-h-screen bg-background overflow-hidden"

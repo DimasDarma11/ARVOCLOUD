@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from '@vitejs/plugin-react-swc';
 import viteCompression from "vite-plugin-compression";
 
 export default defineConfig({
@@ -8,6 +8,7 @@ export default defineConfig({
     viteCompression({
       algorithm: "brotliCompress",
       ext: ".br",
+      threshold: 1024,
     }),
   ],
   optimizeDeps: {
@@ -17,6 +18,7 @@ export default defineConfig({
     dedupe: ["react", "react-dom"],
   },
   build: {
+    minify: "esbuild",
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {

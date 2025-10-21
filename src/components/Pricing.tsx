@@ -276,7 +276,7 @@ const Pricing = () => {
         <AnimatePresence>
           {isModalOpen && selectedPlan && (
             <div
-              className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 p-4 animate-in fade-in duration-200"
+              className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-[9999] p-4 animate-in fade-in duration-200"
               onClick={handleCloseModal}
             >
               <div

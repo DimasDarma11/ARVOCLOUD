@@ -27,7 +27,7 @@
 ## 🧠 **Tentang ARVOCLOUD**
 
 > 💡 ARVOCLOUD adalah platform penyedia **VPS, RDP, dan Bare Metal Server premium**  
-> dengan performa tinggi, uptime 99.9%, dan dukungan 24/7.  
+> dengan performa tinggi, uptime 99.8%, dan dukungan 24/7.  
 > Dibangun menggunakan teknologi modern untuk pengalaman cloud yang cepat, aman, dan handal.
 
 ### ⚙️ **Tech Stack**
@@ -43,10 +43,6 @@
 
 ## 🖥️ **Fitur Utama**
 
-✨ **Dashboard Customer**  
-- Kelola VPS & RDP aktif  
-- Cek status server (Active / Expired)  
-- Pop-up info login (IP, Username, Password, Expired Date)
 
 ⚡ **Performa Super Cepat**  
 - Optimasi Brotli + Gzip  
@@ -58,19 +54,3 @@
 - Google Analytics non-blocking
 
 ---
-
-## 🧩 **Struktur Folder**
-📦 arvocloud/
-┣ 📂 public/
-┃ ┣ 📜 robots.txt
-┃ ┣ 📜 sitemap.xml
-┃ ┗ 📜 manifest.json
-┣ 📂 src/
-┃ ┣ 📂 pages/
-┃ ┣ 📂 components/
-┃ ┣ 📂 contexts/
-┃ ┣ 📜 main.tsx
-┃ ┗ 📜 index.css
-┣ 📜 index.html
-┣ 📜 vite.config.ts
-┗ 📜 README.md

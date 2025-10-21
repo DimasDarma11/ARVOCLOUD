@@ -1,13 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Play, Activity, ShieldCheck } from "lucide-react";
-import { Button } from "./ui/button";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
+// ============ BUTTON COMPONENT ============
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+  },
+);
+Button.displayName = "Button";
+
+// ============ STATS BAR COMPONENT ============
 interface StatsBarProps {
   label: string;
   value: number;
+  color?: string;
 }
 
-const StatsBar: React.FC<StatsBarProps> = ({ label, value }) => (
+const StatsBar: React.FC<StatsBarProps> = ({ label, value, color = "bg-primary" }) => (
   <div>
     <div className="flex justify-between text-sm text-muted-foreground mb-1">
       <span>{label}</span>
@@ -15,13 +60,14 @@ const StatsBar: React.FC<StatsBarProps> = ({ label, value }) => (
     </div>
     <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
       <div
-        className="h-2 rounded-full bg-primary transition-all duration-700 ease-out"
+        className={`h-2 rounded-full transition-all duration-700 ease-out ${color}`}
         style={{ width: `${value}%` }}
       />
     </div>
   </div>
 );
 
+// ============ HERO SECTION ============
 const Hero: React.FC = () => {
   const [stats, setStats] = useState({ cpu: 25, mem: 50, net: 15 });
   const status = "online";
@@ -57,11 +103,7 @@ const Hero: React.FC = () => {
           </div>
 
           <h1 className="text-5xl lg:text-6xl font-extrabold text-foreground">
-            Solusi{" "}
-            <span className="text-primary">
-              VPS & RDP Premium
-            </span>{" "}
-            untuk bisnis anda.
+            Solusi <span className="text-primary">VPS & RDP Premium</span> untuk bisnis anda.
           </h1>
 
           <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
@@ -104,7 +146,7 @@ const Hero: React.FC = () => {
             <div className="flex items-center space-x-3">
               <div
                 className={`w-3 h-3 rounded-full ${
-                  status === "online" ? "bg-emerald animate-pulse" : "bg-destructive"
+                  status === "online" ? "bg-emerald-500 animate-pulse" : "bg-destructive"
                 }`}
               />
               <span className="font-medium text-card-foreground">
@@ -113,15 +155,15 @@ const Hero: React.FC = () => {
             </div>
             <ShieldCheck
               className={`w-5 h-5 ${
-                status === "online" ? "text-emerald" : "text-destructive"
+                status === "online" ? "text-emerald-500" : "text-destructive"
               }`}
             />
           </div>
 
           <div className="space-y-5">
-            <StatsBar label="CPU Load" value={stats.cpu} color="bg-emerald" />
-            <StatsBar label="Memory Usage" value={stats.mem} color="bg-blue" />
-            <StatsBar label="Network" value={stats.net} color="bg-indigo" />
+            <StatsBar label="CPU Load" value={stats.cpu} color="bg-emerald-500" />
+            <StatsBar label="Memory Usage" value={stats.mem} color="bg-blue-500" />
+            <StatsBar label="Network" value={stats.net} color="bg-indigo-500" />
           </div>
 
           <div className="grid grid-cols-3 text-center mt-8 border-t border-border pt-6">

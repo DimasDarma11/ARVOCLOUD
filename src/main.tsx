@@ -5,7 +5,7 @@ import './index.css';
 
 import App from './App.tsx'; // ini router utama yg berisi LandingApp & DashboardApp
 import LoginPage from './pages/LoginPage.tsx';
-import Rules from './pages/Rules.tsx';
+import Rules from './components/Rules.tsx';
 import Status from './pages/Status.tsx';
 
 createRoot(document.getElementById('root')!).render(

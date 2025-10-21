@@ -31,6 +31,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
     { name: "Pricing", desc: "Paket fleksibel untuk setiap kebutuhan", href: "#pricing" },
     { name: "About", desc: "Cerita dan misi kami di balik Arvocloud", action: onAboutClick },
     { name: "Contact", desc: "Hubungi tim kami untuk kolaborasi", action: onContactClick },
+    { name: "Rules", desc: "Peraturan penggunaan server Arvocloud", href: "./Rules" },
   ];
 
   const handleMenuClick = (item: typeof menuItems[0]) => {

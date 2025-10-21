@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import viteCompression from 'vite-plugin-compression';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
-import { criticalCssPlugin } from 'vite-plugin-critical-css';
 
 export default defineConfig({
   plugins: [
@@ -20,12 +19,6 @@ export default defineConfig({
       webp: { quality: 80 },
       avif: { quality: 80 },
     }),
-
-    criticalCssPlugin({
-      base: './dist',
-      criticalUrl: '/',
-      pages: [{ uri: '', template: 'index' }],
-}),
 
   optimizeDeps: {
     include: ['lucide-react', 'framer-motion', 'react', 'react-dom'],

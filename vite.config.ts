@@ -19,6 +19,7 @@ export default defineConfig({
       webp: { quality: 80 },
       avif: { quality: 80 },
     }),
+  ],
 
   optimizeDeps: {
     include: ['lucide-react', 'framer-motion', 'react', 'react-dom'],

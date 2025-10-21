@@ -163,7 +163,7 @@ const Pricing = () => {
     handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
-  const handleTelegramrOrder = useCallback(() => {
+  const handleTelegramOrder = useCallback(() => {
     window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank");
     handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);

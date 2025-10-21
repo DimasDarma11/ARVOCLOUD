@@ -4,7 +4,7 @@
     <!-- ✅ Basic SEO -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ARVOCLOUD — VPS, RDP, & Bare Metal Premium untuk Bisnis Modern</title>
+    <title>ARVOCLOUD — VPS & RDP SOLUTIONS</title>
     <meta
       name="description"
       content="ARVOCLOUD menyediakan VPS, RDP, dan Bare Metal Server premium dengan performa tinggi, uptime 99.9%, dan dukungan 24/7. Solusi cloud profesional untuk bisnis, developer, dan kreator digital."
@@ -20,7 +20,7 @@
     <!-- ✅ Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://arvocloud.web.id/" />
-    <meta property="og:title" content="ARVOCLOUD — Solusi VPS, RDP & Bare Metal Premium" />
+    <meta property="og:title" content="ARVOCLOUD — VPS & RDP SOLUTIONS" />
     <meta
       property="og:description"
       content="Solusi server profesional dengan performa tinggi, uptime 99.9%, dan dukungan 24/7. Infrastruktur cloud terbaik untuk bisnis Anda."
@@ -33,13 +33,34 @@
     <meta name="twitter:title" content="ARVOCLOUD — VPS & RDP Premium" />
     <meta
       name="twitter:description"
-      content="Cloud infrastructure performa tinggi & uptime 99.9%. Temukan solusi terbaik untuk bisnis Anda di ARVOCLOUD."
+      content="Cloud infrastructure performa tinggi & uptime 99.8%. Temukan solusi terbaik untuk bisnis Anda di ARVOCLOUD."
     />
     <meta name="twitter:image" content="https://i.ibb.co/VYh29p8y/Arvocloud1.webp" />
 
-    <!-- ✅ Preconnect untuk CDN -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- ✅ Preconnect & DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- ✅ Preload Google Font (Inter) -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
 
     <!-- ✅ Favicon -->
     <link rel="icon" type="image/webp" href="https://i.ibb.co/VYh29p8y/Arvocloud1.webp" />
@@ -72,13 +93,25 @@
 
     <!-- ✅ Cache & Performance -->
     <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable" />
+
+    <!-- ✅ Preload app CSS -->
+    <link
+      rel="preload"
+      href="/assets/index-DDCXxqM1.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/assets/index-DDCXxqM1.css" /></noscript>
+
+    <!-- ✅ Theme color -->
+    <meta name="theme-color" content="#ffffff" />
   </head>
 
   <body>
     <noscript>Harap aktifkan JavaScript untuk menggunakan situs ARVOCLOUD.</noscript>
     <div id="root"></div>
 
-    <!-- ✅ Script utama React -->
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- ✅ Non-blocking JS -->
+    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>

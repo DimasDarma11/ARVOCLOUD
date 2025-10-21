@@ -5,13 +5,103 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== Base Font ===== */
-body, input, button, textarea, select {
-  font-family: 'Inter', sans-serif;
-  scroll-behavior: smooth;
+/* -------------------------------------------------------------------------- */
+/*                                BASE SYSTEM                                 */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 91% 70%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    /* Premium gradients & shadows */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(217 91% 70%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100% / 0.8), hsl(0 0% 100% / 0.6));
+    --gradient-overlay: linear-gradient(180deg, transparent, hsl(217 91% 60% / 0.05));
+
+    --shadow-sm: 0 2px 8px hsl(217 91% 60% / 0.08);
+    --shadow-md: 0 4px 16px hsl(217 91% 60% / 0.12);
+    --shadow-lg: 0 8px 32px hsl(217 91% 60% / 0.16);
+    --shadow-glow: 0 0 24px hsl(217 91% 60% / 0.3);
+
+    --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Dark mode palette */
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 91% 70%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 217 91% 60%;
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(217 91% 70%));
+    --gradient-card: linear-gradient(180deg, hsl(222.2 84% 4.9% / 0.8), hsl(222.2 84% 4.9% / 0.6));
+    --gradient-overlay: linear-gradient(180deg, transparent, hsl(217 91% 60% / 0.1));
+    --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 16px hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0 8px 32px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 24px hsl(217 91% 60% / 0.4);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  * {
+    @apply border-border;
+  }
 }
 
-/* ===== Custom Animations (Optimized) ===== */
+/* -------------------------------------------------------------------------- */
+/*                             CUSTOM ANIMATIONS                              */
+/* -------------------------------------------------------------------------- */
+
 @keyframes blob {
   0% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(30px, -50px) scale(1.05); }
@@ -39,12 +129,14 @@ body, input, button, textarea, select {
 .animate-fade-in { animation: fade-in 1s ease-out forwards; }
 .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
 
-/* Animation delays */
 .delay-200 { animation-delay: 0.2s; }
 .delay-400 { animation-delay: 0.4s; }
 .delay-600 { animation-delay: 0.6s; }
 
-/* ===== Scrollbar (Optional) ===== */
+/* -------------------------------------------------------------------------- */
+/*                             SCROLLBAR & FOCUS                              */
+/* -------------------------------------------------------------------------- */
+
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { 
@@ -55,12 +147,10 @@ body, input, button, textarea, select {
   background: linear-gradient(45deg, #2563EB, #7C3AED);
 }
 
-/* ===== Transitions (Only on needed elements) ===== */
 button, a, input, textarea, select, .card {
   transition: color 0.3s, background-color 0.3s, transform 0.3s;
 }
 
-/* ===== Focus Styles ===== */
 button:focus,
 input:focus,
 textarea:focus,
@@ -69,7 +159,10 @@ select:focus {
   outline-offset: 2px;
 }
 
-/* ===== Gradient Text (Limit to Hero/Header) ===== */
+/* -------------------------------------------------------------------------- */
+/*                              GRADIENT EFFECTS                              */
+/* -------------------------------------------------------------------------- */
+
 .gradient-text {
   background: linear-gradient(45deg, #3B82F6, #8B5CF6, #EC4899);
   background-size: 200% 200%;

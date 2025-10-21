@@ -1,6 +1,3 @@
-/* ===== Google Fonts ===== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,17 +5,17 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%; /* abu gelap untuk teks utama */
+    --foreground: 222.2 47.4% 11.2%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
-    --primary: 221 83% 53%; /* #2563EB */
-    --primary-foreground: 0 0% 100%; /* putih */
-    --secondary: 210 40% 96%; /* abu lembut */
-    --secondary-foreground: 222.2 47.4% 11.2%; /* teks abu tua */
-    --accent: 24 95% 53%; /* oranye terang (#f97316) */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 24 95% 53%;
     --accent-foreground: 0 0% 100%;
     --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 35%; /* sedikit lebih gelap supaya terbaca */
+    --muted-foreground: 215 16% 35%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 214.3 31.8% 91.4%;
@@ -47,38 +44,73 @@
     @apply border-border;
   }
 
-  body, input, button, textarea, select {
+  body,
+  input,
+  button,
+  textarea,
+  select {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 }
 
 /* ===== Custom Animations ===== */
 @keyframes blob {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.05); }
-  66% { transform: translate(-20px, 20px) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
-.animate-blob { animation: blob 7s infinite; }
-.animate-float { animation: float 6s ease-in-out infinite; }
+/* ===== GPU-Accelerated Animations ===== */
+.animate-blob {
+  animation: blob 7s infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
 
 /* ===== Gradient Text ===== */
 .gradient-text {
-  background: linear-gradient(45deg, #3B82F6, #8B5CF6, #EC4899);
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradient-shift 5s ease infinite;
+  will-change: background-position;
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }

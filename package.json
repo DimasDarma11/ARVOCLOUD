@@ -82,7 +82,7 @@
     "vite": "^5.4.19",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-image-optimizer": "^1.0.8",
-    "vite-plugin-critical": "^0.7.0",
+    "vite-plugin-critical-css": "^0.4.0",
     "terser": "^5.36.0"
   }
 }

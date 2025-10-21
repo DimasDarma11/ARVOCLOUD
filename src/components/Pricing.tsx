@@ -43,7 +43,7 @@ const Pricing = () => {
   });
 
   const whatsappNumber = "6283197183724";
-  const instagramUsername = "superku15";
+  const messengerUsername = "arvocloud";
 
   const categories = useMemo(() => [
     { id: "vps" as Category, name: "VPS", icon: Server as LucideIcon },
@@ -155,7 +155,7 @@ const Pricing = () => {
     }
     
     const ipInfo = selectedCategory === "vps" ? "✅ IP Public (Included)" : selectedCategory === "rdp" ? (formData.ipPublic ? "✅ IP Public (+Rp85.000)\n*IP Public untuk open all port" : "🔒 IP NAT (Default)") : "🏠 IP Local";
-    return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:\n\n📦 Nama Paket: ${selectedPlan.name}\n🌍 Region: ${formData.region}\n💻 OS: ${formData.os}\n⚡ CPU: ${selectedPlan.specs.cpu}\n🧠 RAM: ${selectedPlan.specs.ram}\n🌐 IP: ${ipInfo}\n🔢 Kuantitas: ${formData.quantity}\n🛡️ Garansi: Garansi full\n💰 Harga: Rp${getFinalPrice().toLocaleString("id-ID")}\n🎯 Digunakan Untuk: ${formData.usage}\n\nApakah konfigurasi ini tersedia?`;
+    return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:\n\n📦 Nama Paket: ${selectedPlan.name}\n🌍 Region: ${formData.region}\n💻 Sistem Operasi: ${formData.os}\n⚡ CPU: ${selectedPlan.specs.cpu}\n🧠 RAM: ${selectedPlan.specs.ram}\n🌐 IP: ${ipInfo}\n🔢 Kuantitas: ${formData.quantity}\n🛡️ Garansi: Garansi uptime 100%\n💰 Harga: Rp${getFinalPrice().toLocaleString("id-ID")}\n🎯 Digunakan Untuk: ${formData.usage}\n\nApakah konfigurasi ini tersedia?`;
   }, [selectedPlan, selectedCategory, formData, getFinalPrice]);
 
   const handleWhatsAppOrder = useCallback(() => {
@@ -163,9 +163,16 @@ const Pricing = () => {
     handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
-  const handleTelegramOrder = useCallback(() => {
-       window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank");
+  const handleMessengerOrder = useCallback(() => {
+    const msg = generateOrderMessage();
+    navigator.clipboard.writeText(msg).then(() => {
+      window.open(`https://m.me/${messengerUsername}`, "_blank");
+      alert("💬 Pesan sudah disalin! Silakan paste di Messenger yang akan terbuka.");
       handleCloseModal();
+    }).catch(() => {
+      window.open(`https://m.me/${messengerUsername}?text=${encodeURIComponent(msg)}`, "_blank");
+      handleCloseModal();
+    });
   }, [generateOrderMessage, handleCloseModal]);
 
   const maxStep = selectedCategory === "proxy" ? 3 : 5;
@@ -176,7 +183,7 @@ const Pricing = () => {
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Harga yang <span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">Transparan</span>
+            Harga yang <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">Transparan</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
             Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
@@ -553,16 +560,16 @@ const Pricing = () => {
                             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                             </svg>
-                            Order via WhatsApp
+                            WhatsApp
                           </button>
                           <button
-                            onClick={handleTelegramOrder}
+                            onClick={handleMessengerOrder}
                             className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl"
                           >
                             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
                             </svg>
-                            Order via Telegram
+                            Messenger
                           </button>
                         </div>
                       </div>

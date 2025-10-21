@@ -1,32 +1,26 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, Play, Activity, ShieldCheck } from "lucide-react";
-import NoticeModal from "./NoticeModal";
+import { Button } from "./ui/button";
 
-// Typed Props untuk StatsBar
 interface StatsBarProps {
   label: string;
   value: number;
-  gradientFrom: string;
-  gradientTo: string;
 }
 
-const StatsBar: React.FC<StatsBarProps> = memo(
-  ({ label, value, gradientFrom, gradientTo }) => (
-    <div>
-      <div className="flex justify-between text-sm text-gray-500 mb-1">
-        <span>{label}</span>
-        <span className="font-medium text-gray-700">{value.toFixed(0)}%</span>
-      </div>
-      <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
-        <div
-          className={`h-2 rounded-full bg-gradient-to-r ${gradientFrom} ${gradientTo} transition-all duration-700 ease-out`}
-          style={{ width: `${value}%` }}
-        />
-      </div>
+const StatsBar: React.FC<StatsBarProps> = ({ label, value }) => (
+  <div>
+    <div className="flex justify-between text-sm text-muted-foreground mb-1">
+      <span>{label}</span>
+      <span className="font-medium text-foreground">{value.toFixed(0)}%</span>
     </div>
-  )
+    <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+      <div
+        className="h-2 rounded-full bg-primary transition-all duration-700 ease-out"
+        style={{ width: `${value}%` }}
+      />
+    </div>
+  </div>
 );
-StatsBar.displayName = "StatsBar";
 
 const Hero: React.FC = () => {
   const [stats, setStats] = useState({ cpu: 25, mem: 50, net: 15 });
@@ -44,116 +38,109 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <NoticeModal />
+    <section
+      id="home"
+      className="relative flex items-center justify-center min-h-screen bg-background overflow-hidden"
+    >
+      {/* Ambient decorations */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute top-20 left-10 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
+      </div>
 
-      <section
-        id="home"
-        className="relative flex items-center justify-center min-h-screen bg-gray-50 overflow-hidden"
-      >
-        {/* Soft ambient blur */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl animate-float-delay" />
-        </div>
+      <div className="relative z-10 container mx-auto px-6 py-24 grid lg:grid-cols-2 gap-12 items-center">
+        {/* Left */}
+        <div className="text-center lg:text-left space-y-6">
+          <div className="inline-flex items-center bg-accent/50 px-4 py-2 rounded-full text-sm font-medium text-accent-foreground">
+            <Activity className="w-4 h-4 mr-2" />
+            Infrastruktur Cloud Handal
+          </div>
 
-        <div className="relative z-10 container mx-auto px-6 py-24 grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left */}
-          <div className="text-center lg:text-left animate-fade-in-up">
-            <div className="inline-flex items-center bg-white/30 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-inner ring-1 ring-white/40 mb-6">
-              <Activity className="w-4 h-4 mr-2 text-blue-600" />
-              Infrastruktur Cloud Handal
-            </div>
+          <h1 className="text-5xl lg:text-6xl font-extrabold text-foreground">
+            Solusi{" "}
+            <span className="text-primary">
+              VPS & RDP Premium
+            </span>{" "}
+            untuk bisnis anda.
+          </h1>
 
-            <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 text-gray-800/90">
-              Solusi{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">
-                VPS & RDP Premium
-              </span>{" "}
-              untuk bisnis anda.
-            </h1>
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
+            Performa tinggi, uptime 99.8%, dan support 24/7. Infrastruktur modern untuk bisnis, developer, dan kreator.
+          </p>
 
-            <p className="text-lg text-gray-600/90 mb-10 max-w-xl mx-auto lg:mx-0">
-              Performa tinggi, uptime 99.8%, dan support 24/7. Infrastruktur modern untuk bisnis, developer, dan kreator.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a
-                href="#pricing"
-                className="group bg-white/60 backdrop-blur-xl shadow-lg ring-1 ring-white/40 hover:ring-blue-400/50 text-gray-900 px-8 py-4 rounded-2xl text-lg font-semibold flex items-center justify-center transition-all"
-              >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+            <Button
+              asChild
+              size="lg"
+              className="text-lg h-14 px-8 rounded-xl group"
+            >
+              <a href="#pricing">
                 Mulai Sekarang
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform text-blue-600" />
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
+            </Button>
 
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="text-lg h-14 px-8 rounded-xl group"
+            >
               <a
                 href="https://wa.me/6283197183724?text=Halo,%20saya%20mau%20trial%20VPS/RDP"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group border border-gray-300/70 hover:border-blue-500/70 text-gray-700 px-8 py-4 rounded-2xl text-lg font-semibold backdrop-blur-lg flex items-center justify-center transition-all"
               >
                 <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                 Trial
               </a>
-            </div>
-          </div>
-
-          {/* Right Panel */}
-          <div className="relative bg-white/25 backdrop-blur-2xl border border-white/40 shadow-lg rounded-3xl p-8 animate-fade-in-scale">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-3">
-                <div
-                  className={`w-3 h-3 rounded-full ${
-                    status === "online" ? "bg-emerald-400 animate-pulse" : "bg-red-400"
-                  }`}
-                />
-                <span className="font-medium text-gray-700">
-                  {status === "online" ? "Server Aktif" : "Server Offline"}
-                </span>
-              </div>
-              <ShieldCheck
-                className={`w-5 h-5 ${
-                  status === "online" ? "text-emerald-500" : "text-red-500"
-                }`}
-              />
-            </div>
-
-            <div className="space-y-5">
-              <StatsBar label="CPU Load" value={stats.cpu} gradientFrom="from-emerald-500" gradientTo="to-emerald-500" />
-              <StatsBar label="Memory Usage" value={stats.mem} gradientFrom="from-blue-500" gradientTo="to-blue-500" />
-              <StatsBar label="Network" value={stats.net} gradientFrom="from-indigo-500" gradientTo="to-indigo-500" />
-            </div>
-
-            <div className="grid grid-cols-3 text-center mt-8 border-t border-white/30 pt-6">
-              <div>
-                <div className="text-2xl font-bold text-blue-700">99.8%</div>
-                <div className="text-sm text-gray-600">Uptime</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-800">24/7</div>
-                <div className="text-sm text-gray-600">Support</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-indigo-700">50+</div>
-                <div className="text-sm text-gray-600">Clients</div>
-              </div>
-            </div>
+            </Button>
           </div>
         </div>
 
-        {/* Animations */}
-        <style>{`
-          @keyframes float {0%,100%{transform:translateY(0);opacity:0.5;}50%{transform:translateY(20px);opacity:0.8;}}
-          @keyframes float-delay {0%,100%{transform:translateY(0);opacity:0.6;}50%{transform:translateY(-20px);opacity:0.9;}}
-          @keyframes fade-in-up {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-          @keyframes fade-in-scale {from{opacity:0;transform:scale(0.95) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
-          .animate-float {animation: float 12s ease-in-out infinite; will-change: transform, opacity;}
-          .animate-float-delay {animation: float-delay 10s ease-in-out infinite; will-change: transform, opacity;}
-          .animate-fade-in-up {animation: fade-in-up 0.8s ease-out forwards;}
-          .animate-fade-in-scale {animation: fade-in-scale 0.8s ease-out 0.3s forwards; opacity:0;}
-        `}</style>
-      </section>
-    </>
+        {/* Right Panel */}
+        <div className="relative bg-card border border-border rounded-3xl p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-3">
+              <div
+                className={`w-3 h-3 rounded-full ${
+                  status === "online" ? "bg-emerald animate-pulse" : "bg-destructive"
+                }`}
+              />
+              <span className="font-medium text-card-foreground">
+                {status === "online" ? "Server Aktif" : "Server Offline"}
+              </span>
+            </div>
+            <ShieldCheck
+              className={`w-5 h-5 ${
+                status === "online" ? "text-emerald" : "text-destructive"
+              }`}
+            />
+          </div>
+
+          <div className="space-y-5">
+            <StatsBar label="CPU Load" value={stats.cpu} color="bg-emerald" />
+            <StatsBar label="Memory Usage" value={stats.mem} color="bg-blue" />
+            <StatsBar label="Network" value={stats.net} color="bg-indigo" />
+          </div>
+
+          <div className="grid grid-cols-3 text-center mt-8 border-t border-border pt-6">
+            <div>
+              <div className="text-2xl font-bold text-primary">99.8%</div>
+              <div className="text-sm text-muted-foreground">Uptime</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-foreground">24/7</div>
+              <div className="text-sm text-muted-foreground">Support</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-primary">50+</div>
+              <div className="text-sm text-muted-foreground">Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

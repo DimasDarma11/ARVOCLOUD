@@ -10,6 +10,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let ticking = false;
@@ -31,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ onAboutClick, onContactClick }) => {
     { name: "Pricing", desc: "Paket fleksibel untuk setiap kebutuhan", href: "#pricing" },
     { name: "About", desc: "Cerita dan misi kami di balik Arvocloud", action: onAboutClick },
     { name: "Contact", desc: "Hubungi tim kami untuk kolaborasi", action: onContactClick },
-    { name: "Rules", desc: "Peraturan penggunaan server Arvocloud", href: "/rules" },
+    { name: "Rules", desc: "Peraturan penggunaan server Arvocloud", route: "/rules" },
   ];
 
   const handleMenuClick = (item: typeof menuItems[0]) => {

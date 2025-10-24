@@ -264,7 +264,7 @@ const Pricing = () => {
                 onClick={() => handleOpenModal(plan)}
                 className="w-full py-3 rounded-xl font-semibold transition-all duration-300 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-glow)]"
               >
-                Mulai Sekarang
+                🛒 Order Sekarang
               </button>
               
               <div className="absolute inset-0 rounded-2xl bg-[var(--gradient-overlay)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

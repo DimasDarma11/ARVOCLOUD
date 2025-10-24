@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
       <NoticeModal />
       <section
         id="home"
-        className="relative flex items-center justify-center min-h-screen bg-background overflow-hidden"
+        className="relative flex items-center justify-center min-h-[70vh] py-12 bg-background overflow-hidden"
       >
         <div className="absolute inset-0 pointer-events-none opacity-30">
           <div className="absolute top-20 left-10 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />

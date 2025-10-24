@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
           <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 py-24 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 container mx-auto px-6 py-24 flex flex-col items-center justify-center text-center max-w-3xl">
           <div className="text-center lg:text-left space-y-6">
             <div className="inline-flex items-center bg-accent/50 px-4 py-2 rounded-full text-sm font-medium text-accent-foreground">
               <Activity className="w-4 h-4 mr-2" />

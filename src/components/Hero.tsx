@@ -96,19 +96,19 @@ const Hero: React.FC = () => {
               Infrastruktur Cloud Handal
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-extrabold text-foreground">
+            <h1 className="text-5xl lg:text-6xl font-extrabold text-foreground leading-tight">
               Solusi <span className="text-primary">VPS & RDP Premium</span> untuk bisnis anda.
             </h1>
 
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Performa tinggi, uptime 99.8%, dan support 24/7. Infrastruktur modern untuk bisnis, developer, dan kreator.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
               <Button
                 asChild
                 size="lg"
-                className="text-lg h-14 px-8 rounded-xl group"
+                className="text-lg h-14 px-8 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300"
               >
                 <a href="#pricing">
                   Mulai Sekarang
@@ -117,7 +117,7 @@ const Hero: React.FC = () => {
               </Button>
             </div>
 
-            <div className="flex flex-wrap justify-center items-center gap-6 mt-8 text-base text-muted-foreground">
+            <div className="flex flex-wrap justify-center items-center gap-6 mt-10 text-base text-muted-foreground">
               <div className="flex items-center gap-2">
                 ⚡ <span>99.8% Uptime Stabil</span>
               </div>

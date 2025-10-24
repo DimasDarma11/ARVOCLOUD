@@ -46,13 +46,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-// ============ STATS BAR COMPONENT ============
-interface StatsBarProps {
-  label: string;
-  value: number;
-  color?: string;
-}
-
 const StatsBar: React.FC<StatsBarProps> = ({ label, value, color = "bg-primary" }) => (
   <div>
     <div className="flex justify-between text-sm text-muted-foreground mb-1">
@@ -91,14 +84,12 @@ const Hero: React.FC = () => {
         id="home"
         className="relative flex items-center justify-center min-h-screen bg-background overflow-hidden"
       >
-        {/* Ambient decorations */}
         <div className="absolute inset-0 pointer-events-none opacity-30">
           <div className="absolute top-20 left-10 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 container mx-auto px-6 py-24 grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left */}
           <div className="text-center lg:text-left space-y-6">
             <div className="inline-flex items-center bg-accent/50 px-4 py-2 rounded-full text-sm font-medium text-accent-foreground">
               <Activity className="w-4 h-4 mr-2" />
@@ -125,46 +116,16 @@ const Hero: React.FC = () => {
                 </a>
               </Button>
             </div>
-          </div>
 
-          {/* Right Panel */}
-          <div className="relative bg-card border border-border rounded-3xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-3">
-                <div
-                  className={`w-3 h-3 rounded-full ${
-                    status === "online" ? "bg-emerald-500 animate-pulse" : "bg-destructive"
-                  }`}
-                />
-                <span className="font-medium text-card-foreground">
-                  {status === "online" ? "Server Aktif" : "Server Offline"}
-                </span>
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-8 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                ⚡ <span>99.8% Uptime Stabil</span>
               </div>
-              <ShieldCheck
-                className={`w-5 h-5 ${
-                  status === "online" ? "text-emerald-500" : "text-destructive"
-                }`}
-              />
-            </div>
-
-            <div className="space-y-5">
-              <StatsBar label="CPU Load" value={stats.cpu} color="bg-emerald-500" />
-              <StatsBar label="Memory Usage" value={stats.mem} color="bg-blue-500" />
-              <StatsBar label="Network" value={stats.net} color="bg-indigo-500" />
-            </div>
-
-            <div className="grid grid-cols-3 text-center mt-8 border-t border-border pt-6">
-              <div>
-                <div className="text-2xl font-bold text-primary">99.8%</div>
-                <div className="text-sm text-muted-foreground">Uptime</div>
+              <div className="flex items-center gap-2">
+                💬 <span>Support Cepat 24/7</span>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground">24/7</div>
-                <div className="text-sm text-muted-foreground">Support</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-primary">50+</div>
-                <div className="text-sm text-muted-foreground">Clients</div>
+              <div className="flex items-center gap-2">
+                🌍 <span>Server Indonesia & USA</span>
               </div>
             </div>
           </div>

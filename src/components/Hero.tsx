@@ -90,7 +90,7 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="relative z-10 container mx-auto px-6 py-24 flex flex-col items-center justify-center text-center max-w-3xl">
-          <div className="text-center lg:text-left space-y-6">
+          <div className="text-center space-y-6 mx-auto max-w-3xl">
             <div className="inline-flex items-center bg-accent/50 px-4 py-2 rounded-full text-sm font-medium text-accent-foreground">
               <Activity className="w-4 h-4 mr-2" />
               Infrastruktur Cloud Handal
@@ -117,7 +117,7 @@ const Hero: React.FC = () => {
               </Button>
             </div>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-8 text-sm text-muted-foreground">
+            <div className="flex flex-wrap justify-center items-center gap-6 mt-8 text-base text-muted-foreground">
               <div className="flex items-center gap-2">
                 ⚡ <span>99.8% Uptime Stabil</span>
               </div>

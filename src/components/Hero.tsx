@@ -124,22 +124,6 @@ const Hero: React.FC = () => {
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
-
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="text-lg h-14 px-8 rounded-xl group"
-              >
-                <a
-                  href="https://wa.me/6283197183724?text=Halo,%20saya%20mau%20trial%20VPS/RDP"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                  Trial
-                </a>
-              </Button>
             </div>
           </div>
 

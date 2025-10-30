@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, LucideIcon } from "lucide-react";
+import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, LucideIcon, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../lib/utils";
 
@@ -57,7 +57,7 @@ const Pricing = () => {
       { name: "VPS TURBO 1", icon: Zap, price: { bulanan: 50000, tahunan: 550000 }, desc: "Pilihan hemat untuk project kecil atau pengujian pengembang.", specs: { cpu: "1 vCPU", ram: "1 GB", storage: "15 GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
       { name: "VPS TURBO 2", icon: Zap, price: { bulanan: 75000, tahunan: 825000 }, desc: "Cocok untuk website ringan, bot, atau aplikasi skala kecil.", specs: { cpu: "1 vCPU", ram: "2 GB", storage: "20 GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
       { name: "VPS TURBO 3", icon: Zap, price: { bulanan: 150000, tahunan: 1650000 }, desc: "Ideal untuk website, panel hosting, atau aplikasi ringan-menengah.", specs: { cpu: "2 vCPU", ram: "4 GB", storage: "50 GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
-      { name: "VPS TURBO 4", icon: Zap, price: { bulanan: 170000, tahunan: 1870000 }, desc: "Pilihan seimbang untuk aplikasi menengah dan server komunitas.", specs: { cpu: "4 vCPU", ram: "6 GB", storage: "60 GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
+      { name: "VPS TURBO 4", icon: Star, price: { bulanan: 170000, tahunan: 1870000 }, desc: "Pilihan seimbang untuk aplikasi menengah dan server komunitas.", specs: { cpu: "4 vCPU", ram: "6 GB", storage: "60 GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
       { name: "VPS TURBO 5", icon: Star, price: { bulanan: 200000, tahunan: 2200000 }, desc: "Performa tinggi untuk bisnis kecil, e-commerce, atau tim pengembang.", specs: { cpu: "4 vCPU", ram: "8 GB", storage: "70GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
       { name: "VPS TURBO 6", icon: Crown, price: { bulanan: 230000, tahunan: 2530000 }, desc: "Kinerja optimal untuk bisnis menengah dan server aplikasi berat.", specs: { cpu: "6 vCPU", ram: "10 GB", storage: "80 GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
       { name: "VPS TURBO 7", icon: Crown, price: { bulanan: 300000, tahunan: 3300000 }, desc: "Performa tinggi untuk bisnis profesional dan server produksi.", specs: { cpu: "8 vCPU", ram: "14 GB", storage: "100 GB SSD NVMe", network: "Speed UpTo 10 Gbps", ip: "1 IPv4", os: "Ubuntu atau Debian", region: "🇮🇩 Indonesia" } },
@@ -172,11 +172,23 @@ const Pricing = () => {
   const isProxyCategory = selectedCategory === "proxy";
 
   return (
-    <section id="pricing" className="py-20 md:py-28 bg-gradient-to-b from-background via-muted/30 to-muted/50">
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+    <section id="pricing" className="relative py-20 md:py-28 bg-gradient-to-b from-background via-blue-950/5 to-background overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-32 left-20 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-32 right-20 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]" />
+      </div>
+
+      <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Harga yang <span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">Transparan</span>
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/10 to-blue-400/10 backdrop-blur-sm border border-blue-500/20 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Sparkles className="w-4 h-4 text-blue-500" />
+            <span className="text-blue-500 font-semibold">Paket Harga Terbaik</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-4">
+            Harga yang <span className="bg-gradient-to-r from-blue-500 to-blue-400 bg-clip-text text-transparent">Transparan</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
             Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
@@ -190,13 +202,13 @@ const Pricing = () => {
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
               className={cn(
-                "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl border transition-all duration-300",
+                "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl border-2 transition-all duration-300 backdrop-blur-sm",
                 selectedCategory === c.id
-                  ? "bg-primary text-primary-foreground border-primary shadow-[var(--shadow-glow)] scale-105"
-                  : "bg-card text-card-foreground border-border hover:border-primary/50 hover:shadow-[var(--shadow-sm)]"
+                  ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white border-blue-500 shadow-lg shadow-blue-500/30 scale-105"
+                  : "bg-card/80 text-card-foreground border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/5"
               )}
             >
-              <c.icon className={cn("w-4 h-4 sm:w-5 sm:h-5", selectedCategory === c.id && "drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]")} />
+              <c.icon className={cn("w-4 h-4 sm:w-5 sm:h-5", selectedCategory === c.id && "drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]")} />
               <span className="font-medium text-sm sm:text-base">{c.name}</span>
             </button>
           ))}
@@ -210,19 +222,19 @@ const Pricing = () => {
           <button
             onClick={() => setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")}
             className={cn(
-              "relative w-16 sm:w-20 h-9 sm:h-10 rounded-full p-1 flex items-center transition-all duration-300 border",
-              billingCycle === "tahunan" ? "bg-primary/20 border-primary" : "bg-muted border-border"
+              "relative w-16 sm:w-20 h-9 sm:h-10 rounded-full p-1 flex items-center transition-all duration-300 border-2",
+              billingCycle === "tahunan" ? "bg-blue-500/20 border-blue-500" : "bg-muted border-border"
             )}
           >
             <motion.div
               layout
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
               className={cn(
-                "w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-primary shadow-md flex items-center justify-center",
+                "w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 shadow-md flex items-center justify-center",
                 billingCycle === "tahunan" ? "translate-x-7 sm:translate-x-10" : "translate-x-0"
               )}
             >
-              <span className="text-primary-foreground text-[10px] font-semibold">{billingCycle === "bulanan" ? "B" : "T"}</span>
+              <span className="text-white text-[10px] font-bold">{billingCycle === "bulanan" ? "B" : "T"}</span>
             </motion.div>
           </button>
           <span className={cn("text-sm sm:text-base font-medium transition-all", billingCycle === "tahunan" ? "text-foreground scale-105" : "text-muted-foreground")}>
@@ -232,44 +244,75 @@ const Pricing = () => {
 
         {/* Pricing Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {currentPlans.map((plan, i) => (
-            <div
-              key={i}
-              className="group relative rounded-2xl p-6 md:p-8 border border-border bg-card hover:border-primary/50 hover:shadow-[var(--shadow-lg)] transition-all duration-200"
-            >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-5 bg-primary/10 rounded-xl flex items-center justify-center">
-                <plan.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
-              </div>
-              
-              <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2 text-center">{plan.name}</h3>
-              <p className="text-muted-foreground text-xs sm:text-sm mb-6 text-center line-clamp-2">{plan.desc}</p>
-              
-              <div className="text-3xl sm:text-4xl font-extrabold text-primary mb-6 text-center">
-                Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-                <span className="text-muted-foreground text-xs sm:text-sm ml-1 font-medium">
-                  /{billingCycle === "bulanan" ? "bln" : "thn"}
-                </span>
-              </div>
-              
-              <div className="text-card-foreground text-xs sm:text-sm space-y-2 mb-8">
-                {Object.entries(plan.specs).slice(0, 4).map(([k, v]: [string, string]) => (
-                  <div key={k} className="flex justify-between items-start gap-2">
-                    <span className="capitalize text-muted-foreground">{k}:</span>
-                    <span className="font-medium text-right">{v}</span>
-                  </div>
-                ))}
-              </div>
-              
-              <button
-                onClick={() => handleOpenModal(plan)}
-                className="w-full py-3 rounded-xl font-semibold transition-all duration-300 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-glow)]"
+          {currentPlans.map((plan, i) => {
+            const isPremium = plan.icon === Crown || plan.icon === Star;
+            
+            return (
+              <div
+                key={i}
+                className={cn(
+                  "group relative rounded-2xl p-6 md:p-8 border-2 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl transition-all duration-300",
+                  isPremium
+                    ? "border-blue-500/40 hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/20"
+                    : "border-blue-500/20 hover:border-blue-500/40 hover:shadow-xl hover:shadow-blue-500/10",
+                  "hover:scale-105"
+                )}
               >
-                🛒 Order Sekarang
-              </button>
-              
-              <div className="absolute inset-0 rounded-2xl bg-[var(--gradient-overlay)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </div>
-          ))}
+                {isPremium && (
+                  <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    ⭐ Popular
+                  </div>
+                )}
+
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative">
+                  <div className={cn(
+                    "w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-5 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300",
+                    isPremium
+                      ? "bg-gradient-to-br from-blue-500/30 to-blue-600/20"
+                      : "bg-gradient-to-br from-blue-500/20 to-blue-600/10"
+                  )}>
+                    <plan.icon className={cn("w-6 h-6 sm:w-7 sm:h-7", isPremium ? "text-blue-400" : "text-blue-500")} />
+                  </div>
+                  
+                  <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2 text-center group-hover:text-blue-500 transition-colors duration-300">
+                    {plan.name}
+                  </h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm mb-6 text-center line-clamp-2">
+                    {plan.desc}
+                  </p>
+                  
+                  <div className="text-center mb-6">
+                    <div className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-blue-500 to-blue-400 bg-clip-text text-transparent">
+                      Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+                    </div>
+                    <span className="text-muted-foreground text-xs sm:text-sm font-medium">
+                      /{billingCycle === "bulanan" ? "bulan" : "tahun"}
+                    </span>
+                  </div>
+                  
+                  <div className="text-card-foreground text-xs sm:text-sm space-y-2 mb-8">
+                    {Object.entries(plan.specs).slice(0, 4).map(([k, v]: [string, string]) => (
+                      <div key={k} className="flex justify-between items-start gap-2">
+                        <span className="capitalize text-muted-foreground">{k}:</span>
+                        <span className="font-medium text-right">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <button
+                    onClick={() => handleOpenModal(plan)}
+                    className="w-full py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/30"
+                  >
+                    🛒 Order Sekarang
+                  </button>
+                </div>
+
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            );
+          })}
         </div>
 
         {/* Order Modal */}
@@ -280,19 +323,19 @@ const Pricing = () => {
               onClick={handleCloseModal}
             >
               <div
-                className="bg-card rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col animate-in zoom-in-95 duration-200"
+                className="bg-card rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col animate-in zoom-in-95 duration-200 border-2 border-blue-500/20"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Header */}
-                <div className="bg-primary text-primary-foreground p-6 flex-shrink-0">
+                <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 flex-shrink-0">
                   <div className="flex items-center justify-between mb-6">
                     <div>
                       <h3 className="text-xl sm:text-2xl font-bold">{selectedPlan.name}</h3>
-                      <p className="text-primary-foreground/80 text-sm mt-1">Lengkapi formulir pemesanan</p>
+                      <p className="text-white/80 text-sm mt-1">Lengkapi formulir pemesanan</p>
                     </div>
                     <button
                       onClick={handleCloseModal}
-                      className="w-10 h-10 rounded-full bg-primary-foreground/20 hover:bg-primary-foreground/30 flex items-center justify-center transition-all"
+                      className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all"
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -305,7 +348,7 @@ const Pricing = () => {
                         <div
                           className={cn(
                             "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-200",
-                            currentStep >= step ? "bg-primary-foreground text-primary" : "bg-primary-foreground/30 text-primary-foreground"
+                            currentStep >= step ? "bg-white text-blue-600" : "bg-white/30 text-white"
                           )}
                         >
                           {step}
@@ -315,7 +358,7 @@ const Pricing = () => {
                             className={cn(
                               "h-1 rounded transition-all duration-200 flex-1 mx-1",
                               isProxyCategory ? "max-w-16" : "max-w-8",
-                              currentStep > step ? "bg-primary-foreground" : "bg-primary-foreground/30"
+                              currentStep > step ? "bg-white" : "bg-white/30"
                             )}
                           />
                         )}
@@ -327,7 +370,7 @@ const Pricing = () => {
                 {/* Form Content */}
                 <div className="p-6 sm:p-8 overflow-y-auto flex-1">
                   <div className="animate-in fade-in slide-in-from-right-5 duration-200">
-                    {/* Step 1: Region Selection (Non-Proxy) */}
+                    {/* Step 1: Region Selection */}
                     {currentStep === 1 && !isProxyCategory && (
                       <div className="space-y-4">
                         <h4 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Pilih Region</h4>
@@ -339,13 +382,13 @@ const Pricing = () => {
                               className={cn(
                                 "p-4 rounded-xl border-2 transition-all text-left",
                                 formData.region === r
-                                  ? "border-primary bg-primary/10 shadow-[var(--shadow-md)]"
-                                  : "border-border bg-card hover:border-primary/50"
+                                  ? "border-blue-500 bg-blue-500/10 shadow-md"
+                                  : "border-border bg-card hover:border-blue-500/50"
                               )}
                             >
                               <div className="flex items-center justify-between">
                                 <span className="text-base sm:text-lg font-semibold text-card-foreground">{r}</span>
-                                {formData.region === r && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />}
+                                {formData.region === r && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />}
                               </div>
                             </button>
                           ))}
@@ -364,22 +407,22 @@ const Pricing = () => {
                             min={1}
                             value={formData.quantity}
                             onChange={(e) => setFormData({ ...formData, quantity: Math.max(1, parseInt(e.target.value) || 1) })}
-                            className="w-full px-4 py-3 rounded-xl border-2 border-border bg-background focus:border-primary focus:outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border-2 border-border bg-background focus:border-blue-500 focus:outline-none transition-all"
                           />
                         </div>
                         <div>
                           <label className="block text-sm font-semibold text-card-foreground mb-2">
-                            Digunakan Untuk Apa? <span className="text-destructive">*</span>
+                            Digunakan Untuk Apa? <span className="text-red-500">*</span>
                           </label>
                           <textarea
                             value={formData.usage}
                             onChange={(e) => setFormData({ ...formData, usage: e.target.value })}
                             placeholder="Contoh: Hosting website e-commerce, development aplikasi, dll."
                             rows={4}
-                            className="w-full px-4 py-3 rounded-xl border-2 border-border bg-background focus:border-primary focus:outline-none transition-all resize-none"
+                            className="w-full px-4 py-3 rounded-xl border-2 border-border bg-background focus:border-blue-500 focus:outline-none transition-all resize-none"
                           />
                           {formData.usage.trim() === "" && (
-                            <p className="text-destructive text-xs mt-1">Field ini wajib diisi</p>
+                            <p className="text-red-500 text-xs mt-1">Field ini wajib diisi</p>
                           )}
                         </div>
                       </div>
@@ -397,13 +440,13 @@ const Pricing = () => {
                               className={cn(
                                 "p-4 rounded-xl border-2 transition-all text-left",
                                 formData.os === os
-                                  ? "border-primary bg-primary/10 shadow-[var(--shadow-md)]"
-                                  : "border-border bg-card hover:border-primary/50"
+                                  ? "border-blue-500 bg-blue-500/10 shadow-md"
+                                  : "border-border bg-card hover:border-blue-500/50"
                               )}
                             >
                               <div className="flex items-center justify-between">
                                 <span className="text-base sm:text-lg font-semibold text-card-foreground">{os}</span>
-                                {formData.os === os && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />}
+                                {formData.os === os && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />}
                               </div>
                             </button>
                           ))}
@@ -411,14 +454,14 @@ const Pricing = () => {
                         
                         {/* IP Options */}
                         {selectedCategory === "rdp" && (
-                          <div className="mt-6 p-4 bg-primary/10 rounded-xl border-2 border-primary/30">
+                          <div className="mt-6 p-4 bg-blue-500/10 rounded-xl border-2 border-blue-500/30">
                             <div className="flex items-start gap-3">
                               <input
                                 type="checkbox"
                                 id="ipPublic"
                                 checked={formData.ipPublic}
                                 onChange={(e) => setFormData({ ...formData, ipPublic: e.target.checked })}
-                                className="mt-1 w-5 h-5 text-primary rounded focus:ring-primary"
+                                className="mt-1 w-5 h-5 text-blue-500 rounded focus:ring-blue-500"
                               />
                               <div className="flex-1">
                                 <label htmlFor="ipPublic" className="font-semibold text-card-foreground cursor-pointer block">
@@ -433,9 +476,9 @@ const Pricing = () => {
                         )}
                         
                         {selectedCategory === "vps" && (
-                          <div className="mt-6 p-4 bg-primary/10 rounded-xl border-2 border-primary/30">
+                          <div className="mt-6 p-4 bg-blue-500/10 rounded-xl border-2 border-blue-500/30">
                             <div className="flex items-center gap-2">
-                              <Check className="w-5 h-5 text-primary" />
+                              <Check className="w-5 h-5 text-blue-500" />
                               <span className="font-semibold text-card-foreground">IP Public sudah termasuk dalam paket</span>
                             </div>
                           </div>
@@ -467,8 +510,8 @@ const Pricing = () => {
                                 className={cn(
                                   "p-4 rounded-xl border-2 transition-all text-left",
                                   formData.duration === duration
-                                    ? "border-primary bg-primary/10 shadow-[var(--shadow-md)]"
-                                    : "border-border bg-card hover:border-primary/50"
+                                    ? "border-blue-500 bg-blue-500/10 shadow-md"
+                                    : "border-border bg-card hover:border-blue-500/50"
                                 )}
                               >
                                 <div className="flex items-center justify-between">
@@ -476,7 +519,7 @@ const Pricing = () => {
                                     <span className="text-base sm:text-lg font-semibold text-card-foreground block">{duration}</span>
                                     <span className="text-sm text-muted-foreground">Rp{price.toLocaleString("id-ID")}</span>
                                   </div>
-                                  {formData.duration === duration && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />}
+                                  {formData.duration === duration && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />}
                                 </div>
                               </button>
                             );
@@ -489,7 +532,7 @@ const Pricing = () => {
                     {((currentStep === 5 && !isProxyCategory) || (currentStep === 3 && isProxyCategory)) && (
                       <div className="space-y-6">
                         <h4 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Konfirmasi Pesanan</h4>
-                        <div className="bg-primary/10 rounded-xl p-6 space-y-3">
+                        <div className="bg-blue-500/10 rounded-xl p-6 space-y-3 border-2 border-blue-500/20">
                           <div className="flex justify-between items-start gap-4">
                             <span className="text-muted-foreground font-medium text-sm">📦 Nama Paket:</span>
                             <span className="text-card-foreground font-bold text-right">{selectedPlan.name}</span>
@@ -507,8 +550,7 @@ const Pricing = () => {
                                 <span className="text-card-foreground font-semibold text-right">{formData.os}</span>
                               </div>
                               
-                              {/* IP Information - Highlighted */}
-                              <div className="flex justify-between items-start gap-4 bg-primary/20 -mx-2 px-4 py-3 rounded-lg border-l-4 border-primary">
+                              <div className="flex justify-between items-start gap-4 bg-blue-500/20 -mx-2 px-4 py-3 rounded-lg border-l-4 border-blue-500">
                                 <span className="text-card-foreground font-semibold text-sm">🌐 Tipe IP:</span>
                                 <span className="text-card-foreground font-bold text-right">
                                   {selectedCategory === "vps" && "✅ IP Public (Termasuk)"}
@@ -518,7 +560,7 @@ const Pricing = () => {
                               </div>
                               
                               {selectedCategory === "rdp" && formData.ipPublic && (
-                                <div className="bg-primary/10 p-3 rounded-lg -mx-2">
+                                <div className="bg-blue-500/10 p-3 rounded-lg -mx-2">
                                   <p className="text-xs text-card-foreground font-medium">
                                     ℹ️ IP Public memungkinkan open all port untuk kebutuhan yang memerlukan akses port tertentu
                                   </p>
@@ -535,11 +577,13 @@ const Pricing = () => {
                             <span className="text-muted-foreground font-medium text-sm">⏱️ Durasi:</span>
                             <span className="text-card-foreground font-semibold text-right">{formData.duration}</span>
                           </div>
-                          <div className="flex justify-between items-start pt-3 border-t-2 border-primary/30 gap-4">
+                          <div className="flex justify-between items-start pt-3 border-t-2 border-blue-500/30 gap-4">
                             <span className="text-muted-foreground font-medium text-sm">💰 Total Harga:</span>
-                            <span className="text-primary font-bold text-lg sm:text-xl text-right">Rp{getFinalPrice().toLocaleString("id-ID")}</span>
+                            <span className="bg-gradient-to-r from-blue-500 to-blue-400 bg-clip-text text-transparent font-bold text-lg sm:text-xl text-right">
+                              Rp{getFinalPrice().toLocaleString("id-ID")}
+                            </span>
                           </div>
-                          <div className="flex flex-col pt-3 border-t-2 border-primary/30">
+                          <div className="flex flex-col pt-3 border-t-2 border-blue-500/30">
                             <span className="text-muted-foreground font-medium text-sm mb-2">🎯 Digunakan Untuk:</span>
                             <span className="text-card-foreground font-semibold bg-background p-3 rounded-lg text-sm">{formData.usage}</span>
                           </div>
@@ -548,7 +592,7 @@ const Pricing = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                           <button
                             onClick={handleWhatsAppOrder}
-                            className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-lg hover:shadow-xl"
+                            className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-lg hover:shadow-xl hover:scale-105"
                           >
                             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
@@ -557,7 +601,7 @@ const Pricing = () => {
                           </button>
                           <button
                             onClick={handleTelegramOrder}
-                            className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl"
+                            className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-lg hover:shadow-xl hover:scale-105"
                           >
                             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
@@ -580,7 +624,7 @@ const Pricing = () => {
                         "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-all text-sm sm:text-base",
                         currentStep === 1
                           ? "bg-muted text-muted-foreground cursor-not-allowed"
-                          : "bg-card text-card-foreground border-2 border-border hover:border-primary hover:text-primary"
+                          : "bg-card text-card-foreground border-2 border-blue-500/20 hover:border-blue-500 hover:text-blue-500"
                       )}
                     >
                       <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -595,7 +639,7 @@ const Pricing = () => {
                       className={cn(
                         "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-all text-sm sm:text-base",
                         canProceed()
-                          ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                          ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600"
                           : "bg-muted text-muted-foreground cursor-not-allowed"
                       )}
                     >

@@ -136,26 +136,6 @@ const Services: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <div
-          className={`mt-16 transition-all duration-700 delay-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <p className="text-muted-foreground mb-6">
-            Butuh solusi yang lebih spesifik?
-          </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-          >
-            Hubungi Kami
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </div>
       </div>
     </section>
   );

@@ -72,7 +72,7 @@ const Pricing = () => {
       { name: "RDP 4", icon: Crown, price: { bulanan: 185000, tahunan: 2035000 }, desc: "Performa tinggi dengan dukungan 24/7", specs: { cpu: "Ryzen 7 5700G ( 4 Cores )", ram: "7 GB", storage: "120 GB SSD", os: "Windows 10 atau 11 (Spectre Edition)", region: "🇺🇸 USA", emulator: "⚠️ Tidak support emulator / game" } },
     ],
     baremetal: [
-      { name: "Bare Metal ID 1", icon: Zap, price: { bulanan: 350000, tahunan: 3850000 }, desc: "Entry-level dedicated server", specs: { cpu: "Intel Core i3 Gen 6", ram: "8 GB", storage: "256 GB SSD", bandwidth: "Unlimited", region: "🇮🇩 Indonesia", emulator: "1-2 ta", emulator } },
+      { name: "Bare Metal ID 1", icon: Zap, price: { bulanan: 350000, tahunan: 3850000 }, desc: "Entry-level dedicated server", specs: { cpu: "Intel Core i3 Gen 6", ram: "8 GB", storage: "256 GB SSD", bandwidth: "Unlimited", region: "🇮🇩 Indonesia", emulator: "1-2 tab" } },
       { name: "Bare Metal ID 2", icon: Star, price: { bulanan: 400000, tahunan: 4400000 }, desc: "High-performance dedicated server", specs: { cpu: "Intel Core i3 Gen 6", ram: "16 GB", storage: "256 GB SSD", bandwidth: "Unlimited", region: "🇮🇩 Indonesia", emulator: "✅ Support emulator & game" } },
       { name: "Bare Metal ID 3", icon: Crown, price: { bulanan: 450000, tahunan: 4950000 }, desc: "Maximum performance dedicated server", specs: { cpu: "Intel Core i3 Gen 6", ram: "24 GB", storage: "256 GB SSD", bandwidth: "Unlimited", region: "🇮🇩 Indonesia", emulator: "✅ Support emulator & game" } },
       { name: "Bare Metal ID 4", icon: Crown, price: { bulanan: 550000, tahunan: 6050000 }, desc: "Maximum performance dedicated server", specs: { cpu: "Intel Core i3 Gen 6", ram: "32 GB", storage: "256 GB SSD", bandwidth: "Unlimited", region: "🇮🇩 Indonesia", emulator: "✅ Support emulator & game" } },
@@ -283,7 +283,7 @@ const Pricing = () => {
                 </div>
                 
                 <div className="text-card-foreground text-xs sm:text-sm space-y-2 mb-8">
-                  {Object.entries(plan.specs).slice(0, 4).map(([k, v]: [string, string]) => (
+                  {Object.entries(plan.specs).map(([k, v]: [string, string]) => (
                     <div key={k} className="flex justify-between items-start gap-2">
                       <span className="capitalize text-muted-foreground">{k}:</span>
                       <span className="font-medium text-right">{v}</span>

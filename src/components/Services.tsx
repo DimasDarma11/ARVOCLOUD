@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Star, Quote } from "lucide-react";
 
-const Testimonials: React.FC = () => {
+const Services: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 

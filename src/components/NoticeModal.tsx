@@ -41,7 +41,7 @@ const NoticeModal = () => {
           className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-lg pointer-events-auto relative overflow-hidden"
         >
           {/* Header */}
-          <div className="bg-gradient-to-br from-blue-700 via-blue-700 to-blue-700 p-6 text-white border-b border-white/10">
+          <div className="relative bg-gradient-to-br from-blue-700 via-blue-700 to-blue-700 p-6 text-white border-b border-white/10">
             <button
               onClick={handleClose}
               className="absolute top-1/2 -translate-y-1/2 right-5 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"

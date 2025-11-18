@@ -21,26 +21,17 @@ export default function LandingApp() {
         onAboutClick={() => setShowAbout(true)}
         onContactClick={() => setShowContact(true)}
       />
-
       <Hero />
-      <Services />
-
-      {/* Divider ringan, tanpa gradient yang berat */}
       <div className="h-px w-full bg-gray-200/20" />
-
       <Pricing />
-
+      <Services />
       <div className="h-px w-full bg-gray-200/20" />
-
-      {/* Lazy-load About & Contact */}
       <Suspense fallback={null}>
         {showAbout && <About />}
         {showContact && <Contact />}
       </Suspense>
-
       <Footer />
 
-      {/* Floating WA button: animasi ringan & nonaktif blur untuk mobile */}
       <motion.div
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

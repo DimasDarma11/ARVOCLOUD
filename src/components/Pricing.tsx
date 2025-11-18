@@ -1,12 +1,10 @@
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
+import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, Sparkles, Info } from "lucide-react";
 
-// Utility function untuk className conditional
 const cn = (...classes: (string | boolean | undefined)[]) => {
   return classes.filter(Boolean).join(" ");
 };
 
-// Types
 interface PlanSpec {
   [key: string]: string;
 }
@@ -17,6 +15,7 @@ interface Plan {
   price: { bulanan: number; tahunan: number };
   desc: string;
   specs: PlanSpec;
+  highlight?: string; // Fitur utama yang ingin ditonjolkan
 }
 
 interface FormData {
@@ -30,7 +29,7 @@ interface FormData {
 
 type Category = "vps" | "rdp" | "baremetal" | "proxy";
 
-// Memoize PricingCard diluar component utama untuk menghindari re-creation
+// Simplified PricingCard dengan fokus pada conversion
 const PricingCard = React.memo(({ 
   plan, 
   billingCycle, 
@@ -40,71 +39,111 @@ const PricingCard = React.memo(({
   billingCycle: "bulanan" | "tahunan";
   onOpenModal: (plan: Plan) => void;
 }) => {
-  const isPremium = plan.icon === Crown || plan.icon === Star;
+  const [showDetails, setShowDetails] = useState(false);
+  const isPremium = plan.icon === Star;
   const IconComponent = plan.icon;
   
-  // Memoize click handler untuk card ini
   const handleClick = useCallback(() => {
     onOpenModal(plan);
   }, [plan, onOpenModal]);
   
+  const topSpecs = useMemo(() => {
+    const entries = Object.entries(plan.specs);
+    return entries.slice(0, 3);
+  }, [plan.specs]);
+  
   return (
     <div
       className={cn(
-        "relative rounded-2xl p-6 md:p-8 border-2 bg-white dark:bg-gray-900 transition-all",
+        "relative rounded-2xl p-5 border-2 bg-white dark:bg-gray-900 transition-all hover:shadow-xl",
         isPremium
-          ? "border-blue-500/40 hover:border-blue-500"
-          : "border-blue-500/20 hover:border-blue-500/40"
+          ? "border-blue-500 shadow-lg shadow-blue-500/20"
+          : "border-gray-200 dark:border-gray-800"
       )}
     >
       {isPremium && (
-        <div className="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-          ⭐ Popular
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
+          ⭐ Terpopuler
         </div>
       )}
       
-      <div className={cn(
-        "w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-5 rounded-xl flex items-center justify-center",
-        isPremium ? "bg-blue-500/20" : "bg-blue-500/10"
-      )}>
-        <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-blue-500" />
+      {/* Icon & Name - Lebih compact */}
+      <div className="text-center mb-4 mt-2">
+        <div className={cn(
+          "w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center",
+          isPremium ? "bg-blue-500" : "bg-blue-500/10"
+        )}>
+          <IconComponent className={cn("w-6 h-6", isPremium ? "text-white" : "text-blue-500")} />
+        </div>
+        
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+          {plan.name}
+        </h3>
       </div>
       
-      <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">
-        {plan.name}
-      </h3>
-      <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-6 text-center line-clamp-2">
-        {plan.desc}
-      </p>
-      
-      <div className="text-center mb-6">
-        <div className="text-3xl sm:text-4xl font-extrabold text-blue-500">
-          Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+      {/* Price - Lebih prominent */}
+      <div className="text-center mb-5 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30 rounded-xl py-4 px-3">
+        <div className="flex items-baseline justify-center gap-1">
+          <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Rp</span>
+          <span className="text-3xl font-black text-blue-600 dark:text-blue-400">
+            {Math.floor(plan.price[billingCycle] / 1000)}
+          </span>
+          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">rb</span>
         </div>
-        <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">
+        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
           /{billingCycle === "bulanan" ? "bulan" : "tahun"}
         </span>
       </div>
       
-      <div className="text-gray-900 dark:text-white text-xs sm:text-sm space-y-2 mb-8">
-        {Object.entries(plan.specs).map(([k, v]: [string, string]) => (
-          <div key={k} className="flex justify-between items-start gap-2">
-            <span className="capitalize text-gray-600 dark:text-gray-400">{k}:</span>
-            <span className="font-medium text-right">{v}</span>
+      {/* Key Specs - Hanya yang penting */}
+      <div className="space-y-2 mb-5">
+        {topSpecs.map(([k, v]) => (
+          <div key={k} className="flex items-center gap-2 text-sm">
+            <Check className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            <span className="text-gray-700 dark:text-gray-300">
+              <span className="font-semibold">{v}</span>
+            </span>
           </div>
         ))}
+        
+        {/* Toggle untuk specs lainnya */}
+        {Object.keys(plan.specs).length > 3 && (
+          <button
+            onClick={() => setShowDetails(!showDetails)}
+            className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium mt-2"
+          >
+            <Info className="w-3 h-3" />
+            {showDetails ? "Sembunyikan detail" : "Lihat detail lengkap"}
+          </button>
+        )}
+        
+        {showDetails && (
+          <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 space-y-2">
+            {Object.entries(plan.specs).slice(3).map(([k, v]) => (
+              <div key={k} className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                <Check className="w-3 h-3 text-gray-400 flex-shrink-0" />
+                <span><span className="capitalize font-medium">{k}:</span> {v}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       
+      {/* CTA Button - Lebih eye-catching */}
       <button
         onClick={handleClick}
-        className="w-full py-3 rounded-xl font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
+        className={cn(
+          "w-full py-3.5 rounded-xl font-bold transition-all text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5",
+          isPremium
+            ? "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white"
+            : "bg-blue-600 hover:bg-blue-700 text-white"
+        )}
       >
-        Order Sekarang
+        Pesan Sekarang →
       </button>
     </div>
   );
 }, (prev, next) => {
-  // Custom comparison untuk menghindari re-render tidak perlu
   return prev.plan === next.plan && prev.billingCycle === next.billingCycle;
 });
 
@@ -126,14 +165,12 @@ const Pricing = () => {
   const whatsappNumber = "6283197183724";
   const telegramUsername = "superku15";
 
-  // useRef untuk tracking tanpa trigger re-render
   const formDataRef = useRef(formData);
   formDataRef.current = formData;
 
-  // Update single field - optimized
   const updateFormField = useCallback((field: keyof FormData, value: any) => {
     setFormData(prev => {
-      if (prev[field] === value) return prev; // Avoid unnecessary updates
+      if (prev[field] === value) return prev;
       return { ...prev, [field]: value };
     });
   }, []);
@@ -196,7 +233,6 @@ const Pricing = () => {
     return [];
   }, [selectedCategory]);
 
-  // CRITICAL: Simplified modal open - no startTransition
   const handleOpenModal = useCallback((plan: Plan) => {
     const initialFormData = selectedCategory === "proxy" 
       ? { region: "🌍 Global", quantity: 1, usage: "", os: "N/A - Proxy Service", duration: "", ipPublic: false }
@@ -273,29 +309,28 @@ const Pricing = () => {
   const isProxyCategory = selectedCategory === "proxy";
 
   return (
-    <section id="pricing" className="relative py-20 md:py-28 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/5">
-      {/* Simplified Background */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl" />
+    <section id="pricing" className="relative py-16 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
-        <div className="text-center mb-12 md:mb-16">
-          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-medium mb-6">
+      <div className="relative container mx-auto px-4 max-w-7xl">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
             <Sparkles className="w-4 h-4 text-blue-500" />
             <span className="text-blue-500 font-semibold">Paket Harga Terbaik</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
-            Harga yang <span className="text-blue-500">Transparan</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-3">
+            Pilih Paket <span className="text-blue-500">Terbaik</span> Anda
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
+          <p className="text-gray-600 dark:text-gray-400 text-base max-w-2xl mx-auto">
+            Harga transparan, tanpa biaya tersembunyi. Semua paket sudah termasuk dukungan 24/7.
           </p>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex justify-center gap-2 sm:gap-3 mb-8 flex-wrap">
+        {/* Category Tabs - Lebih compact */}
+        <div className="flex justify-center gap-2 mb-8 flex-wrap">
           {categories.map((c) => {
             const IconComp = c.icon;
             return (
@@ -303,47 +338,46 @@ const Pricing = () => {
                 key={c.id}
                 onClick={() => setSelectedCategory(c.id)}
                 className={cn(
-                  "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl border-2 transition-colors",
+                  "flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-all text-sm font-medium",
                   selectedCategory === c.id
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-blue-500/20 hover:border-blue-500/40"
+                    ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/30"
+                    : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-800 hover:border-blue-500/40"
                 )}
               >
-                <IconComp className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="font-medium text-sm sm:text-base">{c.name}</span>
+                <IconComp className="w-4 h-4" />
+                <span>{c.name}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Billing Toggle */}
-        <div className="flex items-center justify-center mb-12 gap-3">
-          <span className={cn("text-sm sm:text-base font-medium", billingCycle === "bulanan" ? "text-gray-900 dark:text-white" : "text-gray-600 dark:text-gray-400")}>
+        {/* Billing Toggle - Lebih sederhana */}
+        <div className="flex items-center justify-center mb-10 gap-3">
+          <span className={cn("text-sm font-medium", billingCycle === "bulanan" ? "text-gray-900 dark:text-white" : "text-gray-500")}>
             Bulanan
           </span>
           <button
             onClick={() => setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")}
             className={cn(
-              "relative w-16 sm:w-20 h-9 sm:h-10 rounded-full p-1 flex items-center transition-colors border-2",
-              billingCycle === "tahunan" ? "bg-blue-500/20 border-blue-500" : "bg-gray-200 dark:bg-gray-800 border-gray-300 dark:border-gray-700"
+              "relative w-14 h-7 rounded-full p-0.5 transition-colors",
+              billingCycle === "tahunan" ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700"
             )}
           >
             <div
               className={cn(
-                "w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-blue-600 shadow-md flex items-center justify-center transition-transform",
-                billingCycle === "tahunan" ? "translate-x-7 sm:translate-x-10" : "translate-x-0"
+                "w-6 h-6 rounded-full bg-white shadow-md transition-transform",
+                billingCycle === "tahunan" ? "translate-x-7" : "translate-x-0"
               )}
-            >
-              <span className="text-white text-[10px] font-bold">{billingCycle === "bulanan" ? "B" : "T"}</span>
-            </div>
+            />
           </button>
-          <span className={cn("text-sm sm:text-base font-medium", billingCycle === "tahunan" ? "text-gray-900 dark:text-white" : "text-gray-600 dark:text-gray-400")}>
+          <span className={cn("text-sm font-medium", billingCycle === "tahunan" ? "text-gray-900 dark:text-white" : "text-gray-500")}>
             Tahunan
+            <span className="ml-1 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Hemat 10%</span>
           </span>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Pricing Cards Grid - Optimized spacing */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {currentPlans.map((plan, i) => (
             <PricingCard 
               key={`${plan.name}-${i}`} 
@@ -354,7 +388,7 @@ const Pricing = () => {
           ))}
         </div>
 
-        {/* Order Modal */}
+        {/* Modal - Keep existing modal code */}
         {isModalOpen && selectedPlan && (
           <div
             className="fixed inset-0 flex items-center justify-center bg-black/60 z-[9999] p-4"
@@ -364,7 +398,6 @@ const Pricing = () => {
               className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col border-2 border-blue-500/20"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header */}
               <div className="bg-blue-600 text-white p-6 flex-shrink-0">
                 <div className="flex items-center justify-between mb-6">
                   <div>
@@ -379,7 +412,6 @@ const Pricing = () => {
                   </button>
                 </div>
                 
-                {/* Progress Steps */}
                 <div className="flex items-center justify-between">
                   {Array.from({ length: maxStep }, (_, i) => i + 1).map((step) => (
                     <React.Fragment key={step}>
@@ -405,9 +437,7 @@ const Pricing = () => {
                 </div>
               </div>
 
-              {/* Form Content */}
               <div className="p-6 sm:p-8 overflow-y-auto flex-1">
-                {/* Step 1: Region Selection */}
                 {currentStep === 1 && !isProxyCategory && (
                   <div className="space-y-4">
                     <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Pilih Region</h4>
@@ -433,7 +463,6 @@ const Pricing = () => {
                   </div>
                 )}
 
-                {/* Step 2/1: Quantity & Usage */}
                 {((currentStep === 2 && !isProxyCategory) || (currentStep === 1 && isProxyCategory)) && (
                   <div className="space-y-6">
                     <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Kuantitas dan Kegunaan</h4>
@@ -465,7 +494,6 @@ const Pricing = () => {
                   </div>
                 )}
 
-                {/* Step 3: OS Selection */}
                 {currentStep === 3 && !isProxyCategory && (
                   <div className="space-y-4">
                     <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Pilih Sistem Operasi</h4>
@@ -489,7 +517,6 @@ const Pricing = () => {
                       ))}
                     </div>
                     
-                    {/* IP Options */}
                     {selectedCategory === "rdp" && (
                       <div className="mt-6 p-4 bg-blue-500/10 rounded-xl border-2 border-blue-500/30">
                         <div className="flex items-start gap-3">
@@ -505,7 +532,7 @@ const Pricing = () => {
                               Tambah IP Public (+Rp85.000/bulan)
                             </label>
                             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              Default menggunakan IP NAT. Pilih IP Public jika membutuhkan open all port untuk kebutuhan tertentu.
+                              Default menggunakan IP NAT. Pilih IP Public jika membutuhkan open all port.
                             </p>
                           </div>
                         </div>
@@ -516,22 +543,13 @@ const Pricing = () => {
                       <div className="mt-6 p-4 bg-blue-500/10 rounded-xl border-2 border-blue-500/30">
                         <div className="flex items-center gap-2">
                           <Check className="w-5 h-5 text-blue-500" />
-                          <span className="font-semibold text-gray-900 dark:text-white">IP Public sudah termasuk dalam paket</span>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {selectedCategory === "baremetal" && (
-                      <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-700">
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-gray-900 dark:text-white">🏠 Menggunakan IP Local</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">IP Public sudah termasuk</span>
                         </div>
                       </div>
                     )}
                   </div>
                 )}
 
-                {/* Step 4/2: Duration */}
                 {((currentStep === 4 && !isProxyCategory) || (currentStep === 2 && isProxyCategory)) && (
                   <div className="space-y-4">
                     <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Pilih Durasi</h4>
@@ -565,13 +583,12 @@ const Pricing = () => {
                   </div>
                 )}
 
-                {/* Step 5/3: Confirmation */}
                 {((currentStep === 5 && !isProxyCategory) || (currentStep === 3 && isProxyCategory)) && (
                   <div className="space-y-6">
                     <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Konfirmasi Pesanan</h4>
                     <div className="bg-blue-500/10 rounded-xl p-6 space-y-3 border-2 border-blue-500/20">
                       <div className="flex justify-between items-start gap-4">
-                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">📦 Nama Paket:</span>
+                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">📦 Paket:</span>
                         <span className="text-gray-900 dark:text-white font-bold text-right">{selectedPlan.name}</span>
                       </div>
                       {formData.region && (
@@ -581,33 +598,14 @@ const Pricing = () => {
                         </div>
                       )}
                       {formData.os && !isProxyCategory && (
-                        <>
-                          <div className="flex justify-between items-start gap-4">
-                            <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">💻 OS:</span>
-                            <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.os}</span>
-                          </div>
-                          
-                          <div className="flex justify-between items-start gap-4 bg-blue-500/20 -mx-2 px-4 py-3 rounded-lg border-l-4 border-blue-500">
-                            <span className="text-gray-900 dark:text-white font-semibold text-sm">🌐 Tipe IP:</span>
-                            <span className="text-gray-900 dark:text-white font-bold text-right">
-                              {selectedCategory === "vps" && "✅ IP Public (Termasuk)"}
-                              {selectedCategory === "rdp" && (formData.ipPublic ? "✅ IP Public (+Rp85.000)" : "🔒 IP NAT (Default)")}
-                              {selectedCategory === "baremetal" && "🏠 IP Local"}
-                            </span>
-                          </div>
-                          
-                          {selectedCategory === "rdp" && formData.ipPublic && (
-                            <div className="bg-blue-500/10 p-3 rounded-lg -mx-2">
-                              <p className="text-xs text-gray-900 dark:text-white font-medium">
-                                ℹ️ IP Public memungkinkan open all port untuk kebutuhan yang memerlukan akses port tertentu
-                              </p>
-                            </div>
-                          )}
-                        </>
+                        <div className="flex justify-between items-start gap-4">
+                          <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">💻 OS:</span>
+                          <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.os}</span>
+                        </div>
                       )}
                       
                       <div className="flex justify-between items-start gap-4">
-                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">🔢 Kuantitas:</span>
+                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">🔢 Qty:</span>
                         <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.quantity}</span>
                       </div>
                       <div className="flex justify-between items-start gap-4">
@@ -615,72 +613,67 @@ const Pricing = () => {
                         <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.duration}</span>
                       </div>
                       <div className="flex justify-between items-start pt-3 border-t-2 border-blue-500/30 gap-4">
-                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">💰 Total Harga:</span>
-                        <span className="text-blue-500 font-bold text-lg sm:text-xl text-right">
+                        <span className="text-gray-600 dark:text-gray-400 font-medium">💰 Total:</span>
+                        <span className="text-blue-500 font-bold text-xl text-right">
                           Rp{getFinalPrice.toLocaleString("id-ID")}
                         </span>
                       </div>
-                      <div className="flex flex-col pt-3 border-t-2 border-blue-500/30">
-                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm mb-2">🎯 Digunakan Untuk:</span>
-                        <span className="text-gray-900 dark:text-white font-semibold bg-white dark:bg-gray-800 p-3 rounded-lg text-sm">{formData.usage}</span>
-                      </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <div className="grid grid-cols-2 gap-3 mt-6">
                       <button
                         onClick={handleWhatsAppOrder}
-                        className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-colors bg-[#25D366] hover:bg-[#20BD5A] text-white"
+                        className="flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold transition-all bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-md hover:shadow-lg"
                       >
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                         </svg>
-                        Order via WhatsApp
+                        WhatsApp
                       </button>
                       <button
                         onClick={handleTelegramOrder}
-                        className="flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
+                        className="flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold transition-all bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
                       >
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
                         </svg>
-                        Order via Telegram
+                        Telegram
                       </button>
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Footer Navigation */}
               {currentStep < maxStep && (
-                <div className="bg-gray-100 dark:bg-gray-800 p-4 sm:p-6 border-t flex items-center justify-between flex-shrink-0">
+                <div className="bg-gray-100 dark:bg-gray-800 p-4 border-t flex items-center justify-between flex-shrink-0">
                   <button
                     onClick={handlePrev}
                     disabled={currentStep === 1}
                     className={cn(
-                      "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-colors text-sm sm:text-base",
+                      "flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold transition-colors text-sm",
                       currentStep === 1
-                        ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
-                        : "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-2 border-blue-500/20 hover:border-blue-500 hover:text-blue-500"
+                        ? "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
+                        : "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-2 border-blue-500/20 hover:border-blue-500"
                     )}
                   >
-                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span className="hidden sm:inline">Kembali</span>
+                    <ChevronLeft className="w-4 h-4" />
+                    Kembali
                   </button>
-                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">
                     {currentStep} / {maxStep}
                   </div>
                   <button
                     onClick={handleNext}
                     disabled={!canProceed}
                     className={cn(
-                      "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-colors text-sm sm:text-base",
+                      "flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold transition-colors text-sm",
                       canProceed
                         ? "bg-blue-600 text-white hover:bg-blue-700"
-                        : "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
                     )}
                   >
-                    <span className="hidden sm:inline">Lanjut</span>
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    Lanjut
+                    <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
               )}

@@ -40,28 +40,27 @@ const NoticeModal = () => {
         <div 
           className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-lg pointer-events-auto relative overflow-hidden"
         >
-          {/* Close button */}
-          <button
-            onClick={handleClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors z-10"
-            aria-label="Close"
-          >
-            <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-
-          {/* Header with gradient */}
+          {/* Header */}
           <div className="bg-gradient-to-br from-blue-700 via-blue-700 to-blue-700 p-6 text-white border-b border-white/10">
+            <button
+              onClick={handleClose}
+              className="absolute top-1/2 -translate-y-1/2 right-5 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+            
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center shadow-inner animate-pulse">
                 <AlertCircle className="w-7 h-7 text-white" />
               </div>
 
               <div className="flex flex-col">
-                <h2 className="text-2xl font-extrabold tracking-wide">⚠️ Penting!</h2>
+                <h2 className="text-2xl font-extrabold tracking-wide">Penting!</h2>
                 <p className="text-white/90 text-sm font-medium">
-                  Harap Dibaca Sebelum Melakukan Order
+                   Harap Dibaca Sebelum Melakukan Order
                 </p>
-              </div>
+               </div>
             </div>
           </div>
 
@@ -84,7 +83,7 @@ const NoticeModal = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-green-700 dark:text-green-400 text-lg mb-1">
-                      ✅ GUNAKAN BAREMETAL
+                      GUNAKAN BAREMETAL
                     </h3>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       <span className="font-semibold">Khusus untuk emulator & game!</span><br/>
@@ -102,7 +101,7 @@ const NoticeModal = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-red-700 dark:text-red-400 text-lg mb-1">
-                      ❌ JANGAN GUNAKAN VPS/RDP
+                      JANGAN GUNAKAN VPS/RDP
                     </h3>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       <span className="font-semibold">TIDAK support emulator & game!</span><br/>

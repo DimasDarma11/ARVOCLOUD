@@ -1,6 +1,10 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, LucideIcon, Sparkles } from "lucide-react";
-import { cn } from "../lib/utils";
+import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
+
+// Utility function untuk className conditional
+const cn = (...classes: (string | boolean | undefined)[]) => {
+  return classes.filter(Boolean).join(" ");
+};
 
 // Types
 interface PlanSpec {
@@ -9,7 +13,7 @@ interface PlanSpec {
 
 interface Plan {
   name: string;
-  icon: LucideIcon;
+  icon: React.ComponentType<{ className?: string }>;
   price: { bulanan: number; tahunan: number };
   desc: string;
   specs: PlanSpec;
@@ -44,11 +48,16 @@ const Pricing = () => {
   const whatsappNumber = "6283197183724";
   const telegramUsername = "superku15";
 
+  // Memoize updateFormField untuk mengurangi re-render
+  const updateFormField = useCallback((field: keyof FormData, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  }, []);
+
   const categories = useMemo(() => [
-    { id: "vps" as Category, name: "VPS", icon: Server as LucideIcon },
-    { id: "rdp" as Category, name: "RDP", icon: Monitor as LucideIcon },
-    { id: "baremetal" as Category, name: "Bare Metal", icon: Cpu as LucideIcon },
-    { id: "proxy" as Category, name: "Proxy", icon: ShieldCheck as LucideIcon },
+    { id: "vps" as Category, name: "VPS", icon: Server },
+    { id: "rdp" as Category, name: "RDP", icon: Monitor },
+    { id: "baremetal" as Category, name: "Bare Metal", icon: Cpu },
+    { id: "proxy" as Category, name: "Proxy", icon: ShieldCheck },
   ], []);
 
   const plans = useMemo(() => ({
@@ -69,7 +78,7 @@ const Pricing = () => {
       { name: "RDP 2", icon: Star, price: { bulanan: 150000, tahunan: 1650000 }, desc: "Performa stabil untuk kebutuhan harian", specs: { cpu: "Intel Xeon E5 ( 4 Cores )", ram: "8 GB", storage: "40 GB SSD", emulator: "⚠️ Tidak support emulator / game" } },
       { name: "RDP 3", icon: Crown, price: { bulanan: 260000, tahunan: 2860000 }, desc: "Performa tinggi dengan dukungan 24/7", specs: { cpu: "Intel Xeon E5 ( 6 Cores )", ram: "16 GB", storage: "60 GB SSD", emulator: "⚠️ Tidak support emulator / game" } },
       { name: "RDP 4", icon: Crown, price: { bulanan: 275000, tahunan: 3025000 }, desc: "Performa tinggi dengan dukungan 24/7", specs: { cpu: "Intel Xeon E5 ( 8 Cores )", ram: "16 GB", storage: "80 GB SSD", emulator: "⚠️ Tidak support emulator / game" } },
-      { name: "RDP 4", icon: Crown, price: { bulanan: 185000, tahunan: 2035000 }, desc: "Performa tinggi dengan dukungan 24/7", specs: { cpu: "Ryzen 7 5700G ( 4 Cores )", ram: "7 GB", storage: "120 GB SSD", emulator: "⚠️ Tidak support emulator / game" } },
+      { name: "RDP 5", icon: Crown, price: { bulanan: 185000, tahunan: 2035000 }, desc: "Performa tinggi dengan dukungan 24/7", specs: { cpu: "Ryzen 7 5700G ( 4 Cores )", ram: "7 GB", storage: "120 GB SSD", emulator: "⚠️ Tidak support emulator / game" } },
     ],
     baremetal: [
       { name: "Bare Metal ID 1", icon: Zap, price: { bulanan: 350000, tahunan: 3850000 }, desc: "Entry-level dedicated server", specs: { cpu: "Intel Core i3 Gen 6", ram: "8 GB", storage: "256 GB SSD", bandwidth: "Unlimited", emulator: "✅ Support emulator & game" } },
@@ -103,17 +112,26 @@ const Pricing = () => {
   }, [selectedCategory]);
 
   const handleOpenModal = useCallback((plan: Plan) => {
-    setSelectedPlan(plan);
-    setIsModalOpen(true);
-    setCurrentStep(1);
-    setFormData(selectedCategory === "proxy" ? { region: "🌍 Global", quantity: 1, usage: "", os: "N/A - Proxy Service", duration: "", ipPublic: false } : { region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
+    const initialFormData = selectedCategory === "proxy" 
+      ? { region: "🌍 Global", quantity: 1, usage: "", os: "N/A - Proxy Service", duration: "", ipPublic: false }
+      : { region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false };
+    
+    // Gunakan startTransition untuk non-urgent updates
+    React.startTransition(() => {
+      setSelectedPlan(plan);
+      setFormData(initialFormData);
+      setCurrentStep(1);
+      setIsModalOpen(true);
+    });
   }, [selectedCategory]);
 
   const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setCurrentStep(1);
-    setSelectedPlan(null);
-    setFormData({ region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
+    React.startTransition(() => {
+      setIsModalOpen(false);
+      setCurrentStep(1);
+      setSelectedPlan(null);
+      setFormData({ region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
+    });
   }, []);
 
   const canProceed = useCallback(() => {
@@ -139,41 +157,104 @@ const Pricing = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   }, [currentStep]);
 
-  const getFinalPrice = useCallback(() => {
+  const getFinalPrice = useMemo(() => {
     if (!selectedPlan) return 0;
     let price = (formData.duration === "1 Bulan (30 Hari)" ? selectedPlan.price.bulanan : selectedPlan.price.tahunan) * formData.quantity;
     if (selectedCategory === "rdp" && formData.ipPublic) price += 85000 * formData.quantity;
     return price;
-  }, [selectedPlan, formData, selectedCategory]);
+  }, [selectedPlan, formData.duration, formData.quantity, selectedCategory, formData.ipPublic]);
 
-  const generateOrderMessage = useCallback(() => {
+  const generateOrderMessage = useMemo(() => {
     if (!selectedPlan) return "";
     const categoryName = { vps: "VPS", rdp: "RDP", baremetal: "Bare Metal", proxy: "Proxy" }[selectedCategory];
     
     if (selectedCategory === "proxy") {
-      return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:\n\n📦 Nama Paket: ${selectedPlan.name}\n🌍 Region: ${formData.region}\n🔢 Kuantitas: ${formData.quantity}\n💰 Harga: Rp${getFinalPrice().toLocaleString("id-ID")}\n🎯 Digunakan Untuk: ${formData.usage}\n\nApakah konfigurasi ini tersedia?`;
+      return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:\n\n📦 Nama Paket: ${selectedPlan.name}\n🌍 Region: ${formData.region}\n🔢 Kuantitas: ${formData.quantity}\n💰 Harga: Rp${getFinalPrice.toLocaleString("id-ID")}\n🎯 Digunakan Untuk: ${formData.usage}\n\nApakah konfigurasi ini tersedia?`;
     }
     
     const ipInfo = selectedCategory === "vps" ? "✅ IP Public (Included)" : selectedCategory === "rdp" ? (formData.ipPublic ? "✅ IP Public (+Rp85.000)\n*IP Public untuk open all port" : "🔒 IP NAT (Default)") : "🏠 IP Local";
-    return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:\n\n📦 Nama Paket: ${selectedPlan.name}\n🌍 Region: ${formData.region}\n💻 Sistem Operasi: ${formData.os}\n⚡ CPU: ${selectedPlan.specs.cpu}\n🧠 RAM: ${selectedPlan.specs.ram}\n🌐 IP: ${ipInfo}\n🔢 Kuantitas: ${formData.quantity}\n🛡️ Garansi: Garansi full\n💰 Harga: Rp${getFinalPrice().toLocaleString("id-ID")}\n🎯 Digunakan Untuk: ${formData.usage}\n\nApakah konfigurasi ini tersedia?`;
+    return `Halo, saya ingin memesan ${categoryName} dengan konfigurasi berikut:\n\n📦 Nama Paket: ${selectedPlan.name}\n🌍 Region: ${formData.region}\n💻 Sistem Operasi: ${formData.os}\n⚡ CPU: ${selectedPlan.specs.cpu}\n🧠 RAM: ${selectedPlan.specs.ram}\n🌐 IP: ${ipInfo}\n🔢 Kuantitas: ${formData.quantity}\n🛡️ Garansi: Garansi full\n💰 Harga: Rp${getFinalPrice.toLocaleString("id-ID")}\n🎯 Digunakan Untuk: ${formData.usage}\n\nApakah konfigurasi ini tersedia?`;
   }, [selectedPlan, selectedCategory, formData, getFinalPrice]);
 
   const handleWhatsAppOrder = useCallback(() => {
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank");
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(generateOrderMessage)}`, "_blank");
     handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
   const handleTelegramOrder = useCallback(() => {
-    window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage())}`, "_blank");
+    window.open(`https://t.me/${telegramUsername}?text=${encodeURIComponent(generateOrderMessage)}`, "_blank");
     handleCloseModal();
   }, [generateOrderMessage, handleCloseModal]);
 
   const maxStep = selectedCategory === "proxy" ? 3 : 5;
   const isProxyCategory = selectedCategory === "proxy";
 
+  // Memoize PricingCard component untuk mengurangi re-render
+  const PricingCard = React.memo(({ plan, index }: { plan: Plan; index: number }) => {
+    const isPremium = plan.icon === Crown || plan.icon === Star;
+    const IconComponent = plan.icon;
+    
+    return (
+      <div
+        className={cn(
+          "relative rounded-2xl p-6 md:p-8 border-2 bg-white dark:bg-gray-900 transition-all",
+          isPremium
+            ? "border-blue-500/40 hover:border-blue-500"
+            : "border-blue-500/20 hover:border-blue-500/40"
+        )}
+        style={{ willChange: 'transform' }}
+      >
+        {isPremium && (
+          <div className="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+            ⭐ Popular
+          </div>
+        )}
+        
+        <div className={cn(
+          "w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-5 rounded-xl flex items-center justify-center",
+          isPremium ? "bg-blue-500/20" : "bg-blue-500/10"
+        )}>
+          <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-blue-500" />
+        </div>
+        
+        <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">
+          {plan.name}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-6 text-center line-clamp-2">
+          {plan.desc}
+        </p>
+        
+        <div className="text-center mb-6">
+          <div className="text-3xl sm:text-4xl font-extrabold text-blue-500">
+            Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+          </div>
+          <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">
+            /{billingCycle === "bulanan" ? "bulan" : "tahun"}
+          </span>
+        </div>
+        
+        <div className="text-gray-900 dark:text-white text-xs sm:text-sm space-y-2 mb-8">
+          {Object.entries(plan.specs).map(([k, v]: [string, string]) => (
+            <div key={k} className="flex justify-between items-start gap-2">
+              <span className="capitalize text-gray-600 dark:text-gray-400">{k}:</span>
+              <span className="font-medium text-right">{v}</span>
+            </div>
+          ))}
+        </div>
+        
+        <button
+          onClick={() => handleOpenModal(plan)}
+          className="w-full py-3 rounded-xl font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
+        >
+          Order Sekarang
+        </button>
+      </div>
+    );
+  });
+
   return (
-    <section id="pricing" className="relative py-20 md:py-28 bg-gradient-to-b from-background to-blue-950/5">
-      {/* Simplified Background - hanya 1 blur orb */}
+    <section id="pricing" className="relative py-20 md:py-28 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/5">
+      {/* Simplified Background */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl" />
       </div>
@@ -185,43 +266,46 @@ const Pricing = () => {
             <span className="text-blue-500 font-semibold">Paket Harga Terbaik</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
             Harga yang <span className="text-blue-500">Transparan</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
             Pilih paket sesuai kebutuhan Anda. Semua sudah termasuk dukungan 24/7.
           </p>
         </div>
 
-        {/* Category Tabs - Simplified */}
+        {/* Category Tabs */}
         <div className="flex justify-center gap-2 sm:gap-3 mb-8 flex-wrap">
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setSelectedCategory(c.id)}
-              className={cn(
-                "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl border-2 transition-colors",
-                selectedCategory === c.id
-                  ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-card text-card-foreground border-blue-500/20 hover:border-blue-500/40"
-              )}
-            >
-              <c.icon className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="font-medium text-sm sm:text-base">{c.name}</span>
-            </button>
-          ))}
+          {categories.map((c) => {
+            const IconComp = c.icon;
+            return (
+              <button
+                key={c.id}
+                onClick={() => setSelectedCategory(c.id)}
+                className={cn(
+                  "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl border-2 transition-colors",
+                  selectedCategory === c.id
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-blue-500/20 hover:border-blue-500/40"
+                )}
+              >
+                <IconComp className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="font-medium text-sm sm:text-base">{c.name}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Billing Toggle - Simplified */}
+        {/* Billing Toggle */}
         <div className="flex items-center justify-center mb-12 gap-3">
-          <span className={cn("text-sm sm:text-base font-medium", billingCycle === "bulanan" ? "text-foreground" : "text-muted-foreground")}>
+          <span className={cn("text-sm sm:text-base font-medium", billingCycle === "bulanan" ? "text-gray-900 dark:text-white" : "text-gray-600 dark:text-gray-400")}>
             Bulanan
           </span>
           <button
             onClick={() => setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")}
             className={cn(
               "relative w-16 sm:w-20 h-9 sm:h-10 rounded-full p-1 flex items-center transition-colors border-2",
-              billingCycle === "tahunan" ? "bg-blue-500/20 border-blue-500" : "bg-muted border-border"
+              billingCycle === "tahunan" ? "bg-blue-500/20 border-blue-500" : "bg-gray-200 dark:bg-gray-800 border-gray-300 dark:border-gray-700"
             )}
           >
             <div
@@ -233,84 +317,29 @@ const Pricing = () => {
               <span className="text-white text-[10px] font-bold">{billingCycle === "bulanan" ? "B" : "T"}</span>
             </div>
           </button>
-          <span className={cn("text-sm sm:text-base font-medium", billingCycle === "tahunan" ? "text-foreground" : "text-muted-foreground")}>
+          <span className={cn("text-sm sm:text-base font-medium", billingCycle === "tahunan" ? "text-gray-900 dark:text-white" : "text-gray-600 dark:text-gray-400")}>
             Tahunan
           </span>
         </div>
 
-        {/* Pricing Cards - Simplified hover effects */}
+        {/* Pricing Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {currentPlans.map((plan, i) => {
-            const isPremium = plan.icon === Crown || plan.icon === Star;
-            
-            return (
-              <div
-                key={i}
-                className={cn(
-                  "relative rounded-2xl p-6 md:p-8 border-2 bg-card transition-all",
-                  isPremium
-                    ? "border-blue-500/40 hover:border-blue-500"
-                    : "border-blue-500/20 hover:border-blue-500/40"
-                )}
-              >
-                {isPremium && (
-                  <div className="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    ⭐ Popular
-                  </div>
-                )}
-                
-                <div className={cn(
-                  "w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-5 rounded-xl flex items-center justify-center",
-                  isPremium ? "bg-blue-500/20" : "bg-blue-500/10"
-                )}>
-                  <plan.icon className="w-6 h-6 sm:w-7 sm:h-7 text-blue-500" />
-                </div>
-                
-                <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2 text-center">
-                  {plan.name}
-                </h3>
-                <p className="text-muted-foreground text-xs sm:text-sm mb-6 text-center line-clamp-2">
-                  {plan.desc}
-                </p>
-                
-                <div className="text-center mb-6">
-                  <div className="text-3xl sm:text-4xl font-extrabold text-blue-500">
-                    Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-                  </div>
-                  <span className="text-muted-foreground text-xs sm:text-sm font-medium">
-                    /{billingCycle === "bulanan" ? "bulan" : "tahun"}
-                  </span>
-                </div>
-                
-                <div className="text-card-foreground text-xs sm:text-sm space-y-2 mb-8">
-                  {Object.entries(plan.specs).map(([k, v]: [string, string]) => (
-                    <div key={k} className="flex justify-between items-start gap-2">
-                      <span className="capitalize text-muted-foreground">{k}:</span>
-                      <span className="font-medium text-right">{v}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <button
-                  onClick={() => handleOpenModal(plan)}
-                  className="w-full py-3 rounded-xl font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  Order Sekarang
-                </button>
-              </div>
-            );
-          })}
+          {currentPlans.map((plan, i) => (
+            <PricingCard key={`${selectedCategory}-${i}`} plan={plan} index={i} />
+          ))}
         </div>
 
-        {/* Order Modal - Simplified */}
+        {/* Order Modal */}
         {isModalOpen && selectedPlan && (
           <div
             className="fixed inset-0 flex items-center justify-center bg-black/60 z-[9999] p-4"
             onClick={handleCloseModal}
+            style={{ willChange: 'opacity' }}
           >
             <div
-              className="bg-card rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col border-2 border-blue-500/20"
+              className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col border-2 border-blue-500/20"
               onClick={(e) => e.stopPropagation()}
+              style={{ willChange: 'transform' }}
             >
               {/* Header */}
               <div className="bg-blue-600 text-white p-6 flex-shrink-0">
@@ -358,21 +387,21 @@ const Pricing = () => {
                 {/* Step 1: Region Selection */}
                 {currentStep === 1 && !isProxyCategory && (
                   <div className="space-y-4">
-                    <h4 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Pilih Region</h4>
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Pilih Region</h4>
                     <div className="grid gap-3">
                       {getAvailableRegions().map((r) => (
                         <button
                           key={r}
-                          onClick={() => setFormData({ ...formData, region: r })}
+                          onClick={() => updateFormField('region', r)}
                           className={cn(
                             "p-4 rounded-xl border-2 transition-colors text-left",
                             formData.region === r
                               ? "border-blue-500 bg-blue-500/10"
-                              : "border-border bg-card hover:border-blue-500/50"
+                              : "border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-blue-500/50"
                           )}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="text-base sm:text-lg font-semibold text-card-foreground">{r}</span>
+                            <span className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">{r}</span>
                             {formData.region === r && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />}
                           </div>
                         </button>
@@ -384,27 +413,27 @@ const Pricing = () => {
                 {/* Step 2/1: Quantity & Usage */}
                 {((currentStep === 2 && !isProxyCategory) || (currentStep === 1 && isProxyCategory)) && (
                   <div className="space-y-6">
-                    <h4 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Kuantitas dan Kegunaan</h4>
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Kuantitas dan Kegunaan</h4>
                     <div>
-                      <label className="block text-sm font-semibold text-card-foreground mb-2">Jumlah Unit</label>
+                      <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Jumlah Unit</label>
                       <input
                         type="number"
                         min={1}
                         value={formData.quantity}
-                        onChange={(e) => setFormData({ ...formData, quantity: Math.max(1, parseInt(e.target.value) || 1) })}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-border bg-background focus:border-blue-500 focus:outline-none transition-colors"
+                        onChange={(e) => updateFormField('quantity', Math.max(1, parseInt(e.target.value) || 1))}
+                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-card-foreground mb-2">
+                      <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                         Digunakan Untuk Apa? <span className="text-red-500">*</span>
                       </label>
                       <textarea
                         value={formData.usage}
-                        onChange={(e) => setFormData({ ...formData, usage: e.target.value })}
+                        onChange={(e) => updateFormField('usage', e.target.value)}
                         placeholder="Contoh: Hosting website e-commerce, development aplikasi, dll."
                         rows={4}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-border bg-background focus:border-blue-500 focus:outline-none transition-colors resize-none"
+                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none transition-colors resize-none"
                       />
                       {formData.usage.trim() === "" && (
                         <p className="text-red-500 text-xs mt-1">Field ini wajib diisi</p>
@@ -416,21 +445,21 @@ const Pricing = () => {
                 {/* Step 3: OS Selection */}
                 {currentStep === 3 && !isProxyCategory && (
                   <div className="space-y-4">
-                    <h4 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Pilih Sistem Operasi</h4>
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Pilih Sistem Operasi</h4>
                     <div className="grid gap-3">
                       {getAvailableOS().map((os) => (
                         <button
                           key={os}
-                          onClick={() => setFormData({ ...formData, os })}
+                          onClick={() => updateFormField('os', os)}
                           className={cn(
                             "p-4 rounded-xl border-2 transition-colors text-left",
                             formData.os === os
                               ? "border-blue-500 bg-blue-500/10"
-                              : "border-border bg-card hover:border-blue-500/50"
+                              : "border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-blue-500/50"
                           )}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="text-base sm:text-lg font-semibold text-card-foreground">{os}</span>
+                            <span className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">{os}</span>
                             {formData.os === os && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />}
                           </div>
                         </button>
@@ -445,14 +474,14 @@ const Pricing = () => {
                             type="checkbox"
                             id="ipPublic"
                             checked={formData.ipPublic}
-                            onChange={(e) => setFormData({ ...formData, ipPublic: e.target.checked })}
+                            onChange={(e) => updateFormField('ipPublic', e.target.checked)}
                             className="mt-1 w-5 h-5 text-blue-500 rounded focus:ring-blue-500"
                           />
                           <div className="flex-1">
-                            <label htmlFor="ipPublic" className="font-semibold text-card-foreground cursor-pointer block">
+                            <label htmlFor="ipPublic" className="font-semibold text-gray-900 dark:text-white cursor-pointer block">
                               Tambah IP Public (+Rp85.000/bulan)
                             </label>
-                            <p className="text-sm text-muted-foreground mt-1">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                               Default menggunakan IP NAT. Pilih IP Public jika membutuhkan open all port untuk kebutuhan tertentu.
                             </p>
                           </div>
@@ -464,15 +493,15 @@ const Pricing = () => {
                       <div className="mt-6 p-4 bg-blue-500/10 rounded-xl border-2 border-blue-500/30">
                         <div className="flex items-center gap-2">
                           <Check className="w-5 h-5 text-blue-500" />
-                          <span className="font-semibold text-card-foreground">IP Public sudah termasuk dalam paket</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">IP Public sudah termasuk dalam paket</span>
                         </div>
                       </div>
                     )}
                     
                     {selectedCategory === "baremetal" && (
-                      <div className="mt-6 p-4 bg-muted rounded-xl border-2 border-border">
+                      <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-700">
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-card-foreground">🏠 Menggunakan IP Local</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">🏠 Menggunakan IP Local</span>
                         </div>
                       </div>
                     )}
@@ -482,7 +511,7 @@ const Pricing = () => {
                 {/* Step 4/2: Duration */}
                 {((currentStep === 4 && !isProxyCategory) || (currentStep === 2 && isProxyCategory)) && (
                   <div className="space-y-4">
-                    <h4 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Pilih Durasi</h4>
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Pilih Durasi</h4>
                     <div className="grid gap-3">
                       {["1 Bulan (30 Hari)", "1 Tahun"].map((duration) => {
                         let price = (duration === "1 Bulan (30 Hari)" ? selectedPlan.price.bulanan : selectedPlan.price.tahunan) * formData.quantity;
@@ -491,18 +520,18 @@ const Pricing = () => {
                         return (
                           <button
                             key={duration}
-                            onClick={() => setFormData({ ...formData, duration })}
+                            onClick={() => updateFormField('duration', duration)}
                             className={cn(
                               "p-4 rounded-xl border-2 transition-colors text-left",
                               formData.duration === duration
                                 ? "border-blue-500 bg-blue-500/10"
-                                : "border-border bg-card hover:border-blue-500/50"
+                                : "border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-blue-500/50"
                             )}
                           >
                             <div className="flex items-center justify-between">
                               <div>
-                                <span className="text-base sm:text-lg font-semibold text-card-foreground block">{duration}</span>
-                                <span className="text-sm text-muted-foreground">Rp{price.toLocaleString("id-ID")}</span>
+                                <span className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white block">{duration}</span>
+                                <span className="text-sm text-gray-600 dark:text-gray-400">Rp{price.toLocaleString("id-ID")}</span>
                               </div>
                               {formData.duration === duration && <Check className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />}
                             </div>
@@ -516,28 +545,28 @@ const Pricing = () => {
                 {/* Step 5/3: Confirmation */}
                 {((currentStep === 5 && !isProxyCategory) || (currentStep === 3 && isProxyCategory)) && (
                   <div className="space-y-6">
-                    <h4 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Konfirmasi Pesanan</h4>
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Konfirmasi Pesanan</h4>
                     <div className="bg-blue-500/10 rounded-xl p-6 space-y-3 border-2 border-blue-500/20">
                       <div className="flex justify-between items-start gap-4">
-                        <span className="text-muted-foreground font-medium text-sm">📦 Nama Paket:</span>
-                        <span className="text-card-foreground font-bold text-right">{selectedPlan.name}</span>
+                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">📦 Nama Paket:</span>
+                        <span className="text-gray-900 dark:text-white font-bold text-right">{selectedPlan.name}</span>
                       </div>
                       {formData.region && (
                         <div className="flex justify-between items-start gap-4">
-                          <span className="text-muted-foreground font-medium text-sm">🌍 Region:</span>
-                          <span className="text-card-foreground font-semibold text-right">{formData.region}</span>
+                          <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">🌍 Region:</span>
+                          <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.region}</span>
                         </div>
                       )}
                       {formData.os && !isProxyCategory && (
                         <>
                           <div className="flex justify-between items-start gap-4">
-                            <span className="text-muted-foreground font-medium text-sm">💻 OS:</span>
-                            <span className="text-card-foreground font-semibold text-right">{formData.os}</span>
+                            <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">💻 OS:</span>
+                            <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.os}</span>
                           </div>
                           
                           <div className="flex justify-between items-start gap-4 bg-blue-500/20 -mx-2 px-4 py-3 rounded-lg border-l-4 border-blue-500">
-                            <span className="text-card-foreground font-semibold text-sm">🌐 Tipe IP:</span>
-                            <span className="text-card-foreground font-bold text-right">
+                            <span className="text-gray-900 dark:text-white font-semibold text-sm">🌐 Tipe IP:</span>
+                            <span className="text-gray-900 dark:text-white font-bold text-right">
                               {selectedCategory === "vps" && "✅ IP Public (Termasuk)"}
                               {selectedCategory === "rdp" && (formData.ipPublic ? "✅ IP Public (+Rp85.000)" : "🔒 IP NAT (Default)")}
                               {selectedCategory === "baremetal" && "🏠 IP Local"}
@@ -546,7 +575,7 @@ const Pricing = () => {
                           
                           {selectedCategory === "rdp" && formData.ipPublic && (
                             <div className="bg-blue-500/10 p-3 rounded-lg -mx-2">
-                              <p className="text-xs text-card-foreground font-medium">
+                              <p className="text-xs text-gray-900 dark:text-white font-medium">
                                 ℹ️ IP Public memungkinkan open all port untuk kebutuhan yang memerlukan akses port tertentu
                               </p>
                             </div>
@@ -555,22 +584,22 @@ const Pricing = () => {
                       )}
                       
                       <div className="flex justify-between items-start gap-4">
-                        <span className="text-muted-foreground font-medium text-sm">🔢 Kuantitas:</span>
-                        <span className="text-card-foreground font-semibold text-right">{formData.quantity}</span>
+                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">🔢 Kuantitas:</span>
+                        <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.quantity}</span>
                       </div>
                       <div className="flex justify-between items-start gap-4">
-                        <span className="text-muted-foreground font-medium text-sm">⏱️ Durasi:</span>
-                        <span className="text-card-foreground font-semibold text-right">{formData.duration}</span>
+                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">⏱️ Durasi:</span>
+                        <span className="text-gray-900 dark:text-white font-semibold text-right">{formData.duration}</span>
                       </div>
                       <div className="flex justify-between items-start pt-3 border-t-2 border-blue-500/30 gap-4">
-                        <span className="text-muted-foreground font-medium text-sm">💰 Total Harga:</span>
+                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">💰 Total Harga:</span>
                         <span className="text-blue-500 font-bold text-lg sm:text-xl text-right">
-                          Rp{getFinalPrice().toLocaleString("id-ID")}
+                          Rp{getFinalPrice.toLocaleString("id-ID")}
                         </span>
                       </div>
                       <div className="flex flex-col pt-3 border-t-2 border-blue-500/30">
-                        <span className="text-muted-foreground font-medium text-sm mb-2">🎯 Digunakan Untuk:</span>
-                        <span className="text-card-foreground font-semibold bg-background p-3 rounded-lg text-sm">{formData.usage}</span>
+                        <span className="text-gray-600 dark:text-gray-400 font-medium text-sm mb-2">🎯 Digunakan Untuk:</span>
+                        <span className="text-gray-900 dark:text-white font-semibold bg-white dark:bg-gray-800 p-3 rounded-lg text-sm">{formData.usage}</span>
                       </div>
                     </div>
 
@@ -600,21 +629,21 @@ const Pricing = () => {
 
               {/* Footer Navigation */}
               {currentStep < maxStep && (
-                <div className="bg-muted p-4 sm:p-6 border-t flex items-center justify-between flex-shrink-0">
+                <div className="bg-gray-100 dark:bg-gray-800 p-4 sm:p-6 border-t flex items-center justify-between flex-shrink-0">
                   <button
                     onClick={handlePrev}
                     disabled={currentStep === 1}
                     className={cn(
                       "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-colors text-sm sm:text-base",
                       currentStep === 1
-                        ? "bg-muted text-muted-foreground cursor-not-allowed"
-                        : "bg-card text-card-foreground border-2 border-blue-500/20 hover:border-blue-500 hover:text-blue-500"
+                        ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                        : "bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-2 border-blue-500/20 hover:border-blue-500 hover:text-blue-500"
                     )}
                   >
                     <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span className="hidden sm:inline">Kembali</span>
                   </button>
-                  <div className="text-xs sm:text-sm text-muted-foreground font-medium">
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">
                     {currentStep} / {maxStep}
                   </div>
                   <button
@@ -624,7 +653,7 @@ const Pricing = () => {
                       "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-colors text-sm sm:text-base",
                       canProceed()
                         ? "bg-blue-600 text-white hover:bg-blue-700"
-                        : "bg-muted text-muted-foreground cursor-not-allowed"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
                     )}
                   >
                     <span className="hidden sm:inline">Lanjut</span>

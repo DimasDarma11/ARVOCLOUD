@@ -63,7 +63,14 @@ const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center min-h-[92vh] bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-gray-950 dark:via-blue-950/10 dark:to-gray-950 overflow-hidden"
+      className="
+        relative flex items-center justify-center 
+        bg-gradient-to-b from-white via-blue-50/30 to-white 
+        dark:from-gray-950 dark:via-blue-950/10 dark:to-gray-950 
+        overflow-hidden 
+        pt-24 pb-10   
+        sm:pt-32 sm:pb-16 
+      "
     >
       {/* Blurred Background Lights */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
@@ -71,7 +78,7 @@ const Hero: React.FC = () => {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-14 md:py-20 flex flex-col items-center text-center max-w-6xl">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-6 sm:py-10 flex flex-col items-center text-center max-w-6xl">
 
         {/* Badge */}
         <div

@@ -3,12 +3,14 @@ import React from "react";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-card border-t border-border text-muted-foreground">
+      <div className="container mx-auto px-4 py-8 text-center">
         {/* Copyright */}
         <div className="text-center">
           <p className="text-xs text-muted-foreground">
             © 2025 <span className="text-foreground font-semibold">ARVOCLOUD</span>. Semua hak dilindungi.
           </p>
         </div>
+      </div>
     </footer>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 import { Check, Star, Zap, Crown, Server, Monitor, Cpu, ShieldCheck, X, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
 
 // Utility function untuk className conditional
@@ -30,6 +30,84 @@ interface FormData {
 
 type Category = "vps" | "rdp" | "baremetal" | "proxy";
 
+// Memoize PricingCard diluar component utama untuk menghindari re-creation
+const PricingCard = React.memo(({ 
+  plan, 
+  billingCycle, 
+  onOpenModal 
+}: { 
+  plan: Plan; 
+  billingCycle: "bulanan" | "tahunan";
+  onOpenModal: (plan: Plan) => void;
+}) => {
+  const isPremium = plan.icon === Crown || plan.icon === Star;
+  const IconComponent = plan.icon;
+  
+  // Memoize click handler untuk card ini
+  const handleClick = useCallback(() => {
+    onOpenModal(plan);
+  }, [plan, onOpenModal]);
+  
+  return (
+    <div
+      className={cn(
+        "relative rounded-2xl p-6 md:p-8 border-2 bg-white dark:bg-gray-900 transition-all",
+        isPremium
+          ? "border-blue-500/40 hover:border-blue-500"
+          : "border-blue-500/20 hover:border-blue-500/40"
+      )}
+    >
+      {isPremium && (
+        <div className="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+          ⭐ Popular
+        </div>
+      )}
+      
+      <div className={cn(
+        "w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-5 rounded-xl flex items-center justify-center",
+        isPremium ? "bg-blue-500/20" : "bg-blue-500/10"
+      )}>
+        <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-blue-500" />
+      </div>
+      
+      <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">
+        {plan.name}
+      </h3>
+      <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-6 text-center line-clamp-2">
+        {plan.desc}
+      </p>
+      
+      <div className="text-center mb-6">
+        <div className="text-3xl sm:text-4xl font-extrabold text-blue-500">
+          Rp{plan.price[billingCycle].toLocaleString("id-ID")}
+        </div>
+        <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">
+          /{billingCycle === "bulanan" ? "bulan" : "tahun"}
+        </span>
+      </div>
+      
+      <div className="text-gray-900 dark:text-white text-xs sm:text-sm space-y-2 mb-8">
+        {Object.entries(plan.specs).map(([k, v]: [string, string]) => (
+          <div key={k} className="flex justify-between items-start gap-2">
+            <span className="capitalize text-gray-600 dark:text-gray-400">{k}:</span>
+            <span className="font-medium text-right">{v}</span>
+          </div>
+        ))}
+      </div>
+      
+      <button
+        onClick={handleClick}
+        className="w-full py-3 rounded-xl font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
+      >
+        Order Sekarang
+      </button>
+    </div>
+  );
+}, (prev, next) => {
+  // Custom comparison untuk menghindari re-render tidak perlu
+  return prev.plan === next.plan && prev.billingCycle === next.billingCycle;
+});
+
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<"bulanan" | "tahunan">("bulanan");
   const [selectedCategory, setSelectedCategory] = useState<Category>("vps");
@@ -48,9 +126,16 @@ const Pricing = () => {
   const whatsappNumber = "6283197183724";
   const telegramUsername = "superku15";
 
-  // Memoize updateFormField untuk mengurangi re-render
+  // useRef untuk tracking tanpa trigger re-render
+  const formDataRef = useRef(formData);
+  formDataRef.current = formData;
+
+  // Update single field - optimized
   const updateFormField = useCallback((field: keyof FormData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => {
+      if (prev[field] === value) return prev; // Avoid unnecessary updates
+      return { ...prev, [field]: value };
+    });
   }, []);
 
   const categories = useMemo(() => [
@@ -111,30 +196,26 @@ const Pricing = () => {
     return [];
   }, [selectedCategory]);
 
+  // CRITICAL: Simplified modal open - no startTransition
   const handleOpenModal = useCallback((plan: Plan) => {
     const initialFormData = selectedCategory === "proxy" 
       ? { region: "🌍 Global", quantity: 1, usage: "", os: "N/A - Proxy Service", duration: "", ipPublic: false }
       : { region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false };
     
-    // Gunakan startTransition untuk non-urgent updates
-    React.startTransition(() => {
-      setSelectedPlan(plan);
-      setFormData(initialFormData);
-      setCurrentStep(1);
-      setIsModalOpen(true);
-    });
+    setSelectedPlan(plan);
+    setFormData(initialFormData);
+    setCurrentStep(1);
+    setIsModalOpen(true);
   }, [selectedCategory]);
 
   const handleCloseModal = useCallback(() => {
-    React.startTransition(() => {
-      setIsModalOpen(false);
-      setCurrentStep(1);
-      setSelectedPlan(null);
-      setFormData({ region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
-    });
+    setIsModalOpen(false);
+    setCurrentStep(1);
+    setSelectedPlan(null);
+    setFormData({ region: "", quantity: 1, usage: "", os: "", duration: "", ipPublic: false });
   }, []);
 
-  const canProceed = useCallback(() => {
+  const canProceed = useMemo(() => {
     const step = currentStep;
     if (selectedCategory === "proxy") {
       if (step === 1) return formData.quantity >= 1 && formData.usage.trim() !== "";
@@ -146,11 +227,13 @@ const Pricing = () => {
       if (step === 4) return formData.duration !== "";
     }
     return false;
-  }, [currentStep, selectedCategory, formData]);
+  }, [currentStep, selectedCategory, formData.region, formData.quantity, formData.usage, formData.os, formData.duration]);
 
   const handleNext = useCallback(() => {
     const maxStep = selectedCategory === "proxy" ? 3 : 5;
-    if (canProceed() && currentStep < maxStep) setCurrentStep(currentStep + 1);
+    if (canProceed && currentStep < maxStep) {
+      setCurrentStep(currentStep + 1);
+    }
   }, [selectedCategory, canProceed, currentStep]);
 
   const handlePrev = useCallback(() => {
@@ -188,69 +271,6 @@ const Pricing = () => {
 
   const maxStep = selectedCategory === "proxy" ? 3 : 5;
   const isProxyCategory = selectedCategory === "proxy";
-
-  // Memoize PricingCard component untuk mengurangi re-render
-  const PricingCard = React.memo(({ plan, index }: { plan: Plan; index: number }) => {
-    const isPremium = plan.icon === Crown || plan.icon === Star;
-    const IconComponent = plan.icon;
-    
-    return (
-      <div
-        className={cn(
-          "relative rounded-2xl p-6 md:p-8 border-2 bg-white dark:bg-gray-900 transition-all",
-          isPremium
-            ? "border-blue-500/40 hover:border-blue-500"
-            : "border-blue-500/20 hover:border-blue-500/40"
-        )}
-        style={{ willChange: 'transform' }}
-      >
-        {isPremium && (
-          <div className="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-            ⭐ Popular
-          </div>
-        )}
-        
-        <div className={cn(
-          "w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-5 rounded-xl flex items-center justify-center",
-          isPremium ? "bg-blue-500/20" : "bg-blue-500/10"
-        )}>
-          <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-blue-500" />
-        </div>
-        
-        <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">
-          {plan.name}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-6 text-center line-clamp-2">
-          {plan.desc}
-        </p>
-        
-        <div className="text-center mb-6">
-          <div className="text-3xl sm:text-4xl font-extrabold text-blue-500">
-            Rp{plan.price[billingCycle].toLocaleString("id-ID")}
-          </div>
-          <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">
-            /{billingCycle === "bulanan" ? "bulan" : "tahun"}
-          </span>
-        </div>
-        
-        <div className="text-gray-900 dark:text-white text-xs sm:text-sm space-y-2 mb-8">
-          {Object.entries(plan.specs).map(([k, v]: [string, string]) => (
-            <div key={k} className="flex justify-between items-start gap-2">
-              <span className="capitalize text-gray-600 dark:text-gray-400">{k}:</span>
-              <span className="font-medium text-right">{v}</span>
-            </div>
-          ))}
-        </div>
-        
-        <button
-          onClick={() => handleOpenModal(plan)}
-          className="w-full py-3 rounded-xl font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
-        >
-          Order Sekarang
-        </button>
-      </div>
-    );
-  });
 
   return (
     <section id="pricing" className="relative py-20 md:py-28 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/5">
@@ -325,7 +345,12 @@ const Pricing = () => {
         {/* Pricing Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {currentPlans.map((plan, i) => (
-            <PricingCard key={`${selectedCategory}-${i}`} plan={plan} index={i} />
+            <PricingCard 
+              key={`${plan.name}-${i}`} 
+              plan={plan} 
+              billingCycle={billingCycle}
+              onOpenModal={handleOpenModal}
+            />
           ))}
         </div>
 
@@ -334,12 +359,10 @@ const Pricing = () => {
           <div
             className="fixed inset-0 flex items-center justify-center bg-black/60 z-[9999] p-4"
             onClick={handleCloseModal}
-            style={{ willChange: 'opacity' }}
           >
             <div
               className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col border-2 border-blue-500/20"
               onClick={(e) => e.stopPropagation()}
-              style={{ willChange: 'transform' }}
             >
               {/* Header */}
               <div className="bg-blue-600 text-white p-6 flex-shrink-0">
@@ -648,10 +671,10 @@ const Pricing = () => {
                   </div>
                   <button
                     onClick={handleNext}
-                    disabled={!canProceed()}
+                    disabled={!canProceed}
                     className={cn(
                       "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-colors text-sm sm:text-base",
-                      canProceed()
+                      canProceed
                         ? "bg-blue-600 text-white hover:bg-blue-700"
                         : "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
                     )}

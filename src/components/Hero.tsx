@@ -130,7 +130,7 @@ const Hero: React.FC = () => {
             </div>
             <div className="flex items-center justify-center gap-3">
               <div className="text-4xl text-green-600">✓</div>
-              <span className="font-semibold">Proses order & setup < 30 menit</span>
+              <span className="font-semibold">Proses order & setup &lt; 30 menit</span>
             </div>
           </div>
 

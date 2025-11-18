@@ -39,7 +39,6 @@ const NoticeModal = () => {
       <div className="fixed inset-0 flex items-center justify-center z-[9999] px-4 pointer-events-none">
         <div 
           className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-lg pointer-events-auto relative overflow-hidden"
-          style={{ animation: 'slideUp 0.3s ease-out' }}
         >
           {/* Close button */}
           <button
@@ -51,14 +50,17 @@ const NoticeModal = () => {
           </button>
 
           {/* Header with gradient */}
-          <div className="bg-gradient-to-br from-blue-600 to-blue-700p-6 text-white">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center animate-pulse">
-                <AlertCircle className="w-7 h-7" />
+          <div className="bg-gradient-to-br from-blue-700 via-blue-700 to-blue-700 p-6 text-white border-b border-white/10">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center shadow-inner animate-pulse">
+                <AlertCircle className="w-7 h-7 text-white" />
               </div>
-              <div>
-                <h2 className="text-2xl font-bold">⚠️ Penting!</h2>
-                <p className="text-white/90 text-sm">Harap Dibaca Sebelum Order</p>
+
+              <div className="flex flex-col">
+                <h2 className="text-2xl font-extrabold tracking-wide">⚠️ Penting!</h2>
+                <p className="text-white/90 text-sm font-medium">
+                  Harap Dibaca Sebelum Melakukan Order
+                </p>
               </div>
             </div>
           </div>

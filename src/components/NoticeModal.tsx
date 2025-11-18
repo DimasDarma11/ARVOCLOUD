@@ -5,17 +5,12 @@ const NoticeModal = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // Cek apakah user sudah pernah melihat modal
-    const hasSeenNotice = sessionStorage.getItem('hasSeenNotice');
-    if (!hasSeenNotice) {
-      const timer = setTimeout(() => setShow(true), 500);
-      return () => clearTimeout(timer);
-    }
+    const timer = setTimeout(() => setShow(true), 500);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = useCallback(() => {
     setShow(false);
-    sessionStorage.setItem('hasSeenNotice', 'true');
   }, []);
 
   const handleViewPackages = useCallback(() => {
@@ -56,7 +51,7 @@ const NoticeModal = () => {
           </button>
 
           {/* Header with gradient */}
-          <div className="bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 p-6 text-white">
+          <div className="bg-gradient-to-br from-blue-600 to-blue-700p-6 text-white">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center animate-pulse">
                 <AlertCircle className="w-7 h-7" />

@@ -84,13 +84,13 @@ const PricingCard = React.memo(({
       {/* Price - Lebih prominent */}
       <div className="text-center mb-5 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30 rounded-xl py-4 px-3">
         <div className="flex items-baseline justify-center gap-1">
-          <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Rp</span>
+          <span className="text-3xl text-gray-600 dark:text-gray-400 font-medium">Rp</span>
           <span className="text-3xl font-black text-blue-600 dark:text-blue-400">
             {Math.floor(plan.price[billingCycle] / 1000)}
           </span>
-          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">rb</span>
+          <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">rb</span>
         </div>
-        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+        <span className="text-3xl text-gray-500 dark:text-gray-400 font-medium">
           /{billingCycle === "bulanan" ? "bulan" : "tahun"}
         </span>
       </div>

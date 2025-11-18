@@ -22,10 +22,8 @@ export default function LandingApp() {
         onContactClick={() => setShowContact(true)}
       />
       <Hero />
-      <div className="h-px w-full bg-gray-200/20" />
       <Pricing />
       <Services />
-      <div className="h-px w-full bg-gray-200/20" />
       <Suspense fallback={null}>
         {showAbout && <About />}
         {showContact && <Contact />}

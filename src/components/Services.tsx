@@ -70,7 +70,7 @@ const Services: React.FC = () => {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/20"
+      className="relative pt-10 pb-16 md:pt-16 md:pb-20 overflow-hidden bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/20"
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none opacity-30">

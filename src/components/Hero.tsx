@@ -68,22 +68,22 @@ const Hero: React.FC = () => {
         bg-gradient-to-b from-white via-blue-50/30 to-white 
         dark:from-gray-950 dark:via-blue-950/10 dark:to-gray-950 
         overflow-hidden 
-        pt-24 pb-10   
-        sm:pt-32 sm:pb-16 
+        pt-20 pb-8          
+        sm:pt-32 sm:pb-16  
       "
     >
       {/* Blurred Background Lights */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 sm:w-96 sm:h-96 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 sm:w-96 sm:h-96 bg-purple-500/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-6 sm:py-10 flex flex-col items-center text-center max-w-6xl">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-4 sm:py-10 flex flex-col items-center text-center max-w-6xl">
 
         {/* Badge */}
         <div
           className={cn(
-            "inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-semibold mb-6",
+            "inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-semibold mb-4 sm:mb-6",
             fade(0)
           )}
         >
@@ -94,7 +94,7 @@ const Hero: React.FC = () => {
         {/* Heading */}
         <h1
           className={cn(
-            "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-balance leading-tight mb-6 text-gray-900 dark:text-white",
+            "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-balance leading-tight mb-4 sm:mb-6 text-gray-900 dark:text-white",
             fade(100)
           )}
         >
@@ -108,7 +108,7 @@ const Hero: React.FC = () => {
         {/* Subheading */}
         <p
           className={cn(
-            "text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10",
+            "text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-10",
             fade(200)
           )}
         >
@@ -120,7 +120,7 @@ const Hero: React.FC = () => {
         </p>
 
         {/* Buttons */}
-        <div className={cn("flex flex-col sm:flex-row gap-4 justify-center mb-16", fade(300))}>
+        <div className={cn("flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-16", fade(300))}>
           <Button
             asChild
             size="lg"
@@ -145,7 +145,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Feature Pills */}
-        <div className={cn("flex flex-wrap justify-center gap-3 sm:gap-4 max-w-2xl", fade(400))}>
+        <div className={cn("flex flex-wrap justify-center gap-3 sm:gap-4 mt-2 sm:mt-4 max-w-2xl", fade(400))}>
           {[
             { icon: Zap, text: "99.8% Uptime" },
             { icon: Clock, text: "Support 24/7" },
@@ -164,8 +164,10 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Rating */}
-        <div className={cn("mt-14 sm:mt-16", fade(500))}>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Dipercaya oleh 50+ pelanggan</p>
+        <div className={cn("mt-8 sm:mt-16", fade(500))}>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 sm:mb-4">
+            Dipercaya oleh 50+ pelanggan
+          </p>
 
           <div className="flex items-center justify-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -180,7 +182,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-gray-950 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-gray-950 to-transparent pointer-events-none" />
     </section>
   );
 };

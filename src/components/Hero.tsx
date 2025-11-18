@@ -94,7 +94,7 @@ const Hero: React.FC = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            Full Admin • SSD NVMe • Support cepat via WhatsApp
+            Full Admin • SSD NVMe • Support Cepat
           </p>
           {/* CTA Buttons */}
           <div
@@ -119,8 +119,8 @@ const Hero: React.FC = () => {
               variant="outline"
               className="text-lg h-14 px-10 rounded-2xl font-semibold border-2 border-blue-500/30 hover:bg-blue-500/10 hover:border-blue-500/50 transition-all duration-200 backdrop-blur-sm"
             >
-              <a href="#services">
-                Lihat Fitur
+              <a href="https://stats.uptimerobot.com/z9kCx5qEsD">
+                Status Server
                 <Play className="ml-2 w-5 h-5" />
               </a>
             </Button>

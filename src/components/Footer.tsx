@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 py-8 text-center">
         {/* Copyright */}
         <div className="text-center">
-          <p className="text-xs text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             © 2025 <span className="text-foreground font-semibold">ARVOCLOUD</span>. Semua hak dilindungi.
           </p>
         </div>

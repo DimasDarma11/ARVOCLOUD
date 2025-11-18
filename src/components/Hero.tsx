@@ -56,14 +56,14 @@ const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center min-h-[85vh] bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-gray-950 dark:via-blue-950/10 dark:to-gray-950 overflow-hidden"
+      className="relative flex items-center justify-center min-h-[92vh] bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-gray-950 dark:via-blue-950/10 dark:to-gray-950 overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-10 md:py-16 flex flex-col items-center justify-center text-center max-w-6xl">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-14 md:py-20 flex flex-col items-center justify-center text-center max-w-6xl">
         <div
           className={`inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-semibold mb-6 transition-all duration-500 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'

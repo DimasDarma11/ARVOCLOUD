@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import Services from '../components/Services';
 import Pricing from '../components/Pricing';
 import Footer from '../components/Footer';
+import NoticeModal from '../components/NoticeModal';
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
@@ -17,6 +18,7 @@ export default function LandingApp() {
 
   return (
     <div className="min-h-screen relative">
+      <NoticeModal />
       <Header
         onAboutClick={() => setShowAbout(true)}
         onContactClick={() => setShowContact(true)}

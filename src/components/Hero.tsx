@@ -120,32 +120,37 @@ const Hero: React.FC = () => {
         </p>
 
         {/* Buttons */}
-        <div className={cn("flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-16", fade(300))}>
-          <Button
-            asChild
-            size="lg"
-            className="group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-lg hover:shadow-xl hover:scale-105"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: show ? 1 : 0, y: show ? 0 : 20 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-16"
+        >
+          <a
+            href="#pricing"
+            className="group inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-medium rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
           >
-            <a href="#pricing">
-              Lihat Paket Harga
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </Button>
+            Lihat Paket Harga
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </a>
 
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="border-2 border-gray-300 dark:border-gray-700 hover:bg-blue-500/10 hover:border-blue-500"
+          <a
+            href="https://stats.uptimerobot.com/z9kCx5qEsD"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-medium rounded-xl border-2 border-gray-300 bg-white hover:bg-blue-500/10 hover:border-blue-500 transition-all"
           >
-            <a href="https://stats.uptimerobot.com/z9kCx5qEsD" target="_blank">
-              Cek Status Server
-            </a>
-          </Button>
-        </div>
+            Cek Status Server
+          </a>
+        </motion.div>
 
         {/* Feature Pills */}
-        <div className={cn("flex flex-wrap justify-center gap-3 sm:gap-4 mt-2 sm:mt-4 max-w-2xl", fade(400))}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: show ? 1 : 0, y: show ? 0 : 20 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-2 sm:mt-4 max-w-2xl"
+        >
           {[
             { icon: Zap, text: "99.8% Uptime" },
             { icon: Clock, text: "Support 24/7" },
@@ -153,19 +158,24 @@ const Hero: React.FC = () => {
           ].map((item, i) => (
             <div
               key={i}
-              className="flex items-center gap-2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-full px-5 py-2.5 shadow-md hover:shadow-lg hover:border-blue-500/40 transition-all"
+              className="flex items-center gap-2 bg-white border-2 border-gray-200 rounded-full px-5 py-2.5 shadow-md hover:shadow-lg hover:border-blue-500/40 transition-all"
             >
               <item.icon className="w-5 h-5 text-blue-500" />
-              <span className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">
+              <span className="font-semibold text-gray-900 text-sm sm:text-base">
                 {item.text}
               </span>
             </div>
           ))}
-        </div>
-
+        </motion.div>
+        
         {/* Rating */}
-        <div className={cn("mt-8 sm:mt-16", fade(500))}>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 sm:mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: show ? 1 : 0, y: show ? 0 : 20 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-8 sm:mt-16"
+        >
+          <p className="text-sm text-gray-500 mb-3 sm:mb-4">
             Dipercaya oleh 50+ pelanggan
           </p>
 
@@ -175,11 +185,10 @@ const Hero: React.FC = () => {
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
               </svg>
             ))}
-            <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">4.9/5</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">(50+ reviews)</span>
+            <span className="ml-2 text-sm font-semibold text-gray-900">4.9/5</span>
+            <span className="text-sm text-gray-500 ml-1">(50+ reviews)</span>
           </div>
-        </div>
-      </div>
+        </motion.div>
 
       {/* Bottom Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-gray-950 to-transparent pointer-events-none" />

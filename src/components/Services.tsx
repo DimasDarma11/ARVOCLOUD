@@ -70,10 +70,10 @@ const Services: React.FC = () => {
     <section
       id="services"
       ref={sectionRef}
-      className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none"
+      className="relative bg-white dark:bg-gray-950 pt-24 pb-24"
     >
       {/* Background */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
+      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl" />
       </div>
 

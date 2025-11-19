@@ -57,8 +57,8 @@ const PricingCard = React.memo(({
       className={cn(
         "relative rounded-2xl p-5 border-2 bg-white dark:bg-gray-900 transition-all hover:shadow-xl",
         isPremium
-          ? "border-blue-500 shadow-lg shadow-blue-500/20"
-          : "border-gray-200 dark:border-gray-800"
+          ? "bg-blue-600 hover:bg-blue-700 text-white"
+          : "bg-blue-900 hover:bg-blue-800 text-white"
       )}
     >
       {isPremium && (
@@ -82,7 +82,7 @@ const PricingCard = React.memo(({
       </div>
       
       {/* Price - Lebih prominent */}
-      <div className="text-center mb-5 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30 rounded-xl py-4 px-3">
+      <div className="text-center mb-5 pt-2 pb-4">
         <div className="flex items-baseline justify-center gap-1">
           <span className="text-3xl font-black text-blue-600 dark:text-blue-400">
             Rp{plan.price[billingCycle].toLocaleString("id-ID")}
@@ -97,7 +97,7 @@ const PricingCard = React.memo(({
       <div className="space-y-2 mb-5">
         {topSpecs.map(([k, v]) => (
           <div key={k} className="flex items-center gap-2 text-sm">
-            <Check className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            <Check className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <span className="text-gray-700 dark:text-gray-300">
               <span className="font-semibold">{v}</span>
             </span>

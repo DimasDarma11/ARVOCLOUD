@@ -17,7 +17,7 @@ export default function LandingApp() {
   const [showContact, setShowContact] = useState(false);
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative w-full overflow-x-hidden">
       <NoticeModal />
       <Header
         onAboutClick={() => setShowAbout(true)}

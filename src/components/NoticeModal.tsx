@@ -35,7 +35,7 @@ const NoticeModal = () => {
       />
 
       {/* Modal container - improved mobile responsiveness */}
-      <div className="fixed inset-0 flex items-center justify-center z-[9999] pointer-events-none overflow-x-hidden">
+      <div className="fixed inset-0 flex items-center justify-center z-[9999] px-4 pointer-events-none">
         <div 
           className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-sm sm:max-w-lg pointer-events-auto relative overflow-hidden"
         >

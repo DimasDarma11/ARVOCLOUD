@@ -68,9 +68,9 @@ const Services: React.FC = () => {
 
   return (
     <section
-      id="testimonials"
+      id="services"
       ref={sectionRef}
-      className="relative pt-10 pb-16 md:pt-16 md:pb-20 overflow-hidden bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/20"
+      className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none"
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none opacity-30">

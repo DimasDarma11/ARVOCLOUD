@@ -83,7 +83,7 @@ const Header = ({ onAboutClick, onContactClick }: HeaderProps) => {
           <div className="flex items-center gap-3">
             <Link
               to="/loginpage"
-              className="px-4 md:px-6 py-2 md:py-2.5 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors duration-200 shadow-sm"
+              className="px-5 py-2.5 rounded-xl text-sm font-medium bg-card text-card-foreground border border-border hover:border-primary/50 transition-all duration-200"
             >
               Login
             </Link>

@@ -307,8 +307,8 @@ const Pricing = () => {
   const isProxyCategory = selectedCategory === "proxy";
 
   return (
-    <section id="pricing" className="relative pt-10 pb-12 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/20">
-      <div className="absolute inset-0 pointer-events-none opacity-20">
+    <section id="pricing" className="relative bg-white dark:bg-gray-950 pt-20 pb-16">
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl" />
       </div>
 

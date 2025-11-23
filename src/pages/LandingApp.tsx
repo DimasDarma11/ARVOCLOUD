@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
@@ -14,6 +14,15 @@ export default function LandingApp() {
   const [showAbout, setShowAbout] = useState(false);
   const [showContact, setShowContact] = useState(false);
 
+  const [showContentBelow, setShowContentBelow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      if (!showContentBelow && window.scrollY > 200) setShowContentBelow(true);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [showContentBelow]);
+
   return (
     <div className="min-h-screen relative w-full overflow-x-hidden">
       <Header
@@ -23,14 +32,23 @@ export default function LandingApp() {
       <Hero />
 
       <Suspense fallback={null}>
-        <NoticeModal /> 
-        <Pricing />
-        <Services />
+        <NoticeModal />
+      </Suspense>
+
+      {showContentBelow && (
+        <Suspense fallback={null}>
+          <Pricing />
+          <Services />
+        </Suspense>
+      )}
+
+      <Suspense fallback={null}>
         {showAbout && <About />}
         {showContact && <Contact />}
       </Suspense>
-
+      
       <Footer />
+      
       <Suspense fallback={null}>
         <WhatsAppFloatingButton />
       </Suspense>

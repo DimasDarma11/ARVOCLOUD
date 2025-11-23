@@ -118,9 +118,9 @@ const Services: React.FC = () => {
                     </span>
                   </div>
                   <div>
-                    <h4 className="text-base font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-base font-bold text-gray-900 dark:text-white">
                       {testimonial.name}
-                    </h4>
+                    </h3>
                     {/* Stars */}
                     <div className="flex gap-0.5 mt-1">
                       {[...Array(testimonial.rating)].map((_, i) => (

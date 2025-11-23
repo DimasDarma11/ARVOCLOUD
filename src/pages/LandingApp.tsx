@@ -35,7 +35,7 @@ export default function LandingApp() {
       />
       <Hero />
 
-      Suspense fallback={<Skeleton height={16} />}>
+      <Suspense fallback={<Skeleton height={16} />}>
         <NoticeModal />
       </Suspense>
 

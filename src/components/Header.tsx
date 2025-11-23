@@ -62,7 +62,10 @@ const Header = ({ onAboutClick, onContactClick }: HeaderProps) => {
               src="https://i.ibb.co/VYh29p8y/Arvocloud1.webp"
               alt="ArvoCloud"
               className="h-8 md:h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+              fetchpriority="high"
               loading="eager"
+              width="120"
+              height="40"
             />
           </Link>
 

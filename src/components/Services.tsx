@@ -76,7 +76,7 @@ const Services: React.FC = () => {
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">
       </div>
 
-      <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl">
+      <div className="relative container mx-auto px-4 sm:px-6 max-w-6xl">
         {/* Header */}
         <div
           className={`text-center mb-12 md:mb-16 transition-all duration-500 ${

@@ -59,7 +59,7 @@ const Header = ({ onAboutClick, onContactClick }: HeaderProps) => {
             className="flex items-center group"
           >
             <img
-              src="https://i.ibb.co/VYh29p8y/Arvocloud1.webp"
+              src="../../Arvocloud.webp"
               alt="ArvoCloud"
               className="h-8 md:h-10 w-auto transition-transform duration-300 group-hover:scale-105"
               fetchpriority="high"

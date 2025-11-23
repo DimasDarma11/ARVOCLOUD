@@ -48,6 +48,7 @@ const NoticeModal = () => {
             </div>
             <button
               onClick={handleClose}
+              aria-label="Tutup popup"
               className="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center transition-colors"
             >
               <X className="w-5 h-5 text-slate-400" />

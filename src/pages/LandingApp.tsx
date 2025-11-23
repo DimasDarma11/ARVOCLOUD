@@ -10,14 +10,22 @@ const About = React.memo(lazy(() => import('../components/About')));
 const Contact = React.memo(lazy(() => import("../components/Contact")));
 const WhatsAppFloatingButton = lazy(() => import("../components/WhatsAppFloatingButton"));
 
+const Skeleton = ({ height = 20 }: { height?: number }) => (
+  <div
+    className="animate-pulse bg-gray-200 dark:bg-gray-700 w-full"
+    style={{ height }}
+  />
+);
+
 export default function LandingApp() {
   const [showAbout, setShowAbout] = useState(false);
   const [showContact, setShowContact] = useState(false);
 
   useEffect(() => {
     import("../components/WhatsAppFloatingButton");
+    import("../components/About");
+    import("../components/Contact");
   }, []);
-
 
   return (
     <div className="min-h-screen relative w-full overflow-x-hidden">
@@ -27,19 +35,19 @@ export default function LandingApp() {
       />
       <Hero />
 
-      <Suspense fallback={<div className="h-4"></div>}>
+      Suspense fallback={<Skeleton height={16} />}>
         <NoticeModal />
       </Suspense>
 
-      <Suspense fallback={<div className="h-8"></div>}>
+      <Suspense fallback={<Skeleton height={64} />}>
         <Pricing />
       </Suspense>
 
-      <Suspense fallback={<div className="h-8"></div>}>
+      <Suspense fallback={<Skeleton height={64} />}>
         <Services />
       </Suspense>
 
-      <Suspense fallback={<div className="h-4"></div>}>
+      <Suspense fallback={<Skeleton height={16} />}>
         {showAbout && <About />}
         {showContact && <Contact />}
       </Suspense>

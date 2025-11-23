@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import Logo from "../../Arvocloud.webp";
+
 
 interface HeaderProps {
   onAboutClick?: () => void;
@@ -59,7 +61,7 @@ const Header = ({ onAboutClick, onContactClick }: HeaderProps) => {
             className="flex items-center group"
           >
             <img
-              src="../../Arvocloud.webp"
+              src={Logo}
               alt="ArvoCloud"
               className="h-8 md:h-10 w-auto transition-transform duration-300 group-hover:scale-105"
               fetchpriority="high"

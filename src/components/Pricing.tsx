@@ -232,32 +232,32 @@ const Pricing = () => {
       { name: "Bare Metal ID 1", 
 		icon: Zap, 
 		price: { bulanan: 350000, tahunan: 3850000 },  
-		specs: { cpu: "Intel Core i3 Gen 6", ram: "8 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "✅ Support emulator & game" } },
+		specs: { cpu: "Intel Core i3 Gen 6", ram: "8 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "Support emulator & game" } },
 		
       { name: "Bare Metal ID 2", 
 		icon: Star, 
 		price: { bulanan: 400000, tahunan: 4400000 }, 
-		specs: { cpu: "Intel Core i3 Gen 6", ram: "16 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "✅ Support emulator & game" } },
+		specs: { cpu: "Intel Core i3 Gen 6", ram: "16 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "Support emulator & game" } },
 		
       { name: "Bare Metal ID 3", 
 		icon: Crown, 
 		price: { bulanan: 450000, tahunan: 4950000 }, 
-		specs: { cpu: "Intel Core i3 Gen 6", ram: "24 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "✅ Support emulator & game" } },
+		specs: { cpu: "Intel Core i3 Gen 6", ram: "24 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "Support emulator & game" } },
 		
       { name: "Bare Metal ID 4", 
 		icon: Crown, 
 		price: { bulanan: 550000, tahunan: 6050000 }, 
-		specs: { cpu: "Intel Core i3 Gen 6", ram: "32 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "✅ Support emulator & game" } },
+		specs: { cpu: "Intel Core i3 Gen 6", ram: "32 GB RAM", storage: "256 GB SSD", network: "Port Speed 1 Gbps", emulator: "Support emulator & game" } },
 		
       { name: "Bare Metal ID 5", 
 		icon: Star, 
 		price: { bulanan: 750000, tahunan: 8250000 },  
-		specs: { cpu: "Intel Core i7 Gen 4", ram: "32 GB RAM", storage: "512 GB SSD", network: "Port Speed 1 Gbps", emulator: "✅ Support emulator & game" } },
+		specs: { cpu: "Intel Core i7 Gen 4", ram: "32 GB RAM", storage: "512 GB SSD", network: "Port Speed 1 Gbps", emulator: "Support emulator & game" } },
 		
       { name: "Bare Metal USA", 
 		icon: Star, 
 		price: { bulanan: 1500000, tahunan: 16500000 }, 
-		specs: { cpu: "AMD Ryzen 7 5700G", ram: "64 GB RAM", storage: "1 TB SSD", network: "Speed UpTo 1 Gbps", emulator: "✅ Support emulator & game" } },
+		specs: { cpu: "AMD Ryzen 7 5700G", ram: "64 GB RAM", storage: "1 TB SSD", network: "Port Speed 1 Gbps", emulator: "Support emulator & game" } },
     ],
     proxy: [
       { name: "Proxy Rotating IP", 

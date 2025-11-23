@@ -306,7 +306,7 @@ const Pricing = () => {
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">
       </div>
 
-      <div className="relative container mx-auto px-4 max-w-7xl">
+      <div className="relative mx-auto px-4 w-full max-w-screen-xl overflow-x-hidden">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
             <Sparkles className="w-4 h-4 text-blue-500" />

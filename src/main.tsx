@@ -1,26 +1,24 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './index.css';
+import { StrictMode, lazy, Suspense } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./index.css";
 
-import App from './App.tsx'; // ini router utama yg berisi LandingApp & DashboardApp
-import LoginPage from './pages/LoginPage.tsx';
-import Rules from './components/Rules.tsx';
-import Status from './pages/Status.tsx';
+const App = lazy(() => import("./App.tsx"));
+const LoginPage = lazy(() => import("./pages/LoginPage.tsx"));
+const Rules = lazy(() => import("./components/Rules.tsx"));
+const Status = lazy(() => import("./pages/Status.tsx"));
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Routes>
-        {/* App utama yang mengatur landing & dashboard */}
-        <Route path="/*" element={<App />} />
-
-        {/* Halaman tambahan khusus */}
-        <Route path="/loginpage" element={<LoginPage />} />
-        <Route path="/rules" element={<Rules />} />
-        <Route path="/status" element={<Status />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/*" element={<App />} />
+          <Route path="/loginpage" element={<LoginPage />} />
+          <Route path="/rules" element={<Rules />} />
+          <Route path="/status" element={<Status />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   </StrictMode>
 );
-

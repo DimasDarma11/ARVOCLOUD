@@ -14,15 +14,6 @@ export default function LandingApp() {
   const [showAbout, setShowAbout] = useState(false);
   const [showContact, setShowContact] = useState(false);
 
-  const [showContentBelow, setShowContentBelow] = useState(false);
-  useEffect(() => {
-    const onScroll = () => {
-      if (!showContentBelow && window.scrollY > 200) setShowContentBelow(true);
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [showContentBelow]);
-
   return (
     <div className="min-h-screen relative w-full overflow-x-hidden">
       <Header
@@ -35,12 +26,13 @@ export default function LandingApp() {
         <NoticeModal />
       </Suspense>
 
-      {showContentBelow && (
-        <Suspense fallback={null}>
-          <Pricing />
-          <Services />
-        </Suspense>
-      )}
+      <Suspense fallback={null}>
+        <Pricing />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <Services />
+      </Suspense>
 
       <Suspense fallback={null}>
         {showAbout && <About />}

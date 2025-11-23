@@ -302,7 +302,7 @@ const Pricing = () => {
   }, [selectedCategory, billingCycle, whatsappNumber]);
 
   return (
-    <section id="pricing" className="relative bg-white dark:bg-gray-950 pt-20 pb-16">
+    <section id="pricing" className="relative bg-gray-50 dark:bg-gray-950 pt-20 pb-16">
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">
       </div>
 
@@ -310,7 +310,7 @@ const Pricing = () => {
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
             <Sparkles className="w-4 h-4 text-blue-500" />
-            <span className="text-blue-500 font-semibold">Paket Harga Terbaik</span>
+            <span className="text-blue-700 dark:text-blue-400 font-semibold">Paket Harga Terbaik</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-3">
@@ -348,11 +348,15 @@ const Pricing = () => {
           </span>
           <button
             onClick={() => setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")}
+			aria-label={`Ubah ke mode pembayaran ${billingCycle === "bulanan" ? "tahunan" : "bulanan"}`}
             className={cn(
               "relative w-14 h-7 rounded-full p-0.5 transition-colors",
               billingCycle === "tahunan" ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700"
             )}
           >
+			<span className="sr-only">
+  				{billingCycle === "bulanan" ? "Pilih pembayaran tahunan" : "Pilih pembayaran bulanan"}
+			</span>
             <div
               className={cn(
                 "w-6 h-6 rounded-full bg-white shadow-md transition-transform",

@@ -74,7 +74,7 @@ const Hero: React.FC = () => {
       "
     >
       {/* Blurred Background Lights */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 py-4 sm:py-10 flex flex-col items-center text-center max-w-6xl">

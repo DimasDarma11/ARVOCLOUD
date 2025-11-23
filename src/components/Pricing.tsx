@@ -39,7 +39,7 @@ const PricingCard = React.memo(({
   
   const topSpecs = useMemo(() => {
     const entries = Object.entries(plan.specs);
-    return entries.slice(0, 3);
+    return entries.slice(0, 5);
   }, [plan.specs]);
   
   return (
@@ -91,7 +91,7 @@ const PricingCard = React.memo(({
           </div>
         ))}
         
-        {Object.keys(plan.specs).length > 4 && (
+        {Object.keys(plan.specs).length > 5 && (
           <button
             onClick={() => setShowDetails(!showDetails)}
             className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium mt-2"
@@ -103,7 +103,7 @@ const PricingCard = React.memo(({
         
         {showDetails && (
           <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 space-y-2">
-            {Object.entries(plan.specs).slice(4).map(([k, v]) => (
+            {Object.entries(plan.specs).slice(5).map(([k, v]) => (
               <div key={k} className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
                 <Check className="w-3 h-3 text-gray-400 flex-shrink-0" />
                 <span><span className="capitalize font-medium">{k}:</span> {v}</span>
@@ -306,7 +306,7 @@ const Pricing = () => {
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">
       </div>
 
-      <div className="relative mx-auto px-4 w-full max-w-screen-xl overflow-x-hidden">
+      <div className="relative container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
             <Sparkles className="w-4 h-4 text-blue-500" />
@@ -366,7 +366,7 @@ const Pricing = () => {
           </span>
         </div>
 
-        <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:overflow-visible">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {currentPlans.map((plan, i) => (
             <PricingCard 
               key={`${plan.name}-${i}`} 

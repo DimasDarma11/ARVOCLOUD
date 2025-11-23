@@ -70,7 +70,7 @@ const Services: React.FC = () => {
     <section
       id="services"
       ref={sectionRef}
-      className="relative bg-gray-50 dark:bg-gray-950 pt-20 pb-16 flex flex-col items-center text-center"
+      className="relative bg-gray-50 dark:bg-gray-950 pt-20 pb-16"
     >
       {/* Background */}
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white dark:from-gray-950 to-transparent pointer-events-none">

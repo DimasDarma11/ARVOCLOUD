@@ -1,39 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Zap, Clock, Globe, Sparkles, Shield, TrendingUp } from "lucide-react";
 
-// ================= ANIMATED GRID BACKGROUND =================
-const GridBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Animated gradient orbs */}
-      <div
-        className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"
-        style={{
-          animation: "pulse-slow 8s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"
-        style={{
-          animation: "pulse-slow 10s ease-in-out infinite 1s",
-        }}
-      />
-      
-      {/* Grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgb(128 128 128 / 0.07) 1px, transparent 1px),
-            linear-gradient(to bottom, rgb(128 128 128 / 0.07) 1px, transparent 1px)
-          `,
-          backgroundSize: '24px 24px'
-        }}
-      />
-    </div>
-  );
-};
-
 // ================= FLOATING CARD =================
 const FloatingCard = ({ delay = 0, children, className = "" }: { delay?: number; children: React.ReactNode; className?: string }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -86,7 +53,6 @@ const Hero: React.FC = () => {
         id="home"
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-gray-50/50 to-gray-100/30 dark:from-gray-950 dark:via-gray-950/20 dark:to-gray-900/10"
       >
-        <GridBackground />
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 py-20 sm:py-32">
           <div className="max-w-7xl mx-auto">

@@ -84,7 +84,7 @@ const Hero: React.FC = () => {
 
       <section
         id="home"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/50 to-blue-100/30 dark:from-gray-950 dark:via-blue-950/20 dark:to-blue-900/10"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-gray-50/50 to-gray-100/30 dark:from-gray-950 dark:via-gray-950/20 dark:to-gray-900/10"
       >
         <GridBackground />
 

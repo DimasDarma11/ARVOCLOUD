@@ -20,32 +20,6 @@ interface Plan {
 
 type Category = "idn" | "usa" | "sg" | "baremetal" | "proxy";
 
-// ================= GRID BACKGROUND COMPONENT =================
-const GridBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      <div
-        className="absolute top-1/4 -right-40 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"
-        style={{ animation: "pulse-slow 8s ease-in-out infinite" }}
-      />
-      <div
-        className="absolute bottom-1/4 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"
-        style={{ animation: "pulse-slow 10s ease-in-out infinite 1s" }}
-      />
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgb(128 128 128 / 0.07) 1px, transparent 1px),
-            linear-gradient(to bottom, rgb(128 128 128 / 0.07) 1px, transparent 1px)
-          `,
-          backgroundSize: '24px 24px'
-        }}
-      />
-    </div>
-  );
-};
-
 // ================= PRICING CARD COMPONENT =================
 const PricingCard = React.memo(({ 
   plan, 
@@ -276,8 +250,7 @@ const Pricing = () => {
         }
       `}</style>
 
-      <section id="pricing" className="relative bg-gradient-to-br from-gray-50 via-blue-50/50 to-blue-100/30 dark:from-gray-950 dark:via-blue-950/20 dark:to-blue-900/10 py-24 overflow-hidden">
-        <GridBackground />
+      <section id="pricing" className="relative bg-gradient-to-br from-gray-50 via-gray-50/50 to-gray-100/30 dark:from-gray-950 dark:via-gray-950/20 dark:to-gray-900/10 py-24 overflow-hidden">
         
         <div className="relative z-10 container mx-auto px-4 max-w-7xl">
           {/* Header */}
@@ -370,9 +343,6 @@ const Pricing = () => {
             ))}
           </div>
         </div>
-
-        {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-gray-950 to-transparent pointer-events-none" />
       </section>
     </>
   );

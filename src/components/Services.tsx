@@ -1,32 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Star, Quote } from "lucide-react";
 
-// ================= GRID BACKGROUND COMPONENT =================
-const GridBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      <div
-        className="absolute top-1/3 -right-40 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl animate-pulse"
-        style={{ animation: "pulse-slow 8s ease-in-out infinite" }}
-      />
-      <div
-        className="absolute bottom-1/3 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl animate-pulse"
-        style={{ animation: "pulse-slow 10s ease-in-out infinite 1s" }}
-      />
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgb(128 128 128 / 0.07) 1px, transparent 1px),
-            linear-gradient(to bottom, rgb(128 128 128 / 0.07) 1px, transparent 1px)
-          `,
-          backgroundSize: '24px 24px'
-        }}
-      />
-    </div>
-  );
-};
-
 const Services: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -109,7 +83,7 @@ const Services: React.FC = () => {
       <section
         id="services"
         ref={sectionRef}
-        className="relative bg-gradient-to-br from-gray-50 via-blue-50/50 to-blue-100/30 dark:from-gray-950 dark:via-blue-950/20 dark:to-blue-900/10 py-24 overflow-hidden"
+        className="relative bg-gradient-to-br from-gray-50 via-gray-50/50 to-gray-100/30 dark:from-gray-950 dark:via-gray-950/20 dark:to-gray-900/10 py-24 overflow-hidden"
       >
         <GridBackground />
 

@@ -250,7 +250,7 @@ const Pricing = () => {
         }
       `}</style>
 
-      <section id="pricing" className="relative bg-gradient-to-br from-gray-50 via-gray-50/50 to-gray-100/30 dark:from-gray-950 dark:via-gray-950/20 dark:to-gray-900/10 py-24 overflow-hidden">
+      <section aria-labelledby="pricing-heading" className="relative bg-gradient-to-br from-gray-50 via-gray-50/50 to-gray-100/30 dark:from-gray-950 dark:via-gray-950/20 dark:to-gray-900/10 py-24 overflow-hidden">
         
         <div className="relative z-10 container mx-auto px-4 max-w-7xl">
           {/* Header */}

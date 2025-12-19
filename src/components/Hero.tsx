@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Zap, Clock, Globe, Sparkles, Shield, TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 // ================= FLOATING CARD =================
 const FloatingCard = ({ delay = 0, children, className = "" }: { delay?: number; children: React.ReactNode; className?: string }) => {
@@ -113,13 +114,13 @@ const Hero: React.FC = () => {
                 }`}
                 style={{ transitionDelay: '300ms' }}
               >
-                <a
-                  href="#pricing"
+                <Link
+                  href="/pricing"
                   className="group relative inline-flex items-center justify-center gap-2 h-16 px-10 text-lg font-bold rounded-2xl bg-gradient-to-r from-blue-600 to-blue-600 text-white overflow-hidden shadow-2xl hover:shadow-blue-500/50 transition-all"
                 >
                   <span className="relative z-10">Lihat Paket Harga</span>
                   <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
 
                 <a
                   href="https://stats.uptimerobot.com/z9kCx5qEsD"

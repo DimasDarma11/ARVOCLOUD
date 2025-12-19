@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Pricing = lazy(() => import("../components/Pricing"));
+const NoticeModal = lazy(() => import("../components/NoticeModal"));
 
 const Skeleton = ({ height = 64 }) => (
   <div
@@ -16,6 +17,10 @@ export default function PricingPage() {
     <div className="min-h-screen w-full overflow-x-hidden">
       <Header />
 
+      <Suspense fallback={<Skeleton height={16} />}>
+        <NoticeModal />
+      </Suspense>
+      
       <Suspense fallback={<Skeleton />}>
         <Pricing />
       </Suspense>

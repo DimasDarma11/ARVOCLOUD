@@ -4,7 +4,6 @@ import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 
 const Services = lazy(() => import("../components/Services"));
-const Pricing = lazy(() => import("../components/Pricing"));
 const NoticeModal = lazy(() => import("../components/NoticeModal"));
 const About = React.memo(lazy(() => import('../components/About')));
 const Contact = React.memo(lazy(() => import("../components/Contact")));
@@ -33,27 +32,29 @@ export default function LandingApp() {
         onAboutClick={() => setShowAbout(true)}
         onContactClick={() => setShowContact(true)}
       />
+
+      {/* HERO */}
       <Hero />
 
+      {/* NOTICE / PROMO */}
       <Suspense fallback={<Skeleton height={16} />}>
         <NoticeModal />
       </Suspense>
 
-      <Suspense fallback={<Skeleton height={64} />}>
-        <Pricing />
-      </Suspense>
-
+      {/* SERVICES / USE CASE */}
       <Suspense fallback={<Skeleton height={64} />}>
         <Services />
       </Suspense>
 
+      {/* MODAL */}
       <Suspense fallback={<Skeleton height={16} />}>
         {showAbout && <About />}
         {showContact && <Contact />}
       </Suspense>
 
       <Footer />
-      
+
+      {/* FLOATING WA */}
       <Suspense fallback={null}>
         <WhatsAppFloatingButton />
       </Suspense>

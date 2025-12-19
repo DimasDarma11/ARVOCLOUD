@@ -4,7 +4,6 @@ import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 
 const Services = lazy(() => import("../components/Services"));
-const NoticeModal = lazy(() => import("../components/NoticeModal"));
 const About = React.memo(lazy(() => import('../components/About')));
 const Contact = React.memo(lazy(() => import("../components/Contact")));
 const WhatsAppFloatingButton = lazy(() => import("../components/WhatsAppFloatingButton"));
@@ -35,11 +34,6 @@ export default function LandingApp() {
 
       {/* HERO */}
       <Hero />
-
-      {/* NOTICE / PROMO */}
-      <Suspense fallback={<Skeleton height={16} />}>
-        <NoticeModal />
-      </Suspense>
 
       {/* SERVICES / USE CASE */}
       <Suspense fallback={<Skeleton height={64} />}>

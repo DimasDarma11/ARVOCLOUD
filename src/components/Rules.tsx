@@ -1,7 +1,12 @@
 import React from "react";
-import { ShieldAlert, Ban, Server, Info } from "lucide-react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { ShieldAlert, Ban, Server, Info, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const Rules = () => {
+const RulesPage = () => {
+  const navigate = useNavigate();
+
   const rules = [
     {
       icon: Ban,
@@ -26,65 +31,70 @@ const Rules = () => {
   ];
 
   return (
-    <section id="rules" className="min-h-screen bg-background py-24 px-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-20 animate-in fade-in duration-500">
-          <div className="flex justify-center mb-8">
-            <div className="p-4 rounded-full bg-card shadow-md border border-border">
-              <ShieldAlert className="h-8 w-8 text-primary" />
+    <div className="min-h-screen w-full bg-background">
+      <Header />
+
+      <section className="pt-32 pb-24 px-6">
+        <div className="max-w-4xl mx-auto">
+
+          {/* Back Button */}
+          <button
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-2 mb-10 text-sm font-medium text-muted-foreground hover:text-primary transition"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Kembali
+          </button>
+
+          {/* Header */}
+          <div className="text-center mb-20">
+            <div className="flex justify-center mb-8">
+              <div className="p-4 rounded-full bg-card shadow-md border border-border">
+                <ShieldAlert className="h-8 w-8 text-primary" />
+              </div>
             </div>
+
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4">
+              Aturan Pemakaian
+            </h1>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Dengan menggunakan layanan{" "}
+              <strong className="text-foreground">ARVOCLOUD</strong>, Anda setuju
+              mematuhi seluruh ketentuan berikut demi keamanan dan stabilitas
+              layanan.
+            </p>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
-            Aturan Pemakaian
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Dengan menggunakan layanan <strong className="text-foreground">ARVOCLOUD</strong>, Anda setuju
-            untuk mematuhi seluruh ketentuan berikut demi menjaga keamanan dan
-            stabilitas layanan bersama.
-          </p>
-        </div>
-
-        {/* Rules */}
-        <div className="bg-card rounded-3xl border border-border shadow-sm p-10 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ animationDelay: '200ms' }}>
-          {rules.map((rule, i) => (
-            <div
-              key={i}
-              className="flex items-start space-x-4 border-b border-border pb-6 last:border-0 last:pb-0 animate-in fade-in slide-in-from-left-4 duration-300"
-              style={{ animationDelay: `${300 + i * 100}ms` }}
-            >
-              <div className="flex-shrink-0 mt-1">
-                <rule.icon className="h-6 w-6 text-primary" />
+          {/* Rules */}
+          <div className="bg-card rounded-3xl border border-border shadow-sm p-10 space-y-8">
+            {rules.map((rule, i) => (
+              <div
+                key={i}
+                className="flex items-start space-x-4 border-b border-border pb-6 last:border-0 last:pb-0"
+              >
+                <rule.icon className="h-6 w-6 text-primary mt-1" />
+                <div>
+                  <h3 className="font-medium text-lg mb-2">{rule.title}</h3>
+                  <p className="text-muted-foreground">{rule.text}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-medium text-foreground text-lg mb-2">
-                  {rule.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">{rule.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Footer */}
-        <div className="text-center mt-16 text-muted-foreground text-sm animate-in fade-in duration-500" style={{ animationDelay: '700ms' }}>
-          <p>
-            Dengan melanjutkan penggunaan layanan, Anda dianggap telah membaca
-            dan menyetujui seluruh{" "}
-            <span className="font-medium text-foreground">
-              Aturan Pemakaian ARVOCLOUD
-            </span>.
-          </p>
-          <p className="mt-2">
-            Terakhir diperbarui:{" "}
-            <span className="font-medium text-foreground">
-              5 Oktober 2025
-            </span>
-          </p>
+          {/* Footer Text */}
+          <div className="text-center mt-16 text-sm text-muted-foreground">
+            <p>
+              Terakhir diperbarui:{" "}
+              <span className="font-medium text-foreground">
+                5 Oktober 2025
+              </span>
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <Footer />
+    </div>
   );
 };
 

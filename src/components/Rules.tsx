@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import { ShieldAlert, Ban, Server, Info, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const RulesPage = () => {
+const Rules = () => {
   const navigate = useNavigate();
 
   const rules = [

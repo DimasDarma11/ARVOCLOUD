@@ -101,10 +101,6 @@ const Hero = () => {
                 <span className="font-semibold text-blue-700">Performa maksimal</span> dengan{" "}
                 <span className="font-semibold text-blue-700">Stabilitas 99.8%</span> dan{" "}
                 <span className="font-semibold text-blue-700">Support 24/7</span>.
-                <br />
-                <span className="text-lg text-gray-500 dark:text-gray-500">
-                  Full admin access • Setup otomatis dalam 5 menit • Garansi uang kembali 7 hari
-                </span>
               </p>
 
               {/* CTA Buttons */}

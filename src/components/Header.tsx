@@ -28,8 +28,8 @@ const Header = ({ onAboutClick, onContactClick }: HeaderProps) => {
   }, []);
 
   const menuItems: MenuItem[] = [
-    { name: "Home", href: "/" },
-    { name: "Pricing", href: "#pricing" },
+    { name: "Home", route: "/" },
+    { name: "Pricing", route: "/pricing" },
     { name: "Rules", route: "/rules" },
   ];
 

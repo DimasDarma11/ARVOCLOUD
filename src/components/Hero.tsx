@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Zap, Clock, Globe, Sparkles, Shield, TrendingUp } from "lucide-react";
-import { Link } from "react-router-dom";
-
 
 // ================= FLOATING CARD =================
-const FloatingCard = ({ delay = 0, children, className = "" }: { delay?: number; children: React.ReactNode; className?: string }) => {
+const FloatingCard = ({ delay = 0, children, className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,7 +25,7 @@ const FloatingCard = ({ delay = 0, children, className = "" }: { delay?: number;
 };
 
 // ================= HERO SECTION =================
-const Hero: React.FC = () => {
+const Hero = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -99,12 +97,13 @@ const Hero: React.FC = () => {
                 }`}
                 style={{ transitionDelay: '200ms' }}
               >
-                Server <span className="font-semibold text-blue-700">cepat</span>,{" "}
-                <span className="font-semibold text-blue-700">stabil</span>, dan{" "}
-                <span className="font-semibold text-blue-700">support 24/7</span>.
+                Lupakan server lemot yang bikin frustrasi. Dapatkan{" "}
+                <span className="font-semibold text-blue-700">Performa maksimal</span> dengan{" "}
+                <span className="font-semibold text-blue-700">Stabilitas 99.8%</span> dan{" "}
+                <span className="font-semibold text-blue-700">Support 24/7</span>.
                 <br />
                 <span className="text-lg text-gray-500 dark:text-gray-500">
-                  Full garansi, akses full admin, siap pakai dalam hitungan menit.
+                  Full admin access • Setup otomatis dalam 5 menit • Garansi uang kembali 7 hari
                 </span>
               </p>
 
@@ -115,13 +114,12 @@ const Hero: React.FC = () => {
                 }`}
                 style={{ transitionDelay: '300ms' }}
               >
-                <Link
-                  to="/pricing"
+                <button
                   className="group relative inline-flex items-center justify-center gap-2 h-16 px-10 text-lg font-bold rounded-2xl bg-gradient-to-r from-blue-600 to-blue-600 text-white overflow-hidden shadow-2xl hover:shadow-blue-500/50 transition-all"
                 >
                   <span className="relative z-10">Lihat Paket Harga</span>
                   <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                </button>
 
                 <a
                   href="https://stats.uptimerobot.com/z9kCx5qEsD"

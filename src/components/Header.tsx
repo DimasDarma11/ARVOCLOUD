@@ -28,7 +28,7 @@ const Header = ({ onAboutClick, onContactClick }: HeaderProps) => {
   }, []);
 
   const menuItems: MenuItem[] = [
-    { name: "Services", href: "#services" },
+    { name: "Home", href: "/" },
     { name: "Pricing", href: "#pricing" },
     { name: "Rules", route: "/rules" },
   ];
@@ -37,8 +37,6 @@ const Header = ({ onAboutClick, onContactClick }: HeaderProps) => {
     setIsMenuOpen(false);
     if (item.action) {
       item.action();
-    } else if (item.href) {
-      document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" });
     } else if (item.route) {
       navigate(item.route);
     }

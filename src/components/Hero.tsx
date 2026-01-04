@@ -112,7 +112,7 @@ const Hero = () => {
               >
                 <a
                   href="/pricing"
-                  className="group inline-flex items-center justify-center gap-2 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all active:scale-95"
+                  className="group relative inline-flex items-center justify-center gap-2 h-16 px-10 text-lg font-bold rounded-2xl bg-gradient-to-r from-blue-600 to-blue-600 text-white overflow-hidden shadow-2xl hover:shadow-blue-500/50 transition-all"
                 >
                   <span>Lihat Paket Harga</span>
                   <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />

@@ -135,7 +135,7 @@ const PricingCard = React.memo(({
           "active:scale-[0.98]",
           !hasPrice && "bg-gray-300 text-gray-500 cursor-not-allowed",
           hasPrice && !isInCart && "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-md",
-          isInCart && "bg-green-600 text-white cursor-default"Add to cart
+          isInCart && "bg-green-600 text-white cursor-default"
         )}
       >
         {isInCart ? (

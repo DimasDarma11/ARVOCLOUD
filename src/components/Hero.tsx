@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Zap, Clock, Globe, Sparkles, Shield, TrendingUp } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
 // ================= FLOATING CARD =================
-const router = useRouter();
+const navigate = useNavigate();
 const FloatingCard = ({ delay = 0, children, className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -107,7 +107,7 @@ const Hero = () => {
 
               {/* CTA Buttons */}
               <div
-                onClick={() => router.push("/pricing")}
+                onClick={() => navigate("/pricing")}
                 className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 transition-all duration-600 ${
                   show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                 }`}

@@ -135,13 +135,14 @@ const PricingCard = React.memo(({
           "active:scale-[0.98]",
           !hasPrice && "bg-gray-300 text-gray-500 cursor-not-allowed",
           hasPrice && !isInCart && "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-md",
-          isInCart && "bg-green-600 text-white cursor-default"
+          isInCart && "bg-green-600 text-white cursor-default"Add to cart
         )}
       >
         {isInCart ? (
           <>
             <Check className="w-4 h-4 shrink-0" />
-            <span className="sm:hidden hidden sm:inline">Sudah di keranjang</span>
+            <span className="hidden sm:inline">Sudah di keranjang</span>
+            <span className="sm:hidden">Added to Cart</span>
           </>
           ) : (
           <>

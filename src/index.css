@@ -58,7 +58,12 @@
       transition-duration: 0.2s !important;
     }
   }
- 
+
+  @supports (padding: env(safe-area-inset-top)) {
+    .page-heading-fix {
+      margin-top: calc(72px + env(safe-area-inset-top));
+    }
+  }
 
   .dark {
     --background: 222.2 84% 4.9%;
@@ -168,6 +173,39 @@
   animation: gradient-shift 5s ease infinite;
   will-change: background-position;
 }
+
+
+.pricing-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  position: relative;
+  cursor: pointer;
+}
+
+.pricing-toggle:checked {
+  background: #2563eb;
+}
+
+.pricing-toggle::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  transition: transform .2s;
+}
+
+.pricing-toggle:checked::before {
+  transform: translateX(20px);
+}
+
 
 @keyframes gradient-shift {
   0%,

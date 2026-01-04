@@ -71,7 +71,7 @@ const PricingCard = React.memo(({
       )}
       
       {isElite && (
-        <div className="absolute -top-2 -left-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg rounded-tl-lg shadow-md">
+        <div className="absolute -top-2 -left-2 bg-gradient-to-r from-blue-600 to-blue-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg rounded-tl-lg shadow-md">
           Premium
         </div>
       )}
@@ -130,7 +130,7 @@ const PricingCard = React.memo(({
         onClick={handleAddToCart}
         disabled={!hasPrice}
         className={cn(
-          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1 leading-normal shadow-sm",
+          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-0.5 leading-normal shadow-sm",
           hasPrice
             ? "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-md"
             : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -138,12 +138,12 @@ const PricingCard = React.memo(({
       >
         {isInCart ? (
           <>
-            <Check className="w-4 h-4 -ml-0.5" />
+            <Check className="w-4 h-4" />
             Sudah di keranjang
           </>
           ) : (
           <>
-            <ShoppingCart className="w-4 h-4 -ml-0.5" />
+            <ShoppingCart className="w-4 h-4" />
             Masukkan Keranjang
           </>
         )}

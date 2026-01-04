@@ -130,9 +130,9 @@ const PricingCard = React.memo(({
         onClick={handleAddToCart}
         disabled={!hasPrice}
         className={cn(
-          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-sm",
+          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center w-full py-2.5 rounded-lg shadow-sm",
           hasPrice
-            ? "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-md"
+            ? "bg-green-600 hover:bg-green-700 text-white hover:shadow-md"
             : "bg-gray-300 text-gray-500 cursor-not-allowed"
         )}
       >
@@ -472,7 +472,7 @@ const Pricing = () => {
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2">
+            <h1 className="page-heading-fix text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2">
               Pilih Paket{" "}
               <span className="text-blue-600 dark:text-blue-500">
                 Terbaik
@@ -550,7 +550,7 @@ const Pricing = () => {
 
 
                 {/* Billing Toggle */}
-                <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg whitespace-nowrap">
+                <div className="pricing-toggle flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg whitespace-nowrap">
                   <span className={cn(
                     "text-xs font-medium transition-colors",
                     billingCycle === "bulanan" ? "text-gray-900 dark:text-white" : "text-gray-500"

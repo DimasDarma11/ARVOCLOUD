@@ -130,9 +130,9 @@ const PricingCard = React.memo(({
         onClick={handleAddToCart}
         disabled={!hasPrice}
         className={cn(
-          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center w-full py-2.5 rounded-lg shadow-sm",
+          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1 sm:gap-2 leading-tight shadow-sm",
           hasPrice
-            ? "bg-green-600 hover:bg-green-700 text-white hover:shadow-md"
+            ? "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-md"
             : "bg-gray-300 text-gray-500 cursor-not-allowed"
         )}
       >
@@ -550,34 +550,53 @@ const Pricing = () => {
 
 
                 {/* Billing Toggle */}
-                <div className="pricing-toggle flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg whitespace-nowrap">
-                  <span className={cn(
-                    "text-xs font-medium transition-colors",
-                    billingCycle === "bulanan" ? "text-gray-900 dark:text-white" : "text-gray-500"
-                  )}>
+                <div className="pricing-toggle flex items-center gap-3 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <span
+                    className={cn(
+                      "text-xs font-medium transition-colors",
+                      billingCycle === "bulanan"
+                        ? "text-gray-900 dark:text-white"
+                        : "text-gray-500"
+                    )}
+                  >
                     Bulanan
                   </span>
+
                   <button
-                    onClick={() => setBillingCycle(billingCycle === "bulanan" ? "tahunan" : "bulanan")}
+                    onClick={() =>
+                      setBillingCycle(
+                        billingCycle === "bulanan" ? "tahunan" : "bulanan"
+                     )
+                    }
                     className={cn(
-                      "relative w-10 h-5 rounded-full transition-all",
-                      billingCycle === "tahunan" ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700"
+                      "relative w-12 h-6 rounded-full transition-all shrink-0",
+                      billingCycle === "tahunan"
+                        ? "bg-blue-600"
+                        : "bg-gray-300 dark:bg-gray-700"
                     )}
                   >
                     <div
                       className={cn(
-                        "w-4 h-4 rounded-full bg-white shadow transition-transform",
-                        billingCycle === "tahunan" ? "translate-x-5" : "translate-x-0.5"
+                        "w-5 h-5 rounded-full bg-white shadow transition-transform",
+                        billingCycle === "tahunan"
+                          ? "translate-x-6"
+                          : "translate-x-0.5"
                       )}
                     />
                   </button>
-                  <span className={cn(
-                    "text-xs font-medium transition-colors",
-                    billingCycle === "tahunan" ? "text-gray-900 dark:text-white" : "text-gray-500"
-                  )}>
+
+                  <span
+                    className={cn(
+                      "text-xs font-medium transition-colors",
+                      billingCycle === "tahunan"
+                       ? "text-gray-900 dark:text-white"
+                        : "text-gray-500"
+                    )}
+                  >
                     Tahunan
                   </span>
                 </div>
+
               </div>
             </div>
           </div>

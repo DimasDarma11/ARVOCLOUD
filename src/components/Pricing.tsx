@@ -146,7 +146,8 @@ const PricingCard = React.memo(({
           ) : (
           <>
             <ShoppingCart className="w-4 h-4 shrink-0" />
-            <span>Masukkan Keranjang</span>
+            <span className="hidden sm:inline">Masukkan Keranjang</span> 
+            <span className="sm:hidden">Add to Cart</span>
           </>
         )}
       </button>

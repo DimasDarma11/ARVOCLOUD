@@ -130,7 +130,9 @@ const PricingCard = React.memo(({
         onClick={handleAddToCart}
         disabled={!hasPrice}
         className={cn(
-          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center whitespace-nowrap gap-0 sm:gap-1 leading-none shadow-sm",
+          "w-full h-10 rounded-lg text-sm font-semibold transition-all",
+          "flex items-center justify-center gap-2 whitespace-nowrap",
+          "active:scale-[0.98]",
           hasPrice
             ? "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-md"
             : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -139,12 +141,12 @@ const PricingCard = React.memo(({
         {isInCart ? (
           <>
             <Check className="w-4 h-4 shrink-0" />
-            Sudah di keranjang
+            <span>Sudah di keranjang</span>
           </>
           ) : (
           <>
             <ShoppingCart className="w-4 h-4 shrink-0" />
-            Masukkan Keranjang
+            <span>Masukkan Keranjang</span>
           </>
         )}
       </button>

@@ -130,7 +130,7 @@ const PricingCard = React.memo(({
         onClick={handleAddToCart}
         disabled={!hasPrice}
         className={cn(
-          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1 sm:gap-2 leading-tight shadow-sm",
+          "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 leading-tight shadow-sm",
           hasPrice
             ? "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-md"
             : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -550,7 +550,7 @@ const Pricing = () => {
 
 
                 {/* Billing Toggle */}
-                <div className="pricing-toggle flex items-center gap-3 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="flex flex-wrap items-center gap-3 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <span
                     className={cn(
                       "text-xs font-medium transition-colors",
@@ -569,7 +569,7 @@ const Pricing = () => {
                      )
                     }
                     className={cn(
-                      "relative w-12 h-6 rounded-full transition-all shrink-0",
+                      "relative w-10 h-5 rounded-full transition-all shrink-0",
                       billingCycle === "tahunan"
                         ? "bg-blue-600"
                         : "bg-gray-300 dark:bg-gray-700"

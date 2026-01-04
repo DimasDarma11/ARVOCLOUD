@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Zap, Clock, Globe, Sparkles, Shield, TrendingUp } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 // ================= FLOATING CARD =================
-const navigate = useNavigate();
 const FloatingCard = ({ delay = 0, children, className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -107,18 +105,18 @@ const Hero = () => {
 
               {/* CTA Buttons */}
               <div
-                onClick={() => navigate("/pricing")}
                 className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 transition-all duration-600 ${
                   show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                 }`}
                 style={{ transitionDelay: '300ms' }}
               >
-                <button
-                  className="group relative inline-flex items-center justify-center gap-2 h-16 px-10 text-lg font-bold rounded-2xl bg-gradient-to-r from-blue-600 to-blue-600 text-white overflow-hidden shadow-2xl hover:shadow-blue-500/50 transition-all"
+                <a
+                  href="/pricing"
+                  className="group inline-flex items-center justify-center gap-2 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all active:scale-95"
                 >
-                  <span className="relative z-10">Lihat Paket Harga</span>
-                  <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                  <span>Lihat Paket Harga</span>
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
 
                 <a
                   href="https://stats.uptimerobot.com/z9kCx5qEsD"

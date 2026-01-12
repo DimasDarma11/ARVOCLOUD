@@ -530,7 +530,7 @@ const Pricing = () => {
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2 leading-tight">
+            <h1 className="page-heading-fix text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2 leading-tight">
               Pilih Paket{" "}
               <span className="text-blue-600 dark:text-blue-500">
                 Terbaik

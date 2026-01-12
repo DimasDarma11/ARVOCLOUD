@@ -529,37 +529,19 @@ const Pricing = () => {
       <section className="relative bg-gray-50 dark:bg-gray-950 min-h-screen py-8 pt-4 pb-28">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Header */}
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mt-2">
-            <div className="flex-1">
-              <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2 leading-tight">
-                Pilih Paket{" "}
-                <span className="text-blue-600 dark:text-blue-500">
-                  Terbaik
-                </span>
-                {" "}Anda
-              </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {filteredAndSortedPlans.length} produk tersedia
-                {searchQuery && ` dari pencarian "${searchQuery}"`}
-                {networkType && ` • Filter: ${networkType === "public" ? "Public IP" : "NAT"}`}
-              </p>
-            </div>
-            
-            {/* Quick Stats */}
-            <div className="flex gap-3 flex-shrink-0">
-              <div className="bg-white dark:bg-gray-900 rounded-lg px-4 py-2 border border-gray-200 dark:border-gray-800 shadow-sm">
-                <div className="text-xs text-gray-500 dark:text-gray-400">Termurah</div>
-                <div className="text-lg font-bold text-blue-600 dark:text-blue-500">
-                  Rp{Math.min(...currentPlans.map(p => p.price[billingCycle] || Infinity)).toLocaleString("id-ID")}
-                </div>
-              </div>
-              <div className="bg-white dark:bg-gray-900 rounded-lg px-4 py-2 border border-gray-200 dark:border-gray-800 shadow-sm">
-                <div className="text-xs text-gray-500 dark:text-gray-400">Pilihan</div>
-                <div className="text-lg font-bold text-gray-900 dark:text-white">
-                  {currentPlans.length}
-                </div>
-              </div>
-            </div>
+          <div className="mb-6">
+            <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2 leading-tight">
+              Pilih Paket{" "}
+              <span className="text-blue-600 dark:text-blue-500">
+                Terbaik
+              </span>
+              {" "}Anda
+            </h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {filteredAndSortedPlans.length} produk tersedia
+              {searchQuery && ` dari pencarian "${searchQuery}"`}
+              {networkType && ` • Filter: ${networkType === "public" ? "Public IP" : "NAT"}`}
+            </p>
           </div>
 
           {/* Category Tabs */}

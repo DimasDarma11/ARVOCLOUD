@@ -526,12 +526,12 @@ const Pricing = () => {
         </>
       )}
 
-      <section className="relative bg-gray-50 dark:bg-gray-950 min-h-screen py-8 pb-28">
+      <section className="relative bg-gray-50 dark:bg-gray-950 min-h-screen py-8 pt-4 pb-28">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Header */}
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mt-2">
             <div className="flex-1">
-              <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2">
+              <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2 leading-tight">
                 Pilih Paket{" "}
                 <span className="text-blue-600 dark:text-blue-500">
                   Terbaik

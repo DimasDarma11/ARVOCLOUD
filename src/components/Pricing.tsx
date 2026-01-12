@@ -64,18 +64,6 @@ const PricingCard = React.memo(({
         isHovered ? "shadow-xl" : ""
       )}
     >
-      {isPremium && (
-        <div className="absolute -top-2 -left-2 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-br-lg rounded-tl-lg shadow-md">
-          Terlaris
-        </div>
-      )}
-      
-      {isElite && (
-        <div className="absolute -top-2 -left-2 bg-gradient-to-r from-blue-600 to-blue-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg rounded-tl-lg shadow-md">
-          Premium
-        </div>
-      )}
-      
       {/* Network Type Badge */}
       {plan.networkType && (
         <div className={cn(
@@ -417,45 +405,69 @@ const Pricing = () => {
                 <>
                   <div className="space-y-4 mb-4">
                     {cart.map((item, index) => (
-                      <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
-                              {item.name}
-                            </h4>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+                                {item.name}
+                              </h4>
+                              {item.networkType && (
+                                <span className={cn(
+                                  "text-xs font-semibold px-2 py-0.5 rounded",
+                                  item.networkType === "public"
+                                    ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                                    : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
+                                )}>
+                                  {item.networkType === "public" ? "Public IP" : "NAT"}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                               {item.category} • {item.selectedCycle === "bulanan" ? "Bulanan" : "Tahunan"}
                             </p>
+                            
+                            {/* Specs Preview */}
+                            <div className="flex flex-wrap gap-2 text-xs text-gray-600 dark:text-gray-400">
+                              {Object.entries(item.specs).slice(0, 2).map(([key, value]) => (
+                                <span key={key} className="bg-white dark:bg-gray-900 px-2 py-1 rounded border border-gray-200 dark:border-gray-700">
+                                  {value}
+                                </span>
+                              ))}
+                            </div>
                           </div>
                           <button
                             onClick={() => removeFromCart(index)}
-                            className="text-red-500 hover:text-red-700 p-1"
+                            className="text-red-500 hover:text-red-700 p-1 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                         
-                        <div className="flex items-center justify-between mt-3">
+                        <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => updateQuantity(index, item.quantity - 1)}
-                              className="w-7 h-7 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center justify-center"
+                              className="w-8 h-8 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
                             >
-                              <Minus className="w-3 h-3" />
+                              <Minus className="w-3.5 h-3.5" />
                             </button>
-                            <span className="w-8 text-center font-semibold text-sm">
+                            <span className="w-10 text-center font-bold text-sm text-gray-900 dark:text-white">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => updateQuantity(index, item.quantity + 1)}
-                              className="w-7 h-7 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center justify-center"
+                              className="w-8 h-8 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
                             >
-                              <Plus className="w-3 h-3" />
+                              <Plus className="w-3.5 h-3.5" />
                             </button>
                           </div>
                           
                           <div className="text-right">
-                            <p className="text-sm font-bold text-blue-600 dark:text-blue-500">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              Rp{(item.price[item.selectedCycle] || 0).toLocaleString("id-ID")} x {item.quantity}
+                            </p>
+                            <p className="text-base font-bold text-blue-600 dark:text-blue-500">
                               Rp{((item.price[item.selectedCycle] || 0) * item.quantity).toLocaleString("id-ID")}
                             </p>
                           </div>
@@ -464,21 +476,47 @@ const Pricing = () => {
                     ))}
                   </div>
 
-                  <div className="border-t border-gray-200 dark:border-gray-800 pt-4 mb-4 sticky bottom-0 bg-white dark:bg-gray-900">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">Total</span>
-                      <span className="text-2xl font-black text-blue-600 dark:text-blue-500">
-                        Rp{cartTotal.toLocaleString("id-ID")}
-                      </span>
+                  <div className="border-t border-gray-200 dark:border-gray-800 pt-4 space-y-3 sticky bottom-0 bg-white dark:bg-gray-900 pb-4">
+                    {/* Summary */}
+                    <div className="space-y-2 bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-400">Total Item</span>
+                        <span className="font-semibold text-gray-900 dark:text-white">{cartItemCount} item</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
+                        <span className="font-semibold text-gray-900 dark:text-white">
+                          Rp{cartTotal.toLocaleString("id-ID")}
+                        </span>
+                      </div>
+                      <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold text-gray-900 dark:text-white">Total</span>
+                          <span className="text-2xl font-black text-blue-600 dark:text-blue-500">
+                            Rp{cartTotal.toLocaleString("id-ID")}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    <button
-                      onClick={handleCheckout}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
-                    >
-                      <ShoppingCart className="w-5 h-5" />
-                      Checkout via WhatsApp
-                    </button>
+                    {/* Action Buttons */}
+                    <div className="space-y-2">
+                      <button
+                        onClick={handleCheckout}
+                        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                      >
+                        <ShoppingCart className="w-5 h-5" />
+                        Checkout via WhatsApp
+                      </button>
+                      
+                      <button
+                        onClick={() => setCart([])}
+                        className="w-full bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-red-600 dark:text-red-400 font-semibold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-700"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        Kosongkan Keranjang
+                      </button>
+                    </div>
                   </div>
                 </>
               )}

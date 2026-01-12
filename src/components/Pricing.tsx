@@ -365,7 +365,7 @@ const Pricing = () => {
       {/* Floating Cart Button */}
       <button
         onClick={() => setShowCart(true)}
-        className="fixed bottom-6 right-6 z-40 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110"
+        className="fixed bottom-6 right-6 z-30 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110"
       >
         <ShoppingCart className="w-6 h-6" />
         {cartItemCount > 0 && (
@@ -526,11 +526,11 @@ const Pricing = () => {
         </>
       )}
 
-      <section className="relative bg-gray-50 dark:bg-gray-950 min-h-screen py-8">
+      <section className="relative bg-gray-50 dark:bg-gray-950 min-h-screen py-8 pb-28">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Header */}
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div className="flex-1">
               <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-2">
                 Pilih Paket{" "}
                 <span className="text-blue-600 dark:text-blue-500">
@@ -546,7 +546,7 @@ const Pricing = () => {
             </div>
             
             {/* Quick Stats */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-shrink-0">
               <div className="bg-white dark:bg-gray-900 rounded-lg px-4 py-2 border border-gray-200 dark:border-gray-800 shadow-sm">
                 <div className="text-xs text-gray-500 dark:text-gray-400">Termurah</div>
                 <div className="text-lg font-bold text-blue-600 dark:text-blue-500">
@@ -745,7 +745,7 @@ const Pricing = () => {
               <p className="text-gray-500 dark:text-gray-400">Tidak ada paket yang sesuai dengan pencarian Anda</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 pb-24">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
               {filteredAndSortedPlans.map((plan, i) => {
                 const inCart = isItemInCart(plan, billingCycle);
                 return (

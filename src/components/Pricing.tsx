@@ -76,6 +76,18 @@ const PricingCard = React.memo(({
         </div>
       )}
       
+      {/* Network Type Badge */}
+      {plan.networkType && (
+        <div className={cn(
+          "absolute -top-2 -right-2 text-white text-xs font-semibold px-2.5 py-1 rounded-bl-lg rounded-tr-lg shadow-md",
+          plan.networkType === "public" 
+            ? "bg-green-600" 
+            : "bg-orange-600"
+        )}>
+          {plan.networkType === "public" ? "Public IP" : "NAT"}
+        </div>
+      )}
+      
       <div className="mb-3">
         <div className={cn(
           "w-12 h-12 mb-3 rounded-xl flex items-center justify-center",
